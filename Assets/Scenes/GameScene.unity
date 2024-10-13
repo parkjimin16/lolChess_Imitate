@@ -553,6 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2126641385}
   - component: {fileID: 2126641384}
+  - component: {fileID: 2126641386}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -590,6 +591,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2126641386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126641383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f176b2f3409db48af8b29c8c217761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPlayers:
+  - {fileID: 11400000, guid: c1a4810cb9afa644ea311fa36e10dec6, type: 2}
+  - {fileID: 11400000, guid: 72c25bcd831a44c47be33af298ffd774, type: 2}
+  - {fileID: 11400000, guid: 4ef4321bd3e42da43866e9c5e440045b, type: 2}
+  - {fileID: 11400000, guid: eff156786a904b84886f3833be1f0382, type: 2}
+  - {fileID: 11400000, guid: b9f6ec06071e1cf478067d019f72d9fd, type: 2}
+  - {fileID: 11400000, guid: 652bf1b4742968f4ab5dc6c1b0e9828e, type: 2}
+  - {fileID: 11400000, guid: bfed83af76429a649bfdacf33b9ea7f2, type: 2}
+  - {fileID: 11400000, guid: f6c397584ed06e647aed2941017c3647, type: 2}
+  currentStage: 1
+  currentRound: 1
+  baseDamages: 
+  damagePerEnemyUnit: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
