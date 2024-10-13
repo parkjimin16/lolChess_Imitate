@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 1042186363350281454}
   - component: {fileID: 4803408484816773377}
   m_Layer: 0
-  m_Name: ChampionFrame
+  m_Name: ChampionFrame_Katarina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -66,6 +66,8 @@ public class ChampionAttackController : MonoBehaviour
 
         CreateNormalAttack(target);
 
+           
+
         /*
         while (targetHealth != null && !targetHealth.ChampionHealthController.IsDie())
         {
@@ -80,7 +82,7 @@ public class ChampionAttackController : MonoBehaviour
                 CreateNormalAttack(target);
             }
 
-            yield return new WaitForSeconds(cBase.Attack_Speed);
+            yield return new WaitForSeconds(cBase.Attack_Speed);x
         }
         */
 

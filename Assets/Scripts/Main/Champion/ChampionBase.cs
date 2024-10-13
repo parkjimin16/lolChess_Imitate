@@ -107,6 +107,8 @@ public class ChampionBase : MonoBehaviour
         get { return attack_Range; }
         set { attack_Range = value; }
     }
+
+    public string ChampionName => championName;
     #endregion
 
     #region Init
