@@ -8,19 +8,19 @@ using UnityEngine;
 public class ChampionBase : MonoBehaviour
 {
     [SerializeField] private Canvas UICanvas;
+    [SerializeField] private ChampionAttackController championAttackController;
+    [SerializeField] private ChampionAnimController championAnimController;
+    [SerializeField] private ChampionHealthController championHealthController;
+    [SerializeField] private ChampionStateController championStateController;
+    [SerializeField] private ChampionView championView;
 
     #region Fields
     private ChampionBlueprint championBlueprint;
     private SkillBlueprint skillBlueprint;
-
-    private ChampionAttackController championAttackController;
-    private ChampionAnimController championAnimController;
-    private ChampionHealthController championHealthController;
-    private ChampionStateController championStateController;
     private GameObject skillObject;
     private BaseSkill baseSkill;
     private Rigidbody rigid;
-    private ChampionView championView;
+
     private List<ItemBlueprint> items = new List<ItemBlueprint>();
 
     private string championName;
@@ -119,7 +119,7 @@ public class ChampionBase : MonoBehaviour
     /// <param name="hpWeight"></param>
     /// <param name="atkWeight"></param>
     /// <param name="goldWeight"></param>
-    public void SetChampion(ChampionBlueprint blueprint, Vector3 position, long hpWeight, long atkWeight, long goldWeight)
+    public void SetChampion(ChampionBlueprint blueprint)
     {
         championBlueprint = blueprint;
         skillBlueprint = blueprint.SkillBlueprint;
@@ -147,13 +147,6 @@ public class ChampionBase : MonoBehaviour
 
         purchase_Cost = 1;
         sell_Cost = purchase_Cost * championLevel - 1;
-
-        SetChampionLogic();
-    }
-
-    public void SetHpBar()
-    {
-
     }
 
     public void ResetHealth()
@@ -189,108 +182,18 @@ public class ChampionBase : MonoBehaviour
         championView = GetComponent<ChampionView>();
     }
 
-    private void Start()
-    {
-        ChampionInit();
-    }
-
 
     private void Update()
     {
-        if (!isAttacking)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            StartCoroutine(AttackRoutine());
+            Debug.Log(championName);
         }
     }
+
 
     #endregion
 
-    #region Attack Method
-
-    public void CreateNormalAttack(GameObject target)
-    {
-        ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-        if (targetHealth != null)
-        {
-            Debug.Log("Damage");
-            targetHealth.TakeDamage(10);
-        }
-    }
-
-    private IEnumerator AttackRoutine()
-    {
-        isAttacking = true;
-
-        GameObject target = FindTargetInRange();
-
-        if (target == null)
-        {
-            Debug.Log("사거리 내에 없습니다.");
-            yield break;
-        }
-
-        ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-
-        while (targetHealth != null && targetHealth.curHp > 0)
-        {
-            if (curMana >= maxMana)
-            {
-                UseSkill(target);
-            }
-            else
-            {
-                CreateNormalAttack(target);
-            }
-
-            yield return new WaitForSeconds(attack_Speed);
-        }
-
-        isAttacking = false; 
-    }
-
-    private GameObject FindTargetInRange()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attack_Range);
-
-        foreach (Collider collider in hitColliders)
-        {
-            if (collider.CompareTag("Enemy")) 
-            {
-                return collider.gameObject; 
-            }
-        }
-
-        return null; 
-    }
-
-    public void UseSkill(GameObject target)
-    {
-        if (baseSkill == null)
-            return;
-
-        baseSkill.UseSkill();
-    }
-
-    public void FloatingDamage(Vector3 position, float damage)
-    {
-
-    }
-
-    #endregion
-
-    #region Health Method
-
-    public void TakeDamage(float damage)
-    {
-
-    }
-
-    private void Die()
-    {
-
-    }
-
-    #endregion
 
     #region Item
 

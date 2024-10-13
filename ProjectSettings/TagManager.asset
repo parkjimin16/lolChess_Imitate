@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Enemy
   - NormalProjectile
+  - Champion
   layers:
   - Default
   - TransparentFX

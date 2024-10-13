@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChampionStateController : MonoBehaviour
 {
     private ChampionBase cBase;
+    
+    [SerializeField] 
     private IState currentState;
 
     private IdleState idleState;
@@ -63,6 +65,12 @@ public class ChampionStateController : MonoBehaviour
 
     private void AttackLogic()
     {
+        if(cBase == null)
+        {
+            Debug.Log("cBase Null");
+            return;
+        }
+
         if (!cBase.ChampionAttackController.IsAttack)
         {
             cBase.ChampionAttackController.AttackLogic();

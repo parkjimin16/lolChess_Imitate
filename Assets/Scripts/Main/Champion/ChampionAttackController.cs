@@ -5,8 +5,13 @@ using UnityEngine;
 public class ChampionAttackController : MonoBehaviour
 {
     private ChampionBase cBase;
-
     private IEnumerator attackCoroutine;
+    
+    [SerializeField] 
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private Transform shootPoint;
+
     private float attack_Speed;
     private float attack_Range;
     private float curMana;
@@ -48,28 +53,45 @@ public class ChampionAttackController : MonoBehaviour
             yield break;
         }
 
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
+
+        while (Quaternion.Angle(transform.rotation, lookRotation) > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+            yield return null; // 다음 프레임까지 대기
+        }
+
         ChampionBase targetHealth = target.GetComponent<ChampionBase>();
 
+        CreateNormalAttack(target);
+
+        /*
         while (targetHealth != null && !targetHealth.ChampionHealthController.IsDie())
         {
             if (IsManaFull())
             {
+                Debug.Log("Mana");
                 UseSkill(target);
             }
             else
             {
+                Debug.Log("Mana Non");
                 CreateNormalAttack(target);
             }
 
             yield return new WaitForSeconds(cBase.Attack_Speed);
         }
+        */
 
         IsAttack = false;
     }
 
     private GameObject FindTargetInRange()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, cBase.Attack_Range);
+        Debug.Log("Find Target");
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);  //cBase.Attack_Range);
 
         foreach (Collider collider in hitColliders)
         {
@@ -84,11 +106,14 @@ public class ChampionAttackController : MonoBehaviour
 
     public void CreateNormalAttack(GameObject target)
     {
-        ChampionBase targetHealth = target.GetComponent<ChampionBase>();
+        Debug.Log("Normal Attack");
 
-        if (targetHealth.ChampionHealthController != null)
+        GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+        NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
+
+        if (projectile != null)
         {
-            targetHealth.ChampionHealthController.TakeDamage(10);
+            projectile.SetTarget(target, 10); 
         }
     }
 

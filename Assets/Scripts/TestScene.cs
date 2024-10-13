@@ -33,13 +33,10 @@ public class TestScene : UIBase
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            championObject = Manager.Asset.InstantiatePrefab("ChampionFrame_Ahri");
+            championObject = Manager.Asset.InstantiatePrefab("ChampionFrame");
             championObject.transform.position = new Vector3(0,0,0);
+            
 
-            if(championObject == null)
-            {
-                Debug.Log("Null");
-            }
             gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
 
 
@@ -47,10 +44,16 @@ public class TestScene : UIBase
         else if(Input.GetKeyDown(KeyCode.X))
         {
             InitBtn();
-            BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
 
-            bSkill.UseSkill();
-            bSkill.UseSkillTarget(targetObject);
+            ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Ahri") as ChampionBlueprint;
+            ChampionBase cBase = championObject.GetComponent<ChampionBase>();
+
+            cBase.SetChampion(cBlueprint);
+            cBase.ChampionInit();
+
+            //BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
+            //bSkill.UseSkill();
+            //bSkill.UseSkillTarget(targetObject);
 
             Manager.Item.Init();
         }
