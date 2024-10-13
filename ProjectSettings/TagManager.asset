@@ -7,6 +7,7 @@ TagManager:
   - Moveable
   - Item
   - Enemy
+  - NormalProjectile
   layers:
   - Default
   - TransparentFX

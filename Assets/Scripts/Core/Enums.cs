@@ -51,6 +51,15 @@ public enum ChampionCost
     FiveCost
 }
 
+public enum ChampionState
+{
+    Idle,
+    Move,
+    Attack,
+    Skill,
+    Die
+}
+
 // 아이템 타입
 public enum ItemType
 {

@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class ChampionAnimController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private ChampionBase cBase;
+
+    public void Init(ChampionBase championBase)
     {
-        
+        cBase = championBase;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

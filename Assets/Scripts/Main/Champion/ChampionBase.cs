@@ -12,6 +12,11 @@ public class ChampionBase : MonoBehaviour
     #region Fields
     private ChampionBlueprint championBlueprint;
     private SkillBlueprint skillBlueprint;
+
+    private ChampionAttackController championAttackController;
+    private ChampionAnimController championAnimController;
+    private ChampionHealthController championHealthController;
+    private ChampionStateController championStateController;
     private GameObject skillObject;
     private BaseSkill baseSkill;
     private Rigidbody rigid;
@@ -34,8 +39,8 @@ public class ChampionBase : MonoBehaviour
     private float ad_Defense;
     private float ap_Defense;
     private float speed;
-    private float curMana;
-    private float maxMana;
+    private int curMana;
+    private int maxMana;
     private int attack_Range;
 
     private int purchase_Cost;
@@ -52,6 +57,57 @@ public class ChampionBase : MonoBehaviour
     // 체크 전용
     private ItemDataContainerBlueprint iDataBP;
 
+
+    #region Property
+
+    public ChampionAttackController ChampionAttackController => championAttackController;
+    public ChampionAnimController ChampionAnimController => championAnimController;
+    public ChampionHealthController ChampionHealthController => championHealthController;
+    public ChampionStateController ChampionStateController => championStateController;
+    public ChampionView ChampionView => championView;
+
+    public int CurHP
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    public int MaxHP
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    public int CurMana
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    public int MaxMana
+    {
+        get { return maxMana; }
+        set { maxMana = value; }
+    }
+    public int Attack_Speed
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    public int Ad_Defense
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    public int Ap_Defense
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+
+    public int Attack_Range
+    {
+        get { return attack_Range; }
+        set { attack_Range = value; }
+    }
+    #endregion
 
     #region Init
 
@@ -85,8 +141,8 @@ public class ChampionBase : MonoBehaviour
         ad_Defense = blueprint.AD_Defense;
         ap_Defense = blueprint.AP_Defense;
         speed = blueprint.Speed;
-        curMana = blueprint.Mana_Cur;
-        maxMana = blueprint.Mana_Total;
+        curMana = (int)blueprint.Mana_Cur;
+        maxMana = (int)blueprint.Mana_Total;
         attack_Range = blueprint.Attack_Range;
 
         purchase_Cost = 1;
@@ -111,18 +167,31 @@ public class ChampionBase : MonoBehaviour
         isAttacking = false;
     }
 
+    public void ChampionInit()
+    {
+        championAnimController.Init(this);
+        championAttackController.Init(this, attack_Speed, attack_Range, curMana, maxMana);
+        championHealthController.Init(this);
+        championStateController.Init(this);
+        championView.Init(this);
+    }
     #endregion
 
     #region Unity Flow
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+
+        championAttackController = GetComponent<ChampionAttackController>();
+        championAnimController = GetComponent<ChampionAnimController>();
+        championHealthController = GetComponent<ChampionHealthController>();
+        championStateController = GetComponent<ChampionStateController>();
         championView = GetComponent<ChampionView>();
     }
 
     private void Start()
     {
-        
+        ChampionInit();
     }
 
 
