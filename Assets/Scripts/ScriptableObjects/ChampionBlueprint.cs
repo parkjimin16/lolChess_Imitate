@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ChampionBlueprint : ScriptableObject
 {
     [Header("Champion Info")]
+    [SerializeField] private string championInstantiateName;
     [SerializeField] private string championName;
     [SerializeField] private GameObject championObj;
     [SerializeField] private ChampionLine championLine_First;
@@ -27,7 +28,7 @@ public class ChampionBlueprint : ScriptableObject
     [SerializeField] private int attack_Range;
     [SerializeField] private SkillBlueprint skillBlueprint;
 
-
+    public string ChampionInstantiateName => championInstantiateName;
     public string ChampionName => championName;
 
     public GameObject ChampionObj => championObj;

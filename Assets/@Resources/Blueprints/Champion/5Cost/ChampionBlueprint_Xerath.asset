@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Xerath
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Xerath
   championName: "\uC81C\uB77C\uC2A4"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 2f9b0107f5fafb94b8be02fb37dedaea, type: 3}
   championLine_First: 8
   championLine_Second: 0
   championJob_First: 11
   championJob_Second: 0
   championCost: 5
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 900

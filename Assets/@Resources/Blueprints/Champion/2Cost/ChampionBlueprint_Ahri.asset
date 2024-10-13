@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Ahri
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Ahri
   championName: "\uC544\uB9AC"
   championObj: {fileID: 5665606537432512241, guid: ff6452ea470d0e6469fcf6b88393a054, type: 3}
   championLine_First: 8

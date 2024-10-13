@@ -8,7 +8,7 @@ using System.Linq;
 
 public class ChampionSlot : MonoBehaviour
 {
-    #region SerializeField 
+    #region Var 
     [Header("Top")]
     [SerializeField] private Image image_ChampionBackground;
     [SerializeField] private Image image_Champion;
@@ -34,7 +34,11 @@ public class ChampionSlot : MonoBehaviour
     private List<string> attributeString = new List<string>();
     private Image[] image_Attributes;
     private TextMeshProUGUI[] text_Attributes;
+    private ChampionBlueprint championBlueprint;
 
+
+
+    public ChampionBlueprint ChampionBlueprint => championBlueprint;
     #endregion
 
     #region Init
@@ -43,6 +47,7 @@ public class ChampionSlot : MonoBehaviour
     {
         attributeString.Clear();
 
+        this.championBlueprint = championBlueprint;
         image_ChampionBackground.color = color;
         // Image_champion = championBlueprint.championImage;
         // image_Attribute_1 = Dic 사용해서 속성 이미지 매핑
@@ -88,7 +93,6 @@ public class ChampionSlot : MonoBehaviour
 
     #endregion
 
-
     #region Unity Flow
 
     private void Start()
@@ -99,7 +103,6 @@ public class ChampionSlot : MonoBehaviour
         AttributeInit();
     }
     #endregion
-
 }
 
 

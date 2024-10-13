@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Briar
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Briar
   championName: "\uBE0C\uB77C\uC774\uC5B4"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 8f09bc11607683e4a9845e964c36323f, type: 3}
   championLine_First: 6
   championLine_Second: 12
   championJob_First: 14
   championJob_Second: 0
   championCost: 5
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 1200

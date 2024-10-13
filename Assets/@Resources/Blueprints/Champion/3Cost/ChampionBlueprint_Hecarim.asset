@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Hecarim
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Hecarim
   championName: "\uD5E4\uCE74\uB9BC"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: a8f4288f920aee4428d3dd47ed6af49b, type: 3}
   championLine_First: 8
   championLine_Second: 0
   championJob_First: 7
   championJob_Second: 8
   championCost: 3
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 850

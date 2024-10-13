@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_KogMaw
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_KogMaw
   championName: "\uCF54\uADF8\uBAA8"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: c0364b685348632469a1b805b2523741, type: 3}
   championLine_First: 4
   championLine_Second: 0
   championJob_First: 5
   championJob_Second: 0
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 550
