@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Zilean
+  m_EditorClassIdentifier: 
+  skillName: "\uC2DC\uD55C \uD3ED\uD0C4"
+  skillType: 1
+  description: "\uB300\uC0C1\uC5D0\uAC8C \uD3ED\uD0C4\uC744 \uC124\uCE58\uD574 \uB9C8\uBC95
+    \uD53C\uD574\uB97C \uC785\uD788\uACE0 1.25\uCD08 \uB3D9\uC548 \uAE30\uC808\uC2DC\uD0B5\uB2C8\uB2E4.
+    \uAE30\uC808\uC774 \uB05D\uB098\uAC70\uB098 \uB300\uC0C1\uC774 \uCC98\uCE58\uB418\uBA74
+    \uD3ED\uD0C4\uC774 \uD3ED\uBC1C\uD574 \uB300\uC0C1\uC5D0\uAC8C \uB9C8\uBC95 \uD53C\uD574\uB97C
+    \uC785\uD788\uACE0 \uB300\uC0C1 \uC8FC\uBCC0 \uC801\uC5D0\uAC8C\uB3C4 2\uCC28
+    \uD3ED\uBC1C \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uCD5C\uCD08 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.8
+    - 2.7
+    - 4.05
+  - Description: "1\uCC28 \uD3ED\uBC1C \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.8
+    - 2.7
+    - 4.05
+  - Description: "2\uCC28 \uD3ED\uBC1C \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.5
+    - 2.25
+    - 3.4
+  skillObject: {fileID: 2352030612221175738, guid: 22c1203784c82184dbd3ddccde978166, type: 3}

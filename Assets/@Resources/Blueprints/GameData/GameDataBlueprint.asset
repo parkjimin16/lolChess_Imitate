@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aace72fd339cbf048986eb766dcaa2ce, type: 3}
+  m_Name: GameDataBlueprint
+  m_EditorClassIdentifier: 
+  championDataList:
+  - Cost: 1
+    Names:
+    - ChampionBlueprint_Ashe
+    - ChampionBlueprint_Blitzcrank
+    - ChampionBlueprint_Elise
+    - ChampionBlueprint_Jax
+    - ChampionBlueprint_Jayce
+    - ChampionBlueprint_Lillia
+    - ChampionBlueprint_Nomsy
+    - ChampionBlueprint_Poppy
+    - ChampionBlueprint_Seraphine
+    - ChampionBlueprint_Soraka
+    - ChampionBlueprint_Twitch
+    - ChampionBlueprint_Warwick
+    - ChampionBlueprint_Ziggs
+    - ChampionBlueprint_Zoe
+  - Cost: 2
+    Names:
+    - ChampionBlueprint_Ahri
+    - ChampionBlueprint_Akali
+    - ChampionBlueprint_Cassiopeia
+    - ChampionBlueprint_Galio
+    - ChampionBlueprint_Kassadin
+    - ChampionBlueprint_KogMaw
+    - ChampionBlueprint_Nilah
+    - ChampionBlueprint_Nunu
+    - ChampionBlueprint_Rumble
+    - ChampionBlueprint_Shyvana
+    - ChampionBlueprint_Syndra
+    - ChampionBlueprint_Tristana
+    - ChampionBlueprint_Zilean
+  - Cost: 3
+    Names:
+    - ChampionBlueprint_Bard
+    - ChampionBlueprint_Ezreal
+    - ChampionBlueprint_Hecarim
+    - ChampionBlueprint_Hwei
+    - ChampionBlueprint_Jinx
+    - ChampionBlueprint_Katarina
+    - ChampionBlueprint_Mordekaiser
+    - ChampionBlueprint_Mordekaiser
+    - ChampionBlueprint_Shen
+    - ChampionBlueprint_Swain
+    - ChampionBlueprint_Veigar
+    - ChampionBlueprint_Vex
+    - ChampionBlueprint_Wukong
+  - Cost: 4
+    Names:
+    - ChampionBlueprint_Fiora
+    - ChampionBlueprint_Gwen
+    - ChampionBlueprint_Kalista
+    - ChampionBlueprint_Karma
+    - ChampionBlueprint_Nami
+    - ChampionBlueprint_Nasus
+    - ChampionBlueprint_Olaf
+    - ChampionBlueprint_Rakan
+    - ChampionBlueprint_Ryze
+    - ChampionBlueprint_TahmKench
+    - ChampionBlueprint_Taric
+    - ChampionBlueprint_Varus
+  - Cost: 5
+    Names:
+    - ChampionBlueprint_Briar
+    - ChampionBlueprint_Camille
+    - ChampionBlueprint_Diana
+    - ChampionBlueprint_Milio
+    - ChampionBlueprint_Morgana
+    - ChampionBlueprint_NorraYuumi
+    - ChampionBlueprint_Smolder
+    - ChampionBlueprint_Xerath
+  championRandomDataList:
+  - Level: 1
+    Probability:
+    - 1
+    - 0
+    - 0
+    - 0
+    - 0
+  - Level: 2
+    Probability:
+    - 1
+    - 0
+    - 0
+    - 0
+    - 0
+  - Level: 3
+    Probability:
+    - 0.75
+    - 0.25
+    - 0
+    - 0
+    - 0
+  - Level: 4
+    Probability:
+    - 0.55
+    - 30
+    - 15
+    - 0
+    - 0
+  - Level: 5
+    Probability:
+    - 0.45
+    - 0.33
+    - 0.2
+    - 0.02
+    - 0
+  - Level: 6
+    Probability:
+    - 0.3
+    - 0.4
+    - 0.25
+    - 0.05
+    - 0
+  - Level: 7
+    Probability:
+    - 0.19
+    - 0.3
+    - 0.4
+    - 0.1
+    - 0.01
+  - Level: 8
+    Probability:
+    - 0.18
+    - 0.25
+    - 0.32
+    - 0.22
+    - 0.03
+  - Level: 9
+    Probability:
+    - 0.15
+    - 0.2
+    - 0.25
+    - 0.3
+    - 0.1
+  - Level: 10
+    Probability:
+    - 0.05
+    - 0.1
+    - 0.2
+    - 0.4
+    - 0.25
+  championMaxCount:
+  - Cost: 1
+    MaxCount: 30
+  - Cost: 2
+    MaxCount: 25
+  - Cost: 3
+    MaxCount: 18
+  - Cost: 4
+    MaxCount: 10
+  - Cost: 5
+    MaxCount: 9

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Fiora
+  m_EditorClassIdentifier: 
+  skillName: "\uCE7C\uB0A0\uC758 \uCDA4"
+  skillType: 1
+  description: "\uB4A4\uB85C \uB3C4\uC57D\uD558\uACE0 \uC7A0\uC2DC \uB0B4\uAD6C\uB825\uC744
+    70% \uC5BB\uC2B5\uB2C8\uB2E4. \uC774\uD6C4 2\uCE78 \uB0B4 \uAC00\uC7A5 \uD070
+    \uC801 \uBB34\uB9AC\uB97C \uD729\uC4F8\uC5B4 \uAC01 \uC720\uB2DB\uC5D0\uAC8C
+    \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD788\uACE0, \uCD94\uAC00\uB85C \uC801\uC911\uD55C
+    \uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uD53C\uD574\uB97C \uB098\uB204\uC5B4 \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.6
+    - 1.6
+    - 3.6
+  - Description: "\uACF5\uACA9\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 3.2
+    - 3.2
+    - 7
+  - Description: "\uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.4
+    - 0.6
+    - 3
+  - Description: "\uB098\uB204\uC5B4 \uC785\uD788\uB294 \uD53C\uD574\uB7C9: \uACF5\uACA9\uB825
+      \uBE44\uB840 \uD53C\uD574\uB7C9 + \uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 2283735847636219574, guid: cf389c2d8353ced4da5d2ac9ef6906a8, type: 3}

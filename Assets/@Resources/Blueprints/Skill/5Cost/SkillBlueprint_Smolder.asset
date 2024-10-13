@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Smolder
+  m_EditorClassIdentifier: 
+  skillName: "\uBE44\uD589 \uD559\uC2B5"
+  skillType: 1
+  description: "\uC0AC\uC6A9 \uC2DC: \uACF5\uACA9 \uC18D\uB3C4\uB97C \uC5BB\uACE0
+    6\uCD08 \uB3D9\uC548 \uC2A4\uBAB0\uB354\uC758 \uAE30\uBCF8 \uACF5\uACA9\uC744
+    \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD788\uB294 \uD654\uC5FC\uAD6C\uB85C \uAD50\uCCB4\uD569\uB2C8\uB2E4. 
+    \uC6A9 \uC5C5\uADF8\uB808\uC774\uB4DC: \uB300\uC2E0 \uB2E4\uC74C \uAE30\uBCF8
+    \uACF5\uACA9\uC744 6\uD68C \uAC15\uD654\uD569\uB2C8\uB2E4. \uD654\uC5FC\uAD6C\uB294
+    \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uCD94\uAC00 \uACF5\uACA9 \uC18D\uB3C4"
+    Level: 010000000200000003000000
+    Value:
+    - 0.5
+    - 0.5
+    - 5
+  - Description: "\uACF5\uACA9\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.85
+    - 1.9
+    - 8.88
+  - Description: "\uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.25
+    - 0.4
+    - 8.88
+  - Description: "\uD53C\uD574\uB7C9: \uACF5\uACA9\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9
+      + \uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  - Description: "\uC6A9 \uD53C\uD574\uB7C9: \uD53C\uD574\uB7C9\uC758 130%"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 5067435238137181213, guid: 3376094ccd546034bab22338338355c0, type: 3}

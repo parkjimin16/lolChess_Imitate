@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Ashe
+  m_EditorClassIdentifier: 
+  skillName: "\uC554\uD751\uC758 \uC9D5\uC870"
+  skillType: 1
+  description: "\uC804\uD22C\uAC00 \uB05D\uB0A0 \uB54C\uAE4C\uC9C0, \uC8FC\uBCC0
+    \uC801\uC5D0\uAC8C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD94\uAC00
+    \uD654\uC0B4\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4. \uC774 \uD6A8\uACFC\uB294
+    \uC911\uCCA9\uB429\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.05
+    - 0.08
+    - 0.12
+  - Description: "\uD53C\uD574\uB7C9: \uACF5\uACA9\uB825\uC758 30% + \uAE30\uBCF8
+      \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 3061922079461245516, guid: 7238857c72dd2494285a331008941f94, type: 3}

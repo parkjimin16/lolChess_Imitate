@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Syndra
+  m_EditorClassIdentifier: 
+  skillName: "\uAE68\uB2EC\uC74C"
+  skillType: 1
+  description: "\uB300\uC0C1\uC5D0\uAC8C \uADE0\uC5F4\uC744 \uBD88\uB7EC\uB0B4 \uB9C8\uBC95
+    \uD53C\uD574\uB97C \uC785\uD788\uACE0 6\uCD08 \uB3D9\uC548 \uD30C\uC1C4\uB97C
+    20% \uC801\uC6A9\uD569\uB2C8\uB2E4. \uC774 \uC2A4\uD0AC\uC740 \uC0AC\uC6A9\uD560\uC218\uB85D
+    \uC5C5\uADF8\uB808\uC774\uB4DC\uB429\uB2C8\uB2E4.  15\uD68C \uC0AC\uC6A9 \uC2DC:
+    \uB300\uC0C1 \uC8FC\uBCC0 \uBAA8\uB4E0 \uC801\uC774 \uD30C\uC1C4 \uD6A8\uACFC\uB97C
+    \uBC1B\uACE0 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4. 30\uD68C+
+    \uC0AC\uC6A9 \uC2DC: \uC2A4\uD0AC\uC744 30\uD68C \uC0AC\uC6A9\uD560 \uB54C\uB9C8\uB2E4,
+    30%\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uADE0\uC5F4\uC744 \uC8FC\uBCC0
+    \uC801\uC5D0\uAC8C \uCD94\uAC00\uB85C \uC0DD\uC131\uD569\uB2C8\uB2E4.  \uD30C\uC1C4:
+    \uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
+  skillLevelData:
+  - Description: "1\uCC28 \uB300\uC0C1 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 2.3
+    - 3.45
+    - 5.2
+  - Description: "\uBC94\uC704 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.15
+    - 1.7
+    - 2.6
+  skillObject: {fileID: 6202643530800584202, guid: 784a1ff443b2cc04680e848dde1ddf57, type: 3}

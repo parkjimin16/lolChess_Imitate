@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Cassiopeia
+  m_EditorClassIdentifier: 
+  skillName: "\uB9C8\uB140\uC758 \uC30D\uB3C5\uB2C8"
+  skillType: 1
+  description: "\uB2E4\uC74C 3\uD68C\uC758 \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAC15\uD654\uB418\uC5B4
+    \uCD94\uAC00 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.35
+    - 2
+    - 3
+  skillObject: {fileID: 3688382096835065145, guid: 65fb0e88b3cdfed47b8c6e65f94ecbfb, type: 3}

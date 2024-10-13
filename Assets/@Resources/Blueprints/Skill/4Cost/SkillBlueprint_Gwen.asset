@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Gwen
+  m_EditorClassIdentifier: 
+  skillName: "\uC2F9\uB451\uC2F9\uB451"
+  skillType: 1
+  description: "\uC548\uC804\uD55C \uC704\uCE58\uB85C \uB3CC\uC9C4\uD574 \uC6D0\uBFD4
+    \uBC94\uC704\uB97C 2\uD68C \uAC00\uC704\uC9C8\uD569\uB2C8\uB2E4. \uCC98\uC74C\uACFC
+    \uB9C8\uC9C0\uB9C9 \uAC00\uC704\uC9C8\uC740 \uAC01\uAC01 95\uC758 \uB9C8\uBC95
+    \uD53C\uD574\uB97C \uC785\uD788\uBA70 \uB098\uBA38\uC9C0 \uAC00\uC704\uC9C8\uC740
+    \uAC01\uAC01 45\uC758 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAC00\uC704\uC9C8 \uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.95
+    - 1.45
+    - 4.3
+  - Description: "\uC791\uC740 \uAC00\uC704\uC9C8 \uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.45
+    - 0.7
+    - 2.1
+  skillObject: {fileID: 7569718318436318670, guid: fb2a8d0a97ce1cc4799f02c6900a40ad, type: 3}

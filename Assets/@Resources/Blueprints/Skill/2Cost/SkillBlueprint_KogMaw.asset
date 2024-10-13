@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_KogMaw
+  m_EditorClassIdentifier: 
+  skillName: "\uBC8C\uC9D1\uC758 \uBD84\uBE44\uBB3C"
+  skillType: 1
+  description: "\uD604\uC7AC \uB300\uC0C1\uC5D0\uAC8C \uBC00\uB78D\uC744 \uBC49\uC5B4
+    \uC801\uC911\uD55C \uC801\uC5D0\uAC8C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4.
+    \uC8FC\uBCC0 \uC544\uAD70 \uBC0F \uACBD\uB85C\uC5D0 \uC788\uB294 \uC544\uAD70\uC740
+    \uBC8C\uC758 \uD65C\uAE30\uC5D0 \uC601\uD5A5\uC744 \uBC1B\uC544 4\uCD08 \uB3D9\uC548
+    \uACF5\uACA9 \uC18D\uB3C4\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uBB3C\uB9AC \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 2.8
+    - 2.8
+    - 2.8
+  - Description: "\uACF5\uACA9 \uC18D\uB3C4"
+    Level: 010000000200000003000000
+    Value:
+    - 0.2
+    - 0.25
+    - 0.3
+  skillObject: {fileID: 3103729606777405611, guid: ec4a0b507fd19544088bf5ff62077f88, type: 3}

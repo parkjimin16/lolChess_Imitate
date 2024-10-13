@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
+  m_Name: ChampionBlueprint_Gwen
+  m_EditorClassIdentifier: 
+  championName: "\uADF8\uC6EC"
+  championObj: {fileID: 0}
+  championLine_First: 1
+  championLine_Second: 0
+  championJob_First: 10
+  championJob_Second: 0
+  championCost: 4
+  championLevelData:
+  - Level: 1
+    Hp: 1100
+    Power: 50
+  - Level: 2
+    Hp: 1980
+    Power: 75
+  - Level: 3
+    Hp: 3564
+    Power: 113
+  attack_Speed: 0.8
+  ad_Defense: 50
+  ap_Defense: 50
+  speed: 1
+  mana_Total: 30
+  mana_Cur: 0
+  attack_Range: 2
+  skillBlueprint: {fileID: 11400000, guid: 61ebfa962c1b8044ba4a6978be50c3ca, type: 2}

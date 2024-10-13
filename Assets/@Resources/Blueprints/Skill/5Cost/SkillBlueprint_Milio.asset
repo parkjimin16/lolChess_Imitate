@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Milio
+  m_EditorClassIdentifier: 
+  skillName: "\uC7A1\uB3D9\uC0AC\uB2C8 \uACF5\uACA9"
+  skillType: 1
+  description: "\uBE48 \uC544\uC774\uD15C \uCE78\uC774 \uC788\uB294 \uC544\uAD70\uC5D0\uAC8C
+    \uC644\uC131 \uC544\uC774\uD15C\uB4E4\uC744 \uB358\uC9D1\uB2C8\uB2E4. \uC544\uAD70\uC5D0\uAC8C
+    \uBE48 \uC544\uC774\uD15C \uCE78\uC774 \uC5C6\uB2E4\uBA74 \uB300\uC2E0 \uB300\uC0C1
+    \uC544\uAD70\uC774 \uD53C\uD574 \uC99D\uD3ED\uC744 12% \uC5BB\uC2B5\uB2C8\uB2E4.
+    \uC774 \uD6A8\uACFC\uB294 \uC911\uCCA9\uB418\uBA70 \uC804\uD22C\uAC00 \uB05D\uB0A0
+    \uB54C\uAE4C\uC9C0 \uC720\uC9C0\uB429\uB2C8\uB2E4. \uC774\uD6C4, \uAC01\uAC01
+    \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uC7A1\uB3D9\uC0AC\uB2C8\uB97C
+    \uC801\uC5D0\uAC8C \uB358\uC9D1\uB2C8\uB2E4.  \uB610\uD55C, \uBC00\uB9AC\uC624\uB294
+    \uAC00\uB054 \uAC00\uBC29\uC5D0\uC11C \uD2B9\uBCC4\uD55C \uBB3C\uAC74\uC744 \uCC3E\uC544\uB0C5\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uC544\uC774\uD15C \uAC1C\uC218"
+    Level: 010000000200000003000000
+    Value:
+    - 2
+    - 2
+    - 8
+  - Description: "\uC7A1\uB3D9\uC0AC\uB2C8 \uAC1C\uC218"
+    Level: 010000000200000003000000
+    Value:
+    - 3
+    - 3
+    - 8
+  - Description: "\uB9C8\uBC95 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 333
+    - 500
+    - 1000
+  skillObject: {fileID: 8560255401107467307, guid: 506274e79be851949b7549b89f80f154, type: 3}

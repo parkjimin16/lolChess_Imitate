@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
+  m_Name: ChampionBlueprint_Blitzcrank
+  m_EditorClassIdentifier: 
+  championName: "\uBE14\uB9AC\uCE20\uD06C\uB7AD\uD06C"
+  championObj: {fileID: 0}
+  championLine_First: 4
+  championLine_Second: 0
+  championJob_First: 6
+  championJob_Second: 0
+  championCost: 1
+  championLevelData:
+  - Level: 1
+    Hp: 650
+    Power: 65
+  - Level: 2
+    Hp: 1170
+    Power: 98
+  - Level: 3
+    Hp: 2106
+    Power: 146
+  attack_Speed: 0.55
+  ad_Defense: 40
+  ap_Defense: 40
+  speed: 1
+  mana_Total: 90
+  mana_Cur: 40
+  attack_Range: 1
+  skillBlueprint: {fileID: 11400000, guid: 7a37d635f213cd6478c903f3a732a653, type: 2}

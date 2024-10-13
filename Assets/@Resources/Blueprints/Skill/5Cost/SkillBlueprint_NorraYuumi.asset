@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_NorraYuumi
+  m_EditorClassIdentifier: 
+  skillName: "\uCC28\uC6D0\uBB38 \uB300\uC18C\uB3D9"
+  skillType: 1
+  description: "\uD604\uC7AC \uB300\uC0C1\uC5D0\uAC8C \uACF5\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+    \uACF5\uC740 \uD3ED\uBC1C\uD574 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD788\uACE0,
+    5\uCD08 \uB3D9\uC548 \uD574\uB2F9 \uC9C0\uC5ED\uC744 \uC0C9\uCE60\uD574 \uC9C0\uC18D\uC2DC\uAC04
+    \uB3D9\uC548 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. \uC774\uBBF8
+    \uC0C9\uC774 \uCE60\uD574\uC9C4 \uC9C0\uC5ED\uC5D0 \uACF5\uC774 \uB5A8\uC5B4\uC9C4\uB2E4\uBA74,
+    \uACF5\uC740 2\uCE78 \uB0B4 \uC0C8\uB85C\uC6B4 \uC704\uCE58\uB85C \uD295\uAE34
+    \uD6C4 \uD3ED\uBC1C\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uB9C8\uBC95 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.9
+    - 2.85
+    - 20
+  - Description: "\uC9C0\uC18D \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 5
+    - 7.5
+    - 30
+  skillObject: {fileID: 1609899383158022440, guid: 0bcccecae4bdfb84c8fcaa54ea72d529, type: 3}

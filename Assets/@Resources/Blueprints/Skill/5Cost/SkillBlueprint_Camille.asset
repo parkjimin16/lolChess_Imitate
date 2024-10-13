@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Camille
+  m_EditorClassIdentifier: 
+  skillName: "\uC2DC\uAC04\uC758 \uBCC0\uCE59"
+  skillType: 1
+  description: "\uC0AC\uC6A9 \uC2DC: \uB300\uC0C1 \uC8FC\uBCC0 \uC801\uC744 \uB4A4\uB85C
+    \uBC00\uC5B4\uB0B4\uACE0 1\uCD08 \uB3D9\uC548 \uAE30\uC808\uC2DC\uD0A4\uBA70
+    \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. 4\uCD08 \uB3D9\uC548
+    \uB300\uC0C1 \uC8FC\uBCC0\uC5D0 \uACA9\uB9AC \uAD6C\uC5ED\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4.
+    \uAD6C\uC5ED \uB0B4\uC5D0 \uC788\uC744 \uB54C \uB0B4\uAD6C\uB825\uC744 30%, \uACF5\uACA9\uB825\uC744
+    225% \uC5BB\uC2B5\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAC08\uACE0\uB9AC \uBC1C\uC0AC \uBC0F \uC2A4\uD0AC \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.65
+    - 1.65
+    - 8
+  - Description: "\uACF5\uACA9\uB825 \uBE44\uB840 \uACE0\uC815 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.7
+    - 1.7
+    - 8
+  - Description: "\uC8FC\uBB38\uB825 \uBE44\uB840 \uACE0\uC815 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.5
+    - 0.75
+    - 10
+  - Description: "\uACE0\uC815 \uD53C\uD574\uB7C9: \uACF5\uACA9\uB825 \uBE44\uB840
+      \uD53C\uD574\uB7C9 + \uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 6152628359464229705, guid: b19078a91c2a9db48af1c37d3464c401, type: 3}

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
+  m_Name: ChampionBlueprint_Taric
+  m_EditorClassIdentifier: 
+  championName: "\uD0C0\uB9AD"
+  championObj: {fileID: 0}
+  championLine_First: 11
+  championLine_Second: 0
+  championJob_First: 8
+  championJob_Second: 0
+  championCost: 4
+  championLevelData:
+  - Level: 1
+    Hp: 1100
+    Power: 60
+  - Level: 2
+    Hp: 1980
+    Power: 90
+  - Level: 3
+    Hp: 3564
+    Power: 135
+  attack_Speed: 0.65
+  ad_Defense: 60
+  ap_Defense: 60
+  speed: 1
+  mana_Total: 100
+  mana_Cur: 50
+  attack_Range: 1
+  skillBlueprint: {fileID: 11400000, guid: fe5ccd3ba7535134fbe74daebb7c3759, type: 2}

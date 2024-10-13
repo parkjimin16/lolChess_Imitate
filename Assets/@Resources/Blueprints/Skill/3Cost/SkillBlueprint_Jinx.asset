@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Jinx
+  m_EditorClassIdentifier: 
+  skillName: "\uC2E0\uB09C\uB2E4!"
+  skillType: 1
+  description: "5\uCD08 \uB3D9\uC548 \uC810\uCC28 \uAC10\uC18C\uD558\uB294 \uACF5\uACA9
+    \uC18D\uB3C4\uB97C 125% \uC5BB\uC2B5\uB2C8\uB2E4. \uC9C0\uC18D\uC2DC\uAC04 \uB3D9\uC548
+    \uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uB85C\uCF13\uC744 \uBC1C\uC0AC\uD574 \uBB3C\uB9AC
+    \uD53C\uD574\uB97C \uC785\uD788\uACE0 \uBC29\uC5B4\uB825\uC744 50%\uB9CC\uD07C
+    \uBB34\uC2DC\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.16
+    - 0.24
+    - 0.36
+  - Description: "\uB85C\uCF13 \uD53C\uD574\uB7C9: \uACF5\uACA9\uB825\uC758 110%
+      + \uAE30\uBCF8 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 5956860630311503069, guid: 743991354b21bcd4bb1f84f01a6e8ef0, type: 3}

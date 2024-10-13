@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_TahmKench
+  m_EditorClassIdentifier: 
+  skillName: "\uC810\uC220 \uC7A0\uC218"
+  skillType: 1
+  description: "\uB545 \uC544\uB798\uB85C \uC7A0\uC218\uD55C \uD6C4 \uAC00\uC7A5
+    \uAC00\uAE4C\uC6B4 \uC801 \uC606\uC73C\uB85C \uD280\uC5B4 \uC62C\uB77C\uC635\uB2C8\uB2E4.
+    4\uCE78 \uB0B4 \uAC00\uC7A5 \uBA3C \uC801\uC744 \uD5A5\uD574 \uCDA9\uACA9\uD30C\uB97C
+    \uB0A0\uB9BD\uB2C8\uB2E4. 2\uCE78 \uB0B4 \uC801 \uB610\uB294 \uCDA9\uACA9\uD30C\uC5D0
+    \uB9DE\uC740 \uC801\uC740 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uACE0 \uAE30\uC808\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uD53C\uD574\uB7C9: \uC8FC\uBB38\uB825\uC758 @ + \uCCB4\uB825\uC758
+      5%"
+    Level: 010000000200000003000000
+    Value:
+    - 1
+    - 1.5
+    - 10
+  - Description: "\uAE30\uC808 \uC9C0\uC18D\uC2DC\uAC04"
+    Level: 010000000200000003000000
+    Value:
+    - 1.75
+    - 2
+    - 8
+  skillObject: {fileID: 1624743174875766461, guid: d9c23c6538288df4fa08fde70cf00192, type: 3}

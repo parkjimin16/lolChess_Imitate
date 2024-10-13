@@ -1,0 +1,1201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Bundle
+  m_EditorClassIdentifier: 
+  m_GroupName: Bundle
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7febd303ab4bfac4e9651442c0d87dbb
+  m_SerializeEntries:
+  - m_GUID: 83342e083a5e1cf46b10f77c1fce614c
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Poppy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f3186f822334c44bae506b95cdc0ff5
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Ashe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a7d7493e821e8249b364b87f30dadc6
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Jayce.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb1e1315f90235643bdd1f20818bc7c7
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Warwick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75e9128e3d9413d49bf692c25cdf7f01
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Blitzcrank.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 668b104da26cf6c44bfb1cd5396d3161
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Seraphine.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb352e08514da4348a6fc1ac33220e4a
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Soraka.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d68ecd5baca5c64490b9e74833f29ce
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Zoe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 980f5d0119c58b54584e29aff46578e2
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Elise.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff19ea26559bc06409708b58f98d6291
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Twitch.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3214a5742824e6e43b641501f060edf4
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Ziggs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cd932e2a1a065b49bc88597329a30f3
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Jax.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97e6686a7d9857f4d881faa59c3bc3bd
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Lillia.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13dbb4f95f055b84fb05e2f41333c3f9
+    m_Address: Assets/@Resources/Blueprints/Champion/1Cost/ChampionBlueprint_Nomsy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c506428b87ec8146af0c4b457282cb7
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Nunu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42b568754d8ed2c4394eca0aeba54235
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Ahri.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7dadf79c48912145b5e1751bee4023b
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Shyvana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b43ad86d545cf48488be4f3166855571
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Galio.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa5c596297a15be439df0a3268b96d43
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_KogMaw.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e989b38845371b5488c78fc237a404b2
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Akali.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e34fe8a669a7084c8b77236a9fe0ef3
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Cassiopeia.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d29308d43207464288a8373e7429e4f
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Nilah.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 264234090db5daf4fb69d8a208699206
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Zilean.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67a1ea180c15e6b4c9a9db4604618b7e
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Kassadin.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62dcb01ab8630f74b9bc1bf0e5a6993c
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Syndra.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 550046aa28fc70649b05fa14edb63211
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Rumble.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d7616bc098a7074fa6512c6bfd536fc
+    m_Address: Assets/@Resources/Blueprints/Champion/2Cost/ChampionBlueprint_Tristana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9f1a07f7429f644abfbd6795ddc041d
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Veigar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8b2f9526676eb546bd1c48d49929292
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Swain.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc9f1020245a0a54c8ca045792592c9f
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Bard.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fb6710006041584a967b7f205673a48
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Neeko.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee50fcc18db54b84a9bc8412ef9e5bc3
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Hwei.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55254cab5b8d4ca4180ed689b365b8ca
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Vex.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27fe5e6a9633e5e49ab86376274c98fa
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Hecarim.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea4072e9389033440906c4dc81b22441
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Wukong.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93f01eec496554a43850c25d8231e884
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Ezreal.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 474abcec496489142ba0c18a9ec39092
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Shen.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5db2ad698d7dea4892ea63492de2538
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Katarina.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66774a9c7f656de41b419de506d7b4a9
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Jinx.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1bb836a2567848418d5f1035a95e567
+    m_Address: Assets/@Resources/Blueprints/Champion/3Cost/ChampionBlueprint_Mordekaiser.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 769c59dabe5fda14598a6eb1333981db
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Gwen.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 944964323a2cc8848a01042d9a1213a8
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Taric.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8b1a4f3d7160864fb16b27e2a21c750
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_TahmKench.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d862f6fb02e8c3241b4543b212281611
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Karma.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e17f50e985071340bb5b7c91a96525a
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Nasus.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 626a393c2cc51e54cb76265d5ed08e18
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Varus.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d50e60011845f19418e3064493383b25
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Kalista.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adda9131ab7af224db9a10d371e4359c
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Ryze.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93347185257a1ae428c9474f198e2d19
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Fiora.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0c68e99b5104b840945802848f39f10
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Nami.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c06fa5b484fa43429b70ca6eb51bf7c
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Olaf.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7949b1d34f173394e89cb65f8df4ffb4
+    m_Address: Assets/@Resources/Blueprints/Champion/4Cost/ChampionBlueprint_Rakan.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f7e23d46ef6e0c43a0249887a8cfeb0
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Briar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d5fec849f4256643975c4d5d5d129dd
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Diana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d02462d432072e4479de8a62b2d60f27
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_NorraYuumi.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: faf2babdcf60f7c4daebdad6ad33f939
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Milio.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a91fa52a5bd010c428faf7649fe2ee74
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Camille.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05701e2529d5b264c878bc877aacdbdf
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Morgana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fcaadaafbb875744bbad2a3187f6b09
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Xerath.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0923ccaf8317bdd4392431ea2bbf24ee
+    m_Address: Assets/@Resources/Blueprints/Champion/5Cost/ChampionBlueprint_Smolder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ddbae6fd011ea746838ef520ed503cf
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Warwick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a37d635f213cd6478c903f3a732a653
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Blitzcrank.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c32f2581a31f88347b4f29bc7cd0dd1a
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Lillia.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43755e55cc7f339498311f5edc603466
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Nomsy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd41c2cf5c5ae8b4686d3ef23455a20a
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Seraphine.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d07c196023ea58e40ab3ddf20bf4506c
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Jayce.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70c14ea444eeb7044a89b2f3b1edd9d6
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Ziggs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6b62858fa2823c44a6c1e4d191ee5fd
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Soraka.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ee153b8f92170f4f8fc4c12fbe5cecf
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Jax.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a9210232c46a9944b064c9802d4ea5e
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Elise.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdb1d917050322445a36ab120e361097
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Poppy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb6265b4a8b254141b07504f4f400af0
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Zoe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56bfb9ded41a914439017c47968da033
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Ashe.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20cef97c1f6eea34797e21b1b0c05e89
+    m_Address: Assets/@Resources/Blueprints/Skill/1Cost/SkillBlueprint_Twitch.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b99e9c09832b2a49bed878114eb4d41
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Syndra.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd0422bbbe5c39a4cbf22e5a2f9c06b9
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Akali.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47a6a47cd470cf04f8a07cb1a2153429
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Shyvana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 609087dd79b4da44ca5d3fe1ad2aeabd
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Ahri.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03426c4d535518b40ab6c1126924f067
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Nilah.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3da85e667dee3e541875d6119ca96313
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Galio.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 556be68617da10f4ea1b174be4d1796e
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Cassiopeia.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9ec7bf1154e5fa4a9f76dbfbde16956
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Zilean.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a528bbb6d5c78f448a7851248489993c
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_KogMaw.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab3af8abbb50a3248babe278ad27cd77
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Rumble.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c38ce2c03d3cc524da035a0f6a1cb921
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Kassadin.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c40c275cec51e7c4db0f6412562e8006
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Tristana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c437c995af0f2e547b16c48f41b84e82
+    m_Address: Assets/@Resources/Blueprints/Skill/2Cost/SkillBlueprint_Nunu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 779b48da46de7dd48ac9ea79a323b6e3
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Hecarim.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 488532810ccaa1f409bdd958cf0f1436
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Shen.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18ef56c616611ef4eaab3a2052068833
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Jinx.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ddefb6b94ef28c4f87868220b862d7a
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Neeko.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da6c800228fbbbd41a6130319f342ba6
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Mordekaiser.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c96de9e5d7d9bbd4481c5d398309ff90
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Veigar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a15e875990abf7b48a965b95bb66dc0c
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Vex.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f8511a041dd3e84ab4ecefa7bd24396
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Swain.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6242103f92ff49b45b50ae5d872b3362
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Katarina.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 610619da4f330a54181bea42272ede2c
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Wukong.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73b52c0a9f22a9a489dbad5ffacb85ee
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Ezreal.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ef6b47747ec9a74a8bfe0387ea34426
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Hwei.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f962e50a26349347bda0da9775111d4
+    m_Address: Assets/@Resources/Blueprints/Skill/3Cost/SkillBlueprint_Bard.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa4640160694c8642834cc906be47e01
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Varus.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f8827fe9eee39846bb4b53bd5cf297d
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_TahmKench.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39b19a388e9007d4ca735c4d37c0d054
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Nasus.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88eb94e494b94a241814c509b716634b
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Fiora.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec42d3aa8b9c82c4981c18a3e7aee7a2
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Rakan.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61ebfa962c1b8044ba4a6978be50c3ca
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Gwen.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9789057201d61445a2b05c112bf5694
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Ryze.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e8ae7931bb00c54f803951d600d5083
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Nami.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3d328badbff4974ea22eaf207f76c64
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Olaf.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe5ccd3ba7535134fbe74daebb7c3759
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Taric.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4150312c99ed4744be6286dbde9097b
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Kalista.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0ba2897d9a04774d8d7ead54ecb37e7
+    m_Address: Assets/@Resources/Blueprints/Skill/4Cost/SkillBlueprint_Karma.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0058220feaee42c468598ce684c08ba8
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Morgana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 954d94731ec471e44b47016711bf0217
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Diana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82c33e49f3040d54e8fdf91f24428da5
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Smolder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77318b444ca725f40a0db413525eb905
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Xerath.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79aa2ac9794c67549be0c80ff87102e1
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Milio.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddaa28184d08f3b4296a0a2590865544
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Briar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53db505388f20e94097c13fbd15094a3
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_NorraYuumi.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5da1429f0e3408546a661f7f541c4222
+    m_Address: Assets/@Resources/Blueprints/Skill/5Cost/SkillBlueprint_Camille.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17f11e912c1d97246b70fcad1a434f7f
+    m_Address: Assets/@Resources/Prefab/Champion/ChampionFrame.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7238857c72dd2494285a331008941f94
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Ashe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b351126984ba88f46a8fd348444c4cf7
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Elise.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a708691ea3d8fd146aabcd4cad983c17
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Lillia.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f313b1258fde89f4ba086d4170df5108
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Nomsy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 950561747af2aff4a8cdbd2f81a9b90a
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Blitzcrank.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72bcc3b6273ad914e8070784b80dd767
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Jax.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9b071f0d02463e4095e5fa0a3b3f665
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Jayce.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60966dfb71cb8f0409b7ca979454fe5f
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Poppy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ffcad59c6b665b4e9c240653f726bae
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Seraphine.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2abab1b5d64db1f46b6619023aa6ca20
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Soraka.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ff89c02e8d4105459bc793a5d2766f0
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Twitch.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e05467403d52f444ebe446a4f16e284b
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Warwick.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 260160ec851915b41bb550f5bac5ea68
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Ziggs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e9348dc65713344bb08b24af83e49bc
+    m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Zoe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48360e2e174b4694a9510e63320fe563
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Galio.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec4a0b507fd19544088bf5ff62077f88
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_KogMaw.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84208835584fd5b4a902086e0b095118
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Tristana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1fa7990c55e11a54ca173b549e873e37
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Nunu.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b56f8b5e9cc9a82439702fcc8fea68e4
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Akali.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0e755942dd58454f90c936c0a037bf7
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Nilah.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 557afac8b6c507341b13e940103371d1
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Kassadin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49fb277b5e7cc0e4e813772ad05bfc6f
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Rumble.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e44ff7f4cc6dfa4b9bf5098a3d39fda
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Ahri.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 784a1ff443b2cc04680e848dde1ddf57
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Syndra.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 22c1203784c82184dbd3ddccde978166
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Zilean.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65fb0e88b3cdfed47b8c6e65f94ecbfb
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Cassiopeia.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d10a4577ac0ba364d96969d70cdd5c85
+    m_Address: Assets/@Resources/Prefab/Skill/2Cost/Skill_Shyvana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f278384c643cb2244982e2e0ffec0117
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Swain.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3120ff538f0fd344f92d7038cfa2c265
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Veigar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bae1dcfad9c708448c28ee4cbe0e1c4
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Wukong.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95e9f8d545c615f47a12d57955ce8020
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Katarina.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 226e353ed4228aa4abf296b88669e9a2
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Shen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6c60e16001c9ca4da58953215cd914f
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Vex.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 743991354b21bcd4bb1f84f01a6e8ef0
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Jinx.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26fe285780614ff47b258fda80c156ed
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Ezreal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d655927c37b73264b8ceb173a3e34ce3
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Neeko.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d4dee25123f9c4478fabb067f7bcb9b
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Mordekaiser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae6412ac0ec3d764cb698724169c348a
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Hecarim.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce849eb8424331c4588e8aca9535fd16
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Bard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f400dfbaa2d41946ad90345617cede0
+    m_Address: Assets/@Resources/Prefab/Skill/3Cost/Skill_Hwei.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9993998820c318743acebbfca36dc7e7
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Rakan.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb2a8d0a97ce1cc4799f02c6900a40ad
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Gwen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8265ed6a3c9f594abf1466c751a7807
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Nami.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9c23c6538288df4fa08fde70cf00192
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_TahmKench.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7caba8a20e046db45a227fa2deb5bfd8
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Olaf.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96a0ae54006ca4b42ba9eefbcfdba83b
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Varus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3612ff947a801f547b2aee4dc2b330dc
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Taric.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b04fa2ea3c27124eb78e64773bef526
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Nasus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e2ac3cbc3340b3458471d4e7031ccec
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Ryze.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 202a27b79aa69c84ebfff199527e3136
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Kalista.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8556a7466bb88e14e9c49f4be6ff1d16
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Karma.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf389c2d8353ced4da5d2ac9ef6906a8
+    m_Address: Assets/@Resources/Prefab/Skill/4Cost/Skill_Fiora.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3376094ccd546034bab22338338355c0
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Smolder.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31eba3a2dec69ec42843c0d19e5a9a1f
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Diana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 506274e79be851949b7549b89f80f154
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Milio.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eeb37d72826bf8d4e96aef895abe878a
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Morgana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4dcbb07ae2ab8846892f4e5b7c8657d
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Xerath.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bcccecae4bdfb84c8fcaa54ea72d529
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_NorraYuumi.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b19078a91c2a9db48af1c37d3464c401
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Camille.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc10b1889d11ad34cac85941cd67c2b8
+    m_Address: Assets/@Resources/Prefab/Skill/5Cost/Skill_Briar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43e9127cad3bfa14cbe56705f518b1f5
+    m_Address: Assets/@Resources/Blueprints/GameData/GameDataBlueprint.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1c858e6cac832446abb34ecd5155c3c
+    m_Address: Assets/@Resources/Blueprints/Item/ItemDataContainer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c559765cf092d3438770eee8eebd6c1
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/PracticeGloves.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d33a533891290094aab375e812ce097c
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/ChainVest.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf53afb2abe076443b3db647cc252b39
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/BFSword.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbeb87263f414844ebf4bbf7ec65a744
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/NegatronCloak.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f07e328e7c7fd0499dfbccaefadc1be
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/GiantBelt.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae0df3e09b7f9664eb5256973ece1303
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/FryingPan.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95042d46bab04f849a84d19c6449a07f
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/MagicWand.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 558e9e5e5e905db41b73e9a3f0a31b48
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/Flipper.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b368763c267caa342a7d3929aa230754
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/RecurveBow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9080fde828ad1e4aa92089decc34032
+    m_Address: Assets/@Resources/Prefab/Item/NormalItem/GoddnessTear.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11ef6a7a003773e4d92bc598cee4df61
+    m_Address: Assets/@Resources/Prefab/Champion/ProjectileFrame.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8be904174ca367a4f951dd55b05b6294
+    m_Address: Assets/@Resources/Prefab/SkillObject/2Cost/SkillObject_Ahri.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff6452ea470d0e6469fcf6b88393a054
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Ahri.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2e0daa2e3a4398244a25e0e05b184d26, type: 2}
+    - {fileID: 11400000, guid: 511a50dda93bf7940aac51cb37c65eae, type: 2}

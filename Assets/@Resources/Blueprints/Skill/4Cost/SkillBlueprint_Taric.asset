@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Taric
+  m_EditorClassIdentifier: 
+  skillName: "\uB2E4\uB4E4 \uB0A0 \uBC14\uB77C\uBD10"
+  skillType: 1
+  description: "4\uCD08 \uB3D9\uC548 \uB0B4\uAD6C\uB825\uC744 \uC5BB\uACE0 \uC8FC\uBCC0
+    \uC801 \uD22C\uC0AC\uCCB4\uB97C \uB04C\uC5B4\uB2F9\uAE41\uB2C8\uB2E4. \uC885\uB8CC
+    \uC2DC, \uC2E0\uC131\uC774 \uD3ED\uBC1C\uD574 2 / 2 / 3\uCE78 \uB0B4\uC5D0 \uB9C8\uBC95
+    \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uB0B4\uAD6C\uB825"
+    Level: 010000000200000003000000
+    Value:
+    - 0.55
+    - 0.6
+    - 0.9
+  - Description: "\uD53C\uD574\uB7C9: @ + 50 / 75 / 600"
+    Level: 010000000200000003000000
+    Value:
+    - 1
+    - 1.5
+    - 10
+  skillObject: {fileID: 6673090517967789135, guid: 3612ff947a801f547b2aee4dc2b330dc, type: 3}

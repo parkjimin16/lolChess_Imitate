@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Tristana
+  m_EditorClassIdentifier: 
+  skillName: "\uD3ED\uBC1C \uD654\uC57D"
+  skillType: 1
+  description: "\uB300\uC0C1\uC5D0\uAC8C \uB300\uD3EC\uC54C\uC744 \uBC1C\uC0AC\uD574
+    \uCC98\uC74C\uC73C\uB85C \uC801\uC911\uD55C \uC801\uC5D0\uAC8C \uBB3C\uB9AC \uD53C\uD574\uB97C
+    \uC785\uD799\uB2C8\uB2E4. \uD574\uB2F9 \uC801\uC774 \uD2B8\uB9AC\uC2A4\uD2F0\uB098\uC758
+    2\uCE78 \uB0B4\uC5D0 \uC788\uB2E4\uBA74 \uB4A4\uB85C 2\uCE78 \uBC00\uB824\uB098\uACE0
+    \uAE30\uC808\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uACF5\uACA9\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 3.4
+    - 3.4
+    - 3.4
+  - Description: "\uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.4
+    - 0.6
+    - 0.9
+  - Description: "\uD53C\uD574\uB7C9: \uACF5\uACA9\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9
+      + \uC8FC\uBB38\uB825 \uBE44\uB840 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 4041877404357304048, guid: 84208835584fd5b4a902086e0b095118, type: 3}

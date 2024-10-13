@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
+  m_Name: ChampionBlueprint_Shyvana
+  m_EditorClassIdentifier: 
+  championName: "\uC26C\uBC14\uB098"
+  championObj: {fileID: 0}
+  championLine_First: 10
+  championLine_Second: 0
+  championJob_First: 14
+  championJob_Second: 0
+  championCost: 2
+  championLevelData:
+  - Level: 1
+    Hp: 750
+    Power: 55
+  - Level: 2
+    Hp: 1350
+    Power: 83
+  - Level: 3
+    Hp: 2430
+    Power: 124
+  attack_Speed: 0.65
+  ad_Defense: 45
+  ap_Defense: 45
+  speed: 1
+  mana_Total: 70
+  mana_Cur: 0
+  attack_Range: 1
+  skillBlueprint: {fileID: 11400000, guid: 47a6a47cd470cf04f8a07cb1a2153429, type: 2}

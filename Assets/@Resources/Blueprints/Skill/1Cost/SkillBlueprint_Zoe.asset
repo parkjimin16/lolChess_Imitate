@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Zoe
+  m_EditorClassIdentifier: 
+  skillName: "\uD5E4\uB871\uD5E4\uB871 \uBB3C\uBCD1"
+  skillType: 1
+  description: "\uB300\uC0C1\uC5D0\uAC8C \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD788\uACE0
+    \uC804\uD22C\uAC00 \uB05D\uB0A0 \uB54C\uAE4C\uC9C0 \uB300\uC0C1\uC758 \uB9C8\uBC95
+    \uC800\uD56D\uB825\uC744 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 1.25
+    - 1.9
+    - 2.85
+  - Description: "\uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
+    Level: 010000000200000003000000
+    Value:
+    - 10
+    - 15
+    - 20
+  skillObject: {fileID: 867615127359776355, guid: 1e9348dc65713344bb08b24af83e49bc, type: 3}

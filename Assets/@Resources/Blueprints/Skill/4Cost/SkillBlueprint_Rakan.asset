@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Rakan
+  m_EditorClassIdentifier: 
+  skillName: "\uBE5B\uB098\uB294 \uAE43\uD138"
+  skillType: 1
+  description: "3\uCD08 \uB3D9\uC548 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uACE0 \uB113\uC740
+    \uC6D0\uBFD4 \uBC94\uC704\uC5D0 \uAE43\uD138 8\uAC1C\uB97C \uB0A0\uB824 \uC801\uC911\uD55C
+    \uC801\uC5D0\uAC8C \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4.
+    \uC774\uD6C4 \uCC29\uC9C0\uD574 2\uCE78 \uB0B4 \uC544\uAD70\uC5D0\uAC8C 4\uCD08
+    \uB3D9\uC548 \uBCF4\uD638\uB9C9\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uBCF4\uD638\uB9C9 \uD761\uC218\uB7C9 : \uCCB4\uB825\uC758 20%
+      + \uC8FC\uBB38\uB825\uC758"
+    Level: 010000000200000003000000
+    Value:
+    - 1.8
+    - 2
+    - 10
+  - Description: "\uB9C8\uBC95 \uD53C\uD574\uB7C9 : \uC8FC\uBB38\uB825\uC758"
+    Level: 010000000200000003000000
+    Value:
+    - 1.5
+    - 2.25
+    - 12
+  - Description: "\uC544\uAD70 \uBCF4\uD638\uB9C9 \uD761\uC218\uB7C9 : \uC8FC\uBB38\uB825\uC758"
+    Level: 010000000200000003000000
+    Value:
+    - 1
+    - 1.3
+    - 10
+  skillObject: {fileID: 227445512519249159, guid: 9993998820c318743acebbfca36dc7e7, type: 3}

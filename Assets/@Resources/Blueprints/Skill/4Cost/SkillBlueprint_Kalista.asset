@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Kalista
+  m_EditorClassIdentifier: 
+  skillName: "\uBF51\uC544 \uCC22\uAE30"
+  skillType: 1
+  description: "\uC0AC\uC6A9 \uC2DC: \uAC01\uAC01\uC758 \uC801 \uC720\uB2DB\uC5D0\uAC8C
+    \uAF42\uD78C \uCC3D\uB9C8\uB2E4 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uCC3D \uAC1C\uC218"
+    Level: 010000000200000003000000
+    Value:
+    - 2
+    - 2
+    - 3
+  - Description: "\uCC3D \uD53C\uD574\uB7C9: \uACF5\uACA9\uB825\uC758 35% / 35% /
+      100% + \uC8FC\uBB38\uB825\uC758 6% / 11% / 35%"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0
+  skillObject: {fileID: 7185839028123930959, guid: 202a27b79aa69c84ebfff199527e3136, type: 3}

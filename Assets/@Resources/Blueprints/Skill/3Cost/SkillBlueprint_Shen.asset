@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Shen
+  m_EditorClassIdentifier: 
+  skillName: "\uD669\uD63C\uC758 \uBD84\uD654"
+  skillType: 1
+  description: "3\uCD08 \uB3D9\uC548 \uB0B4\uAD6C\uB825\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.
+    \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801 \uC544\uB798\uC5D0 \uD654\uC0B0\uC758
+    \uADE0\uC5F4\uC744 3\uAC1C \uC0DD\uC131\uD574 1.5\uCD08 \uB3D9\uC548 \uAE30\uC808\uC2DC\uD0A4\uACE0
+    \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. \uC774\uD6C4 \uAC19\uC740
+    \uC801\uC744 \uB300\uC0C1\uC73C\uB85C \uADE0\uC5F4 \uC801\uC911 \uC2DC \uD6A8\uACFC\uAC00
+    50% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uB0B4\uAD6C\uB825"
+    Level: 010000000200000003000000
+    Value:
+    - 0.35
+    - 0.4
+    - 0.5
+  - Description: "\uB300\uC0C1 \uD53C\uD574\uB7C9 : \uC8FC\uBB38\uB825\uC758"
+    Level: 010000000200000003000000
+    Value:
+    - 1.2
+    - 1.8
+    - 3
+  skillObject: {fileID: 7831871936829837766, guid: 226e353ed4228aa4abf296b88669e9a2, type: 3}

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
+  m_Name: SkillBlueprint_Jayce
+  m_EditorClassIdentifier: 
+  skillName: "\uD574\uBA38 \uD615\uD0DC"
+  skillType: 0
+  description: "\uD574\uBA38 \uD615\uD0DC\uB85C \uBCC0\uD658\uD574 \uBC29\uC5B4\uB825\uACFC
+    \uB9C8\uBC95 \uC800\uD56D\uB825\uC744 25 \uC5BB\uC2B5\uB2C8\uB2E4. \uC774 \uC2A4\uD0AC\uC744
+    \uD574\uBA38 \uC2AC\uB7A8\uC73C\uB85C \uAD50\uCCB4\uD558\uACE0 \uC989\uC2DC \uC2A4\uD0AC\uC744
+    \uC0AC\uC6A9\uD569\uB2C8\uB2E4.  \uD574\uBA38 \uC2AC\uB7A8: \uB300\uC0C1\uC5D0\uAC8C
+    \uB3C4\uC57D\uD574 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillLevelData:
+  - Description: "\uAE30\uBCF8 \uD53C\uD574\uB7C9: \uC8FC\uBB38\uB825\uC758"
+    Level: 010000000200000003000000
+    Value:
+    - 0.4
+    - 0.6
+    - 0.9
+  - Description: "\uACF5\uACA9\uB825 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 4.25
+    - 4.5
+    - 4.75
+  - Description: "\uC8FC\uBB38\uB825 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0.4
+    - 0.6
+    - 0.9
+  - Description: "\uCD1D \uD53C\uD574\uB7C9 : \uACF5\uACA9\uB825 \uD53C\uD574\uB7C9
+      + \uC8FC\uBB38\uB825 \uD53C\uD574\uB7C9"
+    Level: 010000000200000003000000
+    Value:
+    - 0
+    - 0
+    - 0

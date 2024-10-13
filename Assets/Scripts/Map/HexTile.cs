@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HexTile : MonoBehaviour
+{
+    public int q; // Çí»ç°ï Å¥ºê ÁÂÇ¥°èÀÇ q
+    public int r; // Çí»ç°ï Å¥ºê ÁÂÇ¥°èÀÇ r
+    public int s; // Çí»ç°ï Å¥ºê ÁÂÇ¥°èÀÇ s (q + r + s = 0)
+
+    public bool isRectangularTile = false; // Á÷»ç°¢Çü ¿µ¿ª ¿©ºÎ
+    public bool isOccupied = false;
+    public bool isItemTile = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
