@@ -16,13 +16,23 @@ public class StageManager : MonoBehaviour
     public int[] baseDamages; // 인덱스는 스테이지 번호 - 1
     public int[] damagePerEnemyUnit; // 인덱스는 스테이지 번호 - 1
 
+    // 라운드 대기시간 설정
+    private int normalWaitTime = 30;
+    private int augmentWaitTime = 50;
+    private int postMatchWaitTime = 3;
+    private int roundDuration = 30;
+
+    private bool isAugmentRound = false;
+
+    private Coroutine roundCoroutine;
+
     void Start()
     {
         InitializePlayers();
         StartStage(currentStage);
     }
 
-    void InitializePlayers() //자기 자신과 플레이어 분리
+    void InitializePlayers()
     {
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
@@ -32,16 +42,68 @@ public class StageManager : MonoBehaviour
         opponents.Remove(selfPlayer);
     }
 
-    void StartStage(int stageNumber) //현재 스테이지를 시작하고 상대 리스트를 섞습니다.
+    void StartStage(int stageNumber)
     {
         currentRound = 1;
         ShuffleOpponents(); // 상대 리스트를 섞음
-        DisplayCurrentStageAndRound();
-        StartRound();
+
+        if (roundCoroutine != null)
+            StopCoroutine(roundCoroutine);
+        roundCoroutine = StartCoroutine(StartRoundCoroutine());
     }
 
-    void StartRound() // 현재 라운드를 시작하고 상대를 선택하여 전투를 시작합니다.
+    IEnumerator StartRoundCoroutine()
     {
+        // UI 업데이트
+        UIManager.Instance.UpdateStageRoundUI(currentStage, currentRound);
+
+        // 증강 선택 라운드 여부 확인
+        isAugmentRound = IsAugmentRound(currentStage, currentRound);
+
+        // 대기시간 설정
+        int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
+
+        Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+
+        // 대기시간 타이머 시작
+        UIManager.Instance.StartTimer(waitTime);
+
+        yield return new WaitForSeconds(waitTime);
+
+        // 상대 매칭
+        int opponentIndex = (currentRound - 1) % opponents.Count;
+        currentOpponent = opponents[opponentIndex];
+
+        Debug.Log($"{currentOpponent.playerName}와 매칭되었습니다.");
+
+        // 매칭 후 대기시간
+        Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
+
+        // 매칭 후 대기시간 타이머 시작
+        UIManager.Instance.StartTimer(postMatchWaitTime);
+
+        yield return new WaitForSeconds(postMatchWaitTime);
+
+        Debug.Log("라운드가 시작됩니다!");
+
+        // 전투 시작
+        BattleManager battleManager = FindObjectOfType<BattleManager>();
+        battleManager.StartBattle(selfPlayer, currentOpponent, roundDuration);
+
+        // 라운드 진행 시간 타이머 시작
+        UIManager.Instance.StartTimer(roundDuration);
+    }
+
+    public void OnRoundEnd(bool playerWon, int survivingEnemyUnits)
+    {
+        if (!playerWon)
+        {
+            ApplyDamage(survivingEnemyUnits);
+        }
+
+        // 라운드 증가
+        currentRound++;
+
         int maxRounds = currentStage == 1 ? 4 : 7;
 
         if (currentRound > maxRounds)
@@ -55,35 +117,17 @@ public class StageManager : MonoBehaviour
                 return;
             }
             StartStage(currentStage);
-            return;
         }
-
-        // 순서대로 상대 선택
-        int opponentIndex = (currentRound - 1) % opponents.Count;
-        currentOpponent = opponents[opponentIndex];
-
-        Debug.Log($"스테이지 {currentStage}, 라운드 {currentRound}: {currentOpponent.playerName}와 전투를 시작합니다.");
-
-        /*// 전투 로직 시작
-        BattleManager battleManager = FindObjectOfType<BattleManager>();
-        battleManager.StartBattle(selfPlayer, currentOpponent);*/
-    }
-
-    public void OnRoundEnd(bool playerWon, int survivingEnemyUnits) //전투 종료 후 결과를 처리하고 다음 라운드를 시작합니다.
-    {
-        if (!playerWon)
+        else
         {
-            ApplyDamage(survivingEnemyUnits);
+            // 다음 라운드 시작
+            if (roundCoroutine != null)
+                StopCoroutine(roundCoroutine);
+            roundCoroutine = StartCoroutine(StartRoundCoroutine());
         }
-
-        // 라운드 증가
-        currentRound++;
-
-        // 다음 라운드 시작
-        StartRound();
     }
 
-    void ApplyDamage(int survivingEnemyUnits) //패배 시 데미지를 계산하여 플레이어의 체력에 반영합니다.
+    void ApplyDamage(int survivingEnemyUnits)
     {
         int index = currentStage - 1;
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
@@ -105,7 +149,7 @@ public class StageManager : MonoBehaviour
         Debug.Log($"현재 스테이지: {currentStage}, 현재 라운드: {currentRound}");
     }
 
-    void ShuffleOpponents() //상대 리스트를 랜덤으로 섞어 동일한 상대와 연속으로 매칭되지 않도록 합니다.
+    void ShuffleOpponents()
     {
         for (int i = 0; i < opponents.Count; i++)
         {
@@ -114,5 +158,15 @@ public class StageManager : MonoBehaviour
             opponents[i] = opponents[randomIndex];
             opponents[randomIndex] = temp;
         }
+    }
+
+    bool IsAugmentRound(int stage, int round)
+    {
+        // 증강 선택 라운드: 2-1, 3-2, 4-2
+        if ((stage == 2 && round == 1) || (stage == 3 && round == 2) || (stage == 4 && round == 2))
+        {
+            return true;
+        }
+        return false;
     }
 }
