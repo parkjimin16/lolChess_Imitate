@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Warwick
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Warwick
   championName: "\uC6CC\uC705"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 79a61e6c03b69554cb3a948c991c07c7, type: 3}
   championLine_First: 5
   championLine_Second: 0
   championJob_First: 6
   championJob_Second: 0
   championCost: 1
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 700

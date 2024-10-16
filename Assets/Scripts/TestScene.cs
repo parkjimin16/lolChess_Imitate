@@ -13,6 +13,9 @@ public class TestScene : UIBase
     [SerializeField] private GameObject championObject;
     [SerializeField] private GameObject targetObject;
 
+    [SerializeField] private List<GameObject> championPos;
+    private int currentChampionIndex = 0;
+
     private bool isLoadComplete = false;
     public int Level = 1;
 
@@ -33,13 +36,10 @@ public class TestScene : UIBase
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            championObject = Manager.Asset.InstantiatePrefab("ChampionFrame_Ahri");
-            championObject.transform.position = new Vector3(0,0,0);
+            //championObject = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            //championObject.transform.position = new Vector3(0,0,0);
+            
 
-            if(championObject == null)
-            {
-                Debug.Log("Null");
-            }
             gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
 
 
@@ -47,10 +47,16 @@ public class TestScene : UIBase
         else if(Input.GetKeyDown(KeyCode.X))
         {
             InitBtn();
-            BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
 
-            bSkill.UseSkill();
-            bSkill.UseSkillTarget(targetObject);
+            //ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Ahri") as ChampionBlueprint;
+            //ChampionBase cBase = championObject.GetComponent<ChampionBase>();
+
+            //cBase.SetChampion(cBlueprint);
+            //cBase.ChampionInit();
+
+            //BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
+            //bSkill.UseSkill();
+            //bSkill.UseSkillTarget(targetObject);
 
             Manager.Item.Init();
         }
@@ -61,6 +67,39 @@ public class TestScene : UIBase
         SetUI<Button>();
 
         SetButtonEvent("Btn_Reroll", UIEventType.Click, UpdateChampionSlot);
+
+        foreach (GameObject slot in championSlotList)
+        {
+            Button button = slot.GetComponent<Button>();
+            ChampionSlot cSlot = slot.GetComponent<ChampionSlot>();
+
+
+            if (button != null)
+            {
+                button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint));
+            }
+        }
+    }
+
+
+    private void InstantiateChampion(ChampionBlueprint cBlueprint)
+    {
+        if (currentChampionIndex < championPos.Count)
+        {
+            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+            newChampionObject.transform.position = championPos[currentChampionIndex].transform.position;
+
+            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+
+            cBase.SetChampion(cBlueprint);
+            cBase.ChampionInit();
+
+            currentChampionIndex++;
+        }
+        else
+        {
+            Debug.LogWarning("모든 챔피언 위치가 사용되었습니다.");
+        }
     }
 
     private void UpdateChampionSlot(PointerEventData enterEvent)

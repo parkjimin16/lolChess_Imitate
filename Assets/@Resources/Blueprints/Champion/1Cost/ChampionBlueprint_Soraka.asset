@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Soraka
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Soraka
   championName: "\uC18C\uB77C\uCE74"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 749c5cf8532d2e04ba36cd8527f38ba3, type: 3}
   championLine_First: 1
   championLine_Second: 0
   championJob_First: 9
   championJob_Second: 0
   championCost: 1
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 450

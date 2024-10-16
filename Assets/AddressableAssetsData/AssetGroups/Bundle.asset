@@ -1193,6 +1193,360 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fafa8f8197cdd445b8499885de6b82d
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Ashe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e5a0e665683e3c4b8706d45d6abb5e0
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Blitzcrank.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1679a91489064824c93d95f0a6dd3fdc
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Elise.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 385228c0551b99d4ab7bffbf6905b423
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Jax.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbde170d5a823c8458f7ab8638e83c98
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Jayce.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4651aca09a5c154b892a7c1118da0fc
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Lillia.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e13281f365a19f4197fe613d24a3469
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Nomsy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3d956ae9b7186c49ae13a8ae48d87bb
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Poppy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f60c9fbd1a6acfe4d9ff9f42f3be0d76
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Seraphine.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 749c5cf8532d2e04ba36cd8527f38ba3
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Soraka.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 598d65f2c7528f343bccf4ac85a16dfd
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Twitch.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79a61e6c03b69554cb3a948c991c07c7
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Warwick.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5e4014cd43d6d445be7056d678f9970
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Ziggs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b037ca0f5c9ef7a499909ba425a9063c
+    m_Address: Assets/@Resources/Prefab/Champion/1Cost/ChampionFrame_Zoe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76b5542a56468354e95f3706b0f8b07e
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Akali.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 279685aee40a6954b8573bc4727c5172
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Cassiopeia.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 257ed067dd4a5a442b1176bc160f815e
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Galio.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51b771ea0e0bdc344962ac5f2c91aeab
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Kassadin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0364b685348632469a1b805b2523741
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_KogMaw.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4282857048861cf42bb59c16079c9aae
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Nilah.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 342015c9a64445b4d80d2413c0c17b74
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Nunu.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2efc37b5c4ef09c47ad786cee74a729f
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Rumble.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65ccacc2cfe925b44963a743d86a261a
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Shyvana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 975a473fbf8008a4dae8c356eea30bf0
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Syndra.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 375b359c81873314bada67ff60ea8e3a
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Tristana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 879b352b02607df42b2c1f36fd009324
+    m_Address: Assets/@Resources/Prefab/Champion/2Cost/ChampionFrame_Zilean.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eff8d773a5ff73447b1359401b579cdf
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Bard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d2b2d9008cbc4145af8a7744a93aec5
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Ezreal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8f4288f920aee4428d3dd47ed6af49b
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Hecarim.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea0d79bf7027f09428ba82acd3ed9e7a
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Hwei.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8abf7272a7241c743b68ee3265192947
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Jinx.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d90408e1581708748875e37f137cd0f3
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Katarina.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84b90121129490b47ba923d57c8d6335
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Mordekaiser.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbcb9c21026103748a292984f1769597
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Neeko.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b95090bd97f2a541a82b58c538c28e3
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Shen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb60ca7b4384d4848b81b96a5513083b
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Swain.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5e1724b33211d14692c66a8b413a9f3
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Veigar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 185ae37d25208cb4388549e6f775089d
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Vex.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab6b2d7558bbecf4fae1167d82f855ba
+    m_Address: Assets/@Resources/Prefab/Champion/3Cost/ChampionFrame_Wukong.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cb8299c2468ea242bba888247b7ad52
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Fiora.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 514c4df706d41e54f86d20374cf14e54
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Gwen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b88af2308a5a62a44b39037280b33ca1
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Kalista.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4f575150b8b1e7409d733e0766dfcc3
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Karma.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59764d9182700cf4ca36b64809dd077b
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Nami.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16f675c0203e7bb4b848aecefda66350
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Nasus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8dcf82bb39ae30f4bb7140e742b71a42
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Olaf.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67f265d65d5973d42bba6d56b8005704
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Rakan.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2620882262162c24da6b207fb2d8b6af
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Ryze.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84a566ad4894c774d849baf46078a289
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_TahmKench.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: affbf21dc02b493489ca301ef151d8d6
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Taric.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4be091f0ae920f4d96a7f049952206d
+    m_Address: Assets/@Resources/Prefab/Champion/4Cost/ChampionFrame_Varus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f09bc11607683e4a9845e964c36323f
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Briar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a69f0b4af42ec3a41ae3ec0354b70ce9
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Camille.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b57ccc5824437d4c94d80d9ac8f5b29
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Diana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63ca7519172886c43949687c2b15afd8
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Milio.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71c6fa73e3e094249988b7a2d110fc34
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Morgana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 315cca3c6a7a2004290d8bcacfb1527f
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_NorraYuumi.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20c6de2d9fe2cde4e9611e46e3178c92
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Smolder.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f9b0107f5fafb94b8be02fb37dedaea
+    m_Address: Assets/@Resources/Prefab/Champion/5Cost/ChampionFrame_Xerath.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

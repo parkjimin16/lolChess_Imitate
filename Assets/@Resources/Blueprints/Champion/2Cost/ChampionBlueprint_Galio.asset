@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Galio
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Galio
   championName: "\uAC08\uB9AC\uC624"
-  championObj: {fileID: 7600294620243936368, guid: ff6ffd6b58bbe414a984aa38eb853481, type: 3}
+  championObj: {fileID: 5665606537432512241, guid: 257ed067dd4a5a442b1176bc160f815e, type: 3}
   championLine_First: 11
   championLine_Second: 0
   championJob_First: 6
   championJob_Second: 9
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 750

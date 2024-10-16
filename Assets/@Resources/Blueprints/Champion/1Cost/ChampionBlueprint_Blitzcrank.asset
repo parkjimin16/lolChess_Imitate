@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Blitzcrank
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Blitzcrank
   championName: "\uBE14\uB9AC\uCE20\uD06C\uB7AD\uD06C"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 0e5a0e665683e3c4b8706d45d6abb5e0, type: 3}
   championLine_First: 4
   championLine_Second: 0
   championJob_First: 6
   championJob_Second: 0
   championCost: 1
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 650

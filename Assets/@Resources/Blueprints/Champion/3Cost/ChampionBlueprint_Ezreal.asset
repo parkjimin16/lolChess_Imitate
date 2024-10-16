@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Ezreal
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Ezreal
   championName: "\uC774\uC988\uB9AC\uC5BC"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 0d2b2d9008cbc4145af8a7744a93aec5, type: 3}
   championLine_First: 11
   championLine_Second: 0
   championJob_First: 12
   championJob_Second: 0
   championCost: 3
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 700

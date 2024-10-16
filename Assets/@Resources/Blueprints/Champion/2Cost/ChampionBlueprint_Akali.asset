@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Akali
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Akali
   championName: "\uC544\uCE7C\uB9AC"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 76b5542a56468354e95f3706b0f8b07e, type: 3}
   championLine_First: 13
   championLine_Second: 0
   championJob_First: 7
   championJob_Second: 10
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 700

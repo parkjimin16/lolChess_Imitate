@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Tristana
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Tristana
   championName: "\uD2B8\uB9AC\uC2A4\uD0C0\uB098"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 375b359c81873314bada67ff60ea8e3a, type: 3}
   championLine_First: 9
   championLine_Second: 0
   championJob_First: 12
   championJob_Second: 0
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 550

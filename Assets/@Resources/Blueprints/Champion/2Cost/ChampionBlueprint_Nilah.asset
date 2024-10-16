@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Nilah
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Nilah
   championName: "\uB2D0\uB77C"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 4282857048861cf42bb59c16079c9aae, type: 3}
   championLine_First: 6
   championLine_Second: 0
   championJob_First: 10
   championJob_Second: 0
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 700

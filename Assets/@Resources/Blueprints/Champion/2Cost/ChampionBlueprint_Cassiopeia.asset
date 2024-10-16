@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Cassiopeia
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Cassiopeia
   championName: "\uCE74\uC2DC\uC624\uD398\uC544"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 279685aee40a6954b8573bc4727c5172, type: 3}
   championLine_First: 3
   championLine_Second: 0
   championJob_First: 2
   championJob_Second: 0
   championCost: 2
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 600

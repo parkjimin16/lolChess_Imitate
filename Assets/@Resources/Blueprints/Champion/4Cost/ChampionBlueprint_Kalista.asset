@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Kalista
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Kalista
   championName: "\uCE7C\uB9AC\uC2A4\uD0C0"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: b88af2308a5a62a44b39037280b33ca1, type: 3}
   championLine_First: 9
   championLine_Second: 0
   championJob_First: 7
   championJob_Second: 0
   championCost: 4
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 850

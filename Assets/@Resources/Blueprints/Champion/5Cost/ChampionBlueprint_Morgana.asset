@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Morgana
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Morgana
   championName: "\uBAA8\uB974\uAC00\uB098"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: 71c6fa73e3e094249988b7a2d110fc34, type: 3}
   championLine_First: 3
   championLine_Second: 0
   championJob_First: 3
   championJob_Second: 4
   championCost: 0
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 1100

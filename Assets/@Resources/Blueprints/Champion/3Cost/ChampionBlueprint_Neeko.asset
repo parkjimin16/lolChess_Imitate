@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Neeko
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Neeko
   championName: "\uB2C8\uCF54"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: cbcb9c21026103748a292984f1769597, type: 3}
   championLine_First: 3
   championLine_Second: 0
   championJob_First: 14
   championJob_Second: 0
   championCost: 3
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 900

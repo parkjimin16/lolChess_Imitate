@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6e2b35faa36754aa8fd56768b9ac5d, type: 3}
   m_Name: ChampionBlueprint_Ziggs
   m_EditorClassIdentifier: 
+  championInstantiateName: ChampionFrame_Ziggs
   championName: "\uC9C1\uC2A4"
-  championObj: {fileID: 0}
+  championObj: {fileID: 5665606537432512241, guid: d5e4014cd43d6d445be7056d678f9970, type: 3}
   championLine_First: 4
   championLine_Second: 0
   championJob_First: 2
   championJob_Second: 0
   championCost: 1
+  championImage: {fileID: 0}
   championLevelData:
   - Level: 1
     Hp: 450
