@@ -663,7 +663,6 @@ GameObject:
   - component: {fileID: 1405685929}
   - component: {fileID: 1405685931}
   - component: {fileID: 1405685932}
-  - component: {fileID: 1405685933}
   - component: {fileID: 1405685934}
   - component: {fileID: 1405685935}
   m_Layer: 0
@@ -735,21 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec80b6e8ed47f9438eb31fd539aba98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1405685933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405685928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8511578c4954a604ba56b63ad94d057b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerGoldList: []
-  EnemyGoldList: []
-  currentGold: 0
 --- !u!114 &1405685934
 MonoBehaviour:
   m_ObjectHideFlags: 0

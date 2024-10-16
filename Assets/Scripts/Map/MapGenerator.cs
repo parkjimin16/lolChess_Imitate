@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.UI.GridLayoutGroup;
+using UnityEngine.UIElements;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -29,14 +31,18 @@ public class MapGenerator : MonoBehaviour
     private float mapWidthSize;
     private float mapHeightSize;
 
+    private GameObject User;
+
     private void Awake()
     {
+        User = new GameObject("User1");
+        
+
         CalculateTileSize();
-        GenerateMap();
-        CreateItemTiles();
+        CreatUserMap();
+        GenerateMap(User.transform);
         AdjustCamera();
         CreatePlayerUnits();
-        CreateGoldTiles();
     }
     void Start()
     {
@@ -54,7 +60,50 @@ public class MapGenerator : MonoBehaviour
         rectWidthSize = (Mathf.Sqrt(3) * tileSize) * rectWidthRatio; // 직사각형 타일의 폭
     }
 
-    void GenerateMap()
+    void CreatUserMap()
+    {
+        int totalUsers = 8; // 총 유저 수 (플레이어 포함)
+        //int gridSize = 3; // 3x3 격자 (가운데는 비움)
+        float mapSpacing = 40f; // 각 맵 간의 거리
+
+        // 3x3 격자에서 (1,1)은 비워두고, 나머지 8개의 칸에 맵을 배치
+        int[,] gridPositions = new int[,]
+        {
+        {0, 0}, {0, 1}, {0, 2},
+        {1, 0},        {1, 2},
+        {2, 0}, {2, 1}, {2, 2}
+        };
+
+        for (int i = 0; i < totalUsers; i++)
+        {
+            // 격자의 (x, z) 위치 계산
+            int gridX = gridPositions[i, 0];
+            int gridZ = gridPositions[i, 1];
+
+            // 각 유저의 맵 위치 계산
+            Vector3 mapPosition = new Vector3(gridX * mapSpacing, 0, gridZ * mapSpacing);
+
+            // 맵을 생성하고 해당 위치에 배치
+            GameObject userMap = new GameObject($"User_{i}_Map");
+            userMap.transform.position = mapPosition;
+            userMap.transform.SetParent(this.transform);
+            userMap.AddComponent<GoldDisplay>();
+
+            GenerateMap(userMap.transform);
+
+            //GenerateMapForUser(userMap.transform, i);
+        }
+    }
+
+    /*void GenerateMapForUser(Transform parent, int userId)
+    {
+        // 맵을 생성하고 해당 유저의 부모 오브젝트로 설정
+        GenerateMap();
+        this.transform.SetParent(parent); // 생성된 맵을 유저의 맵에 할당
+    }*/
+
+
+    void GenerateMap(Transform parent)
     {
         float hexWidth = Mathf.Sqrt(3) * tileSize;
         float hexHeight = tileSize * 2f; // 헥사곤의 높이
@@ -70,27 +119,32 @@ public class MapGenerator : MonoBehaviour
         // 헥사곤 타일 생성
         for (int r = 0; r < height; r++)
         {
-            int numCols = width; // 모든 행에서 타일 개수를 동일하게 설정
+            int numCols = width;
 
             for (int q = 0; q < numCols; q++)
             {
                 float xPos = q * hexWidth - (r % 2) * (hexWidth / 2f) - xOffset;
                 float zPos = r * (hexHeight * 0.75f) - zOffset;
 
-                Vector3 position = new Vector3(xPos, 0, zPos);
+                // 부모 오브젝트의 위치를 기준으로 위치 조정
+                Vector3 position = parent.position + new Vector3(xPos, 0, zPos);
 
-                CreateHexTile(position, q, r);
+                CreateHexTile(position, q, r, parent);
             }
         }
 
-        // 맨 위와 맨 아래에 직사각형 타일 생성
-        CreateRectangularRow(-1, -hexHeight * 0.75f - zOffset);
-        CreateRectangularRow(height, hexHeight * 0.75f * (height) - zOffset);
+        // 맨 위와 맨 아래에 직사각형 타일 생성 (위치 조정 포함)
+        CreateRectangularRow(-1, -hexHeight * 0.75f - zOffset, parent);
+        CreateRectangularRow(height, hexHeight * 0.75f * (height) - zOffset, parent);
+        CreateItemTiles(parent);
+        CreateGoldTiles(parent);
+
+        //gameObject.transform.SetParent(User.transform);
     }
 
-    void CreateHexTile(Vector3 position, int q, int r)
+    void CreateHexTile(Vector3 position, int q, int r, Transform parent)
     {
-        GameObject tile = Instantiate(hexTilePrefab, position, Quaternion.identity, this.transform);
+        GameObject tile = Instantiate(hexTilePrefab, position, Quaternion.identity, parent);
         tile.name = $"Hex_{r}_{q}";
         if(r <= 3)
         {
@@ -103,12 +157,15 @@ public class MapGenerator : MonoBehaviour
         hexTile.s = -q - r;
     }
 
-    void CreateRectangularRow(int row, float zPos)
+    void CreateRectangularRow(int row, float zPos, Transform parent)
     {
+        // zPos에 부모의 z 위치를 더합니다.
+        zPos += parent.position.z;
+
         float rectRowWidth = rectWidthSize * rectWidth;
         float xOffset = rectRowWidth / 2f - rectWidthSize / 2f;
 
-        float zOffset = (tileSize * 2f * 0.75f) / 2f; // 육각형 타일 높이의 절반
+        float zOffset = (tileSize * 2f * 0.75f) / 2f;
 
         if (row == -1)
             zPos -= zOffset + gapBetweenTiles;
@@ -118,12 +175,12 @@ public class MapGenerator : MonoBehaviour
         for (int x = 0; x < rectWidth; x++)
         {
             float xPos = x * rectWidthSize - xOffset;
+            // xPos는 parent.position.x와 합산됩니다.
+            Vector3 position = new Vector3(xPos + parent.position.x, 0, zPos);
 
-            Vector3 position = new Vector3(xPos, 0, zPos);
-
-            GameObject tile = Instantiate(rectTilePrefab, position, Quaternion.identity, this.transform);
+            GameObject tile = Instantiate(rectTilePrefab, position, Quaternion.identity, parent);
             tile.name = $"Rect_{x}_{row}";
-            if(row == -1)
+            if (row == -1)
             {
                 tile.layer = LayerMask.NameToLayer("PlayerTile");
             }
@@ -176,7 +233,8 @@ public class MapGenerator : MonoBehaviour
             unit.PlaceOnTile(tile);
         }
     }
-    void CreateItemTile(Vector3 position, int cornerId)
+
+    /*void CreateItemTile(Vector3 position, int cornerId)
     {
         GameObject tile = Instantiate(itemTilePrefab, position, Quaternion.identity, this.transform);
         tile.name = $"ItemTile_{cornerId}";
@@ -184,49 +242,59 @@ public class MapGenerator : MonoBehaviour
         {
             tile.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
-        /*GameObject item1 = Instantiate(itemPrefeb, gameObject.GetComponent<ItemHandler>()._items[0].transform.position, 
-            Quaternion.identity, this.transform);*/
-    }
-    void CreateItemTiles()
+        GameObject item1 = Instantiate(itemPrefeb, gameObject.GetComponent<ItemHandler>()._items[0].transform.position, 
+            Quaternion.identity, this.transform);
+    }*/
+
+    void CreateItemTiles(Transform parent)
     {
-        float cornerTileOffset = rectWidthSize * 0.6f; // 맵 가장자리에서 약간 떨어뜨리기 위한 오프셋
-        float adjustedTileOffset = rectWidthSize; // 간격을 고려한 타일 오프셋
+        float cornerTileOffset = rectWidthSize * 0.6f;
+        float adjustedTileOffset = rectWidthSize;
 
-        Vector3 bottomLeftPos = new Vector3(-mapWidthSize / 2f - cornerTileOffset - 0.5f, 0, -mapHeightSize / 2f - cornerTileOffset - 0.3f);
-        CreateItemTile(bottomLeftPos, 0);
+        Vector3 bottomLeftPos = parent.position + new Vector3(-mapWidthSize / 2f - cornerTileOffset - 0.5f, 0, -mapHeightSize / 2f - cornerTileOffset - 0.3f);
+        Vector3 topRightPos = parent.position + new Vector3(mapWidthSize / 2f + cornerTileOffset + 0.5f, 0, mapHeightSize / 2f + cornerTileOffset + 0.3f);
 
-        Vector3 topRightPos = new Vector3(mapWidthSize / 2f + cornerTileOffset + 0.5f, 0, mapHeightSize / 2f + cornerTileOffset + 0.3f);
-        CreateItemTile(topRightPos, 1);
+        for (int i = 0; i < 2; i++)
+        {
+            if (i == 0)
+            {
+                GameObject tile = Instantiate(itemTilePrefab, bottomLeftPos, Quaternion.identity, parent);
+                tile.name = $"ItemTile_{0}";
+            }
+            else
+            {
+                GameObject tile1 = Instantiate(itemTilePrefab, topRightPos, Quaternion.identity, parent);
+                tile1.name = $"ItemTile_{1}";
+                tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+            }
+        }
     }
-    void CreateGoldTiles()
-    {
-        // 왼쪽과 오른쪽의 x 위치 계산
-        float xOffset = mapWidthSize / 2f + goldSlotSize / 2f + 0.5f;
-        float xLeft = -xOffset;
-        float xRight = xOffset;
 
-        // 골드 타일을 수직으로 중앙에 배치하기 위한 시작 z 위치 계산
-        goldSlotSpacing = 1f; // 간격을 늘림
-        float extraSpacing = 0.2f; // 추가 간격 설정
+    void CreateGoldTiles(Transform parent)
+    {
+        float xOffset = mapWidthSize / 2f + goldSlotSize / 2f + 2.3f;
+        float xLeft = parent.position.x - xOffset;
+        float xRight = parent.position.x + xOffset;
+
+        goldSlotSpacing = 1f;
+        float extraSpacing = 0.2f;
 
         float totalGoldSlotsHeight = maxGoldSlots * goldSlotSize + (maxGoldSlots - 1) * (goldSlotSpacing + extraSpacing);
-        float startZ = -totalGoldSlotsHeight / 2f + goldSlotSize / 2f;
+        float startZ = parent.position.z - totalGoldSlotsHeight / 2f + goldSlotSize / 2f;
 
         for (int i = 0; i < maxGoldSlots; i++)
         {
             float zPos = startZ + i * (goldSlotSize + goldSlotSpacing);
 
-            // 왼쪽 골드 타일 생성
             Vector3 leftPos = new Vector3(xLeft, 0, zPos);
-            GameObject PlayerTile = Instantiate(goldTilePrefeb, leftPos, goldTilePrefeb.transform.rotation, this.transform);
+            GameObject PlayerTile = Instantiate(goldTilePrefeb, leftPos, goldTilePrefeb.transform.rotation, parent);
             PlayerTile.name = $"PlayerGoldTile_{i}";
             GameObject PlayerGold = Instantiate(goldPrefeb, PlayerTile.transform.position, transform.rotation, this.transform);
             PlayerGold.name = $"PlayerGold_{i}";
             PlayerGold.transform.SetParent(PlayerTile.transform);
-            
-            // 오른쪽 골드 타일 생성
+
             Vector3 rightPos = new Vector3(xRight, 0, zPos);
-            GameObject EnemyTile = Instantiate(goldTilePrefeb, rightPos, goldTilePrefeb.transform.rotation, this.transform);
+            GameObject EnemyTile = Instantiate(goldTilePrefeb, rightPos, goldTilePrefeb.transform.rotation, parent);
             EnemyTile.name = $"EnemyGoldTile_{i}";
             GameObject EnemyGold = Instantiate(goldPrefeb, EnemyTile.transform.position, transform.rotation, this.transform);
             EnemyGold.name = $"EnemyGold_{i}";
