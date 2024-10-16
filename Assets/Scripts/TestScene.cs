@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class TestScene : UIBase
 {
+    public static bool GameStart;
+
     [SerializeField] private List<GameObject> championSlotList;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private List<ItemBlueprint> itemBlueprint;
     [SerializeField] private List<string> shopChampionList;
-    [SerializeField] private GameObject championObject;
+    //[SerializeField] private GameObject championObject;
     [SerializeField] private GameObject targetObject;
 
     [SerializeField] private List<GameObject> championPos;
@@ -26,7 +28,8 @@ public class TestScene : UIBase
             if (count >= totalCount)
             {
                 isLoadComplete = true;
-                championObject = null;
+                //championObject = null;
+                GameStart = false;
                 Debug.Log("Complete");
             }
         });
@@ -47,7 +50,7 @@ public class TestScene : UIBase
         else if(Input.GetKeyDown(KeyCode.X))
         {
             InitBtn();
-
+            GameStart = true;
             //ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Ahri") as ChampionBlueprint;
             //ChampionBase cBase = championObject.GetComponent<ChampionBase>();
 

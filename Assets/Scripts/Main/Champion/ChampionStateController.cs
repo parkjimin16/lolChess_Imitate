@@ -5,75 +5,71 @@ using UnityEngine;
 
 public class ChampionStateController : MonoBehaviour
 {
+    private FSMManager fsm;
     private ChampionBase cBase;
-    
-    [SerializeField] 
-    private IState currentState;
 
-    private IdleState idleState;
-    private MoveState moveState;
-    private AttackState attackState;
-    private SkillState skillState;
-    private DieState dieState;
-
+    [SerializeField] private ChampionState curState;
 
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
+
+        curState = ChampionState.Idle;
+        fsm = new FSMManager(new IdleState(cBase));
     }
 
-
-    public void ChangeState(IState newState)
-    {
-        if(currentState != null)
-        {
-            currentState.Exit(cBase);
-        }
-
-        currentState = newState;
-
-        if(currentState != null)
-        {
-            currentState.Enter(cBase);
-        }
-    }
-
-
-    private void Awake()
-    {
-        idleState = new IdleState();
-        moveState = new MoveState();
-        attackState = new AttackState();
-        skillState = new SkillState();
-        dieState = new DieState();
-    }
-
-    private void Start()
-    {
-        ChangeState(idleState);
-    }
 
     private void Update()
     {
-        if(currentState != null)
+        switch (curState)
         {
-            currentState.Execute(cBase);
+            case ChampionState.Idle:
+                if (TestScene.GameStart)
+                {
+                    ChangeState(ChampionState.Move, cBase);
+                }
+                break;
+
+            case ChampionState.Move:
+                if (cBase.ChampionAttackController.IsAttack)
+                {
+                    ChangeState(ChampionState.Attack, cBase);
+                }
+
+                break;
+
+            case ChampionState.Attack:
+                if (!cBase.ChampionAttackController.IsAttack)
+                {
+                    ChangeState(ChampionState.Move, cBase);
+                }
+
+
+                if(!TestScene.GameStart) 
+                {
+                    ChangeState(ChampionState.Idle, cBase);
+                }
+                break;
         }
 
-        AttackLogic();
+        fsm.UpdateState(cBase);
     }
 
-    private void AttackLogic()
+    public void ChangeState(ChampionState newState, ChampionBase cBase)
     {
-        if(cBase == null)
-        {
-            Debug.Log("cBase Null");
-            return;
-        }
+        curState = newState;
 
-        if (!cBase.ChampionAttackController.IsAttack)
+        switch(curState)
         {
-            cBase.ChampionAttackController.AttackLogic();
+            case ChampionState.Idle:
+                fsm.ChangeState(new IdleState(cBase), cBase);
+                break;
+            case ChampionState.Move:
+                fsm.ChangeState(new MoveState(cBase), cBase);
+                break;
+            case ChampionState.Attack:
+                fsm.ChangeState(new AttackState(cBase), cBase);
+                break;
         }
     }
 }

@@ -1,79 +1,77 @@
+using System;
+using UnityEngine;
 
 namespace ChampionOwnedStates
 {
-    public class IdleState : IState
+    public class IdleState : BaseState
     {
-        public void Enter(ChampionBase champion)
-        {
+        public IdleState(ChampionBase championBase) : base(championBase) { }
 
-        }
-        public void Execute(ChampionBase champion)
-        {
 
+        public override void Enter(ChampionBase champion)
+        {
+ 
         }
-        public void Exit(ChampionBase champion)
+        public override void Execute(ChampionBase champion)
+        {
+            // 라운드 실행 X
+        }
+        public override void Exit(ChampionBase champion)
         {
 
         }
     }
-    public class MoveState : IState
+    public class MoveState : BaseState
     {
-        public void Enter(ChampionBase champion)
+        public MoveState(ChampionBase championBase) : base(championBase) { }
+
+        public override void Enter(ChampionBase champion)
         {
 
         }
-        public void Execute(ChampionBase champion)
+        public override void Execute(ChampionBase champion)
         {
-
+            // 전투 시작
         }
-        public void Exit(ChampionBase champion)
+        public override void Exit(ChampionBase champion)
         {
 
         }
     }
-    public class AttackState : IState
+    public class AttackState : BaseState
     {
-        public void Enter(ChampionBase champion)
+        public AttackState(ChampionBase championBase) : base(championBase) { }
+
+        public override void Enter(ChampionBase champion)
         {
 
         }
-        public void Execute(ChampionBase champion)
+        public override void Execute(ChampionBase champion)
         {
-
+            if (champion.ChampionAttackController.IsAttack)
+            {
+                champion.ChampionAttackController.AttackLogic();
+            }
         }
-        public void Exit(ChampionBase champion)
-        {
-
-        }
-    }
-
-    public class SkillState : IState
-    {
-        public void Enter(ChampionBase champion)
-        {
-
-        }
-        public void Execute(ChampionBase champion)
-        {
-
-        }
-        public void Exit(ChampionBase champion)
+        public override void Exit(ChampionBase champion)
         {
 
         }
     }
 
-    public class DieState : IState
+
+    public class DieState : BaseState
     {
-        public void Enter(ChampionBase champion)
+        public DieState(ChampionBase championBase) : base(championBase) { }
+        public override void Enter(ChampionBase champion)
         {
 
         }
-        public void Execute(ChampionBase champion)
+        public override void Execute(ChampionBase champion)
         {
 
         }
-        public void Exit(ChampionBase champion)
+        public override void Exit(ChampionBase champion)
         {
 
         }

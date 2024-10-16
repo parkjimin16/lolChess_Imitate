@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class ChampionBase : MonoBehaviour
@@ -126,7 +123,9 @@ public class ChampionBase : MonoBehaviour
         championBlueprint = blueprint;
         skillBlueprint = blueprint.SkillBlueprint;
         skillObject = blueprint.SkillBlueprint.SkillObject;
-        baseSkill = blueprint.SkillBlueprint.SkillObject.GetComponent<BaseSkill>();
+
+        if(baseSkill != null)
+            baseSkill = blueprint.SkillBlueprint.SkillObject.GetComponent<BaseSkill>();
 
         championName = blueprint.ChampionName;
         line_first = blueprint.ChampionLine_First;

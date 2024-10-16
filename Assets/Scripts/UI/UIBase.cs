@@ -121,7 +121,6 @@ public class UIBase : MonoBehaviour
     {
         Button button = GetUI<Button>(buttonName);
         button.gameObject.SetEvent(uIEventType, action);
-        Debug.Log(button.transform.ToString());
         return button;
     }
 
