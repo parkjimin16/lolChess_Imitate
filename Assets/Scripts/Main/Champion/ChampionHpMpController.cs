@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChampionHealthController : MonoBehaviour
+public class ChampionHpMpController : MonoBehaviour
 {
     private ChampionBase cBase;
 
@@ -19,10 +19,28 @@ public class ChampionHealthController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         cBase.CurHP -= (int)damage;
+        DamageMana();
     }
 
-    private void Die()
-    {
+    
 
+    public bool IsManaFull()
+    {
+        return cBase.CurMana >= cBase.MaxMana;
+    }
+
+    public void UseSkillMana()
+    {
+        cBase.CurMana = 0;
+    }
+
+    public void NormalAttackMana()
+    {
+        cBase.CurMana += 5;
+    }
+
+    public void DamageMana()
+    {
+        cBase.CurMana += 5;
     }
 }

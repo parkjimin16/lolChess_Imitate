@@ -7,7 +7,7 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private Canvas UICanvas;
     [SerializeField] private ChampionAttackController championAttackController;
     [SerializeField] private ChampionAnimController championAnimController;
-    [SerializeField] private ChampionHealthController championHealthController;
+    [SerializeField] private ChampionHpMpController championHpMpController;
     [SerializeField] private ChampionStateController championStateController;
     [SerializeField] private ChampionView championView;
 
@@ -59,7 +59,7 @@ public class ChampionBase : MonoBehaviour
 
     public ChampionAttackController ChampionAttackController => championAttackController;
     public ChampionAnimController ChampionAnimController => championAnimController;
-    public ChampionHealthController ChampionHealthController => championHealthController;
+    public ChampionHpMpController ChampionHpMpController => championHpMpController;
     public ChampionStateController ChampionStateController => championStateController;
     public ChampionView ChampionView => championView;
 
@@ -165,7 +165,7 @@ public class ChampionBase : MonoBehaviour
     {
         championAnimController.Init(this);
         championAttackController.Init(this, attack_Speed, attack_Range, curMana, maxMana);
-        championHealthController.Init(this);
+        championHpMpController.Init(this);
         championStateController.Init(this);
         championView.Init(this);
     }
@@ -178,7 +178,7 @@ public class ChampionBase : MonoBehaviour
 
         championAttackController = GetComponent<ChampionAttackController>();
         championAnimController = GetComponent<ChampionAnimController>();
-        championHealthController = GetComponent<ChampionHealthController>();
+        championHpMpController = GetComponent<ChampionHpMpController>();
         championStateController = GetComponent<ChampionStateController>();
         championView = GetComponent<ChampionView>();
     }

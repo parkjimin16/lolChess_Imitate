@@ -32,9 +32,9 @@ public class NormalProjectile : MonoBehaviour
         if (other.gameObject == target) 
         {
             ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-            if (targetHealth != null && targetHealth.ChampionHealthController != null)
+            if (targetHealth != null && targetHealth.ChampionHpMpController != null)
             {
-                targetHealth.ChampionHealthController.TakeDamage(damage);
+                targetHealth.ChampionHpMpController.TakeDamage(damage);
             }
 
             Destroy(gameObject);

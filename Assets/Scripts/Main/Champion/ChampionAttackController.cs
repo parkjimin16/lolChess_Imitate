@@ -14,8 +14,6 @@ public class ChampionAttackController : MonoBehaviour
 
     private float attack_Speed;
     private float attack_Range;
-    private float curMana;
-    private float maxMana;
 
     public bool IsAttack; // 전체 체크 용
     private bool attackLogic;
@@ -32,18 +30,12 @@ public class ChampionAttackController : MonoBehaviour
         }
     }
 
-    public bool IsManaFull()
-    {
-        return curMana >= maxMana;
-    }
 
     public void Init(ChampionBase championBase, float _atk_Speed, float _atk_Range, float _curMana, float _maxMana)
     {
         cBase = championBase;
         attack_Speed = _atk_Speed;
         attack_Range = _atk_Range;
-        curMana = _curMana;
-        maxMana = _maxMana;
 
         IsAttack = false;
         attackLogic = false;
@@ -88,25 +80,21 @@ public class ChampionAttackController : MonoBehaviour
                 yield return null;
             }
 
-            ChampionBase targetHealth = target.GetComponent<ChampionBase>();
 
-
-
-            CreateNormalAttack(target);
-
-            /*
-            if (IsManaFull())
+            if (cBase.ChampionHpMpController.IsManaFull())
             {
                 UseSkill(target);
+                cBase.ChampionHpMpController.UseSkillMana();
             }
             else
             {
                 CreateNormalAttack(target);
             }
-            */
+
+            cBase.ChampionHpMpController.NormalAttackMana();
+
 
             //yield return new WaitForSeconds(cBase.Attack_Speed);
-            
             yield return new WaitForSeconds(0.5f);
         }
     }
