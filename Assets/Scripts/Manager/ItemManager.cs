@@ -83,7 +83,8 @@ public class ItemManager
             }
         }
 
-        return null;
+        // 조합 실패
+        return "error";
     }
 
     public GameObject CreateItem(string itemId, Vector3 pos)

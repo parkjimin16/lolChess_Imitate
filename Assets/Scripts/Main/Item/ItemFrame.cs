@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class ItemFrame : MonoBehaviour
 {
@@ -87,7 +88,7 @@ public class ItemFrame : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            Collider[] hitColliders = Physics.OverlapSphere(hit.point, 0.5f); // 반지름 0.5 단위로 탐색
+            Collider[] hitColliders = Physics.OverlapSphere(hit.point, 1f); 
 
             foreach (Collider collider in hitColliders)
             {
@@ -98,7 +99,17 @@ public class ItemFrame : MonoBehaviour
                     if (iFrame != null)
                     {
                         string name = Manager.Item.ItemCombine(itemBlueprint.ItemId, iFrame.ItemBlueprint.ItemId);
+
+                        if(name == "error")
+                        {
+                            Debug.Log("조합 잘못함");
+                            return;
+                        }
+
                         Manager.Item.CreateItem(name, new Vector3(0, 0, 0));
+
+                        Destroy(hit.transform.gameObject);
+                        Destroy(gameObject);
                         break; 
                     }
                 }
