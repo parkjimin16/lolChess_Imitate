@@ -11,13 +11,6 @@ public class ItemFrame : MonoBehaviour
     [SerializeField] private TextMeshPro txt_ItemName;
     [SerializeField] private ItemBlueprint itemBlueprint;
 
-    // 드래그
-    private Vector3 offset;
-    private RectTransform rectTransform;
-    private Camera mainCamera;
-    private bool isDragging = false;
-
-
     #region Property
     public Image ItemImage => itemImge;
     public TextMeshPro Txt_ItemName => txt_ItemName;
@@ -37,84 +30,27 @@ public class ItemFrame : MonoBehaviour
         itemBlueprint = item;
     }
 
-    private void Start()
+    public void ShowItemInfoUI()
     {
-        rectTransform = GetComponent<RectTransform>();
-        mainCamera = Camera.main;
+        // UI 프리팹을 생성하여 아이템 정보를 표시하는 로직을 구현
+        Debug.Log($"아이템 이름: {itemBlueprint.ItemName}"); 
     }
 
-
-    #region Drag & Combine Check
-    private void OnMouseDown()
+    public void TryCombineItem(ItemFrame targetItemFrame)
     {
-        if (gameObject.CompareTag("Item")) 
+        string combinedItemName = Manager.Item.ItemCombine(itemBlueprint.ItemId, targetItemFrame.ItemBlueprint.ItemId);
+
+        if (combinedItemName == "error")
         {
-            offset = gameObject.transform.position - GetMouseWorldPosition();
-            isDragging = true; 
+            Debug.Log("아이템 조합 실패");
+            return;
         }
+
+        // 조합 성공 시 아이템 생성
+        Manager.Item.CreateItem(combinedItemName, new Vector3(0, 0, 0));
+
+        // 기존 아이템 파괴
+        Destroy(targetItemFrame.gameObject);
+        Destroy(gameObject);
     }
-
-    private void OnMouseDrag()
-    {
-        if (isDragging && gameObject.CompareTag("Item"))
-        {
-            Vector3 mouseWorldPos = GetMouseWorldPosition() + offset;
-            gameObject.transform.position = new Vector3(mouseWorldPos.x, transform.position.y, mouseWorldPos.z);
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        if (isDragging && gameObject.CompareTag("Item"))
-        {
-            isDragging = false;
-
-            CheckForOverlapWithItem();
-        }
-    }
-
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.WorldToScreenPoint(transform.position).z;
-        return Camera.main.ScreenToWorldPoint(mousePos);
-    }
-
-    private void CheckForOverlapWithItem()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(hit.point, 1f); 
-
-            foreach (Collider collider in hitColliders)
-            {
-                if (collider.CompareTag("Item") && collider.transform != transform)
-                {
-                    ItemFrame iFrame = collider.gameObject.GetComponent<ItemFrame>();
-
-                    if (iFrame != null)
-                    {
-                        string name = Manager.Item.ItemCombine(itemBlueprint.ItemId, iFrame.ItemBlueprint.ItemId);
-
-                        if(name == "error")
-                        {
-                            Debug.Log("조합 잘못함");
-                            return;
-                        }
-
-                        Manager.Item.CreateItem(name, new Vector3(0, 0, 0));
-
-                        Destroy(hit.transform.gameObject);
-                        Destroy(gameObject);
-                        break; 
-                    }
-                }
-            }
-        }
-    }
-    #endregion
 }

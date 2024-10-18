@@ -37,6 +37,7 @@ public class Manager : MonoBehaviour
     private readonly ChampionManager champion = new();
     private readonly SkillManager skill = new();
     private readonly ObjectPoolManager objectPool = new();
+    private readonly ClickManager click = new();
 
     public static AssetManager Asset => Instance != null ? Instance.asset : null;
     public static GameManager Game => Instance != null ? Instance.game : null;
@@ -44,5 +45,6 @@ public class Manager : MonoBehaviour
     public static ChampionManager Champion => Instance != null ? Instance.champion : null;
     public static SkillManager Skill => Instance != null ? Instance.skill : null;
     public static ObjectPoolManager ObjectPool => Instance != null ? Instance.objectPool : null;
+    public static ClickManager Click => Instance != null ? Instance.click : null;
     #endregion
 }
