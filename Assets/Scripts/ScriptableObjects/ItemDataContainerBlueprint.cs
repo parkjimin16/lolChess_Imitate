@@ -29,7 +29,6 @@ public class ItemDataContainerBlueprint : ScriptableObject
             if ((desk.FirstItem == item1 && desk.SecondItem == item2) ||
                 (desk.FirstItem == item2 && desk.SecondItem == item1))
             {
-                //Manager.Asset.GetBlueprint("BFSword") as ItemBlueprint;
                 return desk.CombineItem;
             }
         }

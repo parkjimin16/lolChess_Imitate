@@ -63,6 +63,13 @@ public class TestScene : UIBase
 
             Manager.Item.Init();
         }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+
+
+            Manager.Item.CreateItem(itemId, new Vector3(0,0,0));
+        }
     }
 
     public void InitBtn()

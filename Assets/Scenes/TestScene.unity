@@ -2926,7 +2926,6 @@ MonoBehaviour:
   gameDataBlueprint: {fileID: 0}
   itemBlueprint: []
   shopChampionList: []
-  championObject: {fileID: 0}
   targetObject: {fileID: 287918260}
   championPos:
   - {fileID: 1116046065}
