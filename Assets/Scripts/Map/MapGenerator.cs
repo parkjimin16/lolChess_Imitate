@@ -19,6 +19,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject itemTilePrefab; // 아이템 타일 프리팹
     public GameObject goldTilePrefeb; // 골드 타일 프리팹
     public GameObject goldPrefeb;
+    public Camera minimapCamera;
 
     public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
@@ -30,19 +31,19 @@ public class MapGenerator : MonoBehaviour
 
     private float mapWidthSize;
     private float mapHeightSize;
+    private float mapSpacing = 40f; // 각 맵 간의 거리
 
-    private GameObject User;
+    private float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
+    private float boundaryExtraHeight = 10f;
+
 
     private void Awake()
     {
-        User = new GameObject("User1");
-        
-
         CalculateTileSize();
         CreatUserMap();
-        GenerateMap(User.transform);
         AdjustCamera();
         CreatePlayerUnits();
+        PositionMinimapCamera();
     }
     void Start()
     {
@@ -60,11 +61,39 @@ public class MapGenerator : MonoBehaviour
         rectWidthSize = (Mathf.Sqrt(3) * tileSize) * rectWidthRatio; // 직사각형 타일의 폭
     }
 
+    void PositionMinimapCamera()
+    {
+        float centerX = mapSpacing;
+        float centerZ = mapSpacing;
+        float cameraHeight = 50f; // 미니맵에 적절한 높이로 설정합니다.
+
+        if (minimapCamera != null)
+        {
+            minimapCamera.transform.position = new Vector3(centerX, cameraHeight, centerZ);
+            minimapCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f); // 아래를 향하도록 설정
+        }
+        else
+        {
+            Debug.LogWarning("미니맵 카메라가 할당되지 않았습니다.");
+        }
+    }
+
+    public class MapInfo
+    {
+        public int mapId;
+        public Transform mapTransform;
+        public Bounds mapBounds;
+        public LineRenderer boundaryLineRenderer; // 경계선 LineRenderer 참조 추가
+    }
+
+    public List<MapInfo> mapInfos = new List<MapInfo>();
+
+
     void CreatUserMap()
     {
         int totalUsers = 8; // 총 유저 수 (플레이어 포함)
         //int gridSize = 3; // 3x3 격자 (가운데는 비움)
-        float mapSpacing = 40f; // 각 맵 간의 거리
+        //float mapSpacing = 40f; // 각 맵 간의 거리
 
         // 3x3 격자에서 (1,1)은 비워두고, 나머지 8개의 칸에 맵을 배치
         int[,] gridPositions = new int[,]
@@ -88,19 +117,34 @@ public class MapGenerator : MonoBehaviour
             userMap.transform.position = mapPosition;
             userMap.transform.SetParent(this.transform);
             userMap.AddComponent<GoldDisplay>();
+            
 
             GenerateMap(userMap.transform);
 
-            //GenerateMapForUser(userMap.transform, i);
+            //각 유저들 맵정보 저장
+            MapInfo mapInfo = new MapInfo();
+            mapInfo.mapId = i;
+            mapInfo.mapTransform = userMap.transform;
+
+            // 맵의 경계 영역 계산 (맵의 크기를 알고 있어야 함)
+            float mapWidth = desiredMapWidth;
+            float mapHeight = mapHeightSize + rectWidthSize * 2; // 육각형 타일 높이 + 직사각형 타일 높이
+
+            Vector3 center = mapPosition;
+            Vector3 size = new Vector3(mapWidth, 0, mapHeight);
+
+            // 만약 경계선 크기를 반영하려면
+            size.x += boundaryExtraWidth;
+            size.z += boundaryExtraHeight;
+
+            mapInfo.mapBounds = new Bounds(center, size);
+
+            mapInfos.Add(mapInfo);
+
+            CreateMapBoundary(userMap.transform, i, mapInfo);
         }
     }
 
-    /*void GenerateMapForUser(Transform parent, int userId)
-    {
-        // 맵을 생성하고 해당 유저의 부모 오브젝트로 설정
-        GenerateMap();
-        this.transform.SetParent(parent); // 생성된 맵을 유저의 맵에 할당
-    }*/
 
 
     void GenerateMap(Transform parent)
@@ -299,6 +343,53 @@ public class MapGenerator : MonoBehaviour
             GameObject EnemyGold = Instantiate(goldPrefeb, EnemyTile.transform.position, transform.rotation, this.transform);
             EnemyGold.name = $"EnemyGold_{i}";
             EnemyGold.transform.SetParent(EnemyTile.transform);
+        }
+    }
+
+    void CreateMapBoundary(Transform parent, int mapId, MapInfo mapInfo)
+    {
+        //float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
+        //float boundaryExtraHeight = 10f; // 세로 방향으로 추가할 길이
+
+        // 맵의 크기 계산
+        float mapWidth = desiredMapWidth + boundaryExtraWidth;
+        float mapHeight = mapHeightSize + rectWidthSize * 2f + boundaryExtraHeight;
+
+        // 경계선을 그릴 좌표 계산
+        Vector3[] corners = new Vector3[5];
+        corners[0] = parent.position + new Vector3(-mapWidth / 2f, 0.1f, -mapHeight / 2f);
+        corners[1] = parent.position + new Vector3(-mapWidth / 2f, 0.1f, mapHeight / 2f);
+        corners[2] = parent.position + new Vector3(mapWidth / 2f, 0.1f, mapHeight / 2f);
+        corners[3] = parent.position + new Vector3(mapWidth / 2f, 0.1f, -mapHeight / 2f);
+        corners[4] = corners[0]; // 시작점으로 돌아와 사각형 완성
+
+        // 경계선 오브젝트 생성
+        GameObject boundaryObj = new GameObject($"MapBoundary_{mapId}");
+        boundaryObj.transform.SetParent(parent);
+        LineRenderer lineRenderer = boundaryObj.AddComponent<LineRenderer>();
+
+        // LineRenderer 설정
+        lineRenderer.positionCount = corners.Length;
+        lineRenderer.SetPositions(corners);
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 1f;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.loop = true;
+
+        // LineRenderer 설정 후
+        mapInfo.boundaryLineRenderer = lineRenderer; // LineRenderer 참조 저장
+
+
+        // 재질 및 색상 설정
+        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
+        lineRenderer.material.color = Color.red;
+
+        // 레이어 설정
+        int minimapLayer = LayerMask.NameToLayer("Minimap");
+        boundaryObj.layer = minimapLayer;
+        foreach (Transform child in boundaryObj.transform)
+        {
+            child.gameObject.layer = minimapLayer;
         }
     }
 }

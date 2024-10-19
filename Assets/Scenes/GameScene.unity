@@ -150,8 +150,8 @@ Transform:
   m_GameObject: {fileID: 161074406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 10, y: 0.1, z: 10}
+  m_LocalPosition: {x: 47.6868, y: -0.1, z: 52.4077}
+  m_LocalScale: {x: 15.255158, y: 0.1, z: 15.432171}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1405685930}
@@ -452,7 +452,7 @@ Camera:
   m_GameObject: {fileID: 854708031}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -482,7 +482,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4096
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: e8534587dce38694e9c1207dd37c5976, type: 2}
   m_TargetDisplay: 0
@@ -503,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 854708031}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 40, y: 50, z: 43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -574,7 +574,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2807
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -773,6 +773,7 @@ MonoBehaviour:
   itemTilePrefab: {fileID: 3640209703719670457, guid: 049576cf55499414794dab79b0e0cc41, type: 3}
   goldTilePrefeb: {fileID: 991716287103244202, guid: 34cf60fff89386649bfcdeb54762901a, type: 3}
   goldPrefeb: {fileID: 1265779304732808216, guid: 8df38a3bf924837478f054d0c74cd782, type: 3}
+  minimapCamera: {fileID: 854708033}
   gapBetweenTiles: -0.6
   maxGoldSlots: 5
   goldSlotSize: 1
@@ -1061,6 +1062,7 @@ GameObject:
   - component: {fileID: 2091424413}
   - component: {fileID: 2091424415}
   - component: {fileID: 2091424414}
+  - component: {fileID: 2091424416}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -1122,6 +1124,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091424412}
   m_CullTransparentMesh: 1
+--- !u!114 &2091424416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091424412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbe83fa5f1c5fd45a10c9b18b56d09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapCamera: {fileID: 854708033}
+  mainCamera: {fileID: 963194227}
+  cameraHeight: 18
+  cameraDistance: 21
+  cameraRotationX: 45
+  mapGenerator: {fileID: 1405685929}
 --- !u!1 &2126641383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,9 +1249,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 854708034}
   - {fileID: 705507995}
   - {fileID: 2126641385}
   - {fileID: 1405685930}
   - {fileID: 559094402}
   - {fileID: 2060281202}
-  - {fileID: 854708034}
