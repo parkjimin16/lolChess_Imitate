@@ -1553,6 +1553,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9e1f1fdf7a092244a4f0e9c23a694f2
+    m_Address: Assets/@Resources/Prefab/UI/Element/Slot/ChampionSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e17b5044fa56c64cae6019a7ab2f7de
+    m_Address: Assets/@Resources/Prefab/UI/Element/Slot/AttributeSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b68eda18dd7789e478d946b06cf3d805
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupItemDetail.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

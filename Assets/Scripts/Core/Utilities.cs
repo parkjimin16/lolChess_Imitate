@@ -104,5 +104,44 @@ public static class Utilities
         string desc = SetDescription(iType);
         return desc;
     }
+
+    private static string SetDescriptionValue(ItemAttribute item)
+    {
+        ItemAttributeType iType = item.ItemAttributeType;
+
+        switch (iType)
+        {
+            case ItemAttributeType.AD_Power:
+                return (item.AttributeValue * 100).ToString();
+            case ItemAttributeType.AD_Speed:
+                return (item.AttributeValue * 100).ToString();
+            case ItemAttributeType.AD_Defense:
+                return item.AttributeValue.ToString();
+            case ItemAttributeType.AP_Power:
+                return item.AttributeValue.ToString();
+            case ItemAttributeType.AP_Defense:
+                return item.AttributeValue.ToString();
+            case ItemAttributeType.Mana:
+                return item.AttributeValue.ToString();
+            case ItemAttributeType.HP:
+                return item.AttributeValue.ToString();
+            case ItemAttributeType.CriticalPercent:
+                return (item.AttributeValue * 100).ToString();
+            case ItemAttributeType.BloodSuck:
+                return (item.AttributeValue * 100).ToString();
+            case ItemAttributeType.Total_Power:
+                return (item.AttributeValue * 100).ToString();
+            case ItemAttributeType.Special:
+                return (item.AttributeValue * 100).ToString();
+            default:
+                return "등록되지 않은 타입";
+        }
+    }
+
+    public static string SetDescriptionValueReturnString(ItemAttribute item)
+    {
+        string value = SetDescriptionValue(item);
+        return value;
+    }
     #endregion
 }

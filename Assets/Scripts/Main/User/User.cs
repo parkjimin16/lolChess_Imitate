@@ -30,6 +30,11 @@ public class User : MonoBehaviour
                 HandleDrop();
             }
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            HandleRightClick();
+        }
     }
 
 
@@ -56,6 +61,8 @@ public class User : MonoBehaviour
                 {
                     HandleDrop();
                 }
+
+                Manager.UI.CloseAllPopupUI();
             }
         }
     }
@@ -64,8 +71,12 @@ public class User : MonoBehaviour
     {
         if (draggedItem != null)
         {
-            Vector3 mouseWorldPos = GetMouseWorldPosition() + offset;
-            draggedItem.transform.position = new Vector3(mouseWorldPos.x, draggedItem.transform.position.y, mouseWorldPos.z);
+            Vector3 mouseWorldPos = GetMouseWorldPosition();
+            mouseWorldPos.y = Mathf.Max(mouseWorldPos.y, 0f);
+            draggedItem.transform.position = mouseWorldPos;
+
+
+            //draggedItem.transform.position = new Vector3(mouseWorldPos.x, draggedItem.transform.position.y, mouseWorldPos.z);
         }
     }
 
@@ -78,7 +89,6 @@ public class User : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // 겹치는 아이템 확인
                 Collider[] hitColliders = Physics.OverlapSphere(hit.point, 1f);
 
                 foreach (Collider collider in hitColliders)
@@ -97,10 +107,8 @@ public class User : MonoBehaviour
                                 return;
                             }
 
-                            // 조합 성공 시 아이템 생성
                             Manager.Item.CreateItem(combinedItemName, new Vector3(0, 0, 0));
 
-                            // 기존 아이템 파괴
                             Destroy(targetItemFrame.gameObject);
                             Destroy(draggedItem.gameObject);
                             break;
@@ -118,6 +126,24 @@ public class User : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = mainCamera.WorldToScreenPoint(Vector3.zero).z;
         return mainCamera.ScreenToWorldPoint(mousePos);
+    }
+
+
+    private void HandleRightClick()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject clickedObject = hit.collider.gameObject;
+
+            if (clickedObject.CompareTag("Item"))
+            {
+                ItemFrame itemFrame = clickedObject.GetComponent<ItemFrame>();
+                itemFrame.ShowItemInfoUI();
+            }
+        }
     }
     #endregion
 }

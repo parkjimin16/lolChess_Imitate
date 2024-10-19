@@ -30,12 +30,21 @@ public class ItemFrame : MonoBehaviour
         itemBlueprint = item;
     }
 
+    #region UI
     public void ShowItemInfoUI()
     {
-        // UI 프리팹을 생성하여 아이템 정보를 표시하는 로직을 구현
-        Debug.Log($"아이템 이름: {itemBlueprint.ItemName}"); 
+        var itemInfoUIPopup = Manager.UI.ShowPopup<UIPopupItemDetail>();
+
+        Vector2 mousePosition = Input.mousePosition;
+        itemInfoUIPopup.SetPosition(mousePosition);
+
+        UIPopupItemDetail uiItemDetail = itemInfoUIPopup.GetComponent<UIPopupItemDetail>();
+        uiItemDetail.SetItemData(itemBlueprint);
     }
 
+    #endregion
+
+    #region Combine
     public void TryCombineItem(ItemFrame targetItemFrame)
     {
         string combinedItemName = Manager.Item.ItemCombine(itemBlueprint.ItemId, targetItemFrame.ItemBlueprint.ItemId);
@@ -53,4 +62,5 @@ public class ItemFrame : MonoBehaviour
         Destroy(targetItemFrame.gameObject);
         Destroy(gameObject);
     }
+    #endregion
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19e425a000410d845804dd6cad4107dd, type: 3}
-  m_Name: ItemDataContainer_Temp
+  m_Name: ItemDataContainer 1
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataContainerBlueprint
   itemDatas:
   - icon: {fileID: 0}
@@ -18,7 +18,9 @@ MonoBehaviour:
     itemName: "B.F \uB300\uAC80"
     description: "\uACF5\uACA9\uB825 +10%"
     itemType: 1
-    itemAttribute: []
+    itemAttribute:
+    - ItemAttributeType: 1
+      AttributeValue: 0.1
     baseItem: {fileID: 5801655367137927557, guid: bf53afb2abe076443b3db647cc252b39, type: 3}
   - icon: {fileID: 0}
     itemId: A002
@@ -87,7 +89,7 @@ MonoBehaviour:
     itemId: B001
     itemName: "\uC8FD\uC74C\uC758 \uAC80"
     description: "\uACF5\uACA9\uB825 +50%, \uD53C\uD574\uB7C9 \uC99D\uAC00 +8%"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.5
@@ -99,7 +101,7 @@ MonoBehaviour:
     itemName: "\uAC70\uC778 \uD559\uC0B4\uC790"
     description: "\uCD5C\uB300 \uCCB4\uB825\uC774 1750 \uC774\uC0C1\uC778 \uC801\uC744
       \uC0C1\uB300\uB85C \uD53C\uD574 \uC99D\uD3ED\uC744 25% \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.25
@@ -115,7 +117,7 @@ MonoBehaviour:
       60%\uC77C \uB54C \uC7A0\uC2DC \uB300\uC0C1\uC73C\uB85C \uC9C0\uC815\uD560 \uC218
       \uC5C6\uAC8C \uB418\uBA70 \uD574\uB85C\uC6B4 \uD6A8\uACFC \uC81C\uAC70, \uC774\uD6C4
       \uCD94\uAC00 \uACF5\uACA9 \uC18D\uB3C4 15% \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.1
@@ -128,7 +130,7 @@ MonoBehaviour:
     description: "\uC804\uD22C\uB2F9 \uD55C \uBC88, \uCCB4\uB825\uC774 40%\uC77C
       \uB54C \uCD5C\uB300 \uCCB4\uB825\uC758 25%\uC5D0 \uD574\uB2F9\uD558\uB294 \uBCF4\uD638\uB9C9
       \uD68D\uB4DD \uD6C4 \uCD5C\uB300 5\uCD08\uAE4C\uC9C0 \uC720\uC9C0"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.15
@@ -145,7 +147,7 @@ MonoBehaviour:
     description: "\uC785\uD78C \uD53C\uD574\uB7C9\uC758 20%\uB9CC\uD07C \uCCB4\uB825
       \uBE44\uC728\uC774 \uAC00\uC7A5 \uB0AE\uC740 \uC544\uAD70\uC758 \uCCB4\uB825
       \uD68C\uBCF5"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.15
@@ -158,7 +160,7 @@ MonoBehaviour:
     itemId: B006
     itemName: "\uC1FC\uC9C4\uC758 \uCC3D"
     description: "\uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uCD94\uAC00 \uB9C8\uB098 5 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 15
@@ -172,7 +174,7 @@ MonoBehaviour:
     itemName: "\uC2A4\uD14C\uB77D\uC758 \uB3C4\uC804"
     description: "\uC804\uD22C\uB2F9 \uD55C \uBC88, \uCCB4\uB825\uC774 60%\uC77C
       \uB54C \uCD5C\uB300 \uCCB4\uB825 25% \uBC0F \uACF5\uACA9\uB825 35% \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.15
@@ -186,7 +188,7 @@ MonoBehaviour:
       \uC2A4\uD0AC\uC5D0 \uCE58\uBA85\uD0C0 \uC801\uC6A9\uC774 \uAC00\uB2A5\uD55C
       \uACBD\uC6B0, \uB300\uC2E0\uC5D0 \uCE58\uBA85\uD0C0 \uD53C\uD574\uB7C9\uC774
       10% \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.35
@@ -201,7 +203,7 @@ MonoBehaviour:
       \uC801\uC6A9\n\n\uBD88\uD0DC\uC6B0\uAE30 : \uB9E4\uCD08 \uB300\uC0C1 \uCD5C\uB300
       \uCCB4\uB825\uC758 \uC77C\uC815 \uBE44\uC728\uB9CC\uD07C \uACE0\uC815 \uD53C\uD574\n\uC0C1\uCC98
       : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.35
@@ -215,7 +217,7 @@ MonoBehaviour:
       \uACF5\uACA9\uB825 2%, \uC8FC\uBB38\uB825 2\uC99D\uAC00 (\uCD5C\uB300 25\uD68C
       \uC911\uCCA9)\n\n\uCD5C\uB300 \uC911\uCCA9 \uC2DC \uBC29\uC5B4\uB825 20 \uBC0F
       \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 0.1
@@ -228,7 +230,7 @@ MonoBehaviour:
     description: "\uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uC8FC\uBCC0 \uC801 \uD558\uB098\uC5D0\uAC8C
       \uD0C4\uD658\uC744 \uBC1C\uC0AC\uD558\uC5EC \uACF5\uACA9\uB825\uC758 55%\uB9CC\uD07C
       \uBB3C\uB9AC \uD53C\uD574"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.25
@@ -242,7 +244,7 @@ MonoBehaviour:
     itemName: "\uAD6C\uC778\uC218\uC758 \uACA9\uB178\uAC80"
     description: "\uACF5\uACA9 \uC2DC \uACF5\uACA9 \uC18D\uB3C4\uAC00 5% \uC99D\uAC00
       (\uC911\uCCA9 \uAC00\uB2A5)"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 0.1
@@ -255,7 +257,7 @@ MonoBehaviour:
     description: "3\uBC88\uC9F8 \uAE30\uBCF8 \uACF5\uACA9\uB9C8\uB2E4 \uC801 4\uBA85\uC5D0\uAC8C
       35\uC758 \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD788\uACE0 5\uCD08\uB3D9\uC548
       30% \uD30C\uC1C4\n\n\uD30C\uC1C4 : \uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 0.15
@@ -269,7 +271,7 @@ MonoBehaviour:
     itemName: "\uB0B4\uC154\uC758 \uC774\uBE68"
     description: "\uC2A4\uD0AC \uC0AC\uC6A9 \uD6C4 5\uCD08\uB3D9\uC548 \uACF5\uACA9
       \uC18D\uB3C4 60% \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 0.1
@@ -283,7 +285,7 @@ MonoBehaviour:
     itemName: "\uCD5C\uD6C4\uC758 \uC18D\uC0AD\uC784"
     description: "[\uACE0\uC720] \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD790 \uACBD\uC6B0
       3\uCD08 \uB3D9\uC548 30% \uD30C\uC5F4 (\uC911\uCCA9 \uBD88\uAC00)"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 0.15
@@ -299,7 +301,7 @@ MonoBehaviour:
       \uACF5\uACA9\uC73C\uB85C \uBC1B\uB294 \uD53C\uD574 8% \uAC10\uC18C, \uAE30\uBCF8
       \uACF5\uACA9\uC5D0 \uB9DE\uC744 \uACBD\uC6B0 \uC778\uC811\uD55C \uBAA8\uB4E0
       \uC801\uC5D0\uAC8C 100\uC758 \uB9C8\uBC95 \uD53C\uD574"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 3
       AttributeValue: 55
@@ -310,7 +312,7 @@ MonoBehaviour:
     description: "\uC801\uC758 \uACF5\uACA9 \uB300\uC0C1\uC774 \uB418\uBA74 \uBC29\uC5B4\uB825\uC774
       10, \uB9C8\uBC95 \uC800\uD56D\uB825\uC774 10 \uC99D\uAC00. \uACF5\uACA9\uD558\uB294
       \uC801\uC774 \uB298\uC5B4\uB098\uBA74 \uC911\uCCA9\uB418\uC5B4 \uC801\uC6A9."
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 3
       AttributeValue: 25
@@ -325,7 +327,7 @@ MonoBehaviour:
     description: "\uC804\uD22C \uC2DC\uC791 : 8\uCD08 \uB3D9\uC548 \uCD5C\uB300 \uCCB4\uB825\uC758
       25%\uC5D0 \uD574\uB2F9\uD558\uB294 \uBCF4\uD638\uB9C9 \uD68D\uB4DD\n\uBCF4\uD638\uB9C9\uC774
       \uC0AC\uB77C\uC9C0\uBA74 \uC8FC\uBB38\uB825 35% \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 3
       AttributeValue: 20
@@ -341,7 +343,7 @@ MonoBehaviour:
       \uB54C \uCD5C\uB300 \uCCB4\uB825\uC758 25%\uC5D0 \uD574\uB2F9\uD558\uB294 \uBCF4\uD638\uB9C9
       \uD68D\uB4DD \uD6C4 5\uCD08 \uB3D9\uC548 \uC720\uC9C0. \uB3D9\uC2DC\uC5D0 \uBC29\uC5B4\uB825
       20, \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 3
       AttributeValue: 20
@@ -356,7 +358,7 @@ MonoBehaviour:
       1%, \uC0C1\uCC98\uB97C 33% \uC801\uC6A9\n\n\uBD88\uD0DC\uC6B0\uAE30 : \uB9E4\uCD08
       \uB300\uC0C1 \uCD5C\uB300 \uCCB4\uB825\uC758 \uC77C\uC815 \uBE44\uC728\uB9CC\uD07C
       \uACE0\uC815 \uD53C\uD574\n\uC0C1\uCC98 : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 250
@@ -368,7 +370,7 @@ MonoBehaviour:
     itemName: "\uAD73\uAC74\uD55C \uC2EC\uC7A5"
     description: "\uB0B4\uAD6C\uB825 8% \uD68D\uB4DD. \uCCB4\uB825\uC774 50%\uB97C
       \uB118\uC73C\uBA74 \uB300\uC2E0 \uB0B4\uAD6C\uB825 15% \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 200
@@ -382,7 +384,7 @@ MonoBehaviour:
     itemName: "\uC6A9\uC758 \uBC1C\uD1B1"
     description: "9%\uC758 \uCD5C\uB300 \uCCB4\uB825 \uD68D\uB4DD\n\n2\uCD08\uB9C8\uB2E4
       \uCD5C\uB300 \uCCB4\uB825\uC758 2.5% \uD68C\uBCF5"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 5
       AttributeValue: 65
@@ -394,7 +396,7 @@ MonoBehaviour:
       \uC801\uC6A9, \uD574\uB2F9 \uC801\uC774 \uC2A4\uD0AC \uC0AC\uC6A9 \uC2DC \uC0AC\uC6A9\uD55C
       \uB9C8\uB098\uC758 160%\uC5D0 \uD574\uB2F9\uD558\uB294 \uB9C8\uBC95 \uD53C\uD574\uB97C
       \uC785\uC74C\n\n\uD30C\uC1C4 : \uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 100
@@ -411,7 +413,7 @@ MonoBehaviour:
       \uB9C8\uBC95 \uC800\uD56D\uB825 40. \uAE30\uBCF8 \uACF5\uACA9\uC5D0 \uB9DE\uC73C\uBA74
       \uB9C8\uB098 1 \uD68D\uB4DD\n\n\uD6C4\uBC29 2\uC5F4 : \uC8FC\uBB38\uB825 15,
       3\uCD08\uB9C8\uB2E4 \uB9C8\uB098 10 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 4
       AttributeValue: 10
@@ -426,7 +428,7 @@ MonoBehaviour:
     description: "2\uCE78 \uB0B4\uC5D0 \uC788\uB294 \uC801 30% \uD30C\uC5F4\n\uC804\uD22C
       \uC2DC\uC791 \uD6C4 10\uCD08 \uB3D9\uC548 \uBC29\uC5B4\uB825\uACFC \uB9C8\uBC95
       \uC800\uD56D\uB825 25 \uC99D\uAC00\n\n\uD30C\uC5F4 : \uBC29\uC5B4\uB825 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 150
@@ -439,7 +441,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC804\uD22C \uC2DC\uC791 : 14\uCD08 \uB3D9\uC548
       \uAD70\uC911 \uC81C\uC5B4 \uD6A8\uACFC\uC5D0 \uBA74\uC5ED. \uC774 \uB3D9\uC548
       2\uCD08\uB9C8\uB2E4 4%\uC758 \uACF5\uACA9 \uC18D\uB3C4 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 0.3
@@ -452,7 +454,7 @@ MonoBehaviour:
     itemId: B027
     itemName: "\uB77C\uBC14\uB3C8\uC758 \uC8FD\uC74C\uBAA8\uC790"
     description: "\uC8FC\uBB38\uB825 +50, \uD53C\uD574\uB7C9 \uC99D\uAC00 +15%"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 4
       AttributeValue: 50
@@ -464,7 +466,7 @@ MonoBehaviour:
     itemName: "\uB300\uCC9C\uC0AC\uC758 \uC9C0\uD321\uC774"
     description: "\uC804\uD22C \uC2DC\uC791 : \uC804\uD22C \uC911 5\uCD08\uB9C8\uB2E4
       \uC8FC\uBB38\uB825 30 \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 15
@@ -479,7 +481,7 @@ MonoBehaviour:
       \uC0C1\uCC98\uB97C 33% \uC801\uC6A9\n\n\uBD88\uD0DC\uC6B0\uAE30 : \uB9E4\uCD08
       \uB300\uC0C1 \uCD5C\uB300 \uCCB4\uB825\uC758 \uC77C\uC815 \uBE44\uC728\uB9CC\uD07C
       \uACE0\uC815 \uD53C\uD574\n\uC0C1\uCC98 : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 150
@@ -495,7 +497,7 @@ MonoBehaviour:
       \uAC00\uB2A5\n\n\uAE30\uBCF8 \uC2A4\uD0AC\uC5D0 \uCE58\uBA85\uD0C0 \uC801\uC6A9\uC774
       \uAC00\uB2A5\uD55C \uACBD\uC6B0, \uB300\uC2E0\uC5D0 \uCE58\uBA85\uD0C0 \uD53C\uD574\uB7C9\uC774
       10% \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 4
       AttributeValue: 35
@@ -508,7 +510,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uCD5C\uB300 \uB9C8\uB098 10 \uAC10\uC18C.\n\n\uC7A5\uCC29\uD55C
       \uC720\uB2DB\uC774 \uCC98\uCE58 \uAD00\uC5EC \uC2DC 8\uCD08 \uB3D9\uC548 8%\uC758
       \uCD94\uAC00 \uD53C\uD574"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 20
@@ -524,7 +526,7 @@ MonoBehaviour:
       \uCCB4\uB825\uC744  \uB300\uC0C1\uC774 \uC783\uC740 \uCCB4\uB825\uC758 15%\uB9CC\uD07C
       \uD68C\uBCF5.\n\uB610\uD55C 5\uCD08\uB3D9\uC548 \uB0B4\uAD6C\uB825\uC744 10%
       \uD68D\uB4DD (\uC774 \uD6A8\uACFC\uB294 \uC911\uCCA9\uB418\uC9C0 \uC54A\uC74C)"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 150
@@ -537,7 +539,7 @@ MonoBehaviour:
     description: "2\uAC00\uC9C0 \uD6A8\uACFC \uD68D\uB4DD :\n - \uACF5\uACA9\uB825
       15%, \uC8FC\uBB38\uB825 15\n - \uBAA8\uB4E0 \uD53C\uD574 \uD761\uD608 15%\n\n\uB77C\uC6B4\uB4DC\uB9C8\uB2E4
       \uC704 \uD6A8\uACFC \uC911 1\uAC1C \uBB34\uC791\uC704\uB85C 2\uBC30 \uC99D\uAC00"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 15
@@ -548,7 +550,7 @@ MonoBehaviour:
     itemId: B034
     itemName: "\uC6CC\uBAA8\uADF8\uC758 \uAC11\uC637"
     description: "12%\uC758 \uCD5C\uB300 \uCCB4\uB825 \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 600
@@ -558,7 +560,7 @@ MonoBehaviour:
     itemName: "\uBC29\uD328\uD30C\uAD34\uC790"
     description: "\uBCF4\uD638\uB9C9 \uACF5\uACA9 \uD6C4 3\uCD08 \uB3D9\uC548 \uD53C\uD574
       \uC99D\uD3ED 25% \uD68D\uB4DD"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 150
@@ -574,7 +576,7 @@ MonoBehaviour:
     itemName: "\uB3C4\uC801\uC758 \uC7A5\uAC11"
     description: "\uB9E4 \uB77C\uC6B4\uB4DC : \uBB34\uC791\uC704 \uC544\uC774\uD15C
       2\uAC1C \uC7A5\uCC29\n\n[\uC544\uC774\uD15C \uC2AC\uB86F 3\uAC1C \uC18C\uBAA8]"
-    itemType: 1
+    itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 150
