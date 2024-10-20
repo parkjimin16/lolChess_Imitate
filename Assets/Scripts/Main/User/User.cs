@@ -74,9 +74,6 @@ public class User : MonoBehaviour
             Vector3 mouseWorldPos = GetMouseWorldPosition();
             mouseWorldPos.y = Mathf.Max(mouseWorldPos.y, 0f);
             draggedItem.transform.position = mouseWorldPos;
-
-
-            //draggedItem.transform.position = new Vector3(mouseWorldPos.x, draggedItem.transform.position.y, mouseWorldPos.z);
         }
     }
 

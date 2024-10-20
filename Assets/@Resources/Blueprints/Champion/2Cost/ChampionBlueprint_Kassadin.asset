@@ -31,11 +31,21 @@ MonoBehaviour:
   - Level: 3
     Hp: 2268
     Power: 101
-  attack_Speed: 0.75
-  ad_Defense: 45
-  ap_Defense: 45
-  speed: 1
+  championLevel: 1
+  hp_Total: 0
+  hp_Cur: 0
   mana_Total: 70
   mana_Cur: 30
   attack_Range: 1
+  speed: 1
   skillBlueprint: {fileID: 11400000, guid: c38ce2c03d3cc524da035a0f6a1cb921, type: 2}
+  ad_Power: 0
+  ap_Power: 100
+  ad_Defense: 45
+  ap_Defense: 45
+  attack_Speed: 0.75
+  critical_Percent: 0.25
+  critical_Power: 1.4
+  blood_Suck: 0
+  power_Upgrade: 0
+  total_Defense: 0

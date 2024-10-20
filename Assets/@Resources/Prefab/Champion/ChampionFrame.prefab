@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4803408484816773377}
   m_Layer: 0
   m_Name: ChampionFrame
-  m_TagString: Untagged
+  m_TagString: Champion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,7 +295,7 @@ MonoBehaviour:
   UICanvas: {fileID: 3825472009826961112}
   championAttackController: {fileID: 6252604476818844917}
   championAnimController: {fileID: 5138671916796917089}
-  championHealthController: {fileID: 4551747180640086549}
+  championHpMpController: {fileID: 0}
   championStateController: {fileID: 1042186363350281454}
   championView: {fileID: 4803408484816773377}
 --- !u!114 &6252604476818844917
@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b12766871f47184fa718d02bd78eaf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curState: 0
 --- !u!114 &4803408484816773377
 MonoBehaviour:
   m_ObjectHideFlags: 0

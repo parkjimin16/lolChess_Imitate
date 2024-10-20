@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: -5870897860411847175}
   m_Layer: 0
   m_Name: ChampionFrame_Akali
-  m_TagString: Untagged
+  m_TagString: Champion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,6 +290,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 3825472009826961112}
+  championAttackController: {fileID: 0}
+  championAnimController: {fileID: 0}
+  championHpMpController: {fileID: 0}
+  championStateController: {fileID: 0}
+  championView: {fileID: 0}
 --- !u!114 &5138671916796917089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46e814a0b0adc624d8a5237f627e2339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text_ChampionName: {fileID: 0}
 --- !u!114 &-5870897860411847175
 MonoBehaviour:
   m_ObjectHideFlags: 0

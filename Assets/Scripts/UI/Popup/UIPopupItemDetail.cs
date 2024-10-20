@@ -116,6 +116,6 @@ public class UIPopupItemDetail : UIPopup
    
     public void SetPosition(Vector2 position)
     {
-        uiObject.transform.position = new Vector2(position.x + 200, position.y);
+        uiObject.transform.position = position;
     }
 }
