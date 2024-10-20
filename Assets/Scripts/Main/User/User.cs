@@ -111,6 +111,15 @@ public class User : MonoBehaviour
                             break;
                         }
                     }
+                    else if (collider.CompareTag("Champion"))
+                    {
+                        ChampionBase cBase = collider.gameObject.GetComponent<ChampionBase>();
+
+                        if (cBase == null)
+                            return;
+
+                        cBase.GetItem(draggedItem.ItemBlueprint);
+                    }
                 }
             }
 

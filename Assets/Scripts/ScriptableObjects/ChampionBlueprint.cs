@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,10 +21,10 @@ public class ChampionBlueprint : ScriptableObject
     [SerializeField] private List<ChampionLevelData> championLevelData;
 
     [SerializeField] private int championLevel;
-    [SerializeField] private float hp_Total;
-    [SerializeField] private float hp_Cur;
-    [SerializeField] private float mana_Total;
-    [SerializeField] private float mana_Cur;
+    [SerializeField] private float maxHp;
+    [SerializeField] private float curHp;
+    [SerializeField] private float maxMana;
+    [SerializeField] private float curMana;
     [SerializeField] private int attack_Range;
     [SerializeField] private float speed;
     [SerializeField] private SkillBlueprint skillBlueprint;
@@ -60,10 +59,10 @@ public class ChampionBlueprint : ScriptableObject
     // Champion Stats_1
     public List<ChampionLevelData> ChampionLevelData => championLevelData;
     public int ChampionLevel => championLevel;
-    public float HP_Total => hp_Total;
-    public float HP_Cur => hp_Cur;
-    public float Mana_Total => mana_Total;
-    public float Mana_Cur => mana_Cur;
+    public float MaxHP => maxHp;
+    public float CurHP => curHp;
+    public float MaxMana => maxMana;
+    public float CurMana => curMana;
     public float Speed => speed;
     public int Attack_Range => attack_Range;
     public SkillBlueprint SkillBlueprint => skillBlueprint;
@@ -82,19 +81,12 @@ public class ChampionBlueprint : ScriptableObject
     public float Total_Defense => total_Defense;
 
 
-    public void ChampionSet()
+    public void ChampionSet(int level)
     {
-        hp_Total = championLevelData[0].Hp;
-        ad_Power = championLevelData[0].Power;
+        maxHp = championLevelData[level - 1].Hp;
+        ad_Power = championLevelData[level - 1].Power;
 
-        hp_Cur = hp_Total;
-    }
-
-    public ChampionLevelData GetChampionLevelData(int level)
-    {
-        ChampionLevelData cData = championLevelData[level - 1];
-
-        return cData;
+        curHp = maxHp;
     }
 }
 
