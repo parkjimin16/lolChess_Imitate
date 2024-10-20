@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,100 @@ public static class Utilities
     }
     #endregion
 
+    #region Attribute Name
 
+    private static string SetAttributeNameLine(ChampionLine line)
+    {
+        switch (line)
+        {
+            case ChampionLine.None:
+                return "None";
+            case ChampionLine.Sugarcraft:
+                return "달콤술사";
+            case ChampionLine.Druid:
+                return "드루이드";
+            case ChampionLine.Witchcraft:
+                return "마녀";
+            case ChampionLine.Meadist:
+                return "벌꿀술사";
+            case ChampionLine.Frost:
+                return "서리";
+            case ChampionLine.Eldritch:
+                return "섬뜩한 힘";
+            case ChampionLine.SpaceAndTime:
+                return "시공간";
+            case ChampionLine.Arcana:
+                return "아르카나";
+            case ChampionLine.Fairy:
+                return "요정";
+            case ChampionLine.Dragon:
+                return "용";
+            case ChampionLine.Portal:
+                return "차원문";
+            case ChampionLine.Hunger:
+                return "허기";
+            case ChampionLine.Pyro:
+                return "화염";
+            default:
+                return "오류";
+
+        }
+    }
+
+    public static string SetLineName(ChampionLine line)
+    {
+        string _line = SetAttributeNameLine(line);
+        return _line;
+    }
+
+
+    private static string SetAttributeNameJob(ChampionJob job)
+    {
+        switch (job)
+        {
+            case ChampionJob.None:
+                return "None";
+            case ChampionJob.Pal:
+                return "단짝";
+            case ChampionJob.Mage:
+                return "마도사";
+            case ChampionJob.Batqueen:
+                return "박쥐여왕";
+            case ChampionJob.Shelter:
+                return "보호술사";
+            case ChampionJob.Hunter:
+                return "사냥꾼";
+            case ChampionJob.Vanguard:
+                return "선봉대";
+            case ChampionJob.Rusher:
+                return "쇄도자";
+            case ChampionJob.Bastion:
+                return "요새";
+            case ChampionJob.Enchantress:
+                return "요술사";
+            case ChampionJob.Warrior:
+                return "전사";
+            case ChampionJob.Overmind:
+                return "초월체";
+            case ChampionJob.Demolition:
+                return "폭파단";
+            case ChampionJob.Scholar:
+                return "학자";
+            case ChampionJob.Transmogrifier:
+                return "형상변환자";
+            default:
+                return "오류";
+        }
+    }
+
+    public static string SetJobName(ChampionJob job)
+    {
+        string _job = SetAttributeNameJob(job);
+        return _job;
+    }
+
+
+    #endregion
     #region Cost IntValue
     private static int SetCost(ChampionCost championCost)
     {

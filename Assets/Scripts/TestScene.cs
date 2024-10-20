@@ -39,28 +39,12 @@ public class TestScene : UIBase
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //championObject = Manager.Asset.InstantiatePrefab("ChampionFrame");
-            //championObject.transform.position = new Vector3(0,0,0);
-            
-
             gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
-
-
         }
         else if(Input.GetKeyDown(KeyCode.X))
         {
             InitBtn();
             GameStart = true;
-            //ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Ahri") as ChampionBlueprint;
-            //ChampionBase cBase = championObject.GetComponent<ChampionBase>();
-
-            //cBase.SetChampion(cBlueprint);
-            //cBase.ChampionInit();
-
-            //BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
-            //bSkill.UseSkill();
-            //bSkill.UseSkillTarget(targetObject);
-
             Manager.Item.Init();
         }
         else if (Input.GetKeyDown(KeyCode.C))
@@ -97,12 +81,16 @@ public class TestScene : UIBase
         if (currentChampionIndex < championPos.Count)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+
+            frame.transform.SetParent(newChampionObject.transform, false);
             newChampionObject.transform.position = championPos[currentChampionIndex].transform.position;
 
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
             cBase.SetChampion(cBlueprint);
-            cBase.ChampionInit();
+            cBase.ChampionInit(cFrame);
 
             currentChampionIndex++;
         }

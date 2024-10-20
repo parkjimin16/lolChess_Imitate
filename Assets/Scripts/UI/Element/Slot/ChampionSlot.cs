@@ -55,10 +55,10 @@ public class ChampionSlot : MonoBehaviour
 
 
         attributeString.AddRange(new List<string> {
-            championBlueprint.ChampionLine_First.ToString(),
-            championBlueprint.ChampionLine_Second.ToString(),
-            championBlueprint.ChampionJob_First.ToString(),
-            championBlueprint.ChampionJob_Second.ToString()
+            Utilities.SetLineName(championBlueprint.ChampionLine_First),
+             Utilities.SetLineName(championBlueprint.ChampionLine_Second),
+             Utilities.SetJobName(championBlueprint.ChampionJob_First),
+            Utilities.SetJobName(championBlueprint.ChampionJob_Second)
         }.Where(attribute => attribute != "None"));
         
 
@@ -79,6 +79,7 @@ public class ChampionSlot : MonoBehaviour
             text_Attributes[index].text = attributeString[i];
         }
 
+        text_ChampionName.text = championBlueprint.ChampionName;
         text_GoldCost.text = Utilities.SetSlotCost(championBlueprint.ChampionCost).ToString();
     }
 

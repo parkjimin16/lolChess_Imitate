@@ -23,6 +23,8 @@ MonoBehaviour:
     - ItemAttributeType: 1
       AttributeValue: 0.1
     baseItem: {fileID: 5801655367137927557, guid: bf53afb2abe076443b3db647cc252b39, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: dcd7804792180174386ce442604128aa, type: 2}
     icon: {fileID: 21300000, guid: f36e884c81f9bcd4fbcbe2423511c762, type: 3}
     itemId: A002
@@ -33,6 +35,8 @@ MonoBehaviour:
     - ItemAttributeType: 2
       AttributeValue: 0.1
     baseItem: {fileID: 4870259966177533082, guid: b368763c267caa342a7d3929aa230754, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 99c68a52432b6794890d885a6d9c6350, type: 2}
     icon: {fileID: 21300000, guid: d3dc83ed319793e4a8492c1a0ff95eb4, type: 3}
     itemId: A003
@@ -43,6 +47,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 20
     baseItem: {fileID: 3702625022200983971, guid: d33a533891290094aab375e812ce097c, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: c44b7311e6c2828419f0172066fb5fd0, type: 2}
     icon: {fileID: 21300000, guid: 8a6b3780cf7143b42a72264a47fbd907, type: 3}
     itemId: A004
@@ -53,6 +59,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 2504519346164500576, guid: dbeb87263f414844ebf4bbf7ec65a744, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 02ec2255240116e4daad8048d82cff4c, type: 2}
     icon: {fileID: 21300000, guid: 92d12c3fd92692245a1ed5bc903ed0f4, type: 3}
     itemId: A005
@@ -63,6 +71,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 10
     baseItem: {fileID: 7989592551058038698, guid: 95042d46bab04f849a84d19c6449a07f, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: a1c9bb8e639f4e643bb312a0ea53a2b9, type: 2}
     icon: {fileID: 21300000, guid: ab0503b4f77fc0f44a893da82e640140, type: 3}
     itemId: A006
@@ -73,6 +83,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 15
     baseItem: {fileID: 8723500661661373584, guid: a9080fde828ad1e4aa92089decc34032, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 80e59089db35eb84a90e0698fbee1810, type: 2}
     icon: {fileID: 21300000, guid: 10ed7f4135a309f41a6d868e1d47905e, type: 3}
     itemId: A007
@@ -83,6 +95,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 2306437037108905628, guid: 5f07e328e7c7fd0499dfbccaefadc1be, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: cac59bbed03f11d4b898c3d51962706d, type: 2}
     icon: {fileID: 21300000, guid: f0ac6cbe0f9ff6e43a3c9725ec9c9d66, type: 3}
     itemId: A008
@@ -93,6 +107,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 3736508538503068811, guid: 4c559765cf092d3438770eee8eebd6c1, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: d69cfd54ba5ea2c43b6c58e12a0aadcf, type: 2}
     icon: {fileID: 21300000, guid: 023c9411e82d7b149bbc48953aa26b6c, type: 3}
     itemId: B001
@@ -105,6 +121,8 @@ MonoBehaviour:
     - ItemAttributeType: 10
       AttributeValue: 0.08
     baseItem: {fileID: 4165668412799775147, guid: 180d0a1381b2a5e4490092e0bb348b2b, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 80e59089db35eb84a90e0698fbee1810, type: 2}
     icon: {fileID: 21300000, guid: 4525902e6d887804fb5e483a1b277941, type: 3}
     itemId: B002
@@ -120,6 +138,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 25
     baseItem: {fileID: 6431738968859786991, guid: fc5bc199cbf6b034bac84b496e5b7875, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: c01fcc74e13c8894ab92da9a450588ae, type: 2}
     icon: {fileID: 21300000, guid: 7d6b2e00ad67be1409549433e7e2a155, type: 3}
     itemId: B003
@@ -135,6 +155,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 20
     baseItem: {fileID: 8093305227183146397, guid: b0bf00328e25e8144af4e2f3e5bb733a, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 6cfdfacfbbfc46341a1d6752ac76d63a, type: 2}
     icon: {fileID: 21300000, guid: 771c27467f287ca4390503a6f3e9b115, type: 3}
     itemId: B004
@@ -153,6 +175,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 2878623052741285220, guid: 82d4e8c284d309e49b0035d73b47f1cf, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 54bbe243bf13abd4ea1629f5b2042aa6, type: 2}
     icon: {fileID: 21300000, guid: 12fc001db25d72743a316ebbd86f3cbd, type: 3}
     itemId: B005
@@ -169,6 +193,8 @@ MonoBehaviour:
     - ItemAttributeType: 9
       AttributeValue: 0.2
     baseItem: {fileID: 1137857609358987307, guid: 629c77abcf565234496940014b3776c7, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: c8efb2326a8988b439c57412b0888153, type: 2}
     icon: {fileID: 21300000, guid: 40d568cb3b5891740b51dc2206f0c502, type: 3}
     itemId: B006
@@ -183,6 +209,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 15
     baseItem: {fileID: 4900593300616239241, guid: 54e2a39617a13ab4cbf2a4147dd6a920, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: f8848495a874cdf4ca03b8b70cc1a957, type: 2}
     icon: {fileID: 21300000, guid: 27393c5aa449d644fb0c119c4c507a9e, type: 3}
     itemId: B007
@@ -196,6 +224,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 4718951600311286357, guid: 2ea208ad5416fad409bea5079d7b447b, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 59af497f39ea4c644acf19410f32e4a5, type: 2}
     icon: {fileID: 21300000, guid: e15b38da02ef68845b9715fc936efcbb, type: 3}
     itemId: B008
@@ -211,6 +241,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.35
     baseItem: {fileID: 7529686004878157367, guid: df4583cd7599e1f419e51836fbea1459, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: ab17b1c0df188de4084408c637a98a6c, type: 2}
     icon: {fileID: 21300000, guid: 7cffe5be3ecc971499d06a81eba9380d, type: 3}
     itemId: B009
@@ -227,6 +259,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.06
     baseItem: {fileID: 7816595450951111733, guid: 2a82964c5e39a3048b11b93947f714ce, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 69eecedbdd18a4f428d93dbbb6ff96df, type: 2}
     icon: {fileID: 21300000, guid: a948fd47dda958b43a4bac6fbbbfa678, type: 3}
     itemId: B010
@@ -242,6 +276,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 20
     baseItem: {fileID: 724776634074703019, guid: d80237028204e2648b5f4098fbfd6983, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 055ee6a151829574db9fc699f791b438, type: 2}
     icon: {fileID: 21300000, guid: c4012c1f1d6b73b46befaa34d5a6898f, type: 3}
     itemId: B011
@@ -258,6 +294,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 5825141875238602016, guid: 53d7e802c87dec44790d5b1a86960d30, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 891f4bea2796c254ba980acd7e5bfd4d, type: 2}
     icon: {fileID: 21300000, guid: 6ed9c327f3cdbf9498351789b3f4b4b8, type: 3}
     itemId: B012
@@ -271,6 +309,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 10
     baseItem: {fileID: 1193320665613188228, guid: 46694368d16ad2d42b5ef91b64660fb9, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 562e505e6f8ca8746a0857ee1a1ef6d6, type: 2}
     icon: {fileID: 21300000, guid: 7ec9c5a71a474134a914fdb69b90ceaa, type: 3}
     itemId: B013
@@ -287,6 +327,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 15
     baseItem: {fileID: 8940848192455256892, guid: 7d00314f4a7b2594dac2a9d96bd358ca, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: b402f0db322f9124daf53071cf39bf80, type: 2}
     icon: {fileID: 21300000, guid: de12c3b0fddf80e45b7ae48250b50e29, type: 3}
     itemId: B014
@@ -302,6 +344,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 7998120314720459194, guid: 798529afe66e15a448c3f2197fdc0896, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: c07791784d0b057419aa9cd7f201c80e, type: 2}
     icon: {fileID: 21300000, guid: 5d7fd6a813b2bcf459ea31713c36df37, type: 3}
     itemId: B015
@@ -317,6 +361,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 4886951458643682749, guid: 97472cb6733713d4fb021365215733d6, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 7be175ee7424eff4d95c355735919fa8, type: 2}
     icon: {fileID: 21300000, guid: a23d11357b4b67f4dbe018cda6aeaa92, type: 3}
     itemId: B016
@@ -330,6 +376,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 55
     baseItem: {fileID: 7673507428030255622, guid: 64cf0ea04ff4d2b42849911066305e4c, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 4237a6bbca6e3f8458ad43bc79bc1823, type: 2}
     icon: {fileID: 21300000, guid: fc04e9d8a188f7846af93fd07d1fe58d, type: 3}
     itemId: B017
@@ -346,6 +394,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 100
     baseItem: {fileID: 9004885347788267736, guid: de6d10c0d90af824fbcf35a95fb6bbdd, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: d4f24b33f51c0084f9b5f54f88512309, type: 2}
     icon: {fileID: 21300000, guid: 9c3961620bf1ac14a8b4d478f232df3d, type: 3}
     itemId: B018
@@ -362,6 +412,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 100
     baseItem: {fileID: 4441229629842622365, guid: 30b12bffa84bd3344aa0dfa3c8489312, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 2c50648f95dd9014a9d604ded8e5810c, type: 2}
     icon: {fileID: 21300000, guid: 64501bd5488506f40a4fae81dc84bd84, type: 3}
     itemId: B019
@@ -377,6 +429,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 8551477110298497880, guid: 98d2ec84546d939498f9bd868830da44, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 7979473a15592a3439a138ffe0dadc73, type: 2}
     icon: {fileID: 21300000, guid: 930e7d331327b4842a8eb4c7a0475ff5, type: 3}
     itemId: B020
@@ -393,6 +447,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 20
     baseItem: {fileID: 3799826522839909132, guid: 5a26905e2453abd4ab56ed754326688c, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: a0ae5611a22fa2b40ba4dd9d2be1c438, type: 2}
     icon: {fileID: 21300000, guid: 5a0bb6e9f9f18854e9a221edac3bec40, type: 3}
     itemId: B021
@@ -408,6 +464,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 5767172804401513297, guid: 695905dd7f799384394b213bc90d02e1, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 453ad1c8a09939a48a7ae66444659028, type: 2}
     icon: {fileID: 21300000, guid: fbf1fa4133f326e4ebc1eb4e2f3db8e9, type: 3}
     itemId: B022
@@ -419,6 +477,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 65
     baseItem: {fileID: 6706582153909045984, guid: 29f6a2040d82d1c4a8d150594ee9643b, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 0ee112168139af54dae4264b65378cd1, type: 2}
     icon: {fileID: 21300000, guid: 12a3c457934f6a54f892aa2ea6fc686f, type: 3}
     itemId: B023
@@ -436,6 +496,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 25
     baseItem: {fileID: 3430324237282467489, guid: 6e06bfe6376ec0840816fa9e61515614, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 16950f9e3b8087643aadc363ed3eb700, type: 2}
     icon: {fileID: 21300000, guid: 5288fd33f6d0a5c40b4361af2479da2a, type: 3}
     itemId: B024
@@ -454,6 +516,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 15
     baseItem: {fileID: 2774775132484370001, guid: c787b6f7dba2722439954383fb322029, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 98f5ca5b1eec5ef47b076074c11567a7, type: 2}
     icon: {fileID: 21300000, guid: 93efae378fe2ed34f98668863d50a11d, type: 3}
     itemId: B025
@@ -468,6 +532,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 4963603523511087534, guid: ea50986a4ea8b9a4caca9c875e61f614, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 2da503aa47acb3b468431f958e72f088, type: 2}
     icon: {fileID: 21300000, guid: 9aae3ae25991ef746943abd02213b5f9, type: 3}
     itemId: B026
@@ -484,6 +550,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 5408429455382102170, guid: 379ade4e90637434392ce30a37cc894b, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 9096fda85600eef4ca7fe677c1a90e9a, type: 2}
     icon: {fileID: 21300000, guid: 1e45a1bfb67542346aaf540696de56b7, type: 3}
     itemId: B027
@@ -496,6 +564,8 @@ MonoBehaviour:
     - ItemAttributeType: 10
       AttributeValue: 0.15
     baseItem: {fileID: 979691241241991546, guid: b6665386f01d67543bfb5e06357b03db, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 701a77656f9ebc64788168561e322fb6, type: 2}
     icon: {fileID: 21300000, guid: 682700889c08acb4e8efda527a97afe7, type: 3}
     itemId: B028
@@ -509,6 +579,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 20
     baseItem: {fileID: 5083584726466235783, guid: 3c6fac17249acc149b6e895f90704930, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: c9972b64dcc165746af778f86de939dd, type: 2}
     icon: {fileID: 21300000, guid: 5f12ceb3a02d57840bcb92c09b18fc93, type: 3}
     itemId: B029
@@ -527,6 +599,8 @@ MonoBehaviour:
     - ItemAttributeType: 2
       AttributeValue: 0.1
     baseItem: {fileID: 4330403709750707730, guid: 6b06891e1c43a7c439934da33d69f2e4, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 1d5410511e1fc2649b3e91533099c0b6, type: 2}
     icon: {fileID: 21300000, guid: 0be2674fd9e8aab4e84a629b3ce8e9ba, type: 3}
     itemId: B030
@@ -542,6 +616,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.35
     baseItem: {fileID: 4184096283776099091, guid: fde35b15c292ff842b7a9a6a3f23ac61, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: ef6d7ebec548f27438579a65e6b7e837, type: 2}
     icon: {fileID: 21300000, guid: 4d58d1f1598107246aa0eab1041a7063, type: 3}
     itemId: B031
@@ -558,6 +634,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 15
     baseItem: {fileID: 3104196364060358435, guid: 944a489d08ad2fb43a07a2f1805f5f9c, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 4838c1538e407dc4f80d9af2dfaae02e, type: 2}
     icon: {fileID: 21300000, guid: 7cd430c7b83c8034695e9b24c0323caf, type: 3}
     itemId: B032
@@ -573,6 +651,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 15
     baseItem: {fileID: 3901433479150990222, guid: 544d406e85181d14bbe5089edc3c5d39, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: cb745d9b0275ede468372a2584281503, type: 2}
     icon: {fileID: 21300000, guid: 966c5f0f5b1aaa340b6508a5b64a1048, type: 3}
     itemId: B033
@@ -587,6 +667,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 3406255202771142675, guid: 8c92b2a86c4909e40b4f8dd52ae6a476, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 85120b4c07c847c47937f069af3bb8b2, type: 2}
     icon: {fileID: 21300000, guid: bd36da875547adf4c91f05cdd90a2236, type: 3}
     itemId: B034
@@ -597,6 +679,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 600
     baseItem: {fileID: 4598583804638808653, guid: 546b82db4b1c54d4ca854d45ed3d1d19, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 2e1490dbd78e22f47a7ace2746a970de, type: 2}
     icon: {fileID: 21300000, guid: eb5ce65fd77d52540b8e2cf4bd8b8642, type: 3}
     itemId: B035
@@ -614,6 +698,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 2630774542458098053, guid: e74e99da6d3a1a245b4c5f06f6210b3a, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: ffd7abcf64670674898a2bff5a487667, type: 2}
     icon: {fileID: 21300000, guid: 304222c0d44b3c7429f1c24ff14e5373, type: 3}
     itemId: B036
@@ -627,6 +713,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 3698363011745614332, guid: b9c8c6d9a41fff7408cb0b005e69f475, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 09b991b7359490a4a84ea04c3e4ce31f, type: 2}
     icon: {fileID: 21300000, guid: d7b3887133c24c44cbd35b981c9c3f83, type: 3}
     itemId: A009
@@ -635,6 +723,8 @@ MonoBehaviour:
     itemType: 1
     itemAttribute: []
     baseItem: {fileID: 4805164731729591675, guid: 558e9e5e5e905db41b73e9a3f0a31b48, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 56ad8c198c577ba4693c7c3acf5a55b1, type: 2}
     icon: {fileID: 21300000, guid: 253f07f5f542d79439d3e1cc4b38027c, type: 3}
     itemId: A010
@@ -644,6 +734,8 @@ MonoBehaviour:
     itemType: 1
     itemAttribute: []
     baseItem: {fileID: 3345960520357591917, guid: ae0df3e09b7f9664eb5256973ece1303, type: 3}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 86fd3ef59e2495246a3d7740676364dd, type: 2}
     icon: {fileID: 21300000, guid: ca5858ff33572464bbaa68870a61d5b7, type: 3}
     itemId: C001
@@ -655,6 +747,8 @@ MonoBehaviour:
     - ItemAttributeType: 1
       AttributeValue: 0.1
     baseItem: {fileID: 0}
+    championLine: 1
+    championJob: 0
   - material: {fileID: 2100000, guid: 02924c18e50472248a48980e85ed5c8c, type: 2}
     icon: {fileID: 21300000, guid: 013a3f53a7a097245b9baa9cf285f76b, type: 3}
     itemId: C002
@@ -665,6 +759,8 @@ MonoBehaviour:
     - ItemAttributeType: 2
       AttributeValue: 0.1
     baseItem: {fileID: 0}
+    championLine: 13
+    championJob: 0
   - material: {fileID: 2100000, guid: 65a1cfe9316c8f94ab0077a3bc2e823b, type: 2}
     icon: {fileID: 21300000, guid: d02fe09caa01a7c48a1003676f6c8fe6, type: 3}
     itemId: C003
@@ -675,6 +771,8 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 20
     baseItem: {fileID: 0}
+    championLine: 5
+    championJob: 0
   - material: {fileID: 2100000, guid: 484e8f3635846144aa5af79ada078253, type: 2}
     icon: {fileID: 21300000, guid: 28ab1836b74dbcb48a31ff31e813fa6f, type: 3}
     itemId: C004
@@ -685,6 +783,8 @@ MonoBehaviour:
     - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 0}
+    championLine: 3
+    championJob: 0
   - material: {fileID: 2100000, guid: 55c8d990e79df9744a3d74c35cc90571, type: 2}
     icon: {fileID: 21300000, guid: 886aa119eca140b429667f0f56b4e2b3, type: 3}
     itemId: C005
@@ -696,6 +796,8 @@ MonoBehaviour:
     - ItemAttributeType: 4
       AttributeValue: 0.1
     baseItem: {fileID: 0}
+    championLine: 11
+    championJob: 0
   - material: {fileID: 2100000, guid: 162e08ef0a1ad0b4eac85b348e518bc1, type: 2}
     icon: {fileID: 21300000, guid: 67e4623460390b6419ff7d3e50ea9de6, type: 3}
     itemId: C006
@@ -706,6 +808,8 @@ MonoBehaviour:
     - ItemAttributeType: 6
       AttributeValue: 15
     baseItem: {fileID: 0}
+    championLine: 9
+    championJob: 0
   - material: {fileID: 2100000, guid: 3bbbca462fa69ce4298d9527bb7742b5, type: 2}
     icon: {fileID: 21300000, guid: 073d768e3adc3bd498645bd979066e2f, type: 3}
     itemId: C007
@@ -717,6 +821,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 6
+    championJob: 0
   - material: {fileID: 2100000, guid: 7fa1814ddb0c48f43b7e38044552ba0b, type: 2}
     icon: {fileID: 21300000, guid: ac2edaf2389ed114ab7bdef47eb9693f, type: 3}
     itemId: C008
@@ -728,6 +834,8 @@ MonoBehaviour:
     - ItemAttributeType: 8
       AttributeValue: 0.2
     baseItem: {fileID: 0}
+    championLine: 4
+    championJob: 0
   - material: {fileID: 2100000, guid: 5c43177ddce677c4e886303b6f3db59f, type: 2}
     icon: {fileID: 21300000, guid: 135189f1aeb552c48aba1ae321e18db5, type: 3}
     itemId: C009
@@ -739,6 +847,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 5
   - material: {fileID: 2100000, guid: 2191ddd3476e6aa45832397e7eb1fdf6, type: 2}
     icon: {fileID: 21300000, guid: d5370c3708245a54eaba73f813e60a04, type: 3}
     itemId: C010
@@ -750,6 +860,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 7
   - material: {fileID: 2100000, guid: 2fb2b9d6d3697b742a8819e59e1e92aa, type: 2}
     icon: {fileID: 21300000, guid: 75117b2358ca97449ae409305c0ade5d, type: 3}
     itemId: C011
@@ -760,6 +872,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 8
   - material: {fileID: 2100000, guid: fa2cb9ea31ebb664793b4598be3a92eb, type: 2}
     icon: {fileID: 21300000, guid: c3d35a0734504c54e9f51701ccf9f5b1, type: 3}
     itemId: C012
@@ -771,6 +885,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 4
   - material: {fileID: 2100000, guid: a1a3e0d082ea8af4aaaaf28e9a67b89f, type: 2}
     icon: {fileID: 21300000, guid: 6c8f0b93cde46d64da0a7bf2ac30588d, type: 3}
     itemId: C013
@@ -782,6 +898,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 9
   - material: {fileID: 2100000, guid: cd664a9292fe3bf48af2e9571b0930b2, type: 2}
     icon: {fileID: 21300000, guid: 5677cef1d1d94a7409a0df0194f9a323, type: 3}
     itemId: C014
@@ -792,6 +910,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 13
   - material: {fileID: 2100000, guid: d4aa73673abe71a44951b355ad3ab1c1, type: 2}
     icon: {fileID: 21300000, guid: 5d62e98c79033894aaeed1785107055f, type: 3}
     itemId: C015
@@ -803,6 +923,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 14
   - material: {fileID: 2100000, guid: dbedda712db15134f920e57a78b6e36a, type: 2}
     icon: {fileID: 21300000, guid: 028e0e258810eff43901de0769a89fb3, type: 3}
     itemId: C016
@@ -813,6 +935,8 @@ MonoBehaviour:
     - ItemAttributeType: 7
       AttributeValue: 150
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 10
   - material: {fileID: 2100000, guid: a73661016a9cf4b46a49961ab6474fc2, type: 2}
     icon: {fileID: 21300000, guid: 2f2309f6283120c4ead69a7e42141203, type: 3}
     itemId: C017
@@ -823,6 +947,8 @@ MonoBehaviour:
     itemType: 4
     itemAttribute: []
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 2e406958ba4fbb84f8804515d4266b49, type: 2}
     icon: {fileID: 21300000, guid: ec3ef827610636246964359695afff32, type: 3}
     itemId: C018
@@ -833,6 +959,8 @@ MonoBehaviour:
     itemType: 4
     itemAttribute: []
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 0
   - material: {fileID: 2100000, guid: 1b4b7d21b01af6447b79307cd4953763, type: 2}
     icon: {fileID: 21300000, guid: 4c0c0cca54e7ddb48981226ce05ca0c1, type: 3}
     itemId: C0189
@@ -843,6 +971,8 @@ MonoBehaviour:
     itemType: 4
     itemAttribute: []
     baseItem: {fileID: 0}
+    championLine: 0
+    championJob: 0
   itemCombineDesk:
   - firstItem: A001
     secondItem: A001

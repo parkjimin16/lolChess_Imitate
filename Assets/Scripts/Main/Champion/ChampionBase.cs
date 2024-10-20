@@ -11,6 +11,7 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private ChampionHpMpController championHpMpController;
     [SerializeField] private ChampionStateController championStateController;
     [SerializeField] private ChampionView championView;
+    private ChampionFrame championFrame;
 
     #region Fields
     // Champion Info
@@ -71,6 +72,8 @@ public class ChampionBase : MonoBehaviour
     public ChampionHpMpController ChampionHpMpController => championHpMpController;
     public ChampionStateController ChampionStateController => championStateController;
     public ChampionView ChampionView => championView;
+    public ChampionFrame ChampionFrame => championFrame;
+    public List<ItemBlueprint> EquipItem => equipItem;
 
     // Champion Info
     public string ChampionName => championName;
@@ -188,11 +191,6 @@ public class ChampionBase : MonoBehaviour
     /// <summary>
     /// blueprint로 UI 생성하고 클릭해서 구매하면 SetChampion 호출
     /// </summary>
-    /// <param name="blueprint"></param>
-    /// <param name="position"></param>
-    /// <param name="hpWeight"></param>
-    /// <param name="atkWeight"></param>
-    /// <param name="goldWeight"></param>
     public void SetChampion(ChampionBlueprint blueprint)
     {
         blueprint.ChampionSet(blueprint.ChampionLevel);
@@ -253,13 +251,15 @@ public class ChampionBase : MonoBehaviour
         isAttacking = false;
     }
 
-    public void ChampionInit()
+    public void ChampionInit(ChampionFrame frame)
     {
+        championFrame = frame;
         championAnimController.Init(this);
         championAttackController.Init(this, attack_Speed, attack_Range, curMana, maxMana);
         championHpMpController.Init(this);
         championStateController.Init(this);
         championView.Init(this);
+        championFrame.Init(this, championBlueprint);
     }
     #endregion
 
@@ -289,13 +289,22 @@ public class ChampionBase : MonoBehaviour
 
     #region Item
 
+    public bool CanGetItem()
+    {
+        return equipItem.Count <= maxItemSlot;
+    }
+
     public void GetItem(ItemBlueprint item)
     {
         if (!HasCombinedItem())
         {
             if (equipItem.Count <= maxItemSlot)
             {
-                equipItem.Add(item);
+                if (CheckSymbol(item))
+                {
+                    equipItem.Add(item);
+                    CombineItem();
+                }
             }
             else
             {
@@ -304,9 +313,15 @@ public class ChampionBase : MonoBehaviour
         }
         else
         {
-            if (item.ItemType == ItemType.Normal && equipItem.Count <= maxItemSlot)
+            if ((item.ItemType == ItemType.Normal && CanGetItem()) ||
+                (item.ItemType == ItemType.Combine && CanGetItem()) ||
+                (item.ItemType == ItemType.Symbol && CanGetItem()))
             {
-                equipItem.Add(item);
+                if (CheckSymbol(item))
+                {
+                    equipItem.Add(item);
+                    CombineItem();
+                }
             }
             else
             {
@@ -314,7 +329,8 @@ public class ChampionBase : MonoBehaviour
             }
         }
 
-        CombineItem();
+
+        championFrame.SetEquipItemImage(equipItem);
     }
 
 
@@ -330,7 +346,11 @@ public class ChampionBase : MonoBehaviour
             string newId = Manager.Item.ItemCombine(combineItem1.ItemId, combineItem2.ItemId);
             ItemBlueprint combinedItem = Manager.Item.FindItemById(newId);
 
-            equipItem.Add(combinedItem);
+            if (CheckSymbol(combinedItem))
+            {
+                equipItem.Add(combinedItem);
+            }
+
 
             equipItem.Remove(combineItem1);
             equipItem.Remove(combineItem2);
@@ -339,6 +359,8 @@ public class ChampionBase : MonoBehaviour
         {
             Debug.Log("Not enough normal items to combine!");
         }
+
+        championFrame.SetEquipItemImage(equipItem);
     }
 
 
@@ -346,6 +368,18 @@ public class ChampionBase : MonoBehaviour
     private bool HasCombinedItem()
     {
         return equipItem.Exists(item => item.ItemType == ItemType.Combine);
+    }
+
+    private bool CheckSymbol(ItemBlueprint symbol)
+    {
+        if (symbol.CompareLine(line_First) || symbol.CompareLine(line_Second) ||
+            symbol.CompareJob(job_First) || symbol.CompareJob(job_Second))
+        {
+            Debug.Log("Error");
+            return false;
+        }
+
+        return true;
     }
     #endregion
 }

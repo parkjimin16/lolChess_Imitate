@@ -51,6 +51,9 @@ public class ItemBlueprint
     [SerializeField] private List<ItemAttribute> itemAttribute;
     [SerializeField] private BaseItem baseItem;
 
+    [SerializeField] private ChampionLine championLine;
+    [SerializeField] private ChampionJob championJob;
+
     public Material Material => material;
     public Sprite Icon => icon;
     public string ItemId => itemId;
@@ -59,6 +62,24 @@ public class ItemBlueprint
     public ItemType ItemType => itemType;
     public List<ItemAttribute> Attribute => itemAttribute;
     public BaseItem BaseItem => baseItem;
+    public ChampionLine ChampionLine => championLine;
+    public ChampionJob ChampionJob => championJob;
+
+    public bool CompareLine(ChampionLine cLine)
+    {
+        if (championLine == ChampionLine.None)
+            return false;
+
+        return championLine == cLine;
+    }
+
+    public bool CompareJob(ChampionJob cJob)
+    {
+        if (championJob == ChampionJob.None)
+            return false;
+
+        return ChampionJob == cJob;
+    }
 }
 
 

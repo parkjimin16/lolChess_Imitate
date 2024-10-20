@@ -14,12 +14,15 @@ public class ChampionHpMpController : MonoBehaviour
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
+        cBase.ChampionFrame.SetHPSlider(cBase.CurHP, cBase.MaxHP);
+        cBase.ChampionFrame.SetManaSlider(cBase.CurMana, cBase.MaxMana);
     }
 
     public void TakeDamage(float damage)
     {
         cBase.CurHP -= (int)damage;
         DamageMana();
+
     }
 
     
