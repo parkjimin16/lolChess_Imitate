@@ -17,29 +17,39 @@ public class StageManager : MonoBehaviour
     public int[] damagePerEnemyUnit; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
-    private int normalWaitTime = 30;
+    private int normalWaitTime = 3;
     private int augmentWaitTime = 50;
     private int postMatchWaitTime = 3;
-    private int roundDuration = 30;
+    private int roundDuration = 3;
 
     private bool isAugmentRound = false;
 
     private Coroutine roundCoroutine;
 
-    void Start()
+    private void Awake()
     {
         InitializePlayers();
+    }
+    void Start()
+    {
+        
         StartStage(currentStage);
     }
 
     void InitializePlayers()
     {
+        
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
+        
         selfPlayer = allPlayers[0];
-
+        
         opponents = new List<PlayerData>(allPlayers);
         opponents.Remove(selfPlayer);
+        for (int i = 0; i < allPlayers.Length; i++)
+        {
+            allPlayers[i].health = 100;
+        }
     }
 
     void StartStage(int stageNumber)
@@ -136,7 +146,14 @@ public class StageManager : MonoBehaviour
         selfPlayer.health -= totalDamage;
         Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.health}");
 
-        // 체력 체크
+        // 체력바 업데이트
+        HealthBarManager healthBarManager = FindObjectOfType<HealthBarManager>();
+        if (healthBarManager != null)
+        {
+            healthBarManager.UpdateHealthBars();
+        }
+
+        // 게임 오버 체크
         if (selfPlayer.health <= 0)
         {
             Debug.Log("게임 오버!");
