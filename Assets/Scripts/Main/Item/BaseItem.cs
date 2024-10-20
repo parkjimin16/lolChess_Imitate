@@ -7,7 +7,7 @@ public class BaseItem : MonoBehaviour
 {
     #region SerializeField 
     [Header("Item Info")]
-    [SerializeField] private Image icon;
+    [SerializeField] private Sprite icon;
     [SerializeField] private string itemId;
     [SerializeField] private string itemName;
     [SerializeField, TextArea] private string description;
@@ -20,7 +20,7 @@ public class BaseItem : MonoBehaviour
 
     #region Properity
 
-    public Image Icon => icon;
+    public Sprite Icon => icon;
     public string ItemId => itemId;
     public string ItemName => itemName;
     public string Description => description;

@@ -2,19 +2,19 @@
 public enum ChampionLine
 {
     None = 0,
-    SweetMagician, // ´ÞÄÞ¼ú»ç
+    Sugarcraft,   // ´ÞÄÞ¼ú»ç
     Druid,
-    Witch, 
-    Meadist, // ¹ú²Ü¼ú»ç
-    Frost,
-    EldritchPowers, // ¼¶¶àÇÑ Èû
+    Witchcraft,   // ¸¶³à  
+    Meadist,            // ¹ú²Ü¼ú»ç 
+    Frost,        // ¼­¸® 
+    Eldritch,     // ¼¶¶àÇÑ Èû
     SpaceAndTime,
     Arcana,
     Fairy,
     Dragon,
     Portal,
     Hunger,
-    Flame
+    Pyro          // È­¿°
 }
 
 

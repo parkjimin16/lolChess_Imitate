@@ -67,7 +67,7 @@ public class UIPopupItemDetail : UIPopup
     private void SetUIItemDetail()
     {
         // top
-        image_ItemIcon = itemData.Icon;
+        image_ItemIcon.sprite = itemData.Icon;
         txt_ItemName.text = itemData.ItemName;
 
         for(int i=0; i < attributeSlot.Length; i++)

@@ -7,12 +7,12 @@ using Unity.VisualScripting;
 
 public class ItemFrame : MonoBehaviour
 {
-    [SerializeField] private Image itemImge;
+    [SerializeField] private Sprite itemImge;
     [SerializeField] private TextMeshPro txt_ItemName;
     [SerializeField] private ItemBlueprint itemBlueprint;
 
     #region Property
-    public Image ItemImage => itemImge;
+    public Sprite ItemImage => itemImge;
     public TextMeshPro Txt_ItemName => txt_ItemName;
     public ItemBlueprint ItemBlueprint => itemBlueprint;
     #endregion
