@@ -42,6 +42,7 @@ public class ItemDataContainerBlueprint : ScriptableObject
 public class ItemBlueprint
 {
     [Header("Item Info")]
+    [SerializeField] private Material material;
     [SerializeField] private Sprite icon;
     [SerializeField] private string itemId;
     [SerializeField] private string itemName;
@@ -50,6 +51,7 @@ public class ItemBlueprint
     [SerializeField] private List<ItemAttribute> itemAttribute;
     [SerializeField] private BaseItem baseItem;
 
+    public Material Material => material;
     public Sprite Icon => icon;
     public string ItemId => itemId;
     public string ItemName => itemName;

@@ -7,9 +7,11 @@ using Unity.VisualScripting;
 
 public class ItemFrame : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer mesh;
     [SerializeField] private Sprite itemImge;
     [SerializeField] private TextMeshPro txt_ItemName;
     [SerializeField] private ItemBlueprint itemBlueprint;
+
 
     #region Property
     public Sprite ItemImage => itemImge;
@@ -25,6 +27,8 @@ public class ItemFrame : MonoBehaviour
             Debug.Log("item Null");
         }
 
+        mesh = GetComponent<MeshRenderer>();
+        mesh.material = item.Material;
         itemImge = item.Icon;
         txt_ItemName.text = item.ItemName;
         itemBlueprint = item;
