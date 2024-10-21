@@ -90,7 +90,7 @@ public class TestScene : UIBase
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
             cBase.SetChampion(cBlueprint);
-            cBase.ChampionInit(cFrame);
+            cBase.InitChampion(cFrame);
 
             currentChampionIndex++;
         }

@@ -85,10 +85,10 @@ public class BaseItem : MonoBehaviour
                 case ItemAttributeType.BloodSuck:
                     ApplyBloodSuck(attribute.AttributeValue);
                     break;
-                case ItemAttributeType.Total_Power:
+                case ItemAttributeType.TotalPower:
                     ApplyTotalPower(attribute.AttributeValue);
                     break;
-                case ItemAttributeType.Special:
+                case ItemAttributeType.TotalDefense:
                     ApplySpecial(attribute.AttributeValue);
                     break;
             }

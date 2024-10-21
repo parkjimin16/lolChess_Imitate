@@ -20,7 +20,7 @@ MonoBehaviour:
     description: "\uACF5\uACA9\uB825 +10%"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.1
     baseItem: {fileID: 5801655367137927557, guid: bf53afb2abe076443b3db647cc252b39, type: 3}
     championLine: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     description: "\uACF5\uACA9 \uC18D\uB3C4 +10%"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     baseItem: {fileID: 4870259966177533082, guid: b368763c267caa342a7d3929aa230754, type: 3}
     championLine: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
     description: "\uBC29\uC5B4\uB825 +20"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 3702625022200983971, guid: d33a533891290094aab375e812ce097c, type: 3}
     championLine: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
     description: "\uB9C8\uBC95 \uC800\uD56D\uB825 +20"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 2504519346164500576, guid: dbeb87263f414844ebf4bbf7ec65a744, type: 3}
     championLine: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
     description: "\uB9C8\uB098 +15"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     baseItem: {fileID: 8723500661661373584, guid: a9080fde828ad1e4aa92089decc34032, type: 3}
     championLine: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     description: "\uCCB4\uB825 +150"
     itemType: 1
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 2306437037108905628, guid: 5f07e328e7c7fd0499dfbccaefadc1be, type: 3}
     championLine: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
     description: "\uACF5\uACA9\uB825 +50%, \uD53C\uD574\uB7C9 \uC99D\uAC00 +8%"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.5
     - ItemAttributeType: 10
       AttributeValue: 0.08
@@ -131,9 +131,9 @@ MonoBehaviour:
       \uC0C1\uB300\uB85C \uD53C\uD574 \uC99D\uD3ED\uC744 25% \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.25
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     - ItemAttributeType: 4
       AttributeValue: 25
@@ -150,9 +150,9 @@ MonoBehaviour:
       \uCD94\uAC00 \uACF5\uACA9 \uC18D\uB3C4 15% \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
-      AttributeValue: 0.1
     - ItemAttributeType: 3
+      AttributeValue: 0.1
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 8093305227183146397, guid: b0bf00328e25e8144af4e2f3e5bb733a, type: 3}
     championLine: 0
@@ -166,13 +166,13 @@ MonoBehaviour:
       \uD68D\uB4DD \uD6C4 \uCD5C\uB300 5\uCD08\uAE4C\uC9C0 \uC720\uC9C0"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
     - ItemAttributeType: 9
       AttributeValue: 0.2
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 2878623052741285220, guid: 82d4e8c284d309e49b0035d73b47f1cf, type: 3}
     championLine: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
       \uD68C\uBCF5"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
@@ -202,9 +202,9 @@ MonoBehaviour:
     description: "\uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uCD94\uAC00 \uB9C8\uB098 5 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
@@ -219,9 +219,9 @@ MonoBehaviour:
       \uB54C \uCD5C\uB300 \uCCB4\uB825 25% \uBC0F \uACF5\uACA9\uB825 35% \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 4718951600311286357, guid: 2ea208ad5416fad409bea5079d7b447b, type: 3}
     championLine: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
       10% \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.35
     - ItemAttributeType: 8
       AttributeValue: 0.35
@@ -254,10 +254,10 @@ MonoBehaviour:
       : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 7
       AttributeValue: 0.35
-    - ItemAttributeType: 8
-      AttributeValue: 0.06
+    - ItemAttributeType: 10
+      AttributeValue: 0.03
     baseItem: {fileID: 7816595450951111733, guid: 2a82964c5e39a3048b11b93947f714ce, type: 3}
     championLine: 0
     championJob: 0
@@ -271,9 +271,9 @@ MonoBehaviour:
       \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 724776634074703019, guid: d80237028204e2648b5f4098fbfd6983, type: 3}
     championLine: 0
@@ -287,11 +287,11 @@ MonoBehaviour:
       \uBB3C\uB9AC \uD53C\uD574"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.25
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 5825141875238602016, guid: 53d7e802c87dec44790d5b1a86960d30, type: 3}
     championLine: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
       (\uC911\uCCA9 \uAC00\uB2A5)"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     - ItemAttributeType: 4
       AttributeValue: 10
@@ -320,11 +320,11 @@ MonoBehaviour:
       30% \uD30C\uC1C4\n\n\uD30C\uC1C4 : \uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     baseItem: {fileID: 8940848192455256892, guid: 7d00314f4a7b2594dac2a9d96bd358ca, type: 3}
     championLine: 0
@@ -337,11 +337,11 @@ MonoBehaviour:
       \uC18D\uB3C4 60% \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     - ItemAttributeType: 4
       AttributeValue: 10
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 7998120314720459194, guid: 798529afe66e15a448c3f2197fdc0896, type: 3}
     championLine: 0
@@ -354,9 +354,9 @@ MonoBehaviour:
       3\uCD08 \uB3D9\uC548 30% \uD30C\uC5F4 (\uC911\uCCA9 \uBD88\uAC00)"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.2
     - ItemAttributeType: 8
       AttributeValue: 0.2
@@ -373,8 +373,8 @@ MonoBehaviour:
       \uC801\uC5D0\uAC8C 100\uC758 \uB9C8\uBC95 \uD53C\uD574"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 3
-      AttributeValue: 55
+    - ItemAttributeType: 5
+      AttributeValue: 65
     baseItem: {fileID: 7673507428030255622, guid: 64cf0ea04ff4d2b42849911066305e4c, type: 3}
     championLine: 0
     championJob: 0
@@ -387,11 +387,11 @@ MonoBehaviour:
       \uC801\uC774 \uB298\uC5B4\uB098\uBA74 \uC911\uCCA9\uB418\uC5B4 \uC801\uC6A9."
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 3
-      AttributeValue: 25
     - ItemAttributeType: 5
       AttributeValue: 25
-    - ItemAttributeType: 7
+    - ItemAttributeType: 6
+      AttributeValue: 25
+    - ItemAttributeType: 1
       AttributeValue: 100
     baseItem: {fileID: 9004885347788267736, guid: de6d10c0d90af824fbcf35a95fb6bbdd, type: 3}
     championLine: 0
@@ -405,11 +405,11 @@ MonoBehaviour:
       \uC0AC\uB77C\uC9C0\uBA74 \uC8FC\uBB38\uB825 35% \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     - ItemAttributeType: 4
       AttributeValue: 20
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 100
     baseItem: {fileID: 4441229629842622365, guid: 30b12bffa84bd3344aa0dfa3c8489312, type: 3}
     championLine: 0
@@ -424,9 +424,9 @@ MonoBehaviour:
       20, \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 3
-      AttributeValue: 20
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
+      AttributeValue: 30
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 8551477110298497880, guid: 98d2ec84546d939498f9bd868830da44, type: 3}
     championLine: 0
@@ -442,9 +442,9 @@ MonoBehaviour:
       \uACE0\uC815 \uD53C\uD574\n\uC0C1\uCC98 : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 250
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 3799826522839909132, guid: 5a26905e2453abd4ab56ed754326688c, type: 3}
     championLine: 0
@@ -457,9 +457,9 @@ MonoBehaviour:
       \uB118\uC73C\uBA74 \uB300\uC2E0 \uB0B4\uAD6C\uB825 15% \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 200
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     - ItemAttributeType: 8
       AttributeValue: 0.2
@@ -474,8 +474,8 @@ MonoBehaviour:
       \uCD5C\uB300 \uCCB4\uB825\uC758 2.5% \uD68C\uBCF5"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 5
-      AttributeValue: 65
+    - ItemAttributeType: 6
+      AttributeValue: 75
     baseItem: {fileID: 6706582153909045984, guid: 29f6a2040d82d1c4a8d150594ee9643b, type: 3}
     championLine: 0
     championJob: 0
@@ -489,11 +489,11 @@ MonoBehaviour:
       \uC785\uC74C\n\n\uD30C\uC1C4 : \uB9C8\uBC95 \uC800\uD56D\uB825 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 100
     - ItemAttributeType: 4
       AttributeValue: 15
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 25
     baseItem: {fileID: 3430324237282467489, guid: 6e06bfe6376ec0840816fa9e61515614, type: 3}
     championLine: 0
@@ -511,10 +511,10 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 4
       AttributeValue: 10
-    - ItemAttributeType: 5
-      AttributeValue: 20
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
+    - ItemAttributeType: 6
+      AttributeValue: 20
     baseItem: {fileID: 2774775132484370001, guid: c787b6f7dba2722439954383fb322029, type: 3}
     championLine: 0
     championJob: 0
@@ -527,9 +527,9 @@ MonoBehaviour:
       \uC800\uD56D\uB825 25 \uC99D\uAC00\n\n\uD30C\uC5F4 : \uBC29\uC5B4\uB825 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 4963603523511087534, guid: ea50986a4ea8b9a4caca9c875e61f614, type: 3}
     championLine: 0
@@ -543,9 +543,9 @@ MonoBehaviour:
       2\uCD08\uB9C8\uB2E4 4%\uC758 \uACF5\uACA9 \uC18D\uB3C4 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.3
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     - ItemAttributeType: 8
       AttributeValue: 0.2
@@ -574,7 +574,7 @@ MonoBehaviour:
       \uC8FC\uBB38\uB825 30 \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     - ItemAttributeType: 4
       AttributeValue: 20
@@ -592,11 +592,11 @@ MonoBehaviour:
       \uACE0\uC815 \uD53C\uD574\n\uC0C1\uCC98 : \uCCB4\uB825 \uD68C\uBCF5\uB7C9 \uAC10\uC18C"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     - ItemAttributeType: 4
       AttributeValue: 25
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     baseItem: {fileID: 4330403709750707730, guid: 6b06891e1c43a7c439934da33d69f2e4, type: 3}
     championLine: 0
@@ -627,9 +627,9 @@ MonoBehaviour:
       \uCD94\uAC00 \uD53C\uD574"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 20
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
@@ -646,9 +646,9 @@ MonoBehaviour:
       \uD68D\uB4DD (\uC774 \uD6A8\uACFC\uB294 \uC911\uCCA9\uB418\uC9C0 \uC54A\uC74C)"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     baseItem: {fileID: 3901433479150990222, guid: 544d406e85181d14bbe5089edc3c5d39, type: 3}
     championLine: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
       \uC704 \uD6A8\uACFC \uC911 1\uAC1C \uBB34\uC791\uC704\uB85C 2\uBC30 \uC99D\uAC00"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     - ItemAttributeType: 8
       AttributeValue: 0.2
@@ -676,7 +676,7 @@ MonoBehaviour:
     description: "12%\uC758 \uCD5C\uB300 \uCCB4\uB825 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 600
     baseItem: {fileID: 4598583804638808653, guid: 546b82db4b1c54d4ca854d45ed3d1d19, type: 3}
     championLine: 0
@@ -689,9 +689,9 @@ MonoBehaviour:
       \uC99D\uD3ED 25% \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.2
     - ItemAttributeType: 4
       AttributeValue: 10
@@ -708,7 +708,7 @@ MonoBehaviour:
       2\uAC1C \uC7A5\uCC29\n\n[\uC544\uC774\uD15C \uC2AC\uB86F 3\uAC1C \uC18C\uBAA8]"
     itemType: 2
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     - ItemAttributeType: 8
       AttributeValue: 0.2
@@ -744,7 +744,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 1
+    - ItemAttributeType: 3
       AttributeValue: 0.1
     baseItem: {fileID: 0}
     championLine: 1
@@ -756,7 +756,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uD654\uC5FC \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 2
+    - ItemAttributeType: 7
       AttributeValue: 0.1
     baseItem: {fileID: 0}
     championLine: 13
@@ -768,7 +768,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uC11C\uB9AC \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 3
+    - ItemAttributeType: 5
       AttributeValue: 20
     baseItem: {fileID: 0}
     championLine: 5
@@ -780,7 +780,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uB9C8\uB140 \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 5
+    - ItemAttributeType: 6
       AttributeValue: 20
     baseItem: {fileID: 0}
     championLine: 3
@@ -794,7 +794,7 @@ MonoBehaviour:
     itemType: 4
     itemAttribute:
     - ItemAttributeType: 4
-      AttributeValue: 0.1
+      AttributeValue: 20
     baseItem: {fileID: 0}
     championLine: 11
     championJob: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uC694\uC815 \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 6
+    - ItemAttributeType: 2
       AttributeValue: 15
     baseItem: {fileID: 0}
     championLine: 9
@@ -818,7 +818,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 6
@@ -844,7 +844,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -869,7 +869,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uC694\uC0C8 \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -895,7 +895,7 @@ MonoBehaviour:
       \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -907,7 +907,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uD559\uC790 \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -920,7 +920,7 @@ MonoBehaviour:
       \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
     description: "[\uACE0\uC720] \uC7A5\uCC29 \uC2DC \uC804\uC0AC \uD2B9\uC131 \uD68D\uB4DD"
     itemType: 4
     itemAttribute:
-    - ItemAttributeType: 7
+    - ItemAttributeType: 1
       AttributeValue: 150
     baseItem: {fileID: 0}
     championLine: 0

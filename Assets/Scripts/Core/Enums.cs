@@ -76,17 +76,17 @@ public enum ItemType
 public enum ItemAttributeType
 {
     None = 0,
-    AD_Power,
-    AD_Speed,
-    AD_Defense,
-    AP_Power,
-    AP_Defense,
-    Mana,
     HP,
+    Mana,
+    AD_Power,
+    AP_Power,
+    AD_Defense,
+    AP_Defense,
+    AD_Speed,
     CriticalPercent,
     BloodSuck,
-    Total_Power,
-    Special
+    TotalPower,
+    TotalDefense
 }
 
 // 스킬 타입

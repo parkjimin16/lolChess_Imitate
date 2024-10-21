@@ -45,7 +45,10 @@ public class ItemFrame : MonoBehaviour
         UIPopupItemDetail uiItemDetail = itemInfoUIPopup.GetComponent<UIPopupItemDetail>();
         uiItemDetail.SetItemData(itemBlueprint);
     }
-
+    public void HideItemInfoUI()
+    {
+        Manager.UI.ClosePopup();
+    }
     #endregion
 
     #region Combine

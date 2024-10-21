@@ -6,8 +6,9 @@ public class User : MonoBehaviour
 {
     private Camera mainCamera;
     private ItemFrame draggedItem;
+    private ItemFrame hoveredItem; 
     private Vector3 offset;
-
+    private bool isDragging = false;
 
     #region Unity Flow
     private void Awake()
@@ -24,16 +25,23 @@ public class User : MonoBehaviour
 
         if (draggedItem != null)
         {
+            isDragging = true;
             HandleDragging();
             if (Input.GetMouseButtonUp(0))
             {
                 HandleDrop();
+                isDragging = false;
             }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            HandleRightClick();
+            //HandleRightClick();
+        }
+
+        if (!isDragging)
+        {
+            HandleMouseHover();
         }
     }
 
@@ -52,6 +60,12 @@ public class User : MonoBehaviour
 
             if (clickedObject.CompareTag("Item"))
             {
+                if (hoveredItem != null)
+                {
+                    hoveredItem.HideItemInfoUI();
+                    hoveredItem = null; 
+                }
+
                 draggedItem = clickedObject.GetComponent<ItemFrame>();
                 offset = draggedItem.transform.position - GetMouseWorldPosition();
             }
@@ -148,6 +162,50 @@ public class User : MonoBehaviour
             {
                 ItemFrame itemFrame = clickedObject.GetComponent<ItemFrame>();
                 itemFrame.ShowItemInfoUI();
+            }
+        }
+    }
+
+    private void HandleMouseHover()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject hoveredObject = hit.collider.gameObject;
+
+            if (hoveredObject.CompareTag("Item"))
+            {
+                ItemFrame itemFrame = hoveredObject.GetComponent<ItemFrame>();
+                if (hoveredItem != itemFrame)
+                {
+                    
+                    if (hoveredItem != null)
+                    {
+                        hoveredItem.HideItemInfoUI();
+                    }
+
+                    hoveredItem = itemFrame; 
+                    hoveredItem.ShowItemInfoUI();
+                }
+            }
+            else
+            {
+                if (hoveredItem != null)
+                {
+                    hoveredItem.HideItemInfoUI();
+                    hoveredItem = null; 
+                }
+            }
+        }
+        else
+        {
+            if (hoveredItem != null)
+            {
+                hoveredItem.HideItemInfoUI();
+                hoveredItem = null;
             }
         }
     }

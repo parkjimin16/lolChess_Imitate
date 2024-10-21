@@ -1,6 +1,9 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChampionBase : MonoBehaviour
@@ -46,6 +49,25 @@ public class ChampionBase : MonoBehaviour
     private float blood_Suck;
     private float power_Upgrade;
     private float total_Defense;
+
+
+    // Item Stats
+    [SerializeField] private int item_MaxHP;
+    [SerializeField] private int item_CurHP;
+    [SerializeField] private int item_MaxMana;
+    [SerializeField] private int item_CurMana;
+    [SerializeField] private float item_Speed;
+
+    [SerializeField] private float item_AD_Power;
+    [SerializeField] private float item_AP_Power;
+    [SerializeField] private float item_AD_Def;
+    [SerializeField] private float item_AP_Def;
+    [SerializeField] private float item_Atk_Spd;
+    [SerializeField] private float item_Critical_Percent;
+    [SerializeField] private float item_Cirtical_Power;
+    [SerializeField] private float item_Blood_Suck;
+    [SerializeField] private float item_Power_Upgrade;
+    [SerializeField] private float item_Total_Def;
 
 
     // Champion Base
@@ -251,15 +273,34 @@ public class ChampionBase : MonoBehaviour
         isAttacking = false;
     }
 
-    public void ChampionInit(ChampionFrame frame)
+    public void InitChampion(ChampionFrame frame)
     {
         championFrame = frame;
         championAnimController.Init(this);
         championAttackController.Init(this, attack_Speed, attack_Range, curMana, maxMana);
         championHpMpController.Init(this);
         championStateController.Init(this);
-        championView.Init(this);
+        championView.Init(this); 
         championFrame.Init(this, championBlueprint);
+    }
+
+    public void InitItemStat()
+    {
+        item_MaxHP = 0;
+        item_CurHP = 0;
+        item_MaxMana = 0;
+        item_CurMana = 0;
+        item_Speed = 0;
+        item_AD_Power = 0;
+        item_AP_Power = 0;
+        item_AD_Def = 0;
+        item_AP_Def = 0;
+        item_Atk_Spd = 0;
+        item_Critical_Percent = 0;
+        item_Cirtical_Power = 0;
+        item_Blood_Suck = 0;
+        item_Power_Upgrade = 0;
+        item_Total_Def = 0;
     }
     #endregion
 
@@ -291,36 +332,50 @@ public class ChampionBase : MonoBehaviour
 
     public bool CanGetItem()
     {
-        return equipItem.Count <= maxItemSlot;
+        List<ItemBlueprint> Items = equipItem.Where(item => item.ItemType == ItemType.Combine || item.ItemType == ItemType.Symbol).ToList();
+
+
+        return Items.Count < maxItemSlot;
     }
 
     public void GetItem(ItemBlueprint item)
     {
+        if (!CanGetItem())
+        {
+            Debug.Log("Item Full");
+            return;
+        }
+            
+
         if (!HasCombinedItem())
         {
-            if (equipItem.Count <= maxItemSlot)
+            if (equipItem.Count < maxItemSlot)
             {
                 if (CheckSymbol(item))
                 {
                     equipItem.Add(item);
                     CombineItem();
+                    championFrame.SetEquipItemImage(equipItem);     
                 }
             }
             else
             {
                 Debug.Log("Inventory is full!");
             }
+
+
         }
         else
         {
-            if ((item.ItemType == ItemType.Normal && CanGetItem()) ||
-                (item.ItemType == ItemType.Combine && CanGetItem()) ||
-                (item.ItemType == ItemType.Symbol && CanGetItem()))
+            if (item.ItemType == ItemType.Normal ||
+                item.ItemType == ItemType.Combine ||
+                item.ItemType == ItemType.Symbol)
             {
                 if (CheckSymbol(item))
                 {
                     equipItem.Add(item);
                     CombineItem();
+                    championFrame.SetEquipItemImage(equipItem);
                 }
             }
             else
@@ -330,7 +385,7 @@ public class ChampionBase : MonoBehaviour
         }
 
 
-        championFrame.SetEquipItemImage(equipItem);
+        StatUpdate(equipItem);
     }
 
 
@@ -359,8 +414,6 @@ public class ChampionBase : MonoBehaviour
         {
             Debug.Log("Not enough normal items to combine!");
         }
-
-        championFrame.SetEquipItemImage(equipItem);
     }
 
 
@@ -382,4 +435,74 @@ public class ChampionBase : MonoBehaviour
         return true;
     }
     #endregion
+
+    #region Stat
+
+    public void StatUpdate(List<ItemBlueprint> equipItem)
+    {
+        InitItemStat();
+
+        List<ItemAttribute> equipItemAttribute = new List<ItemAttribute>();
+        
+        foreach (ItemBlueprint blueprint in equipItem)
+        {
+            equipItemAttribute = blueprint.Attribute;
+
+            foreach (ItemAttribute item in equipItemAttribute)
+            {
+                switch (item.ItemAttributeType)
+                {
+                    case ItemAttributeType.HP:
+                        item_MaxHP += (int)item.AttributeValue;
+                        break;
+                    case ItemAttributeType.Mana:
+                        item_MaxMana += (int)item.AttributeValue;
+                        break;
+                    case ItemAttributeType.AD_Power:
+                        item_AD_Power += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.AP_Power:
+                        item_AP_Power += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.AD_Defense:
+                        item_AD_Def += (int)item.AttributeValue;
+                        break;
+                    case ItemAttributeType.AP_Defense:
+                        item_AP_Def += (int)item.AttributeValue;
+                        break;
+                    case ItemAttributeType.AD_Speed:
+                        item_Atk_Spd += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.CriticalPercent:
+                        item_Critical_Percent += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.BloodSuck:
+                        item_Blood_Suck += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.TotalPower:
+                        item_Power_Upgrade += item.AttributeValue;
+                        break;
+                    case ItemAttributeType.TotalDefense:
+                        item_Total_Def += item.AttributeValue;
+                        break;
+                }
+            }
+        }
+    }
+
+    public void ChampionLevelUp()
+    {
+        championLevel++;
+    }
+
+    #endregion
+}
+
+
+[System.Serializable]
+public class ItemStat
+{
+    public float HP;
+    public float Mana;
+    public float Speed;
 }

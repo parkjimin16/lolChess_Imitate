@@ -184,9 +184,9 @@ public static class Utilities
                 return "치명타 확률";
             case ItemAttributeType.BloodSuck:
                 return "모든 피해 흡혈";
-            case ItemAttributeType.Total_Power:
+            case ItemAttributeType.TotalPower:
                 return "피해량";
-            case ItemAttributeType.Special:
+            case ItemAttributeType.TotalDefense:
                 return "내구력";
             default:
                 return "등록되지 않은 타입";
@@ -223,9 +223,9 @@ public static class Utilities
                 return (item.AttributeValue * 100).ToString();
             case ItemAttributeType.BloodSuck:
                 return (item.AttributeValue * 100).ToString();
-            case ItemAttributeType.Total_Power:
+            case ItemAttributeType.TotalPower:
                 return (item.AttributeValue * 100).ToString();
-            case ItemAttributeType.Special:
+            case ItemAttributeType.TotalDefense:
                 return (item.AttributeValue * 100).ToString();
             default:
                 return "등록되지 않은 타입";
