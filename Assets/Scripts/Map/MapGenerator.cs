@@ -18,8 +18,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject rectTilePrefab; // 직사각형 타일 프리팹
     public GameObject itemTilePrefab; // 아이템 타일 프리팹
     public GameObject goldTilePrefeb; // 골드 타일 프리팹
-    public GameObject goldPrefeb;
+    public GameObject goldPrefeb; // 골드 표시 프리팹
     public Camera minimapCamera;
+    public StageManager stageManager;
 
     public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
@@ -36,6 +37,7 @@ public class MapGenerator : MonoBehaviour
     private float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
     private float boundaryExtraHeight = 10f;
 
+    
 
     private void Awake()
     {
@@ -84,6 +86,7 @@ public class MapGenerator : MonoBehaviour
         public Transform mapTransform;
         public Bounds mapBounds;
         public LineRenderer boundaryLineRenderer; // 경계선 LineRenderer 참조 추가
+        public PlayerData playerData; // PlayerData 추가
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -94,7 +97,7 @@ public class MapGenerator : MonoBehaviour
         int totalUsers = 8; // 총 유저 수 (플레이어 포함)
         //int gridSize = 3; // 3x3 격자 (가운데는 비움)
         //float mapSpacing = 40f; // 각 맵 간의 거리
-
+        PlayerData[] allPlayers = stageManager.allPlayers;
         // 3x3 격자에서 (1,1)은 비워두고, 나머지 8개의 칸에 맵을 배치
         int[,] gridPositions = new int[,]
         {
@@ -138,7 +141,7 @@ public class MapGenerator : MonoBehaviour
             size.z += boundaryExtraHeight;
 
             mapInfo.mapBounds = new Bounds(center, size);
-
+            mapInfo.playerData = allPlayers[i];
             mapInfos.Add(mapInfo);
 
             CreateMapBoundary(userMap.transform, i, mapInfo);

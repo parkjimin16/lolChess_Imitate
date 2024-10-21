@@ -8,13 +8,8 @@ using UnityEngine.UI;
 public class MinimapManager : MonoBehaviour, IPointerClickHandler
 {
     public Camera minimapCamera; // 미니맵 카메라
-    public Camera mainCamera;    // 메인 카메라
-    public float cameraHeight = 18f; // 메인 카메라 높이
-    public float cameraDistance = 21f; // 메인 카메라 거리
-    public float cameraRotationX = 45f; // 메인 카메라 X축 회전
-
     public MapGenerator mapGenerator; // MapGenerator 스크립트 참조
-
+    public HealthBarManager healthBarManager; // HealthBarManager 참조 추가
     private int currentMapId = -1; // 현재 활성화된 맵의 ID (-1은 초기값)
 
     private void Start()
@@ -48,36 +43,42 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
         if (groundPlane.Raycast(ray, out enter))
         {
             Vector3 worldPosition = ray.GetPoint(enter);
-            // 메인 카메라를 이동시킵니다.
+
+            // 클릭된 위치가 어느 맵에 속하는지 판단
             foreach (var mapInfo in mapGenerator.mapInfos)
             {
                 if (mapInfo.mapBounds.Contains(worldPosition))
                 {
-                    // 해당 맵으로 카메라 이동
-                    MoveMainCameraToPosition(mapInfo.mapId, mapInfo.mapTransform.position);
+                    // 해당 플레이어의 PlayerData 가져오기
+                    PlayerData playerData = mapInfo.playerData;
+
+                    if (playerData != null)
+                    {
+                        // 카메라를 해당 플레이어의 맵으로 이동
+                        CameraManager.Instance.MoveCameraToPlayer(playerData);
+
+                        // 맵 경계선 색상 업데이트
+                        UpdateBoundaryColors(mapInfo.mapId);
+
+                        // 체력바 강조 적용
+                        if (HealthBarManager.Instance != null)
+                        {
+                            HealthBarManager.Instance.ResetHealthBarSelection();
+                            HealthBarManager.Instance.HighlightHealthBar(playerData);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("해당 맵에 연결된 PlayerData가 없습니다.");
+                    }
+
                     break;
                 }
             }
         }
     }
 
-    void MoveMainCameraToPosition(int mapId, Vector3 targetPosition)
-    {
-        // 메인 카메라의 목표 위치와 회전 설정
-        Vector3 cameraPosition = targetPosition + new Vector3(0, cameraHeight, -cameraDistance);
-        Quaternion cameraRotation = Quaternion.Euler(cameraRotationX, 0f, 0f);
-
-        // 카메라 위치와 회전을 즉시 설정
-        mainCamera.transform.position = cameraPosition;
-        mainCamera.transform.rotation = cameraRotation;
-
-        if (currentMapId != mapId)
-        {
-            UpdateBoundaryColors(mapId);
-            currentMapId = mapId;
-        }
-    }
-    void UpdateBoundaryColors(int activeMapId)
+    public void UpdateBoundaryColors(int activeMapId)
     {
         foreach (var mapInfo in mapGenerator.mapInfos)
         {

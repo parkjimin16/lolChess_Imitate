@@ -279,11 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimapCamera: {fileID: 854708033}
-  mainCamera: {fileID: 963194227}
-  cameraHeight: 18
-  cameraDistance: 21
-  cameraRotationX: 45
   mapGenerator: {fileID: 1405685929}
+  healthBarManager: {fileID: 538401663}
 --- !u!114 &420821680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,14 +343,14 @@ RectTransform:
   m_GameObject: {fileID: 538401661}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.77582264, y: 0.77582264, z: 0.77582264}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 559094402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -125}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &538401663
@@ -1019,6 +1016,7 @@ MonoBehaviour:
   goldTilePrefeb: {fileID: 991716287103244202, guid: 34cf60fff89386649bfcdeb54762901a, type: 3}
   goldPrefeb: {fileID: 1265779304732808216, guid: 8df38a3bf924837478f054d0c74cd782, type: 3}
   minimapCamera: {fileID: 854708033}
+  stageManager: {fileID: 2126641386}
   gapBetweenTiles: -0.6
   maxGoldSlots: 5
   goldSlotSize: 1
@@ -1309,6 +1307,7 @@ GameObject:
   - component: {fileID: 2126641386}
   - component: {fileID: 2126641387}
   - component: {fileID: 2126641388}
+  - component: {fileID: 2126641389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1398,6 +1397,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageRoundText: {fileID: 983961641}
   timerText: {fileID: 1981958569}
+--- !u!114 &2126641389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126641383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be0377b02cd0844abdcb792fa6aacd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 963194227}
+  mapGenerator: {fileID: 1405685929}
+  cameraHeight: 18
+  cameraDistance: 21
+  cameraRotationX: 45
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
