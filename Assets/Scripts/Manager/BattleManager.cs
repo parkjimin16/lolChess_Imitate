@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         // 예시로 랜덤하게 승패를 결정
-        playerWon = Random.value > 0.5f;
+        playerWon = Random.value > 0.9f;
         survivingEnemyUnits = playerWon ? 0 : Random.Range(1, 5); // 패배 시 1~4개의 적 유닛이 생존
 
         Debug.Log(playerWon ? "플레이어가 승리했습니다." : "플레이어가 패배했습니다.");
