@@ -2,19 +2,19 @@
 public enum ChampionLine
 {
     None = 0,
-    SweetMagician, // ´ÞÄÞ¼ú»ç
-    Druid,
-    Witch, 
-    Meadist, // ¹ú²Ü¼ú»ç
-    Frost,
-    EldritchPowers, // ¼¶¶àÇÑ Èû
-    SpaceAndTime,
-    Arcana,
-    Fairy,
+    Sugarcraft,     // ´ÞÄÞ¼ú»ç
+    Druid,          // µå·çÀÌµå
+    Witchcraft,     // ¸¶³à  
+    Meadist,        // ¹ú²Ü¼ú»ç 
+    Frost,          // ¼­¸® 
+    Eldritch,       // ¼¶¶àÇÑ Èû
+    SpaceAndTime,   // ½Ã°ø°£
+    Arcana,         //
+    Fairy,          // ¿äÁ¤
     Dragon,
-    Portal,
+    Portal,         // Â÷¿ø¹®
     Hunger,
-    Flame
+    Pyro            // È­¿°
 }
 
 
@@ -56,9 +56,9 @@ public enum ChampionState
     Idle,
     Move,
     Attack,
-    Skill,
     Die
 }
+
 
 // ¾ÆÀÌÅÛ Å¸ÀÔ
 public enum ItemType
@@ -76,17 +76,17 @@ public enum ItemType
 public enum ItemAttributeType
 {
     None = 0,
-    AD_Power,
-    AD_Speed,
-    AD_Defense,
-    AP_Power,
-    AP_Defense,
-    Mana,
     HP,
+    Mana,
+    AD_Power,
+    AP_Power,
+    AD_Defense,
+    AP_Defense,
+    AD_Speed,
     CriticalPercent,
     BloodSuck,
-    Total_Power,
-    Special
+    TotalPower,
+    TotalDefense
 }
 
 // ½ºÅ³ Å¸ÀÔ

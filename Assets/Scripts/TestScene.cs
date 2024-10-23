@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class TestScene : UIBase
 {
+    public static bool GameStart;
+
     [SerializeField] private List<GameObject> championSlotList;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private List<ItemBlueprint> itemBlueprint;
     [SerializeField] private List<string> shopChampionList;
-    [SerializeField] private GameObject championObject;
+    //[SerializeField] private GameObject championObject;
     [SerializeField] private GameObject targetObject;
 
     [SerializeField] private List<GameObject> championPos;
@@ -26,7 +28,8 @@ public class TestScene : UIBase
             if (count >= totalCount)
             {
                 isLoadComplete = true;
-                championObject = null;
+                //championObject = null;
+                GameStart = false;
                 Debug.Log("Complete");
             }
         });
@@ -36,29 +39,20 @@ public class TestScene : UIBase
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //championObject = Manager.Asset.InstantiatePrefab("ChampionFrame");
-            //championObject.transform.position = new Vector3(0,0,0);
-            
-
             gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
-
-
         }
         else if(Input.GetKeyDown(KeyCode.X))
         {
             InitBtn();
-
-            //ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Ahri") as ChampionBlueprint;
-            //ChampionBase cBase = championObject.GetComponent<ChampionBase>();
-
-            //cBase.SetChampion(cBlueprint);
-            //cBase.ChampionInit();
-
-            //BaseSkill bSkill = championObject.GetComponent<BaseSkill>();
-            //bSkill.UseSkill();
-            //bSkill.UseSkillTarget(targetObject);
-
+            GameStart = true;
             Manager.Item.Init();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+
+
+            Manager.Item.CreateItem(itemId, new Vector3(0,0,0));
         }
     }
 
@@ -87,12 +81,16 @@ public class TestScene : UIBase
         if (currentChampionIndex < championPos.Count)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+
+            frame.transform.SetParent(newChampionObject.transform, false);
             newChampionObject.transform.position = championPos[currentChampionIndex].transform.position;
 
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
             cBase.SetChampion(cBlueprint);
-            cBase.ChampionInit();
+            cBase.InitChampion(cFrame);
 
             currentChampionIndex++;
         }

@@ -29,7 +29,6 @@ public class ItemDataContainerBlueprint : ScriptableObject
             if ((desk.FirstItem == item1 && desk.SecondItem == item2) ||
                 (desk.FirstItem == item2 && desk.SecondItem == item1))
             {
-                //Manager.Asset.GetBlueprint("BFSword") as ItemBlueprint;
                 return desk.CombineItem;
             }
         }
@@ -43,7 +42,8 @@ public class ItemDataContainerBlueprint : ScriptableObject
 public class ItemBlueprint
 {
     [Header("Item Info")]
-    [SerializeField] private Image icon;
+    [SerializeField] private Material material;
+    [SerializeField] private Sprite icon;
     [SerializeField] private string itemId;
     [SerializeField] private string itemName;
     [SerializeField, TextArea] private string description;
@@ -51,13 +51,35 @@ public class ItemBlueprint
     [SerializeField] private List<ItemAttribute> itemAttribute;
     [SerializeField] private BaseItem baseItem;
 
-    public Image Icon => icon;
+    [SerializeField] private ChampionLine championLine;
+    [SerializeField] private ChampionJob championJob;
+
+    public Material Material => material;
+    public Sprite Icon => icon;
     public string ItemId => itemId;
     public string ItemName => itemName;
     public string Description => description;
     public ItemType ItemType => itemType;
     public List<ItemAttribute> Attribute => itemAttribute;
     public BaseItem BaseItem => baseItem;
+    public ChampionLine ChampionLine => championLine;
+    public ChampionJob ChampionJob => championJob;
+
+    public bool CompareLine(ChampionLine cLine)
+    {
+        if (championLine == ChampionLine.None)
+            return false;
+
+        return championLine == cLine;
+    }
+
+    public bool CompareJob(ChampionJob cJob)
+    {
+        if (championJob == ChampionJob.None)
+            return false;
+
+        return ChampionJob == cJob;
+    }
 }
 
 

@@ -14,85 +14,93 @@ public class ChampionAttackController : MonoBehaviour
 
     private float attack_Speed;
     private float attack_Range;
-    private float curMana;
-    private float maxMana;
 
-    public bool IsAttack;
+    public bool IsAttack; // 전체 체크 용
+    private bool attackLogic;
 
-    public bool IsManaFull()
+    private void Update()
     {
-        return curMana >= maxMana;
+        if(FindTargetInRange() == null)
+        {
+            IsAttack = false;
+        }
+        else if(FindTargetInRange() != null)
+        {
+            IsAttack = true;
+        }
     }
+
 
     public void Init(ChampionBase championBase, float _atk_Speed, float _atk_Range, float _curMana, float _maxMana)
     {
         cBase = championBase;
         attack_Speed = _atk_Speed;
         attack_Range = _atk_Range;
-        curMana = _curMana;
-        maxMana = _maxMana;
 
         IsAttack = false;
-        attackCoroutine = AttackRoutine();
+        attackLogic = false;
     }
 
     public void AttackLogic()
     {
-        StartCoroutine(attackCoroutine);
+        if(!attackLogic)
+        {
+            attackCoroutine = AttackRoutine();
+            StartCoroutine(attackCoroutine);
+        }
+
+    }
+
+    public void AttackLogicStop()
+    {
+        attackCoroutine = null;
     }
 
     private IEnumerator AttackRoutine()
     {
-        IsAttack = true;
+        attackLogic = true;
 
         GameObject target = FindTargetInRange();
 
         if (target == null)
         {
             Debug.Log("사거리 내에 없습니다.");
+            attackLogic = false;
             yield break;
         }
 
-        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
-
-        while (Quaternion.Angle(transform.rotation, lookRotation) > 0.1f)
+        while (target != null)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
-            yield return null; // 다음 프레임까지 대기
-        }
+            Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
 
-        ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-
-        CreateNormalAttack(target);
-
-           
-
-        /*
-        while (targetHealth != null && !targetHealth.ChampionHealthController.IsDie())
-        {
-            if (IsManaFull())
+            while (Quaternion.Angle(transform.rotation, lookRotation) > 0.1f)
             {
-                Debug.Log("Mana");
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+                yield return null;
+            }
+
+
+            if (cBase.ChampionHpMpController.IsManaFull())
+            {
                 UseSkill(target);
+                cBase.ChampionHpMpController.UseSkillMana();
             }
             else
             {
-                Debug.Log("Mana Non");
                 CreateNormalAttack(target);
             }
 
-            yield return new WaitForSeconds(cBase.Attack_Speed);x
-        }
-        */
+            cBase.ChampionHpMpController.NormalAttackMana();
 
-        IsAttack = false;
+
+            //yield return new WaitForSeconds(cBase.Attack_Speed);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private GameObject FindTargetInRange()
     {
-        Debug.Log("Find Target");
-
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);  //cBase.Attack_Range);
 
         foreach (Collider collider in hitColliders)
@@ -121,6 +129,6 @@ public class ChampionAttackController : MonoBehaviour
 
     public void UseSkill(GameObject target)
     {
-
+        Debug.Log("스킬 사용");
     }
 }
