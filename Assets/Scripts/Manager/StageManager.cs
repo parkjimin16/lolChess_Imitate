@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class StageManager : MonoBehaviour
+public class StageManager
 {
-    public PlayerData[] allPlayers; // 총 8명의 플레이어 (자기 자신 포함)
+    public PlayerData[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
     private List<PlayerData> opponents; // 상대 플레이어 목록 (자기 자신 제외)
     private PlayerData selfPlayer; // 자기 자신
     private PlayerData currentOpponent; // 현재 상대
@@ -13,8 +14,8 @@ public class StageManager : MonoBehaviour
     public int currentRound = 1;
 
     // 스테이지별 기본 피해량과 생존한 적 유닛당 피해량
-    public int[] baseDamages; // 인덱스는 스테이지 번호 - 1
-    public int[] damagePerEnemyUnit; // 인덱스는 스테이지 번호 - 1
+    public int[] baseDamages = new int[] { 0, 2, 5, 8, 10, 12, 17 }; // 인덱스는 스테이지 번호 - 1
+    public int[] damagePerEnemyUnit = new int[] { 1, 2, 3, 4, 5, 6, 7 }; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
     private int normalWaitTime = 3;
@@ -26,29 +27,31 @@ public class StageManager : MonoBehaviour
 
     private Coroutine roundCoroutine;
 
-    private void Awake()
-    {
-        InitializePlayers();
-    }
-    void Start()
-    {
-        
-        StartStage(currentStage);
-    }
 
-    void InitializePlayers()
+    #region Init
+
+    public void InitStage(PlayerData[] playerData)
+    {
+        AllPlayers = playerData;
+        InitializePlayers();
+        StartStage(currentStage);
+
+    }
+    #endregion
+
+    private void InitializePlayers()
     {
         
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
         
-        selfPlayer = allPlayers[0];
+        selfPlayer = AllPlayers[0];
         
-        opponents = new List<PlayerData>(allPlayers);
+        opponents = new List<PlayerData>(AllPlayers);
         opponents.Remove(selfPlayer);
-        for (int i = 0; i < allPlayers.Length; i++)
+        for (int i = 0; i < AllPlayers.Length; i++)
         {
-            allPlayers[i].health = 100;
+            AllPlayers[i].health = 100;
         }
     }
 
@@ -58,8 +61,9 @@ public class StageManager : MonoBehaviour
         ShuffleOpponents(); // 상대 리스트를 섞음
 
         if (roundCoroutine != null)
-            StopCoroutine(roundCoroutine);
-        roundCoroutine = StartCoroutine(StartRoundCoroutine());
+            CoroutineHelper.StopCoroutine(roundCoroutine);
+
+        roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
     }
 
     IEnumerator StartRoundCoroutine()
@@ -97,8 +101,7 @@ public class StageManager : MonoBehaviour
         Debug.Log("라운드가 시작됩니다!");
 
         // 전투 시작
-        BattleManager battleManager = FindObjectOfType<BattleManager>();
-        battleManager.StartBattle(selfPlayer, currentOpponent, roundDuration);
+        Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
 
         // 라운드 진행 시간 타이머 시작
         UIManager.Instance.StartTimer(roundDuration);
@@ -132,8 +135,8 @@ public class StageManager : MonoBehaviour
         {
             // 다음 라운드 시작
             if (roundCoroutine != null)
-                StopCoroutine(roundCoroutine);
-            roundCoroutine = StartCoroutine(StartRoundCoroutine());
+                CoroutineHelper.StopCoroutine(roundCoroutine);
+            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
     }
 
@@ -147,11 +150,8 @@ public class StageManager : MonoBehaviour
         Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.health}");
 
         // 체력바 업데이트
-        HealthBarManager healthBarManager = FindObjectOfType<HealthBarManager>();
-        if (healthBarManager != null)
-        {
-            healthBarManager.UpdateHealthBars();
-        }
+        Manager.UserHp.UpdateHealthBars();
+
 
         // 게임 오버 체크
         if (selfPlayer.health <= 0)

@@ -3,47 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarManager : MonoBehaviour
+public class UserHpManager
 {
-    public GameObject healthBarPrefab;
-    public StageManager stageManager;
+    private GameObject healthBarContianer;
+    private GameObject healthBarPrefab;
     private List<HealthUI> healthBars = new List<HealthUI>();
 
-    public static HealthBarManager Instance { get; private set; } // 싱글톤 인스턴스
+    public void InitUserHp(GameObject container, GameObject hpPrefab, List<HealthUI> hpList)
+    {
+        healthBarContianer = container;
+        healthBarPrefab = hpPrefab;
+        healthBars = hpList;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    void Start()
-    {
         InitializeHealthBars();
     }
 
-    void InitializeHealthBars()
+    private void InitializeHealthBars()
     {
+        /*
         // 기존 체력바 삭제
-        foreach (Transform child in transform)
+        foreach (Transform child in healthBarContianer.transform)
         {
+            child.gameObject.SetActive(false);  
             Destroy(child.gameObject);
         }
         healthBars.Clear();
+        */
+
+
+        int idx = 0;
+
+        if(healthBars.Count == Manager.Stage.AllPlayers.Length)
+        {
+            Debug.Log("Same");
+        }
+        else
+        {
+            Debug.Log("Error");
+            return;
+        }
 
         // 각 플레이어에 대한 체력바 생성
-        foreach (PlayerData player in stageManager.allPlayers)
+        foreach (PlayerData player in Manager.Stage.AllPlayers)
         {
-            GameObject hbObj = Instantiate(healthBarPrefab, transform);
-            HealthUI hbUI = hbObj.GetComponent<HealthUI>();
-            hbUI.SetPlayer(player);
-            healthBars.Add(hbUI);
+            //GameObject hbObj = Instantiate(healthBarPrefab, transform);
+            //HealthUI hbUI = hbObj.GetComponent<HealthUI>();
+            //hbUI.SetPlayer(player);
+            //healthBars.Add(hbUI);
+
+            healthBars[idx].SetPlayer(player);
+            idx++;
         }
+
+
+
 
         // 플레이어들의 체력을 기준으로 체력바 정렬
         healthBars.Sort((hb1, hb2) => hb2.PlayerData.health.CompareTo(hb1.PlayerData.health));

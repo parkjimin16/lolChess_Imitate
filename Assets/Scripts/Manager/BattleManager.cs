@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager
 {
-    public StageManager stageManager;
     private bool playerWon;
     private int survivingEnemyUnits;
 
@@ -13,7 +12,7 @@ public class BattleManager : MonoBehaviour
         // 전투 로직 구현
         // 여기서는 간단히 전투 시간을 고려하여 승패를 결정합니다.
 
-        StartCoroutine(BattleCoroutine(duration, selfPlayer, opponent));
+        CoroutineHelper.StartCoroutine(BattleCoroutine(duration, selfPlayer, opponent));
     }
 
     IEnumerator BattleCoroutine(int duration, PlayerData selfPlayer, PlayerData opponent)
@@ -35,6 +34,6 @@ public class BattleManager : MonoBehaviour
 
     void EndBattle()
     {
-        stageManager.OnRoundEnd(playerWon, survivingEnemyUnits);
+        Manager.Stage.OnRoundEnd(playerWon, survivingEnemyUnits);
     }
 }

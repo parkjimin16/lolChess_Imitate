@@ -19,7 +19,6 @@ public class ItemHandler : MonoBehaviour
 
     public List<GameObject> _items = new List<GameObject>(10);
     public GameObject itemPrefeb; // 아이템 타일 프리팹
-    //[SerializeField] private bool isitem = false;
 
     private void Start()
     {
@@ -40,7 +39,8 @@ public class ItemHandler : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Parent object 'ItemPush' not found!");
+            Debug.Log("Parent object 'ItemPush' not found!");
+            return;
         }
         //_items.Add
         GameObject item1 = Instantiate(itemPrefeb, _items[0].transform.position,

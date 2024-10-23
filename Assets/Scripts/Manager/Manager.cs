@@ -31,6 +31,7 @@ public class Manager : MonoBehaviour
 
     #region Manager
 
+    // ´ë¿¬
     private readonly AssetManager asset = new();
     private readonly GameManager game = new();
     private readonly ItemManager item = new();
@@ -41,8 +42,12 @@ public class Manager : MonoBehaviour
     private readonly UIManagerTemp ui = new();
 
 
+    // Áö¹Î
+    private readonly StageManager stage = new();
+    private readonly BattleManager battle = new();
+    private readonly UserHpManager userHp = new();
 
-
+    // ´ë¿¬
     public static AssetManager Asset => Instance != null ? Instance.asset : null;
     public static GameManager Game => Instance != null ? Instance.game : null;
     public static ItemManager Item => Instance != null ? Instance.item : null;
@@ -51,5 +56,12 @@ public class Manager : MonoBehaviour
     public static ObjectPoolManager ObjectPool => Instance != null ? Instance.objectPool : null;
     public static ClickManager Click => Instance != null ? Instance.click : null;
     public static UIManagerTemp UI => Instance != null ? Instance.ui : null;
+
+
+    // Áö¹Î
+
+    public static StageManager Stage => Instance != null ? Instance.stage : null;
+    public static BattleManager Battle => Instance != null ? Instance.battle : null;
+    public static UserHpManager UserHp => Instance != null ? Instance.userHp : null;
     #endregion
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class HealthUI : MonoBehaviour, IPointerClickHandler
@@ -71,14 +69,14 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
         if (isSelected) return;
 
         // 모든 체력바의 선택 상태 초기화
-        HealthBarManager.Instance.ResetHealthBarSelection();
+        Manager.UserHp.ResetHealthBarSelection();
 
         // 현재 체력바를 선택 상태로 설정하고 강조
         isSelected = true;
         HighlightHealthBar(true);
 
         // 카메라 이동 로직 호출
-        HealthBarManager.Instance.OnHealthBarClicked(this);
+        Manager.UserHp.OnHealthBarClicked(this);
     }
 
     public void HighlightHealthBar(bool highlight)

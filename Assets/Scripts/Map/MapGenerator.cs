@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject goldTilePrefeb; // 골드 타일 프리팹
     public GameObject goldPrefeb; // 골드 표시 프리팹
     public Camera minimapCamera;
-    public StageManager stageManager;
+
 
     public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
@@ -38,18 +38,18 @@ public class MapGenerator : MonoBehaviour
     private float boundaryExtraHeight = 10f;
 
     
+    void Start()
+    {
+        Invoke("InitMapGenerator", 5.0f);
+    }
 
-    private void Awake()
+    public void InitMapGenerator()
     {
         CalculateTileSize();
         CreatUserMap();
         AdjustCamera();
         CreatePlayerUnits();
         PositionMinimapCamera();
-    }
-    void Start()
-    {
-        
     }
 
     void CalculateTileSize()
@@ -62,6 +62,7 @@ public class MapGenerator : MonoBehaviour
         float rectWidthRatio = 0.90f; // 직사각형 타일 폭의 비율 (예: 80%)
         rectWidthSize = (Mathf.Sqrt(3) * tileSize) * rectWidthRatio; // 직사각형 타일의 폭
     }
+
 
     void PositionMinimapCamera()
     {
@@ -95,9 +96,12 @@ public class MapGenerator : MonoBehaviour
     void CreatUserMap()
     {
         int totalUsers = 8; // 총 유저 수 (플레이어 포함)
-        //int gridSize = 3; // 3x3 격자 (가운데는 비움)
-        //float mapSpacing = 40f; // 각 맵 간의 거리
-        PlayerData[] allPlayers = stageManager.allPlayers;
+        PlayerData[] allPlayers = Manager.Stage.AllPlayers;
+
+        if (allPlayers == null)
+            Debug.Log("AllPlayers is Null");
+
+
         // 3x3 격자에서 (1,1)은 비워두고, 나머지 8개의 칸에 맵을 배치
         int[,] gridPositions = new int[,]
         {

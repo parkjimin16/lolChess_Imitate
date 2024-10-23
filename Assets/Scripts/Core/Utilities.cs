@@ -133,6 +133,7 @@ public static class Utilities
 
 
     #endregion
+
     #region Cost IntValue
     private static int SetCost(ChampionCost championCost)
     {

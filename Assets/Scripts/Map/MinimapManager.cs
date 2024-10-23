@@ -9,13 +9,14 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
 {
     public Camera minimapCamera; // 미니맵 카메라
     public MapGenerator mapGenerator; // MapGenerator 스크립트 참조
-    public HealthBarManager healthBarManager; // HealthBarManager 참조 추가
+    public UserHpManager healthBarManager; // HealthBarManager 참조 추가
     private int currentMapId = -1; // 현재 활성화된 맵의 ID (-1은 초기값)
 
     private void Start()
     {
-        UpdateBoundaryColors(-1);
+        //UpdateBoundaryColors(-1);
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         // 클릭한 스크린 좌표를 가져옵니다.
@@ -60,12 +61,8 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
                         // 맵 경계선 색상 업데이트
                         UpdateBoundaryColors(mapInfo.mapId);
 
-                        // 체력바 강조 적용
-                        if (HealthBarManager.Instance != null)
-                        {
-                            HealthBarManager.Instance.ResetHealthBarSelection();
-                            HealthBarManager.Instance.HighlightHealthBar(playerData);
-                        }
+                        Manager.UserHp.ResetHealthBarSelection();
+                        Manager.UserHp.HighlightHealthBar(playerData);
                     }
                     else
                     {
