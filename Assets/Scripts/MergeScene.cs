@@ -10,6 +10,7 @@ public class MergeScene : MonoBehaviour
 
     [SerializeField] private UISceneMain mainScene;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
+    [SerializeField] private MapGenerator mapGenerator;
     public int Level = 1;
 
     private void Start()
@@ -18,29 +19,13 @@ public class MergeScene : MonoBehaviour
         {
             if (count >= totalCount)
             {
-                GameStart = false;
+                gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
+                //GameStart = false;
+                //GameStart = true;
+                mainScene.InitBtn(gameDataBlueprint);
+                Manager.Item.Init();
+                mapGenerator.InitMapGenerator(gameDataBlueprint);
             }
         });
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            GameStart = true;
-            mainScene.InitBtn(gameDataBlueprint);
-            Manager.Item.Init();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
-
-            Manager.Item.CreateItem(itemId, new Vector3(0, 0, 0));
-        }
-    }
-
-   
 }

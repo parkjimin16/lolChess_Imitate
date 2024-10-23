@@ -165,3 +165,21 @@ MonoBehaviour:
     MaxCount: 10
   - Cost: 5
     MaxCount: 9
+  userData:
+  - {fileID: 11400000, guid: c1a4810cb9afa644ea311fa36e10dec6, type: 2}
+  - {fileID: 11400000, guid: 72c25bcd831a44c47be33af298ffd774, type: 2}
+  - {fileID: 11400000, guid: 4ef4321bd3e42da43866e9c5e440045b, type: 2}
+  - {fileID: 11400000, guid: eff156786a904b84886f3833be1f0382, type: 2}
+  - {fileID: 11400000, guid: b9f6ec06071e1cf478067d019f72d9fd, type: 2}
+  - {fileID: 11400000, guid: 652bf1b4742968f4ab5dc6c1b0e9828e, type: 2}
+  - {fileID: 11400000, guid: bfed83af76429a649bfdacf33b9ea7f2, type: 2}
+  - {fileID: 11400000, guid: f6c397584ed06e647aed2941017c3647, type: 2}
+  hexTilePrefab: {fileID: 5841901025388831893, guid: f83699365dab22844bf271a8a948646b, type: 3}
+  rectTilePrefab: {fileID: 2737894483133301760, guid: a64cddffea9e14b43b26dd8697aeba2e, type: 3}
+  itemTilePrefab: {fileID: 3640209703719670457, guid: 049576cf55499414794dab79b0e0cc41, type: 3}
+  goldTilePrefeb: {fileID: 991716287103244202, guid: 34cf60fff89386649bfcdeb54762901a, type: 3}
+  goldPrefeb: {fileID: 1265779304732808216, guid: 8df38a3bf924837478f054d0c74cd782, type: 3}
+  width: 7
+  height: 8
+  rectWidth: 9
+  desiredMapWidth: 20

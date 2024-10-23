@@ -22,32 +22,7 @@ public class ItemHandler : MonoBehaviour
 
     private void Start()
     {
-        GameObject parentObject = GameObject.Find("ItemPush");
-        if (parentObject != null)
-        {
-            // 부모 오브젝트의 모든 자식 오브젝트 가져오기
-            for (int i = 0; i < parentObject.transform.childCount; i++)
-            {
-                GameObject child = parentObject.transform.GetChild(i).gameObject;
-
-                // 리스트 크기가 8보다 작을 때만 추가
-                if (_items.Count < 10)
-                {
-                    _items.Add(child);
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Parent object 'ItemPush' not found!");
-            return;
-        }
-        //_items.Add
-        GameObject item1 = Instantiate(itemPrefeb, _items[0].transform.position,
-            Quaternion.identity, this.transform);
-        item1.tag = "Item";
-        HexTile itempushtile = _items[0].GetComponent<HexTile>();
-        itempushtile.isItemTile = true;
+        
     }
 
     private void Update()

@@ -201,7 +201,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1085985131841607518}
@@ -304,3 +304,5 @@ MonoBehaviour:
     - ItemAttributeType: 1
       AttributeValue: 0.1
     baseItem: {fileID: 5801655367137927557, guid: bf53afb2abe076443b3db647cc252b39, type: 3}
+    championLine: 0
+    championJob: 0

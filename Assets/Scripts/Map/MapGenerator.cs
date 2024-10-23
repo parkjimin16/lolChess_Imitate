@@ -5,20 +5,22 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.UI.GridLayoutGroup;
 using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 public class MapGenerator : MonoBehaviour
 {
-    private int width = 7;
-    private int height = 8;
-    private int rectWidth = 9; // 직사각형 타일의 개수
-    private float desiredMapWidth = 20f; // 원하는 맵의 가로 크기 (단위: 유니티 월드 좌표)
+    private int width;
+    private int height;
+    private int rectWidth; // 직사각형 타일의 개수
+    private float desiredMapWidth; // 원하는 맵의 가로 크기 (단위: 유니티 월드 좌표)
+
     private float tileSize; // 타일의 크기 (자동 계산될 예정)
 
-    public GameObject hexTilePrefab; // 헥사곤 타일 프리팹
-    public GameObject rectTilePrefab; // 직사각형 타일 프리팹
-    public GameObject itemTilePrefab; // 아이템 타일 프리팹
-    public GameObject goldTilePrefeb; // 골드 타일 프리팹
-    public GameObject goldPrefeb; // 골드 표시 프리팹
+    private GameObject hexTilePrefab; // 헥사곤 타일 프리팹
+    private GameObject rectTilePrefab; // 직사각형 타일 프리팹
+    private GameObject itemTilePrefab; // 아이템 타일 프리팹
+    private GameObject goldTilePrefeb; // 골드 타일 프리팹
+    private GameObject goldPrefeb; // 골드 표시 프리팹
     public Camera minimapCamera;
 
 
@@ -40,11 +42,23 @@ public class MapGenerator : MonoBehaviour
     
     void Start()
     {
-        Invoke("InitMapGenerator", 5.0f);
+
     }
 
-    public void InitMapGenerator()
+
+    public void InitMapGenerator(GameDataBlueprint gdb)
     {
+        hexTilePrefab = gdb.HexTilePrefab;
+        rectTilePrefab = gdb.RectTilePrefab;
+        itemTilePrefab = gdb.ItemTilePrefab;
+        goldTilePrefeb = gdb.GoldTilePrefab;
+        goldPrefeb = gdb.GoldPrefab;
+
+        width = gdb.Width;
+        height = gdb.Height;
+        rectWidth = gdb.RectWidth;
+        desiredMapWidth = gdb.DesiredMapWidth;
+
         CalculateTileSize();
         CreatUserMap();
         AdjustCamera();
@@ -311,12 +325,16 @@ public class MapGenerator : MonoBehaviour
             {
                 GameObject tile = Instantiate(itemTilePrefab, bottomLeftPos, Quaternion.identity, parent);
                 tile.name = $"ItemTile_{0}";
+                ItemTile itemTile = tile.GetComponent<ItemTile>();
+                itemTile.TileType1 = ItemTileType1.Player;
             }
             else
             {
                 GameObject tile1 = Instantiate(itemTilePrefab, topRightPos, Quaternion.identity, parent);
                 tile1.name = $"ItemTile_{1}";
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                ItemTile itemTile = tile1.GetComponent<ItemTile>();
+                itemTile.TileType1 = ItemTileType1.Another;
             }
         }
     }

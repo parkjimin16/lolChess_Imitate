@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 8258123176257083876}
   - component: {fileID: 528567171240240889}
   m_Layer: 7
-  m_Name: push4 (1)
+  m_Name: push5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 7718325548590476798}
   - component: {fileID: 6981443814331459190}
   m_Layer: 7
-  m_Name: push4 (2)
+  m_Name: push6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 993917545998401612}
   - component: {fileID: 908908895347369091}
   m_Layer: 7
-  m_Name: push5
+  m_Name: push7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -615,6 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4430670069304546016}
+  - component: {fileID: 1558300846240309268}
   m_Layer: 0
   m_Name: ItemTile
   m_TagString: Untagged
@@ -639,6 +640,20 @@ Transform:
   - {fileID: 8751357602497851320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1558300846240309268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640209703719670457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6adaf6f1e2b0fcc4eabbd4e77e8c93bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemTile: {fileID: 5874449284121987707}
+  _items: []
 --- !u!1 &4484184707075695607
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +774,7 @@ GameObject:
   - component: {fileID: 3553501131379913591}
   - component: {fileID: 8823286973314575997}
   m_Layer: 7
-  m_Name: push7
+  m_Name: push9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,7 +1226,7 @@ GameObject:
   - component: {fileID: 6114675817751038794}
   - component: {fileID: 365517767734716936}
   m_Layer: 7
-  m_Name: push8
+  m_Name: push10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1654,7 +1669,7 @@ GameObject:
   - component: {fileID: 8962862415130855155}
   - component: {fileID: 7249461587725265596}
   m_Layer: 7
-  m_Name: push6
+  m_Name: push8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
