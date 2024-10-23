@@ -250,8 +250,8 @@ public class MapGenerator : MonoBehaviour
 
         // 카메라 위치 설정
         float cameraHeight = Mathf.Max(mapWidthSize, mapHeightSize); // 맵 크기에 따라 카메라 높이 조정
-        Camera.main.transform.position = centerPosition + new Vector3(0, 18f, -21f);
-        Camera.main.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
+        Camera.main.transform.position = centerPosition + new Vector3(0, 18f, -26f);
+        Camera.main.transform.rotation = Quaternion.Euler(40f, 0f, 0f);
 
         // 카메라 투영 방식 설정
         Camera.main.orthographic = true;

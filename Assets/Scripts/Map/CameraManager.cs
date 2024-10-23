@@ -10,9 +10,9 @@ public class CameraManager : MonoBehaviour
     public Camera mainCamera;
     public MapGenerator mapGenerator; // MapGenerator 스크립트 참조
 
-    public float cameraHeight = 18f; // 카메라 높이
-    public float cameraDistance = 21f; // 카메라 거리
-    public float cameraRotationX = 45f; // 카메라 X축 회전
+    private float cameraHeight = 18f; // 카메라 높이
+    private float cameraDistance = 26f; // 카메라 거리
+    private float cameraRotationX = 40f; // 카메라 X축 회전
 
     private void Awake()
     {
@@ -38,10 +38,10 @@ public class CameraManager : MonoBehaviour
 
             // 카메라 위치와 회전 설정
             Vector3 cameraPosition = targetPosition + new Vector3(0, cameraHeight, -cameraDistance);
-            Quaternion cameraRotation = Quaternion.Euler(cameraRotationX, 0f, 0f);
+            //Quaternion cameraRotation = Quaternion.Euler(cameraRotationX, 0f, 0f);
 
             mainCamera.transform.position = cameraPosition;
-            mainCamera.transform.rotation = cameraRotation;
+            //mainCamera.transform.rotation = cameraRotation;
 
             // 필요 시 경계선 색상 업데이트
             MinimapManager minimapClickHandler = FindObjectOfType<MinimapManager>();
