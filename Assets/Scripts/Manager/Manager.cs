@@ -38,7 +38,7 @@ public class Manager : MonoBehaviour
     private readonly SkillManager skill = new();
     private readonly ObjectPoolManager objectPool = new();
     private readonly ClickManager click = new();
-    private readonly UIManager ui = new();
+    private readonly UIManagerTemp ui = new();
 
 
 
@@ -50,6 +50,6 @@ public class Manager : MonoBehaviour
     public static SkillManager Skill => Instance != null ? Instance.skill : null;
     public static ObjectPoolManager ObjectPool => Instance != null ? Instance.objectPool : null;
     public static ClickManager Click => Instance != null ? Instance.click : null;
-    public static UIManager UI => Instance != null ? Instance.ui : null;
+    public static UIManagerTemp UI => Instance != null ? Instance.ui : null;
     #endregion
 }

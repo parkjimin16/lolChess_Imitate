@@ -69,5 +69,6 @@ public class UIManager : MonoBehaviour
         {
             timerText.color = Color.white;
         }
-    }
+    } 
 }
+
