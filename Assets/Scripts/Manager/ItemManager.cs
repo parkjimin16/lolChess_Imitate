@@ -93,8 +93,11 @@ public class ItemManager
         if(item == null)
         {
             Debug.Log("Find Null");
+            return null;
         }
 
+        item.InitBaseItem();
+        
         GameObject itemObj = Manager.Asset.InstantiatePrefab("ItemFrame");
         itemObj.transform.position = pos;
 
