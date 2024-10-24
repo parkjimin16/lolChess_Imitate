@@ -9,20 +9,21 @@ public class ItemHandler : MonoBehaviour
     private Vector3 _prePos = Vector3.zero;
 
     private Vector3 _beforePosition;
-    private Vector3 _offset = new Vector3(0.0f, 0.3f, 0.0f);
+    private Vector3 _offset;
 
-    [SerializeField] private GameObject _itemObj;
-    [SerializeField] private GameObject currentItemTile;
+    [SerializeField] private GameObject _movableObj;
+    [SerializeField] private GameObject currentTile;
 
-    private const string _itemTag = "Item";
+    private MovableObjectType _movableObjectType;
+
+    private string _movableTag;
+    private string _tileLayerName;
+
     private bool _isReturning = false;
-
-    public List<GameObject> _items = new List<GameObject>(10);
-    public GameObject itemPrefeb; // 아이템 타일 프리팹
 
     private void Start()
     {
-        
+        // 필요에 따라 초기화
     }
 
     private void Update()
@@ -35,7 +36,6 @@ public class ItemHandler : MonoBehaviour
             TouchBeganEvent();
             FindcurrentTile();
             _prePos = Input.mousePosition;
-            Debug.Log(_beforePosition);
         }
 
         if (Input.GetMouseButton(0))
@@ -54,67 +54,175 @@ public class ItemHandler : MonoBehaviour
         {
             TouchEndedEvent();
         }
-        ItemReturn();
-        // 캐릭터 Ray 확인용 
-        if (_itemObj != null)
-        {
-            Ray ray = new Ray(_itemObj.transform.position, Camera.main.transform.forward);
-            Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-        }
 
-        // TEST Code
-        Vector3 touchPos = Input.mousePosition;
-        Ray test_ray = Camera.main.ScreenPointToRay(touchPos);
-        Debug.DrawRay(test_ray.origin, test_ray.direction * 1000, Color.blue);
+        ObjectReturn();
+
+        // Debugging rays (optional)
     }
 
     private void TouchBeganEvent()
     {
-        _itemObj = OnClickObjUsingTag(_itemTag);
-
-        if (_itemObj != null)
+        _movableObj = OnClickObjUsingTag("Item");
+        if (_movableObj != null)
         {
-            _beforePosition = _itemObj.transform.position;
+            SetMovableObjectType(MovableObjectType.Item);
+        }
+        else
+        {
+            // 유닛 태그로 시도
+            _movableObj = OnClickObjUsingTag("Moveable");
+            if (_movableObj != null)
+            {
+                SetMovableObjectType(MovableObjectType.Unit);
+            }
+        }
+
+        if (_movableObj != null)
+        {
+            // 오브젝트 타입에 따라 현재 타일을 가져옵니다.
+            if (_movableObj.transform.parent != null)
+            {
+                currentTile = _movableObj.transform.parent.gameObject;
+            }
+
+            _beforePosition = _movableObj.transform.position;
+
+            // 타일의 상태를 업데이트합니다.
+            if (currentTile != null)
+            {
+                HexTile tile = currentTile.GetComponent<HexTile>();
+
+                if (_movableObjectType == MovableObjectType.Item)
+                {
+                    tile.isItemTile = false;
+                    tile.itemOnTile = null;
+                }
+                else if (_movableObjectType == MovableObjectType.Unit)
+                {
+                    tile.isOccupied = false;
+                }
+            }
+
+            // 오브젝트를 월드 루트로 이동
+            _movableObj.transform.SetParent(null);
         }
     }
 
     private void TouchMovedEvent()
     {
-        if (_itemObj != null)
+        if (_movableObj != null)
         {
             Vector3 touchPos = Input.mousePosition;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 10));
 
-            _itemObj.transform.position = worldPos;
+            _movableObj.transform.position = worldPos;
         }
     }
 
     private void TouchStayEvent()
     {
-        // 마우스가 움직이지 않을 때의 동작이 필요하면 여기에 작성
+        // 필요 시 구현
     }
 
     private void TouchEndedEvent()
     {
-        if (_itemObj != null)
+        if (_movableObj != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
-            Physics.Raycast(ray, out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer("ItemPush"));
+            int layerMask = 1 << LayerMask.NameToLayer(_tileLayerName);
 
-            if (hitInfo.collider != null && hitInfo.collider.gameObject.GetComponent<HexTile>().isItemTile == false)
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
             {
-                Debug.Log("hit info : " + hitInfo.collider.gameObject.name);
-                _itemObj.transform.position = hitInfo.collider.gameObject.transform.position;
-                _itemObj.transform.position += _offset;
-                hitInfo.collider.gameObject.GetComponent<HexTile>().isItemTile = true;
-                currentItemTile.GetComponent<HexTile>().isItemTile = false;
+                GameObject hitTileObj = hitInfo.collider.gameObject;
+                HexTile hitTile = hitTileObj.GetComponent<HexTile>();
+
+                if (_movableObjectType == MovableObjectType.Item)
+                {
+                    HandleItemDrop(hitTile, hitTileObj);
+                }
+                else if (_movableObjectType == MovableObjectType.Unit)
+                {
+                    HandleUnitDrop(hitTile, hitTileObj);
+                }
             }
             else
             {
+                // 타일이 아닌 곳에 드롭했을 경우, 오브젝트를 원래 위치로 반환
                 _isReturning = true;
             }
+        }
+    }
+
+    private void HandleItemDrop(HexTile hitTile, GameObject hitTileObj)
+    {
+        if (hitTile.isItemTile == false)
+        {
+            // 타일이 비어 있을 경우 아이템을 놓습니다.
+            _movableObj.transform.position = hitTileObj.transform.position + _offset;
+            _movableObj.transform.SetParent(hitTileObj.transform);
+
+            // 타일 상태 업데이트
+            hitTile.isItemTile = true;
+            hitTile.itemOnTile = _movableObj;
+        }
+        else
+        {
+            // 타일에 이미 아이템이 있을 경우, 아이템을 교환합니다.
+            GameObject otherItem = hitTile.itemOnTile;
+
+            // 현재 오브젝트의 이전 타일이 있는지 확인합니다.
+            if (currentTile != null)
+            {
+                // 다른 아이템을 이전 타일로 이동
+                otherItem.transform.position = currentTile.transform.position + _offset;
+                otherItem.transform.SetParent(currentTile.transform);
+
+                // 타일 상태 업데이트
+                HexTile previousTile = currentTile.GetComponent<HexTile>();
+                previousTile.isItemTile = true;
+                previousTile.itemOnTile = otherItem;
+            }
+            else
+            {
+                // 이전 타일이 없을 경우, 다른 아이템을 원하는 위치로 이동하거나 동작을 정의합니다.
+                otherItem.transform.position = _beforePosition;
+                otherItem.transform.SetParent(null);
+            }
+
+            // 드래그한 아이템을 대상 타일로 이동
+            _movableObj.transform.position = hitTileObj.transform.position + _offset;
+            _movableObj.transform.SetParent(hitTileObj.transform);
+
+            // 타일 상태 업데이트
+            hitTile.isItemTile = true;
+            hitTile.itemOnTile = _movableObj;
+        }
+    }
+
+    private void HandleUnitDrop(HexTile hitTile, GameObject hitTileObj)
+    {
+        if (hitTile.isOccupied == false)
+        {
+            // 타일이 비어 있을 경우 유닛을 놓습니다.
+            _movableObj.transform.position = hitTileObj.transform.position + _offset;
+            _movableObj.transform.SetParent(hitTileObj.transform);
+
+            // 타일 상태 업데이트
+            hitTile.isOccupied = true;
+
+            // 이전 타일의 상태 업데이트
+            if (currentTile != null)
+            {
+                HexTile previousTile = currentTile.GetComponent<HexTile>();
+                previousTile.isOccupied = false;
+            }
+        }
+        else
+        {
+            // 타일에 이미 유닛이 있을 경우, 유닛을 원래 위치로 반환합니다.
+            _isReturning = true;
         }
     }
 
@@ -136,29 +244,63 @@ public class ItemHandler : MonoBehaviour
         }
         return null;
     }
+
+    private void ObjectReturn()
+    {
+        if (_isReturning && _movableObj != null)
+        {
+            _movableObj.transform.position = Vector3.MoveTowards(_movableObj.transform.position, _beforePosition, Time.deltaTime * 30f);
+
+            if (Vector3.Distance(_movableObj.transform.position, _beforePosition) < 0.01f)
+            {
+                _isReturning = false;
+
+                // 오브젝트를 이전 타일의 자식으로 설정
+                if (currentTile != null)
+                {
+                    _movableObj.transform.SetParent(currentTile.transform);
+                    HexTile previousTile = currentTile.GetComponent<HexTile>();
+
+                    if (_movableObjectType == MovableObjectType.Item)
+                    {
+                        previousTile.isItemTile = true;
+                        previousTile.itemOnTile = _movableObj;
+                    }
+                    else if (_movableObjectType == MovableObjectType.Unit)
+                    {
+                        previousTile.isOccupied = true;
+                    }
+                }
+            }
+        }
+    }
+    // 설정 메서드 추가
+    public void SetMovableObjectType(MovableObjectType type)
+    {
+        _movableObjectType = type;
+
+        // 타입에 따라 태그, 레이어, 오프셋 설정
+        if (type == MovableObjectType.Item)
+        {
+            _movableTag = "Item";
+            _tileLayerName = "ItemPush";
+            _offset = new Vector3(0.0f, 0.3f, 0.0f);
+        }
+        else if (type == MovableObjectType.Unit)
+        {
+            _movableTag = "Moveable";
+            _tileLayerName = "PlayerTile";
+            _offset = new Vector3(0.0f, 1.0f, 0.0f);
+        }
+    }
     private GameObject FindcurrentTile()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("ItemPush")))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlayerTile")))
         {
-            currentItemTile = hit.collider.gameObject;
+            currentTile = hit.collider.gameObject;
             Debug.Log(hit.collider.gameObject);
         }
         return null;
-    }
-    private void ItemReturn()
-    {
-        // 객체가 원래 위치로 부드럽게 돌아가게 하기 위한 로직
-        if (_isReturning && _itemObj != null)
-        {
-            _itemObj.transform.position = Vector3.MoveTowards(_itemObj.transform.position, _beforePosition, Time.deltaTime * 30f);
-
-            // 원래 위치에 도달하면 반환 동작을 중지
-            if (Vector3.Distance(_itemObj.transform.position, _beforePosition) < 0.01f)
-            {
-                _isReturning = false;
-                currentItemTile.GetComponent<HexTile>().isItemTile = false;
-            }
-        }
     }
 }

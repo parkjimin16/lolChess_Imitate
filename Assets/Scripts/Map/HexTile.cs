@@ -11,6 +11,7 @@ public class HexTile : MonoBehaviour
     public bool isRectangularTile = false; // 직사각형 영역 여부
     public bool isOccupied = false;
     public bool isItemTile = false;
+    public GameObject itemOnTile = null;
 
     // Start is called before the first frame update
     void Start()

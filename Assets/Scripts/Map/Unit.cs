@@ -8,8 +8,6 @@ public class Unit : MonoBehaviour
     private Vector3 offset;
     //private bool isDragging = false;
 
-
-
     public void PlaceOnTile(HexTile tile)
     {
         if (currentTile != null)

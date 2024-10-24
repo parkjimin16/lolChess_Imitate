@@ -42,7 +42,7 @@ public class MapGenerator : MonoBehaviour
     
     void Start()
     {
-
+        
     }
 
 
@@ -64,6 +64,7 @@ public class MapGenerator : MonoBehaviour
         AdjustCamera();
         CreatePlayerUnits();
         PositionMinimapCamera();
+        
     }
 
     void CalculateTileSize()
@@ -161,7 +162,7 @@ public class MapGenerator : MonoBehaviour
             mapInfo.mapBounds = new Bounds(center, size);
             mapInfo.playerData = allPlayers[i];
             mapInfos.Add(mapInfo);
-
+            Debug.Log(allPlayers[i].playerName);
             CreateMapBoundary(userMap.transform, i, mapInfo);
         }
     }
@@ -326,7 +327,7 @@ public class MapGenerator : MonoBehaviour
                 GameObject tile = Instantiate(itemTilePrefab, bottomLeftPos, Quaternion.identity, parent);
                 tile.name = $"ItemTile_{0}";
                 ItemTile itemTile = tile.GetComponent<ItemTile>();
-                itemTile.TileType1 = ItemTileType1.Player;
+                itemTile.TileType1 = ItemOwner.Player;
             }
             else
             {
@@ -334,7 +335,7 @@ public class MapGenerator : MonoBehaviour
                 tile1.name = $"ItemTile_{1}";
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 ItemTile itemTile = tile1.GetComponent<ItemTile>();
-                itemTile.TileType1 = ItemTileType1.Another;
+                itemTile.TileType1 = ItemOwner.Another;
             }
         }
     }

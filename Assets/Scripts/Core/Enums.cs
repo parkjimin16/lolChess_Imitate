@@ -114,7 +114,12 @@ public enum ItemTileType
 {
     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
 }
-public enum ItemTileType1
+public enum ItemOwner
 {
     Player, Another
+}
+public enum MovableObjectType
+{
+    Item,
+    Unit
 }
