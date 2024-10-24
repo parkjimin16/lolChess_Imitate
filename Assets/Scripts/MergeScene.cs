@@ -22,7 +22,7 @@ public class MergeScene : MonoBehaviour
                 gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
                 //GameStart = false;
                 //GameStart = true;
-                mainScene.InitBtn(gameDataBlueprint);
+                mainScene.InitPanel(gameDataBlueprint);
                 Manager.Item.Init();
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
             }
