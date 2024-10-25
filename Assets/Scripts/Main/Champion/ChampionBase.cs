@@ -1,9 +1,5 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChampionBase : MonoBehaviour
@@ -26,31 +22,33 @@ public class ChampionBase : MonoBehaviour
     private ChampionCost cost;
 
 
+    [Header("Ã¨ÇÇ¾ð ±âº» ½ºÅÈ")]
     // Champion Stats_1
-    private List<ChampionLevelData> levelData;
-    private int championLevel;
-    private int maxHp;
-    private int curHp;
-    private int maxMana;
-    private int curMana;
-    private float speed;
-    private int attack_Range;
-    private SkillBlueprint skillBlueprint;
+    [SerializeField] private List<ChampionLevelData> levelData;
+    [SerializeField] private int championLevel;
+    [SerializeField] private int maxHp;
+    [SerializeField] private int curHp;
+    [SerializeField] private int maxMana;
+    [SerializeField] private int curMana;
+    [SerializeField] private float speed;
+    [SerializeField] private int attack_Range;
+    [SerializeField] private SkillBlueprint skillBlueprint;
 
 
     // Champion Stats_2
-    private float ad_Power;
-    private float ap_Power;
-    private float ad_Defense;
-    private float ap_Defense;
-    private float attack_Speed;
-    private float critical_Percent;
-    private float critical_Power;
-    private float blood_Suck;
-    private float power_Upgrade;
-    private float total_Defense;
+    [SerializeField] private float ad_Power;
+    [SerializeField] private float ap_Power;
+    [SerializeField] private float ad_Defense;
+    [SerializeField] private float ap_Defense;
+    [SerializeField] private float attack_Speed;
+    [SerializeField] private float critical_Percent;
+    [SerializeField] private float critical_Power;
+    [SerializeField] private float blood_Suck;
+    [SerializeField] private float power_Upgrade;
+    [SerializeField] private float total_Defense;
 
 
+    [Header("¾ÆÀÌÅÛ ½ºÅÈ")]
     // Item Stats
     [SerializeField] private int item_MaxHP;
     [SerializeField] private int item_CurHP;
@@ -68,6 +66,26 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float item_Blood_Suck;
     [SerializeField] private float item_Power_Upgrade;
     [SerializeField] private float item_Total_Def;
+
+
+    [Header("ÃÖÁ¾ ½ºÅÈ")]
+    // Display Stats
+    [SerializeField] private int display_MaxHp;
+    [SerializeField] private int display_CurHp;
+    [SerializeField] private int display_MaxMana;
+    [SerializeField] private int display_CurMana;
+    [SerializeField] private float display_Speed;
+    [SerializeField] private float display_AD_Power;
+    [SerializeField] private float display_AP_Power;
+    [SerializeField] private float display_AD_Def;
+    [SerializeField] private float display_AP_Def;
+    [SerializeField] private float display_Atk_Spd;
+    [SerializeField] private float display_Critical_Percent;
+    [SerializeField] private float display_Critical_Power;
+    [SerializeField] private float display_Blood_Suck;
+    [SerializeField] private float display_Power_Upgrade;
+    [SerializeField] private float display_Total_Def;
+
 
 
     // Champion Base
@@ -129,8 +147,8 @@ public class ChampionBase : MonoBehaviour
     }
     public int CurMana
     {
-        get { return curHp; }
-        set { curHp = value; }
+        get { return curMana; }
+        set { curMana = value; }
     }
     public int Attack_Range
     {
@@ -199,6 +217,25 @@ public class ChampionBase : MonoBehaviour
         set { total_Defense = value; }
     }
 
+
+    // ÃÖÁ¾ ½ºÅÈ
+    public int Display_MaxHp => display_MaxHp;
+    public int Display_CurHp => display_CurHp;
+    public int Display_MaxMana => display_MaxMana;
+    public int DIsplay_CurMana => display_CurMana;
+    public float Display_Speed => display_Speed;
+    public float Display_AD_Power => display_AD_Power;
+    public float Display_AP_Power => display_AP_Power;
+    public float Display_AD_Def => display_AD_Def;
+    public float Display_AP_Def => display_AP_Def;
+    public float Display_Atk_Spd => display_Atk_Spd;
+    public float Display_Critical_Percent => display_Critical_Percent;
+    public float Display_Critical_Power => display_Critical_Power;
+    public float Display_Blood_Suck => display_Blood_Suck;
+    public float Display_Power_Upgrade => display_Power_Upgrade;
+    public float Display_Total_Def => display_Total_Def;
+
+
     public int ChampionSellCost(int cost, int level)
     {
         if (cost == 1)
@@ -238,7 +275,7 @@ public class ChampionBase : MonoBehaviour
         levelData = blueprint.ChampionLevelData;
         championLevel = blueprint.ChampionLevel;
         maxHp = (int)blueprint.MaxHP;
-        curHp = (int)blueprint.CurHP;
+        curHp = maxHp;
         maxMana = (int)blueprint.MaxMana;
         curMana = (int)blueprint.CurMana;
         speed = blueprint.Speed;
@@ -260,6 +297,8 @@ public class ChampionBase : MonoBehaviour
 
         // Champion Logic
         maxItemSlot = 3;
+
+        UpdateDisplayStat();
     }
 
     public void ResetHealth()
@@ -319,9 +358,17 @@ public class ChampionBase : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log(championName);
+            curHp = 10;
+            UpdateStat(equipItem);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            foreach(ItemBlueprint it in EquipItem)
+            {
+                it.BaseItem.ResetItem();
+            }
         }
     }
 
@@ -384,10 +431,22 @@ public class ChampionBase : MonoBehaviour
             }
         }
 
-
-        StatUpdate(equipItem);
+        EquipItemChampionSetting();
+        UpdateStat(equipItem);
     }
 
+    private void EquipItemChampionSetting()
+    {
+        foreach(var item in equipItem)
+        {
+            item.BaseItem.EquipChampionSetting(this.gameObject);
+        }
+    }
+
+    public void UpdateItemStats(List<ItemBlueprint> equip)
+    {
+        UpdateStat(equip);
+    }
 
     public void CombineItem()
     {
@@ -434,11 +493,43 @@ public class ChampionBase : MonoBehaviour
 
         return true;
     }
+
+
+    // °ø°Ý Àü ¾ÆÀÌÅÛ ½ºÅÈ Á¤ÇÏ±â
+    private void ItemSkillUpdate(ItemBlueprint itemblueprint)
+    {
+        BaseItem bItemSkill = itemblueprint.BaseItem;
+
+        if (bItemSkill == null)
+            Debug.Log("bItemSkill is Null");
+        
+        bItemSkill.InitTargetObject(championAttackController.TargetChampion);
+    }
     #endregion
 
     #region Stat
+    
+    private void UpdateDisplayStat()
+    {
+        display_MaxHp = maxHp + item_MaxHP;
+        display_CurHp = curHp + item_CurHP;
+        display_MaxMana = maxMana + item_MaxMana;
+        display_CurMana = curMana + item_CurMana;
+        display_Speed =  speed + item_Speed;
+        display_AD_Power = ad_Power + item_AD_Power;
+        display_AP_Power = ap_Power + item_AP_Power;
+        display_AD_Def = ad_Defense + item_AD_Def;
+        display_AP_Def = ap_Defense + item_AP_Def;
+        display_Atk_Spd = attack_Speed + item_Atk_Spd;
+        display_Critical_Percent = critical_Percent + item_Critical_Percent;
+        display_Critical_Power = critical_Power + item_Cirtical_Power;
+        display_Blood_Suck = blood_Suck + item_Blood_Suck;
+        display_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
+        display_Total_Def = total_Defense + item_Total_Def;
+    }
 
-    public void StatUpdate(List<ItemBlueprint> equipItem)
+
+    public void UpdateStat(List<ItemBlueprint> equipItem)
     {
         InitItemStat();
 
@@ -446,6 +537,8 @@ public class ChampionBase : MonoBehaviour
         
         foreach (ItemBlueprint blueprint in equipItem)
         {
+            ItemSkillUpdate(blueprint);
+
             equipItemAttribute = blueprint.Attribute;
 
             foreach (ItemAttribute item in equipItemAttribute)
@@ -488,6 +581,8 @@ public class ChampionBase : MonoBehaviour
                 }
             }
         }
+
+        UpdateDisplayStat();
     }
 
     public void ChampionLevelUp()
@@ -496,13 +591,4 @@ public class ChampionBase : MonoBehaviour
     }
 
     #endregion
-}
-
-
-[System.Serializable]
-public class ItemStat
-{
-    public float HP;
-    public float Mana;
-    public float Speed;
 }

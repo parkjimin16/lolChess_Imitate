@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - NormalProjectile
   - Champion
+  - CantSelectChampion
   layers:
   - Default
   - TransparentFX

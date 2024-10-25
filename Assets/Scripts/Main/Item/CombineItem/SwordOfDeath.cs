@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Á×À½ÀÇ °Ë
+/// </summary>
 public class SwordOfDeath : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void InitTargetObject(GameObject targetChampion)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.InitTargetObject(targetChampion);
     }
 }

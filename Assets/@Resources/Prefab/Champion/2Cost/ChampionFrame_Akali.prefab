@@ -275,7 +275,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!114 &3788631964470942012
 MonoBehaviour:
@@ -295,6 +295,24 @@ MonoBehaviour:
   championHpMpController: {fileID: 0}
   championStateController: {fileID: 0}
   championView: {fileID: 0}
+  item_MaxHP: 0
+  item_CurHP: 0
+  item_MaxMana: 0
+  item_CurMana: 0
+  item_Speed: 0
+  item_AD_Power: 0
+  item_AP_Power: 0
+  item_AD_Def: 0
+  item_AP_Def: 0
+  item_Atk_Spd: 0
+  item_Critical_Percent: 0
+  item_Cirtical_Power: 0
+  item_Blood_Suck: 0
+  item_Power_Upgrade: 0
+  item_Total_Def: 0
+  equipItem: []
+  newChampionLine: 
+  newChampionJob: 
 --- !u!114 &5138671916796917089
 MonoBehaviour:
   m_ObjectHideFlags: 0

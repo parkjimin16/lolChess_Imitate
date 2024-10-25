@@ -137,6 +137,8 @@ MonoBehaviour:
       AttributeValue: 0.1
     - ItemAttributeType: 4
       AttributeValue: 25
+    - ItemAttributeType: 10
+      AttributeValue: 0.25
     baseItem: {fileID: 6431738968859786991, guid: fc5bc199cbf6b034bac84b496e5b7875, type: 3}
     championLine: 0
     championJob: 0
@@ -154,6 +156,8 @@ MonoBehaviour:
       AttributeValue: 0.1
     - ItemAttributeType: 5
       AttributeValue: 20
+    - ItemAttributeType: 7
+      AttributeValue: 0
     baseItem: {fileID: 8093305227183146397, guid: b0bf00328e25e8144af4e2f3e5bb733a, type: 3}
     championLine: 0
     championJob: 0

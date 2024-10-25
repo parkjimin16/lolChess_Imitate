@@ -6,6 +6,8 @@ public class ChampionAttackController : MonoBehaviour
 {
     private ChampionBase cBase;
     private IEnumerator attackCoroutine;
+    [SerializeField]
+    private GameObject targetChampion;
     
     [SerializeField] 
     private GameObject projectilePrefab;
@@ -16,8 +18,10 @@ public class ChampionAttackController : MonoBehaviour
     private float attack_Range;
 
     public bool IsAttack; // 전체 체크 용
-    private bool attackLogic;
+    [SerializeField] private bool attackLogic;
 
+
+    public GameObject TargetChampion => targetChampion;
     private void Update()
     {
         if(FindTargetInRange() == null)
@@ -58,20 +62,23 @@ public class ChampionAttackController : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
+        if (attackLogic)
+            yield break;
+
         attackLogic = true;
 
-        GameObject target = FindTargetInRange();
+        targetChampion = FindTargetInRange();
 
-        if (target == null)
+        if (targetChampion == null)
         {
             Debug.Log("사거리 내에 없습니다.");
             attackLogic = false;
             yield break;
         }
 
-        while (target != null)
+        while (targetChampion != null)
         {
-            Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+            Vector3 directionToTarget = (targetChampion.transform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
 
             while (Quaternion.Angle(transform.rotation, lookRotation) > 0.1f)
@@ -83,12 +90,12 @@ public class ChampionAttackController : MonoBehaviour
 
             if (cBase.ChampionHpMpController.IsManaFull())
             {
-                UseSkill(target);
+                UseSkill(targetChampion);
                 cBase.ChampionHpMpController.UseSkillMana();
             }
             else
             {
-                CreateNormalAttack(target);
+                CreateNormalAttack(targetChampion);
             }
 
             cBase.ChampionHpMpController.NormalAttackMana();
@@ -96,7 +103,11 @@ public class ChampionAttackController : MonoBehaviour
 
             //yield return new WaitForSeconds(cBase.Attack_Speed);
             yield return new WaitForSeconds(0.5f);
+
+           
         }
+
+        attackLogic = false;
     }
 
     private GameObject FindTargetInRange()
@@ -116,8 +127,6 @@ public class ChampionAttackController : MonoBehaviour
 
     public void CreateNormalAttack(GameObject target)
     {
-        Debug.Log("Normal Attack");
-
         GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
         NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
 

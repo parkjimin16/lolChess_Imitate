@@ -13,6 +13,8 @@ public class BaseItem : MonoBehaviour
     [SerializeField, TextArea] private string description;
     [SerializeField] private ItemType itemType;
     [SerializeField] private List<ItemAttribute> itemAttributes;
+    [SerializeField] private GameObject equipChampion;
+    [SerializeField] private ChampionBase equipChampionBase;
 
 
     #endregion
@@ -26,6 +28,8 @@ public class BaseItem : MonoBehaviour
     public string Description => description;
     public ItemType ItemType => itemType;
     public List<ItemAttribute> ItemAttributes => itemAttributes;
+    public GameObject EquipChampion => equipChampion;
+    public ChampionBase EquipChmpionBase => equipChampionBase;
 
     #endregion
 
@@ -39,109 +43,31 @@ public class BaseItem : MonoBehaviour
         itemAttributes = blueprint.Attribute;
     }
 
-    // 조합 함수 호출
-    public virtual void CheckCombine()
+    public void EquipChampionSetting(GameObject champion)
+    {
+        equipChampion = champion;
+
+        equipChampionBase = champion.GetComponent<ChampionBase>();
+    }
+    // 타겟 가져오기(스킬 사용 여부)
+    public virtual void InitTargetObject(GameObject targetChampion)
+    {
+        Debug.Log("Base Item Init");
+    }
+
+    public virtual void InitItemSkill()
     {
 
     }
 
-    // 아이템 능력치 적용
-
-    public virtual void ApplyItemStats()
+    public virtual void ResetItem()
     {
-        ApplyItemStatsTotal();
+
     }
 
-    private void ApplyItemStatsTotal()
+    // 테스트용
+    public void OnApplicationQuit()
     {
-        foreach (var attribute in itemAttributes)
-        {
-            switch (attribute.ItemAttributeType)
-            {
-                case ItemAttributeType.AD_Power:
-                    ApplyAdPower(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.AD_Speed:
-                    ApplyAdSpeed(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.AD_Defense:
-                    ApplyAdDefense(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.AP_Power:
-                    ApplyApPower(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.AP_Defense:
-                    ApplyApDefense(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.Mana:
-                    ApplyMana(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.HP:
-                    ApplyHP(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.CriticalPercent:
-                    ApplyCriticalPercent(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.BloodSuck:
-                    ApplyBloodSuck(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.TotalPower:
-                    ApplyTotalPower(attribute.AttributeValue);
-                    break;
-                case ItemAttributeType.TotalDefense:
-                    ApplySpecial(attribute.AttributeValue);
-                    break;
-            }
-        }
+        ResetItem();
     }
-
-    #region Stats Apply
-
-    private void ApplyAdPower(float value)
-    {
-        Debug.Log("ApplyAdPower : " + value);
-    }
-
-    private void ApplyAdSpeed(float value)
-    {
-        Debug.Log("ApplyAdSpeed : " + value);
-    }
-
-    private void ApplyAdDefense(float value) 
-    { 
-        Debug.Log("ApplyAdDefense : " + value);
-    }
-    private void ApplyApPower(float value)
-    {
-        Debug.Log("ApplyApPower : " + value);
-    }
-    private void ApplyApDefense(float value)
-    {
-        Debug.Log("ApplyApDefense : " + value);
-    }
-    private void ApplyMana(float value)
-    {
-        Debug.Log("ApplyMana : " + value);
-    }
-    private void ApplyHP(float value)
-    {
-        Debug.Log("ApplyHP : " + value);
-    }
-    private void ApplyCriticalPercent(float value)
-    {
-        Debug.Log("ApplyCriticalPercent : " + value);
-    }
-    private void ApplyBloodSuck(float value)
-    {
-        Debug.Log("ApplyBloodSuck : " + value);
-    }
-    private void ApplyTotalPower(float value)
-    {
-        Debug.Log("ApplyTotalPower : " + value);
-    }
-    private void ApplySpecial(float value)
-    {
-        Debug.Log("ApplySpecial : " + value);
-    }
-    #endregion
 }

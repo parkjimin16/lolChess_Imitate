@@ -65,6 +65,11 @@ public class ItemBlueprint
     public ChampionLine ChampionLine => championLine;
     public ChampionJob ChampionJob => championJob;
 
+    public void InitBaseItem()
+    {
+        baseItem.Initialize(this);
+    }
+
     public bool CompareLine(ChampionLine cLine)
     {
         if (championLine == ChampionLine.None)

@@ -24,7 +24,7 @@ public class ChampionStateController : MonoBehaviour
         switch (curState)
         {
             case ChampionState.Idle:
-                if (TestScene.GameStart)
+                if (MergeScene.GameStart)
                 {
                     ChangeState(ChampionState.Move, cBase);
                 }
@@ -45,7 +45,7 @@ public class ChampionStateController : MonoBehaviour
                 }
 
 
-                if(!TestScene.GameStart) 
+                if(!MergeScene.GameStart) 
                 {
                     ChangeState(ChampionState.Idle, cBase);
                 }

@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
                     {
                         Debug.Log("Å¸ÀÏ ¼±ÅÃµÊ: " + tile.name + ", isOccupied: " + tile.isOccupied);
                         if (!tile.isOccupied)
-                        {
+                        {z
                             selectedUnit.PlaceOnTile(tile);
                             Debug.Log("À¯´Ö ÀÌµ¿: " + selectedUnit.name + " -> " + tile.name);
                             selectedUnit = null;

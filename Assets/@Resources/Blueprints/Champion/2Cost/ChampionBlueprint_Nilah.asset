@@ -32,10 +32,10 @@ MonoBehaviour:
     Hp: 2268
     Power: 113
   championLevel: 1
-  hp_Total: 0
-  hp_Cur: 0
-  mana_Total: 60
-  mana_Cur: 0
+  maxHp: 0
+  curHp: 0
+  maxMana: 60
+  curMana: 0
   attack_Range: 2
   speed: 1
   skillBlueprint: {fileID: 11400000, guid: 03426c4d535518b40ab6c1126924f067, type: 2}

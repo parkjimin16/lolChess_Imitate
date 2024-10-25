@@ -17,15 +17,24 @@ public class MergeScene : MonoBehaviour
     {
         Manager.Asset.LoadAllAsync((count, totalCount) =>
         {
+            GameStart = false;
+
             if (count >= totalCount)
             {
                 gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
-                //GameStart = false;
-                //GameStart = true;
-                mainScene.InitBtn(gameDataBlueprint);
+                GameStart = true;
+                mainScene.InitPanel(gameDataBlueprint);
                 Manager.Item.Init();
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
             }
         });
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Manager.Item.CreateItem("B003", new Vector3(0, 0, 0));
+        }
     }
 }
