@@ -23,7 +23,6 @@ public class MapGenerator : MonoBehaviour
     private GameObject goldPrefeb; // 골드 표시 프리팹
     public Camera minimapCamera;
 
-
     public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
     private float rectWidthSize; // 사각형 타일 폭
@@ -39,7 +38,8 @@ public class MapGenerator : MonoBehaviour
     private float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
     private float boundaryExtraHeight = 10f;
 
-    
+    //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
+
     void Start()
     {
         
@@ -58,11 +58,12 @@ public class MapGenerator : MonoBehaviour
         height = gdb.Height;
         rectWidth = gdb.RectWidth;
         desiredMapWidth = gdb.DesiredMapWidth;
+        //hexTiles = gdb.HexTile;
 
         CalculateTileSize();
         CreatUserMap();
         AdjustCamera();
-        CreatePlayerUnits();
+        //CreatePlayerUnits();
         PositionMinimapCamera();
         
     }
@@ -139,9 +140,16 @@ public class MapGenerator : MonoBehaviour
             userMap.transform.position = mapPosition;
             userMap.transform.SetParent(this.transform);
             userMap.AddComponent<GoldDisplay>();
-            
+            userMap.AddComponent<RectTile>();
 
             GenerateMap(userMap.transform);
+
+            GameObject shop = GameObject.Find("ShopPanel");
+            UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
+            if (i == 0) //유저 정보 받아와서 수정하기
+            {
+                uIShop.SetChampionPos(userMap.GetComponent<RectTile>());
+            }
 
             //각 유저들 맵정보 저장
             MapInfo mapInfo = new MapInfo();
@@ -162,7 +170,7 @@ public class MapGenerator : MonoBehaviour
             mapInfo.mapBounds = new Bounds(center, size);
             mapInfo.playerData = allPlayers[i];
             mapInfos.Add(mapInfo);
-            Debug.Log(allPlayers[i].playerName);
+            //Debug.Log(allPlayers[i].playerName);
             CreateMapBoundary(userMap.transform, i, mapInfo);
         }
     }
@@ -249,7 +257,10 @@ public class MapGenerator : MonoBehaviour
             if (row == -1)
             {
                 tile.layer = LayerMask.NameToLayer("PlayerTile");
+                //hexTiles.Add(tile);
+                //Debug.Log(hexTiles[x].transform.position);
             }
+            
             HexTile hexTile = tile.GetComponent<HexTile>();
             hexTile.isRectangularTile = true;
         }
@@ -295,8 +306,9 @@ public class MapGenerator : MonoBehaviour
 
             // 맨 아래 직사각형 타일을 가져옵니다.
             HexTile tile = GameObject.Find($"Rect_{x}_-1").GetComponent<HexTile>();
-
+            //hexTiles.Add(tile);
             unit.PlaceOnTile(tile);
+            //Debug.Log(hexTiles[x]);
         }
     }
 

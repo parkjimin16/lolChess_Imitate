@@ -874,6 +874,7 @@ MonoBehaviour:
   maxGoldSlots: 5
   goldSlotSize: 1
   goldSlotSpacing: 0.1
+  hexTiles: []
 --- !u!114 &1033666890
 MonoBehaviour:
   m_ObjectHideFlags: 0

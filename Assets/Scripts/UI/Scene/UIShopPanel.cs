@@ -12,11 +12,13 @@ public class UIShopPanel : UIBase
     [SerializeField] private List<string> shopChampionList;
     [SerializeField] private GameObject targetObject;
 
-    [SerializeField] private List<GameObject> championPos;
+    [SerializeField] private List<Transform> championPos;
     private int currentChampionIndex = 0;
 
     private bool isLoadComplete = false;
     public int Level = 1;
+
+    [SerializeField] private RectTile rtile;
 
     public void InitShopBtn(GameDataBlueprint gameData)
     {
@@ -39,6 +41,7 @@ public class UIShopPanel : UIBase
                 button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint, button));
             }
         }
+        
     }
 
     private void InstantiateChampion(ChampionBlueprint cBlueprint, Button button)
@@ -51,7 +54,7 @@ public class UIShopPanel : UIBase
             GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
 
             frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = championPos[currentChampionIndex].transform.position;
+            newChampionObject.transform.position = championPos[currentChampionIndex].position + new Vector3(0, 0.5f, 0);
 
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
@@ -149,5 +152,11 @@ public class UIShopPanel : UIBase
         {
             Level = 10;
         }
+    }
+    
+    public void SetChampionPos(RectTile tile)
+    {
+        rtile = tile;
+        championPos = rtile.GetRectTileList();
     }
 }

@@ -23,7 +23,7 @@ public class GameDataBlueprint : ScriptableObject
     [SerializeField] private int height;
     [SerializeField] private int rectWidth; // 직사각형 타일의 개수
     [SerializeField] private float desiredMapWidth; // 원하는 맵의 가로 크기 (단위: 유니티 월드 좌표)
-
+    [SerializeField] private List<GameObject> hextile;
 
     public List<ChampionData> ChampionDataList => championDataList;
     public List<ChampionRandomData> ChampionRandomDataList => championRandomDataList;
@@ -38,5 +38,6 @@ public class GameDataBlueprint : ScriptableObject
     public int Height => height;
     public int RectWidth => rectWidth;
     public float DesiredMapWidth => desiredMapWidth;
+    public List<GameObject> HexTile => hextile;
 }
 
