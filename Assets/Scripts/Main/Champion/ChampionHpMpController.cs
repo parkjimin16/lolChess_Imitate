@@ -18,6 +18,19 @@ public class ChampionHpMpController : MonoBehaviour
         cBase.ChampionFrame.SetManaSlider(cBase.CurMana, cBase.MaxMana);
     }
 
+    public void AddHealth(int hp)
+    {
+        if(cBase.CurHP + hp >= cBase.MaxHP)
+        {
+            cBase.CurHP = cBase.MaxHP;
+        }
+        else
+        {
+            cBase.CurHP += hp;
+        }
+        
+    }
+
     public void TakeDamage(float damage)
     {
         cBase.CurHP -= (int)damage;
@@ -44,6 +57,18 @@ public class ChampionHpMpController : MonoBehaviour
     public void NormalAttackMana()
     {
         cBase.CurMana += 5;
+    }
+
+    public void ManaPlus(int mana)
+    {
+        if (cBase.MaxMana <= cBase.CurMana + mana)
+        {
+            cBase.CurMana = cBase.MaxMana;
+        }
+        else
+        {
+            cBase.CurMana += mana;
+        }
     }
 
     public void DamageMana()

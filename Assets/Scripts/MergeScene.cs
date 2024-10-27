@@ -25,6 +25,7 @@ public class MergeScene : MonoBehaviour
                 GameStart = true;
                 mainScene.InitPanel(gameDataBlueprint);
                 Manager.Item.Init();
+                Manager.Game.InitGameManager();
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
             }
         });
@@ -34,7 +35,7 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Item.CreateItem("B004", new Vector3(0, 0, 0));
+            Manager.Item.CreateItem("B007", new Vector3(0, 0, 0));
         }
     }
 }

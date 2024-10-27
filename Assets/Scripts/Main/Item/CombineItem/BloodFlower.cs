@@ -55,7 +55,7 @@ public class BloodFlower : BaseItem
 
     private IEnumerator ShieldDurationCoroutine()
     {
-        EquipChampionBase.Display_Shield = shieldAmount;
+        EquipChampionBase.SetShield(shieldAmount);
 
         Debug.Log("Shield Create");
         yield return new WaitForSeconds(shieldDuration);
@@ -63,7 +63,7 @@ public class BloodFlower : BaseItem
         Debug.Log("Shield Destroy");
 
         shieldAmount = 0;
-        EquipChampionBase.Display_Shield = shieldAmount;
+        EquipChampionBase.SetShield(shieldAmount);
         isShieldDestroy = true;
     }
 

@@ -85,7 +85,7 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float display_Power_Upgrade;
     [SerializeField] private float display_Total_Def;
     [SerializeField] private int display_Shield;
-
+    [SerializeField] private int display_TotalDamage;
 
 
     // Champion Base
@@ -235,11 +235,8 @@ public class ChampionBase : MonoBehaviour
     public float Display_Blood_Suck => display_Blood_Suck;
     public float Display_Power_Upgrade => display_Power_Upgrade;
     public float Display_Total_Def => display_Total_Def;
-    public int Display_Shield
-    {
-        get { return display_Shield; }
-        set { display_Shield = value; }
-    }
+    public int Display_Shield => display_Shield;
+    public int Display_TotalDamage => display_TotalDamage;
 
     public int ChampionSellCost(int cost, int level)
     {
@@ -247,6 +244,16 @@ public class ChampionBase : MonoBehaviour
             return (cost * 3) * level;
 
         return (cost * 3) * level - 1;
+    }
+
+    public void SetShield(int shield)
+    {
+        display_Shield = shield;
+    }
+
+    public void SetTotalDamage(int damage)
+    {
+        display_TotalDamage = damage;
     }
     #endregion
 
@@ -299,6 +306,7 @@ public class ChampionBase : MonoBehaviour
         power_Upgrade = blueprint.Power_Upgrade;
         total_Defense = blueprint.Total_Defense;
 
+        SetTotalDamage(10);
 
         // Champion Logic
         maxItemSlot = 3;
@@ -368,7 +376,7 @@ public class ChampionBase : MonoBehaviour
             championHpMpController.TakeDamage(100);
             UpdateStat(equipItem);
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Q)) // 전투종료시 아이템 증가량 초기화
         {
             foreach(ItemBlueprint it in EquipItem)
             {

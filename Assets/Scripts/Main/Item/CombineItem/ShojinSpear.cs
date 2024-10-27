@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class ShojinSpear : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void InitTargetObject(GameObject targetChampion)
     {
-        
-    }
+        if (EquipChampionBase == null)
+            return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EquipChampionBase.ChampionHpMpController.ManaPlus(5);
     }
 }

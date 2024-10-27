@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class InfiniteGreatsword : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // 스킬 치명타 피해 이미 적용
 }

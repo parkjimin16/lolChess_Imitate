@@ -226,7 +226,7 @@ MonoBehaviour:
     - ItemAttributeType: 3
       AttributeValue: 0.15
     - ItemAttributeType: 1
-      AttributeValue: 150
+      AttributeValue: 800
     baseItem: {fileID: 4718951600311286357, guid: 2ea208ad5416fad409bea5079d7b447b, type: 3}
     championLine: 0
     championJob: 0
