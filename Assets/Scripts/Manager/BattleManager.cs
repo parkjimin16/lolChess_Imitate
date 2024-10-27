@@ -17,7 +17,7 @@ public class BattleManager
 
     IEnumerator BattleCoroutine(int duration, PlayerData selfPlayer, PlayerData opponent)
     {
-        Debug.Log($"전투가 시작되었습니다. 전투 시간: {duration}초");
+        //Debug.Log($"전투가 시작되었습니다. 전투 시간: {duration}초");
 
         // 전투 진행 (전투 시간만큼 대기)
         yield return new WaitForSeconds(duration);
@@ -26,7 +26,7 @@ public class BattleManager
         playerWon = Random.value > 0.9f;
         survivingEnemyUnits = playerWon ? 0 : Random.Range(1, 5); // 패배 시 1~4개의 적 유닛이 생존
 
-        Debug.Log(playerWon ? "플레이어가 승리했습니다." : "플레이어가 패배했습니다.");
+        //Debug.Log(playerWon ? "플레이어가 승리했습니다." : "플레이어가 패배했습니다.");
 
         // 전투 종료 처리
         EndBattle();

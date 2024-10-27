@@ -224,7 +224,7 @@ public class MapGenerator : MonoBehaviour
         {
             tile.layer = LayerMask.NameToLayer("PlayerTile");
         }
-
+        tile.tag = "PlayerTile";
         HexTile hexTile = tile.GetComponent<HexTile>();
         hexTile.q = q;
         hexTile.r = r;
@@ -260,7 +260,7 @@ public class MapGenerator : MonoBehaviour
                 //hexTiles.Add(tile);
                 //Debug.Log(hexTiles[x].transform.position);
             }
-            
+            tile.tag = "PlayerTile";
             HexTile hexTile = tile.GetComponent<HexTile>();
             hexTile.isRectangularTile = true;
         }

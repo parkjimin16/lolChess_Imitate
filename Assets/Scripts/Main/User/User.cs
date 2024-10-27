@@ -117,7 +117,7 @@ public class User : MonoBehaviour
                                 Debug.Log("아이템 조합 실패");
                                 return;
                             }
-
+                            Debug.Log("이거");
                             Manager.Item.CreateItem(combinedItemName, new Vector3(0, 0, 0));
 
                             Destroy(targetItemFrame.gameObject);

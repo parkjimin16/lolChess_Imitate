@@ -558,6 +558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 565879210}
+  - component: {fileID: 565879211}
   m_Layer: 0
   m_Name: User
   m_TagString: Untagged
@@ -580,6 +581,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565879211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565879208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a1067619ef44240b7dce265f9bb784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811083390
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +887,6 @@ MonoBehaviour:
   maxGoldSlots: 5
   goldSlotSize: 1
   goldSlotSpacing: 0.1
-  hexTiles: []
 --- !u!114 &1033666890
 MonoBehaviour:
   m_ObjectHideFlags: 0

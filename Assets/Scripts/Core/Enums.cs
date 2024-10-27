@@ -121,5 +121,5 @@ public enum ItemOwner
 public enum MovableObjectType
 {
     Item,
-    Unit
+    Champion
 }

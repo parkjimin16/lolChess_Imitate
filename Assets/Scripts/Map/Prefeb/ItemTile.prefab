@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 528567171240240889}
   m_Layer: 7
   m_Name: push5
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &1749505737304506508
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ GameObject:
   - component: {fileID: 6981443814331459190}
   m_Layer: 7
   m_Name: push6
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,6 +357,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &1911165438049069770
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +373,7 @@ GameObject:
   - component: {fileID: 908908895347369091}
   m_Layer: 7
   m_Name: push7
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +483,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &3332589085635100349
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +499,7 @@ GameObject:
   - component: {fileID: 7120052500198906945}
   m_Layer: 7
   m_Name: push2
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -606,6 +609,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &3640209703719670457
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +658,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTile: {fileID: 5874449284121987707}
   _items: []
+  TileType: 0
+  TileType1: 0
 --- !u!1 &4484184707075695607
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +781,7 @@ GameObject:
   - component: {fileID: 8823286973314575997}
   m_Layer: 7
   m_Name: push9
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -885,6 +891,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &4935279279517331047
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +907,7 @@ GameObject:
   - component: {fileID: 6589630079766307887}
   m_Layer: 7
   m_Name: push4
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1010,6 +1017,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &5692532003796109497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1110,7 @@ GameObject:
   - component: {fileID: 1400192717461765223}
   m_Layer: 7
   m_Name: push1
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1212,6 +1220,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &7105670069181262843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1236,7 @@ GameObject:
   - component: {fileID: 365517767734716936}
   m_Layer: 7
   m_Name: push10
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1337,6 +1346,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &7178173820272282438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1680,7 @@ GameObject:
   - component: {fileID: 7249461587725265596}
   m_Layer: 7
   m_Name: push8
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1780,6 +1790,7 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}
 --- !u!1 &9142140680231489900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,7 +1806,7 @@ GameObject:
   - component: {fileID: 1972763848635217142}
   m_Layer: 7
   m_Name: push3
-  m_TagString: Untagged
+  m_TagString: ItemTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1905,3 +1916,4 @@ MonoBehaviour:
   isRectangularTile: 0
   isOccupied: 0
   isItemTile: 0
+  itemOnTile: {fileID: 0}

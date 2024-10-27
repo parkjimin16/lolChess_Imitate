@@ -10,6 +10,9 @@ TagManager:
   - NormalProjectile
   - Champion
   - CantSelectChampion
+  - Tile
+  - PlayerTile
+  - ItemTile
   layers:
   - Default
   - TransparentFX

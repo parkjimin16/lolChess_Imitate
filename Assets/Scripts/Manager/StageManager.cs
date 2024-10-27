@@ -77,7 +77,7 @@ public class StageManager
         // 대기시간 설정
         int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
-        Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+        //Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
 
         // 대기시간 타이머 시작
         UIManager.Instance.StartTimer(waitTime);
@@ -88,17 +88,17 @@ public class StageManager
         int opponentIndex = (currentRound - 1) % opponents.Count;
         currentOpponent = opponents[opponentIndex];
 
-        Debug.Log($"{currentOpponent.playerName}와 매칭되었습니다.");
+        //Debug.Log($"{currentOpponent.playerName}와 매칭되었습니다.");
 
         // 매칭 후 대기시간
-        Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
+        //Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
 
         // 매칭 후 대기시간 타이머 시작
         UIManager.Instance.StartTimer(postMatchWaitTime);
 
         yield return new WaitForSeconds(postMatchWaitTime);
 
-        Debug.Log("라운드가 시작됩니다!");
+        //Debug.Log("라운드가 시작됩니다!");
 
         // 전투 시작
         Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
@@ -147,7 +147,7 @@ public class StageManager
 
         // 플레이어에게 데미지 적용
         selfPlayer.health -= totalDamage;
-        Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.health}");
+        //Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.health}");
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();

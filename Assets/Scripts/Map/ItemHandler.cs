@@ -23,7 +23,7 @@ public class ItemHandler : MonoBehaviour
 
     private void Start()
     {
-        // ÇÊ¿ä¿¡ µû¶ó ÃÊ±âÈ­
+        // í•„ìš”ì— ë”°ë¼ ì´ˆê¸°í™”
     }
 
     private void Update()
@@ -69,17 +69,17 @@ public class ItemHandler : MonoBehaviour
         }
         else
         {
-            // À¯´Ö ÅÂ±×·Î ½Ãµµ
-            _movableObj = OnClickObjUsingTag("Moveable");
+            // ìœ ë‹› íƒœê·¸ë¡œ ì‹œë„
+            _movableObj = OnClickObjUsingTag("Champion");
             if (_movableObj != null)
             {
-                SetMovableObjectType(MovableObjectType.Unit);
+                SetMovableObjectType(MovableObjectType.Champion);
             }
         }
 
         if (_movableObj != null)
         {
-            // ¿ÀºêÁ§Æ® Å¸ÀÔ¿¡ µû¶ó ÇöÀç Å¸ÀÏÀ» °¡Á®¿É´Ï´Ù.
+            // ì˜¤ë¸Œì íŠ¸ íƒ€ì…ì— ë”°ë¼ í˜„ì¬ íƒ€ì¼ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
             if (_movableObj.transform.parent != null)
             {
                 currentTile = _movableObj.transform.parent.gameObject;
@@ -87,7 +87,7 @@ public class ItemHandler : MonoBehaviour
 
             _beforePosition = _movableObj.transform.position;
 
-            // Å¸ÀÏÀÇ »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+            // íƒ€ì¼ì˜ ìƒíƒœë¥¼ ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
             if (currentTile != null)
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
@@ -97,13 +97,13 @@ public class ItemHandler : MonoBehaviour
                     tile.isItemTile = false;
                     tile.itemOnTile = null;
                 }
-                else if (_movableObjectType == MovableObjectType.Unit)
+                else if (_movableObjectType == MovableObjectType.Champion)
                 {
                     tile.isOccupied = false;
                 }
             }
 
-            // ¿ÀºêÁ§Æ®¸¦ ¿ùµå ·çÆ®·Î ÀÌµ¿
+            // ì˜¤ë¸Œì íŠ¸ë¥¼ ì›”ë“œ ë£¨íŠ¸ë¡œ ì´ë™
             _movableObj.transform.SetParent(null);
         }
     }
@@ -121,7 +121,7 @@ public class ItemHandler : MonoBehaviour
 
     private void TouchStayEvent()
     {
-        // ÇÊ¿ä ½Ã ±¸Çö
+        // í•„ìš” ì‹œ êµ¬í˜„
     }
 
     private void TouchEndedEvent()
@@ -129,29 +129,64 @@ public class ItemHandler : MonoBehaviour
         if (_movableObj != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
 
-            RaycastHit hitInfo;
-            int layerMask = 1 << LayerMask.NameToLayer(_tileLayerName);
-
-            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
+            // íˆíŠ¸í•œ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ìˆœíšŒí•©ë‹ˆë‹¤.
+            foreach (RaycastHit hit in hits)
             {
-                GameObject hitTileObj = hitInfo.collider.gameObject;
-                HexTile hitTile = hitTileObj.GetComponent<HexTile>();
+                GameObject hitObj = hit.collider.gameObject;
 
+                // ë“œë˜ê·¸ ì¤‘ì¸ ì˜¤ë¸Œì íŠ¸ëŠ” ë¬´ì‹œí•©ë‹ˆë‹¤.
+                if (hitObj == _movableObj)
+                {
+                    continue;
+                }
+
+                // ê¸°ëŒ€í•˜ëŠ” íƒ€ì¼ íƒœê·¸ë¥¼ í™•ì¸í•©ë‹ˆë‹¤.
+                string expectedTileTag = (_movableObjectType == MovableObjectType.Item) ? "ItemTile" : "PlayerTile";
+
+                // ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ì˜ íƒœê·¸ë„ í™•ì¸í•©ë‹ˆë‹¤.
+                GameObject hitParentObj = hitObj.transform.root.gameObject;
+
+                if (hitObj.CompareTag(expectedTileTag) || hitParentObj.CompareTag(expectedTileTag))
+                {
+                    HexTile hitTile = hitObj.GetComponent<HexTile>() ?? hitParentObj.GetComponent<HexTile>();
+
+                    if (hitTile != null)
+                    {
+                        if (_movableObjectType == MovableObjectType.Item)
+                        {
+                            HandleItemDrop(hitTile, hitTile.gameObject);
+                        }
+                        else if (_movableObjectType == MovableObjectType.Champion)
+                        {
+                            HandleUnitDrop(hitTile, hitTile.gameObject);
+                        }
+
+                        return; // íƒ€ì¼ì„ ì°¾ì•˜ìœ¼ë¯€ë¡œ ë©”ì„œë“œë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤.
+                    }
+                }
+
+                // ì¶”ê°€ëœ ë¶€ë¶„: ì•„ì´í…œ ê²°í•© ë° ì±”í”¼ì–¸ì—ê²Œ ì•„ì´í…œ ì „ë‹¬ ì²˜ë¦¬
                 if (_movableObjectType == MovableObjectType.Item)
                 {
-                    HandleItemDrop(hitTile, hitTileObj);
-                }
-                else if (_movableObjectType == MovableObjectType.Unit)
-                {
-                    HandleUnitDrop(hitTile, hitTileObj);
+                    if (hitObj.CompareTag("Item") && hitObj.transform != _movableObj.transform)
+                    {
+                        // ì•„ì´í…œ ê²°í•© ì²˜ë¦¬
+                        HandleItemCombination(hitObj);
+                        return;
+                    }
+                    else if (hitObj.CompareTag("Champion"))
+                    {
+                        // ì±”í”¼ì–¸ì—ê²Œ ì•„ì´í…œ ì „ë‹¬ ì²˜ë¦¬
+                        HandleGiveItemToChampion(hitObj);
+                        return;
+                    }
                 }
             }
-            else
-            {
-                // Å¸ÀÏÀÌ ¾Æ´Ñ °÷¿¡ µå·ÓÇßÀ» °æ¿ì, ¿ÀºêÁ§Æ®¸¦ ¿ø·¡ À§Ä¡·Î ¹İÈ¯
-                _isReturning = true;
-            }
+
+            // íƒ€ì¼ì´ë‚˜ ì•„ì´í…œ, ì±”í”¼ì–¸ì„ ì°¾ì§€ ëª»í•œ ê²½ìš°
+            _isReturning = true;
         }
     }
 
@@ -159,43 +194,45 @@ public class ItemHandler : MonoBehaviour
     {
         if (hitTile.isItemTile == false)
         {
-            // Å¸ÀÏÀÌ ºñ¾î ÀÖÀ» °æ¿ì ¾ÆÀÌÅÛÀ» ³õ½À´Ï´Ù.
+            // íƒ€ì¼ì´ ë¹„ì–´ ìˆì„ ê²½ìš° ì•„ì´í…œì„ ë†“ìŠµë‹ˆë‹¤.
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // Å¸ÀÏ »óÅÂ ¾÷µ¥ÀÌÆ®
+            // íƒ€ì¼ ìƒíƒœ ì—…ë°ì´íŠ¸
             hitTile.isItemTile = true;
             hitTile.itemOnTile = _movableObj;
+
+
         }
         else
         {
-            // Å¸ÀÏ¿¡ ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ ÀÖÀ» °æ¿ì, ¾ÆÀÌÅÛÀ» ±³È¯ÇÕ´Ï´Ù.
+            // íƒ€ì¼ì— ì´ë¯¸ ì•„ì´í…œì´ ìˆì„ ê²½ìš°, ì•„ì´í…œì„ êµí™˜í•©ë‹ˆë‹¤.
             GameObject otherItem = hitTile.itemOnTile;
 
-            // ÇöÀç ¿ÀºêÁ§Æ®ÀÇ ÀÌÀü Å¸ÀÏÀÌ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+            // í˜„ì¬ ì˜¤ë¸Œì íŠ¸ì˜ ì´ì „ íƒ€ì¼ì´ ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
             if (currentTile != null)
             {
-                // ´Ù¸¥ ¾ÆÀÌÅÛÀ» ÀÌÀü Å¸ÀÏ·Î ÀÌµ¿
+                // ë‹¤ë¥¸ ì•„ì´í…œì„ ì´ì „ íƒ€ì¼ë¡œ ì´ë™
                 otherItem.transform.position = currentTile.transform.position + _offset;
                 otherItem.transform.SetParent(currentTile.transform);
 
-                // Å¸ÀÏ »óÅÂ ¾÷µ¥ÀÌÆ®
+                // íƒ€ì¼ ìƒíƒœ ì—…ë°ì´íŠ¸
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
                 previousTile.isItemTile = true;
                 previousTile.itemOnTile = otherItem;
             }
             else
             {
-                // ÀÌÀü Å¸ÀÏÀÌ ¾øÀ» °æ¿ì, ´Ù¸¥ ¾ÆÀÌÅÛÀ» ¿øÇÏ´Â À§Ä¡·Î ÀÌµ¿ÇÏ°Å³ª µ¿ÀÛÀ» Á¤ÀÇÇÕ´Ï´Ù.
+                // ì´ì „ íƒ€ì¼ì´ ì—†ì„ ê²½ìš°, ë‹¤ë¥¸ ì•„ì´í…œì„ ì›í•˜ëŠ” ìœ„ì¹˜ë¡œ ì´ë™í•˜ê±°ë‚˜ ë™ì‘ì„ ì •ì˜í•©ë‹ˆë‹¤.
                 otherItem.transform.position = _beforePosition;
                 otherItem.transform.SetParent(null);
             }
 
-            // µå·¡±×ÇÑ ¾ÆÀÌÅÛÀ» ´ë»ó Å¸ÀÏ·Î ÀÌµ¿
+            // ë“œë˜ê·¸í•œ ì•„ì´í…œì„ ëŒ€ìƒ íƒ€ì¼ë¡œ ì´ë™
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // Å¸ÀÏ »óÅÂ ¾÷µ¥ÀÌÆ®
+            // íƒ€ì¼ ìƒíƒœ ì—…ë°ì´íŠ¸
             hitTile.isItemTile = true;
             hitTile.itemOnTile = _movableObj;
         }
@@ -205,14 +242,14 @@ public class ItemHandler : MonoBehaviour
     {
         if (hitTile.isOccupied == false)
         {
-            // Å¸ÀÏÀÌ ºñ¾î ÀÖÀ» °æ¿ì À¯´ÖÀ» ³õ½À´Ï´Ù.
+            // íƒ€ì¼ì´ ë¹„ì–´ ìˆì„ ê²½ìš° ìœ ë‹›ì„ ë†“ìŠµë‹ˆë‹¤.
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // Å¸ÀÏ »óÅÂ ¾÷µ¥ÀÌÆ®
+            // íƒ€ì¼ ìƒíƒœ ì—…ë°ì´íŠ¸
             hitTile.isOccupied = true;
 
-            // ÀÌÀü Å¸ÀÏÀÇ »óÅÂ ¾÷µ¥ÀÌÆ®
+            // ì´ì „ íƒ€ì¼ì˜ ìƒíƒœ ì—…ë°ì´íŠ¸
             if (currentTile != null)
             {
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
@@ -221,7 +258,7 @@ public class ItemHandler : MonoBehaviour
         }
         else
         {
-            // Å¸ÀÏ¿¡ ÀÌ¹Ì À¯´ÖÀÌ ÀÖÀ» °æ¿ì, À¯´ÖÀ» ¿ø·¡ À§Ä¡·Î ¹İÈ¯ÇÕ´Ï´Ù.
+            // íƒ€ì¼ì— ì´ë¯¸ ìœ ë‹›ì´ ìˆì„ ê²½ìš°, ìœ ë‹›ì„ ì›ë˜ ìœ„ì¹˜ë¡œ ë°˜í™˜í•©ë‹ˆë‹¤.
             _isReturning = true;
         }
     }
@@ -255,7 +292,7 @@ public class ItemHandler : MonoBehaviour
             {
                 _isReturning = false;
 
-                // ¿ÀºêÁ§Æ®¸¦ ÀÌÀü Å¸ÀÏÀÇ ÀÚ½ÄÀ¸·Î ¼³Á¤
+                // ì˜¤ë¸Œì íŠ¸ë¥¼ ì´ì „ íƒ€ì¼ì˜ ìì‹ìœ¼ë¡œ ì„¤ì •
                 if (currentTile != null)
                 {
                     _movableObj.transform.SetParent(currentTile.transform);
@@ -266,7 +303,7 @@ public class ItemHandler : MonoBehaviour
                         previousTile.isItemTile = true;
                         previousTile.itemOnTile = _movableObj;
                     }
-                    else if (_movableObjectType == MovableObjectType.Unit)
+                    else if (_movableObjectType == MovableObjectType.Champion)
                     {
                         previousTile.isOccupied = true;
                     }
@@ -274,33 +311,116 @@ public class ItemHandler : MonoBehaviour
             }
         }
     }
-    // ¼³Á¤ ¸Ş¼­µå Ãß°¡
+    // ì„¤ì • ë©”ì„œë“œ ì¶”ê°€
     public void SetMovableObjectType(MovableObjectType type)
     {
         _movableObjectType = type;
 
-        // Å¸ÀÔ¿¡ µû¶ó ÅÂ±×, ·¹ÀÌ¾î, ¿ÀÇÁ¼Â ¼³Á¤
         if (type == MovableObjectType.Item)
         {
             _movableTag = "Item";
-            _tileLayerName = "ItemPush";
             _offset = new Vector3(0.0f, 0.3f, 0.0f);
         }
-        else if (type == MovableObjectType.Unit)
+        else if (type == MovableObjectType.Champion)
         {
-            _movableTag = "Moveable";
-            _tileLayerName = "PlayerTile";
-            _offset = new Vector3(0.0f, 1.0f, 0.0f);
+            _movableTag = "Champion";
+            _offset = new Vector3(0.0f, 0.5f, 0.0f);
         }
     }
     private GameObject FindcurrentTile()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlayerTile")))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
-            currentTile = hit.collider.gameObject;
-            Debug.Log(hit.collider.gameObject);
+            GameObject hitObj = hit.collider.gameObject;
+
+            // íƒ€ì¼ì˜ íƒœê·¸ë¥¼ í™•ì¸í•˜ì—¬ í˜„ì¬ íƒ€ì¼ì„ ì„¤ì •
+            if (hitObj.CompareTag("PlayerTile") || hitObj.CompareTag("ItemTile"))
+            {
+                currentTile = hitObj;
+            }
         }
         return null;
+    }
+    private void HandleItemCombination(GameObject targetItemObj)
+    {
+        ItemFrame draggedItemFrame = _movableObj.GetComponent<ItemFrame>();
+        ItemFrame targetItemFrame = targetItemObj.GetComponent<ItemFrame>();
+
+        if (draggedItemFrame != null && targetItemFrame != null)
+        {
+            string combinedItemName = Manager.Item.ItemCombine(draggedItemFrame.ItemBlueprint.ItemId, targetItemFrame.ItemBlueprint.ItemId);
+
+            if (combinedItemName == "error")
+            {
+                Debug.Log("ì•„ì´í…œ ì¡°í•© ì‹¤íŒ¨");
+                _isReturning = true;
+                return;
+            }
+
+            // ìƒˆë¡œìš´ ì•„ì´í…œ ìƒì„±
+            GameObject newItem = Manager.Item.CreateItem(combinedItemName, targetItemObj.transform.position);
+
+            // ê¸°ì¡´ ì•„ì´í…œë“¤ ì‚­ì œ
+            Destroy(targetItemFrame.gameObject);
+            Destroy(draggedItemFrame.gameObject);
+
+            // íƒ€ì¼ ì •ë³´ ì—…ë°ì´íŠ¸
+            HexTile tile = null;
+
+            if (currentTile != null)
+            {
+                tile = currentTile.GetComponent<HexTile>();
+            }
+            else
+            {
+                tile = targetItemObj.transform.parent.GetComponent<HexTile>();
+            }
+
+            if (tile != null)
+            {
+                tile.itemOnTile = newItem;
+                newItem.transform.SetParent(tile.transform);
+            }
+        }
+        else
+        {
+            Debug.Log("ì•„ì´í…œ í”„ë ˆì„ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            _isReturning = true;
+        }
+    }
+    private void HandleGiveItemToChampion(GameObject championObj)
+    {
+        ChampionBase cBase = championObj.GetComponent<ChampionBase>();
+
+        if (cBase == null)
+        {
+            Debug.Log("ì±”í”¼ì–¸ ë² ì´ìŠ¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            _isReturning = true;
+            return;
+        }
+
+        ItemFrame draggedItemFrame = _movableObj.GetComponent<ItemFrame>();
+
+        if (draggedItemFrame != null)
+        {
+            cBase.GetItem(draggedItemFrame.ItemBlueprint);
+
+            // ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
+            Destroy(draggedItemFrame.gameObject);
+
+            // í˜„ì¬ íƒ€ì¼ì˜ ì•„ì´í…œ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸
+            if (currentTile != null)
+            {
+                HexTile tile = currentTile.GetComponent<HexTile>();
+                tile.isItemTile = false;
+                tile.itemOnTile = null;
+            }
+        }
+        else
+        {
+            Debug.Log("ë“œë˜ê·¸ëœ ì•„ì´í…œ í”„ë ˆì„ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            _isReturning = true;
+        }
     }
 }
