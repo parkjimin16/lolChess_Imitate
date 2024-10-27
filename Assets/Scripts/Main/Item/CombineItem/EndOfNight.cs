@@ -46,16 +46,16 @@ public class EndOfNight : BaseItem
     {
         Debug.Log($"Use Skill : {useSkill}");
 
-        if (EquipChampion == null || EquipChmpionBase == null)
+        if (EquipChampion == null || EquipChampionBase == null)
         {
             return;
         }
             
 
-        if (EquipChmpionBase.Display_CurHp / EquipChmpionBase.Display_MaxHp <= 0.6f)
+        if (EquipChampionBase.Display_CurHp / EquipChampionBase.Display_MaxHp <= 0.6f)
         {
             itemAttribute.AttributeValue = 0.15f;
-            CoroutineHelper.StartCoroutine(ChangeTagTemporarily(EquipChmpionBase.gameObject, "CantSelectChampion", "Champion", 1f));
+            CoroutineHelper.StartCoroutine(ChangeTagTemporarily(EquipChampionBase.gameObject, "CantSelectChampion", "Champion", 1f));
 
         }
     }

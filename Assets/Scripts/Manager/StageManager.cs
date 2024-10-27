@@ -126,7 +126,7 @@ public class StageManager
             if (currentStage > 8)
             {
                 // 게임 종료
-                Debug.Log("게임 클리어!");
+                //Debug.Log("게임 클리어!");
                 return;
             }
             StartStage(currentStage);
@@ -156,7 +156,7 @@ public class StageManager
         // 게임 오버 체크
         if (selfPlayer.health <= 0)
         {
-            Debug.Log("게임 오버!");
+            //Debug.Log("게임 오버!");
             // 게임 오버 로직 처리
         }
     }

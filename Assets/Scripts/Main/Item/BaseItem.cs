@@ -29,7 +29,7 @@ public class BaseItem : MonoBehaviour
     public ItemType ItemType => itemType;
     public List<ItemAttribute> ItemAttributes => itemAttributes;
     public GameObject EquipChampion => equipChampion;
-    public ChampionBase EquipChmpionBase => equipChampionBase;
+    public ChampionBase EquipChampionBase => equipChampionBase;
 
     #endregion
 
@@ -53,6 +53,11 @@ public class BaseItem : MonoBehaviour
     public virtual void InitTargetObject(GameObject targetChampion)
     {
         Debug.Log("Base Item Init");
+    }
+
+    public virtual void CheckHp(int curHp, int maxHp)
+    {
+
     }
 
     public virtual void InitItemSkill()
