@@ -123,3 +123,10 @@ public enum MovableObjectType
     Item,
     Champion
 }
+
+public enum InteractionState
+{
+    None,
+    Dragging,
+    Returning
+}
