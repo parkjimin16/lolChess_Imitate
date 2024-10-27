@@ -23,6 +23,10 @@ public class ChampionHpMpController : MonoBehaviour
         cBase.CurHP -= (int)damage;
         DamageMana();
 
+        foreach(ItemBlueprint it in cBase.EquipItem)
+        {
+            it.BaseItem.CheckHp(cBase.Display_CurHp, cBase.Display_MaxHp);
+        }
     }
 
     

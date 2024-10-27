@@ -47,7 +47,6 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float power_Upgrade;
     [SerializeField] private float total_Defense;
 
-
     [Header("¾ÆÀÌÅÛ ½ºÅÈ")]
     // Item Stats
     [SerializeField] private int item_MaxHP;
@@ -85,6 +84,7 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float display_Blood_Suck;
     [SerializeField] private float display_Power_Upgrade;
     [SerializeField] private float display_Total_Def;
+    [SerializeField] private int display_Shield;
 
 
 
@@ -223,6 +223,7 @@ public class ChampionBase : MonoBehaviour
     public int Display_CurHp => display_CurHp;
     public int Display_MaxMana => display_MaxMana;
     public int DIsplay_CurMana => display_CurMana;
+
     public float Display_Speed => display_Speed;
     public float Display_AD_Power => display_AD_Power;
     public float Display_AP_Power => display_AP_Power;
@@ -234,7 +235,11 @@ public class ChampionBase : MonoBehaviour
     public float Display_Blood_Suck => display_Blood_Suck;
     public float Display_Power_Upgrade => display_Power_Upgrade;
     public float Display_Total_Def => display_Total_Def;
-
+    public int Display_Shield
+    {
+        get { return display_Shield; }
+        set { display_Shield = value; }
+    }
 
     public int ChampionSellCost(int cost, int level)
     {
@@ -360,7 +365,7 @@ public class ChampionBase : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            curHp = 10;
+            championHpMpController.TakeDamage(100);
             UpdateStat(equipItem);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
@@ -440,6 +445,7 @@ public class ChampionBase : MonoBehaviour
         foreach(var item in equipItem)
         {
             item.BaseItem.EquipChampionSetting(this.gameObject);
+            item.BaseItem.InitItemSkill();
         }
     }
 
@@ -526,6 +532,7 @@ public class ChampionBase : MonoBehaviour
         display_Blood_Suck = blood_Suck + item_Blood_Suck;
         display_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
         display_Total_Def = total_Defense + item_Total_Def;
+        display_Shield = 0;
     }
 
 
