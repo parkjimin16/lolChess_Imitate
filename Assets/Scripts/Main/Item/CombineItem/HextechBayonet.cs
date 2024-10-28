@@ -16,24 +16,20 @@ public class HextechBayonet : BaseItem
     {
         if (target == null)
         {
-            Debug.Log("Target");
             return;
         }
-
-
 
         SelectChampion();
 
         if (targetChampion == null)
         {
-            Debug.Log("TargetChampion");
             return;
         }
 
         Debug.Log($"Target Champion Name : {targetChampion.name} +  || Cur Health : {targetChampion.CurHP}");
 
 
-        targetChampion.ChampionHpMpController.AddHealth((int)(targetChampion.Display_TotalDamage * 0.2f));
+        targetChampion.ChampionHpMpController.AddHealth((int)(targetChampion.Display_TotalDamage * 0.2f), targetChampion.HealHpValue);
     }
 
     private void SelectChampion()

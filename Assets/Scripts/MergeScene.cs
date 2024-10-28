@@ -35,7 +35,26 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Item.CreateItem("B007", new Vector3(0, 0, 0));
+            Manager.Item.CreateItem("B022", new Vector3(0, 0, 0));
+        }
+        else if(Input.GetKeyDown(KeyCode.X)) 
+        {
+            ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Seraphine") as ChampionBlueprint;
+
+            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+            newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            newChampionObject.tag = "Enemy";
+
+            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+
+            frame.transform.SetParent(newChampionObject.transform, false);
+            newChampionObject.transform.position = new Vector3(0, 5, 0);
+
+            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
+
+            cBase.SetChampion(cBlueprint);
+            cBase.InitChampion(cFrame);
         }
     }
 }

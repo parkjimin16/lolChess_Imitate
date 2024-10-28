@@ -4,15 +4,42 @@ using UnityEngine;
 
 public class FinalWhisper : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool isDecreaseDef;
+    private float originalDef;
+    private float tempDef;
+
+    public override void InitItemSkill()
     {
-        
+        isDecreaseDef = false;
+        originalDef = 0f;
+        tempDef = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void InitTargetObject(GameObject targetChampion)
     {
-        
+        if (targetChampion == null)
+            return;
+
+        ChampionBase cBase = targetChampion.GetComponent<ChampionBase>();
+
+        if (cBase == null) 
+            return;
+
+
+        if (!isDecreaseDef)
+            CoroutineHelper.StartCoroutine(DefDecrease(cBase));
+    }
+
+    private IEnumerator DefDecrease(ChampionBase cBase)
+    {
+        isDecreaseDef = true;
+        originalDef = cBase.Display_AD_Def;
+        tempDef = originalDef * 0.7f;
+        cBase.Display_AD_Def = tempDef;
+
+        yield return new WaitForSeconds(3.0f);
+
+        cBase.Display_AD_Def = originalDef;
+        isDecreaseDef = false;
     }
 }

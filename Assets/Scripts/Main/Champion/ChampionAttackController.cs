@@ -6,20 +6,27 @@ public class ChampionAttackController : MonoBehaviour
 {
     private ChampionBase cBase;
     private IEnumerator attackCoroutine;
-    [SerializeField]
-    private GameObject targetChampion;
-    
-    [SerializeField] 
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private Transform shootPoint;
+
+    [SerializeField] private GameObject targetChampion;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private bool isUseSkill;
 
     private float attack_Speed;
     private float attack_Range;
 
+    
+
+
     public bool IsAttack; // 전체 체크 용
     [SerializeField] private bool attackLogic;
 
+    public bool IsUseSkill()
+    {
+        return isUseSkill;
+    }
+
+    
 
     public GameObject TargetChampion => targetChampion;
     private void Update()
@@ -31,7 +38,7 @@ public class ChampionAttackController : MonoBehaviour
         else if(FindTargetInRange() != null)
         {
             IsAttack = true;
-        }
+        }        
     }
 
 
@@ -43,6 +50,7 @@ public class ChampionAttackController : MonoBehaviour
 
         IsAttack = false;
         attackLogic = false;
+        isUseSkill = false;
     }
 
     public void AttackLogic()
@@ -90,17 +98,17 @@ public class ChampionAttackController : MonoBehaviour
             cBase.UpdateStat(cBase.EquipItem);
 
 
-            if (cBase.ChampionHpMpController.IsManaFull())
+            if (cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
             {
-                UseSkill(targetChampion);
-                cBase.ChampionHpMpController.UseSkillMana();
+                CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
-            else
+            else if(!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
             {
                 CreateNormalAttack(targetChampion);
+                cBase.ChampionHpMpController.NormalAttackMana();
             }
 
-            cBase.ChampionHpMpController.NormalAttackMana();
+
 
 
             //yield return new WaitForSeconds(cBase.Attack_Speed);
@@ -134,12 +142,26 @@ public class ChampionAttackController : MonoBehaviour
 
         if (projectile != null)
         {
-            projectile.SetTarget(target, 10); 
+            
+            projectile.SetTarget(target, ChampionDamageSet()); 
         }
     }
 
-    public void UseSkill(GameObject target)
+    private int ChampionDamageSet()
     {
-        Debug.Log("스킬 사용");
+        return cBase.Display_TotalDamage;
+    }
+
+
+    private IEnumerator UseSkillCoroutine()
+    {
+        Debug.Log(" 스킬 사용 ");
+        isUseSkill = true;
+        cBase.ChampionHpMpController.UseSkillMana();
+
+        yield return new WaitForSeconds(3.0f);
+
+        Debug.Log(" 스킬 끝 ");
+        isUseSkill = false;
     }
 }

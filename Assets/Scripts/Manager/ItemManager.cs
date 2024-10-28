@@ -54,12 +54,13 @@ public class ItemManager
         foreach (var itemData in itemDataBase.ItemDatas)
         {
             itemDataDictionary.Add(itemData.ItemId, itemData);
-
             totalItems.Add(itemData);
-            normalItem = itemDataBase.FindItemType('A');
-            combineItem = itemDataBase.FindItemType('B');
-            symbolItem = itemDataBase.FindItemType('C');
+            itemData.InitAttribute();
         }
+
+        normalItem = itemDataBase.FindItemType('A');
+        combineItem = itemDataBase.FindItemType('B');
+        symbolItem = itemDataBase.FindItemType('C');
     }
 
     public ItemBlueprint FindItemById(string id)
@@ -120,4 +121,21 @@ public class ItemAttribute
 {
     public ItemAttributeType ItemAttributeType;
     public float AttributeValue;
+
+    private float tempValue;
+
+    public float GetAttributeValue()
+    {
+        return tempValue;
+    }
+
+    public void SetAttributeValue(float value)
+    {
+        tempValue = value;
+    }
+
+    public void InitItemAttributeValue()
+    {
+        tempValue = AttributeValue;
+    }
 }

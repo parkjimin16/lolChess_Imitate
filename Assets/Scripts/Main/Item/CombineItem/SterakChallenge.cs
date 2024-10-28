@@ -11,6 +11,7 @@ public class SterakChallenge : BaseItem
     public override void InitItemSkill()
     {
         count = 0;
+
         foreach (ItemAttribute iAttribute in ItemAttributes)
         {
             if (iAttribute.ItemAttributeType == ItemAttributeType.HP)
@@ -21,6 +22,8 @@ public class SterakChallenge : BaseItem
             {
                 adPowerItemAttribute = iAttribute;
             }
+
+            iAttribute.InitItemAttributeValue();
         }
     }
 
@@ -28,8 +31,8 @@ public class SterakChallenge : BaseItem
     {
         Debug.Log("Reset Item");
         count = 0;
-        hpItemAttribute.AttributeValue = 150;
-        adPowerItemAttribute.AttributeValue = 0.15f;
+        hpItemAttribute.InitItemAttributeValue();
+        adPowerItemAttribute.InitItemAttributeValue();
     }
 
     public override void InitTargetObject(GameObject targetChampion)
@@ -50,13 +53,12 @@ public class SterakChallenge : BaseItem
 
         if (EquipChampionBase.Display_CurHp / EquipChampionBase.Display_MaxHp <= 0.6f)
         {
-            float hp = 300;
-            float ad = 0.35f;
-
-            hpItemAttribute.AttributeValue = hp;
-            adPowerItemAttribute.AttributeValue = ad;
+            hpItemAttribute.SetAttributeValue(300);
+            adPowerItemAttribute.SetAttributeValue(0.35f);
 
             count++;
         }
     }
+
+
 }

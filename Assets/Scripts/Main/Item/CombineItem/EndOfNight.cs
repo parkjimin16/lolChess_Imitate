@@ -18,6 +18,8 @@ public class EndOfNight : BaseItem
             {
                 itemAttribute = iAttribute;
             }
+
+            iAttribute.InitItemAttributeValue();
         }
     }
 
@@ -35,9 +37,8 @@ public class EndOfNight : BaseItem
 
     public override void ResetItem()
     {
-        Debug.Log("Reset Item");
         useSkill = false;
-        itemAttribute.AttributeValue = 0;
+        itemAttribute.InitItemAttributeValue();
     }
 
     
@@ -54,7 +55,7 @@ public class EndOfNight : BaseItem
 
         if (EquipChampionBase.Display_CurHp / EquipChampionBase.Display_MaxHp <= 0.6f)
         {
-            itemAttribute.AttributeValue = 0.15f;
+            itemAttribute.SetAttributeValue(0.15f);
             CoroutineHelper.StartCoroutine(ChangeTagTemporarily(EquipChampionBase.gameObject, "CantSelectChampion", "Champion", 1f));
 
         }
