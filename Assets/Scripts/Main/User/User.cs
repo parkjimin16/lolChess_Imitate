@@ -22,11 +22,22 @@ public class User : MonoBehaviour
     private bool _isReturning = false;
 
     private ItemFrame _hoveredItem;
-    private InteractionState _interactionState = InteractionState.None;
+    [SerializeField]private MapGenerator _mapGenerator;
+    private class ReturningObjectData
+    {
+        public GameObject obj;
+        public Vector3 beforePosition;
+        public GameObject currentTile;
+        public MovableObjectType movableObjectType;
+    }
+
+    // 변수 선언
+    private ReturningObjectData _returningObjData;
 
     #region Unity Flow
     private void Start()
     {
+        
         // 필요에 따라 초기화
     }
 
@@ -69,6 +80,11 @@ public class User : MonoBehaviour
     #region Mouse Click Logic
     private void TouchBeganEvent()
     {
+        if (_isReturning)
+        {
+            return;
+        }
+
         _movableObj = OnClickObjUsingTag("Item");
         if (_movableObj != null)
         {
@@ -76,7 +92,7 @@ public class User : MonoBehaviour
         }
         else
         {
-            // 유닛 태그로 시도
+            // "Champion" 태그로 시도
             _movableObj = OnClickObjUsingTag("Champion");
             if (_movableObj != null)
             {
@@ -107,6 +123,7 @@ public class User : MonoBehaviour
                 else if (_movableObjectType == MovableObjectType.Champion)
                 {
                     tile.isOccupied = false;
+                    tile.itemOnTile = null;
                 }
             }
 
@@ -194,6 +211,17 @@ public class User : MonoBehaviour
 
             // 타일이나 아이템, 챔피언을 찾지 못한 경우
             _isReturning = true;
+            _returningObjData = new ReturningObjectData
+            {
+                obj = _movableObj,
+                beforePosition = _beforePosition,
+                currentTile = currentTile,
+                movableObjectType = _movableObjectType
+            };
+
+            // 현재 상호작용 오브젝트 초기화
+            _movableObj = null;
+            currentTile = null;
         }
     }
     #endregion
@@ -257,7 +285,8 @@ public class User : MonoBehaviour
 
             // 타일 상태 업데이트
             hitTile.isOccupied = true;
-
+            hitTile.itemOnTile = _movableObj;
+            GetChampionsWithinOneTile(_movableObj);
             // 이전 타일의 상태 업데이트
             if (currentTile != null)
             {
@@ -425,30 +454,37 @@ public class User : MonoBehaviour
 
     private void ObjectReturn()
     {
-        if (_isReturning && _movableObj != null)
+        if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
         {
-            _movableObj.transform.position = Vector3.MoveTowards(_movableObj.transform.position, _beforePosition, Time.deltaTime * 30f);
+            _returningObjData.obj.transform.position = Vector3.MoveTowards(
+                _returningObjData.obj.transform.position,
+                _returningObjData.beforePosition,
+                Time.deltaTime * 30f);
 
-            if (Vector3.Distance(_movableObj.transform.position, _beforePosition) < 0.01f)
+            if (Vector3.Distance(_returningObjData.obj.transform.position, _returningObjData.beforePosition) < 0.01f)
             {
                 _isReturning = false;
 
                 // 오브젝트를 이전 타일의 자식으로 설정
-                if (currentTile != null)
+                if (_returningObjData.currentTile != null)
                 {
-                    _movableObj.transform.SetParent(currentTile.transform);
-                    HexTile previousTile = currentTile.GetComponent<HexTile>();
+                    _returningObjData.obj.transform.SetParent(_returningObjData.currentTile.transform);
+                    HexTile previousTile = _returningObjData.currentTile.GetComponent<HexTile>();
 
-                    if (_movableObjectType == MovableObjectType.Item)
+                    if (_returningObjData.movableObjectType == MovableObjectType.Item)
                     {
                         previousTile.isItemTile = true;
-                        previousTile.itemOnTile = _movableObj;
+                        previousTile.itemOnTile = _returningObjData.obj;
                     }
-                    else if (_movableObjectType == MovableObjectType.Champion)
+                    else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
                     {
                         previousTile.isOccupied = true;
+                        previousTile.itemOnTile = _returningObjData.obj;
                     }
                 }
+
+                // 반환 오브젝트 데이터 초기화
+                _returningObjData = null;
             }
         }
     }
@@ -483,5 +519,44 @@ public class User : MonoBehaviour
         }
         return null;
     }
+    public List<GameObject> GetChampionsWithinOneTile(GameObject champion)
+    {
+        List<GameObject> champions = new List<GameObject>();
+
+        HexTile currentTile = champion.GetComponent<HexTile>();
+        if (currentTile == null)
+        {
+            Debug.LogWarning("챔피언이 어떤 타일에도 놓여있지 않습니다.");
+            return champions;
+        }
+
+        int q = currentTile.q;
+        int r = currentTile.r;
+
+        // 육각형 좌표계에서의 여섯 방향 정의
+        (int dq, int dr)[] directions = new (int, int)[]
+        {
+            (1, 0), (1, -1), (0, -1),
+            (-1, 0), (-1, 1), (0, 1)
+        };
+
+        foreach (var dir in directions)
+        {
+            int neighborQ = q + dir.dq;
+            int neighborR = r + dir.dr;
+
+            // 인접 타일이 존재하는지 확인
+            if (_mapGenerator.mapInfos[0].tileDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            {
+                if (neighborTile.GetComponent<HexTile>() != null && neighborTile.GetComponent<HexTile>() != champion)
+                {
+                    champions.Add(neighborTile.itemOnTile);
+                }
+            }
+        }
+
+        return champions;
+    }
+
     #endregion
 }

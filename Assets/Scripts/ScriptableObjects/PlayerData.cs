@@ -7,4 +7,5 @@ public class PlayerData : ScriptableObject
 {
     public string playerName;
     public int health = 100;
+    [SerializeField]private GameObject playerObject;
 }

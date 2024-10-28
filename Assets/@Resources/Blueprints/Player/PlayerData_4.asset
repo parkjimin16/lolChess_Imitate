@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: Player4
   health: 100
+  playerObject: {fileID: 6480685925906502462, guid: f66946e822f083749b0655c89604aebd, type: 3}

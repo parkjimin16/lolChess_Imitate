@@ -63,7 +63,6 @@ public class MapGenerator : MonoBehaviour
         CalculateTileSize();
         CreatUserMap();
         AdjustCamera();
-        //CreatePlayerUnits();
         PositionMinimapCamera();
         
     }
@@ -104,6 +103,12 @@ public class MapGenerator : MonoBehaviour
         public Bounds mapBounds;
         public LineRenderer boundaryLineRenderer; // 경계선 LineRenderer 참조 추가
         public PlayerData playerData; // PlayerData 추가
+        public float minX;
+        public float maxX;
+        public float minZ;
+        public float maxZ;
+
+        public Dictionary<(int, int), HexTile> tileDictionary = new Dictionary<(int, int), HexTile>();
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -142,7 +147,7 @@ public class MapGenerator : MonoBehaviour
             userMap.AddComponent<GoldDisplay>();
             userMap.AddComponent<RectTile>();
 
-            GenerateMap(userMap.transform);
+            
 
             GameObject shop = GameObject.Find("ShopPanel");
             UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
@@ -171,13 +176,14 @@ public class MapGenerator : MonoBehaviour
             mapInfo.playerData = allPlayers[i];
             mapInfos.Add(mapInfo);
             //Debug.Log(allPlayers[i].playerName);
+            GenerateMap(userMap.transform, mapInfo);
             CreateMapBoundary(userMap.transform, i, mapInfo);
         }
     }
 
 
 
-    void GenerateMap(Transform parent)
+    void GenerateMap(Transform parent, MapInfo mapInfo)
     {
         float hexWidth = Mathf.Sqrt(3) * tileSize;
         float hexHeight = tileSize * 2f; // 헥사곤의 높이
@@ -203,7 +209,7 @@ public class MapGenerator : MonoBehaviour
                 // 부모 오브젝트의 위치를 기준으로 위치 조정
                 Vector3 position = parent.position + new Vector3(xPos, 0, zPos);
 
-                CreateHexTile(position, q, r, parent);
+                CreateHexTile(position, q, r, parent, mapInfo);
             }
         }
 
@@ -216,19 +222,28 @@ public class MapGenerator : MonoBehaviour
         //gameObject.transform.SetParent(User.transform);
     }
 
-    void CreateHexTile(Vector3 position, int q, int r, Transform parent)
+    void CreateHexTile(Vector3 position, int q, int r, Transform parent, MapInfo mapInfo)
     {
         GameObject tile = Instantiate(hexTilePrefab, position, Quaternion.identity, parent);
         tile.name = $"Hex_{r}_{q}";
-        if(r <= 3)
+
+        if (r <= 3)
         {
             tile.layer = LayerMask.NameToLayer("PlayerTile");
+            tile.tag = "PlayerTile";
         }
-        tile.tag = "PlayerTile";
+        else
+        {
+            tile.tag = "EnemyTile";
+        }
+
         HexTile hexTile = tile.GetComponent<HexTile>();
         hexTile.q = q;
         hexTile.r = r;
         hexTile.s = -q - r;
+
+        //타일을 딕셔너리에 추가
+        mapInfo.tileDictionary.Add((q, r), hexTile);
     }
 
     void CreateRectangularRow(int row, float zPos, Transform parent)
@@ -257,10 +272,11 @@ public class MapGenerator : MonoBehaviour
             if (row == -1)
             {
                 tile.layer = LayerMask.NameToLayer("PlayerTile");
+                tile.tag = "PlayerTile";
                 //hexTiles.Add(tile);
                 //Debug.Log(hexTiles[x].transform.position);
             }
-            tile.tag = "PlayerTile";
+            
             HexTile hexTile = tile.GetComponent<HexTile>();
             hexTile.isRectangularTile = true;
         }
@@ -292,25 +308,6 @@ public class MapGenerator : MonoBehaviour
         Camera.main.farClipPlane = 100f;
     }
 
-    void CreatePlayerUnits()
-    {
-        for (int x = 0; x < rectWidth; x++)
-        {
-            GameObject unitObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            unitObj.name = $"Unit_{x}";
-            unitObj.tag = "Moveable";
-            unitObj.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
-
-            Unit unit = unitObj.AddComponent<Unit>();
-            //unitObj.AddComponent<UnitMove>();
-
-            // 맨 아래 직사각형 타일을 가져옵니다.
-            HexTile tile = GameObject.Find($"Rect_{x}_-1").GetComponent<HexTile>();
-            //hexTiles.Add(tile);
-            unit.PlaceOnTile(tile);
-            //Debug.Log(hexTiles[x]);
-        }
-    }
 
     /*void CreateItemTile(Vector3 position, int cornerId)
     {
@@ -400,6 +397,17 @@ public class MapGenerator : MonoBehaviour
         corners[2] = parent.position + new Vector3(mapWidth / 2f, 0.1f, mapHeight / 2f);
         corners[3] = parent.position + new Vector3(mapWidth / 2f, 0.1f, -mapHeight / 2f);
         corners[4] = corners[0]; // 시작점으로 돌아와 사각형 완성
+
+        float minX = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+        float maxX = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+        float minZ = Mathf.Min(corners[0].z, corners[1].z, corners[2].z, corners[3].z);
+        float maxZ = Mathf.Max(corners[0].z, corners[1].z, corners[2].z, corners[3].z);
+
+        // MapInfo에 경계선 좌표를 저장합니다.
+        mapInfo.minX = minX;
+        mapInfo.maxX = maxX;
+        mapInfo.minZ = minZ;
+        mapInfo.maxZ = maxZ;
 
         // 경계선 오브젝트 생성
         GameObject boundaryObj = new GameObject($"MapBoundary_{mapId}");

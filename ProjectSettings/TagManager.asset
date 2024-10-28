@@ -13,6 +13,7 @@ TagManager:
   - Tile
   - PlayerTile
   - ItemTile
+  - EnemyTile
   layers:
   - Default
   - TransparentFX
