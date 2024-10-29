@@ -20,6 +20,7 @@ public class User : MonoBehaviour
     private string _tileLayerName;
 
     private bool _isReturning = false;
+    private bool _objectMoved = false;
 
     private ItemFrame _hoveredItem;
     [SerializeField]private MapGenerator _mapGenerator;
@@ -85,6 +86,8 @@ public class User : MonoBehaviour
             return;
         }
 
+        _objectMoved = false; // 추가
+
         _movableObj = OnClickObjUsingTag("Item");
         if (_movableObj != null)
         {
@@ -136,6 +139,8 @@ public class User : MonoBehaviour
     {
         if (_movableObj != null)
         {
+            _objectMoved = true; // 추가
+
             Vector3 touchPos = Input.mousePosition;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 10));
 
@@ -152,6 +157,26 @@ public class User : MonoBehaviour
     {
         if (_movableObj != null)
         {
+            if (_objectMoved)
+            {
+                // 타일의 상태를 업데이트합니다.
+                if (currentTile != null)
+                {
+                    HexTile tile = currentTile.GetComponent<HexTile>();
+
+                    if (_movableObjectType == MovableObjectType.Item)
+                    {
+                        tile.isItemTile = false;
+                        tile.itemOnTile = null;
+                    }
+                    else if (_movableObjectType == MovableObjectType.Champion)
+                    {
+                        tile.isOccupied = false;
+                        tile.itemOnTile = null;
+                    }
+                }
+            }
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);
 
@@ -185,6 +210,8 @@ public class User : MonoBehaviour
                         else if (_movableObjectType == MovableObjectType.Champion)
                         {
                             HandleUnitDrop(hitTile, hitTile.gameObject);
+                            var nearbyChampions = GetChampionsWithinOneTile(_movableObj);
+                            DebugChampionList(nearbyChampions); // 디버깅 코드 호출
                         }
 
                         return; // 타일을 찾았으므로 메서드를 종료합니다.
@@ -287,11 +314,13 @@ public class User : MonoBehaviour
             hitTile.isOccupied = true;
             hitTile.itemOnTile = _movableObj;
             GetChampionsWithinOneTile(_movableObj);
-            // 이전 타일의 상태 업데이트
-            if (currentTile != null)
+
+            // 이전 타일의 상태 업데이트 (현재 타일과 다를 때만)
+            if (currentTile != null && currentTile != hitTileObj)
             {
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
                 previousTile.isOccupied = false;
+                previousTile.itemOnTile = null;
             }
         }
         else
@@ -523,7 +552,8 @@ public class User : MonoBehaviour
     {
         List<GameObject> champions = new List<GameObject>();
 
-        HexTile currentTile = champion.GetComponent<HexTile>();
+        // Champion의 부모에서 HexTile을 가져옵니다.
+        HexTile currentTile = champion.transform.parent?.GetComponent<HexTile>();
         if (currentTile == null)
         {
             Debug.LogWarning("챔피언이 어떤 타일에도 놓여있지 않습니다.");
@@ -533,22 +563,49 @@ public class User : MonoBehaviour
         int q = currentTile.q;
         int r = currentTile.r;
 
-        // 육각형 좌표계에서의 여섯 방향 정의
-        (int dq, int dr)[] directions = new (int, int)[]
+        // 짝수 행인지 여부
+        bool isEvenRow = (r % 2) == 0;
+        (int dq, int dr)[] directions;
+
+        if (isEvenRow)
         {
-            (1, 0), (1, -1), (0, -1),
-            (-1, 0), (-1, 1), (0, 1)
-        };
+            // Directions for even rows
+            directions = new (int, int)[]
+            {
+            (1, 0),    // East
+            (1, -1),   // Southeast
+            (0, -1),   // Southwest
+            (-1, 0),   // West
+            (0, 1),    // Northwest
+            (1, 1)     // Northeast
+            };
+        }
+        else
+        {
+            // Directions for odd rows
+            directions = new (int, int)[]
+            {
+            (1, 0),    // East
+            (0, -1),   // Southeast
+            (-1, -1),  // Southwest
+            (-1, 0),   // West
+            (-1, 1),   // Northwest
+            (0, 1)     // Northeast
+            };
+        }
 
         foreach (var dir in directions)
         {
             int neighborQ = q + dir.dq;
             int neighborR = r + dir.dr;
 
+            // 디버그 로그 추가
+            //Debug.Log($"Checking neighbor at q: {neighborQ}, r: {neighborR}");
+
             // 인접 타일이 존재하는지 확인
             if (_mapGenerator.mapInfos[0].tileDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
             {
-                if (neighborTile.GetComponent<HexTile>() != null && neighborTile.GetComponent<HexTile>() != champion)
+                if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
                 {
                     champions.Add(neighborTile.itemOnTile);
                 }
@@ -557,6 +614,26 @@ public class User : MonoBehaviour
 
         return champions;
     }
+    public void DebugChampionList(List<GameObject> champions)
+    {
+        if (champions == null || champions.Count == 0)
+        {
+            Debug.Log("주변에 챔피언이 없습니다.");
+            return;
+        }
 
+        Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
+        foreach (var champion in champions)
+        {
+            if (champion != null)
+            {
+                Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
+            }
+            else
+            {
+                Debug.Log("챔피언이 null입니다.");
+            }
+        }
+    }
     #endregion
 }

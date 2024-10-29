@@ -64,7 +64,10 @@ public class MapGenerator : MonoBehaviour
         CreatUserMap();
         AdjustCamera();
         PositionMinimapCamera();
-        
+        if (mapInfos.Count > 0)
+        {
+            DebugTileDictionary(mapInfos[0]);
+        }
     }
 
     void CalculateTileSize()
@@ -209,6 +212,8 @@ public class MapGenerator : MonoBehaviour
                 // 부모 오브젝트의 위치를 기준으로 위치 조정
                 Vector3 position = parent.position + new Vector3(xPos, 0, zPos);
 
+                int adjustedQ = q - (r / 2); // q 좌표 조정
+
                 CreateHexTile(position, q, r, parent, mapInfo);
             }
         }
@@ -225,7 +230,7 @@ public class MapGenerator : MonoBehaviour
     void CreateHexTile(Vector3 position, int q, int r, Transform parent, MapInfo mapInfo)
     {
         GameObject tile = Instantiate(hexTilePrefab, position, Quaternion.identity, parent);
-        tile.name = $"Hex_{r}_{q}";
+        tile.name = $"Hex_{q}_{r}";
 
         if (r <= 3)
         {
@@ -244,6 +249,7 @@ public class MapGenerator : MonoBehaviour
 
         //타일을 딕셔너리에 추가
         mapInfo.tileDictionary.Add((q, r), hexTile);
+        
     }
 
     void CreateRectangularRow(int row, float zPos, Transform parent)
@@ -436,6 +442,19 @@ public class MapGenerator : MonoBehaviour
         foreach (Transform child in boundaryObj.transform)
         {
             child.gameObject.layer = minimapLayer;
+        }
+    }
+
+    void DebugTileDictionary(MapInfo mapInfo)
+    {
+        Debug.Log($"Map ID: {mapInfo.mapId} - Tile Dictionary Contents:");
+
+        foreach (var kvp in mapInfo.tileDictionary)
+        {
+            var key = kvp.Key;
+            var hexTile = kvp.Value;
+
+            Debug.Log($"Key (q, r): ({key.Item1}, {key.Item2}), HexTile Position: {hexTile.transform.position}");
         }
     }
 }
