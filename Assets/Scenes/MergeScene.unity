@@ -1432,6 +1432,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1345432928163959688, guid: 099bf321476289f47a9a745944f3af58, type: 3}
+      propertyPath: mapGenerator
+      value: 
+      objectReference: {fileID: 1033666889}
+    - target: {fileID: 1345432928163959688, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: championPos.Array.size
       value: 7
       objectReference: {fileID: 0}

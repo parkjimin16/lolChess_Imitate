@@ -10,6 +10,8 @@ public class StageManager
     private PlayerData selfPlayer; // 자기 자신
     private PlayerData currentOpponent; // 현재 상대
 
+    private MapGenerator _mapGenerator;
+
     public int currentStage = 1;
     public int currentRound = 1;
 
@@ -27,12 +29,14 @@ public class StageManager
 
     private Coroutine roundCoroutine;
 
-
+    public GameObject go;
     #region Init
 
-    public void InitStage(PlayerData[] playerData)
+    public void InitStage(PlayerData[] playerData, MapGenerator mapGenerator, GameObject Go)
     {
         AllPlayers = playerData;
+        _mapGenerator = mapGenerator;
+        go = Go;
         InitializePlayers();
         StartStage(currentStage);
 
@@ -185,5 +189,105 @@ public class StageManager
             return true;
         }
         return false;
+    }
+
+    public List<GameObject> GetChampionsWithinOneTile(GameObject champion)
+    {
+        List<GameObject> champions = new List<GameObject>();
+
+        // 챔피언의 위치 가져오기
+        Vector3 championPosition = champion.transform.position;
+
+        // 가장 가까운 타일 찾기
+        HexTile nearestTile = null;
+        float minDistance = float.MaxValue;
+
+        foreach (HexTile tile in _mapGenerator.mapInfos[0].tileDictionary.Values)
+        {
+            float distance = Vector3.Distance(championPosition, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        if (nearestTile == null)
+        {
+            Debug.LogWarning("근처에 타일이 없습니다.");
+            return champions;
+        }
+
+        int q = nearestTile.q;
+        int r = nearestTile.r;
+
+        // 짝수 행인지 여부 판단
+        bool isEvenRow = (r % 2) == 0;
+        (int dq, int dr)[] directions;
+
+        if (isEvenRow)
+        {
+            // 짝수 행의 방향
+            directions = new (int, int)[]
+            {
+            (1, 0),    // 동쪽
+            (1, -1),   // 남동쪽
+            (0, -1),   // 남서쪽
+            (-1, 0),   // 서쪽
+            (0, 1),    // 북서쪽
+            (1, 1)     // 북동쪽
+            };
+        }
+        else
+        {
+            // 홀수 행의 방향
+            directions = new (int, int)[]
+            {
+            (1, 0),    // 동쪽
+            (0, -1),   // 남동쪽
+            (-1, -1),  // 남서쪽
+            (-1, 0),   // 서쪽
+            (-1, 1),   // 북서쪽
+            (0, 1)     // 북동쪽
+            };
+        }
+
+        foreach (var dir in directions)
+        {
+            int neighborQ = q + dir.dq;
+            int neighborR = r + dir.dr;
+
+            // 인접 타일이 존재하는지 확인
+            if (_mapGenerator.mapInfos[0].tileDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            {
+                if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
+                {
+                    champions.Add(neighborTile.itemOnTile);
+                }
+            }
+        }
+
+        return champions;
+    }
+    public void DebugChampionList(List<GameObject> champions)
+    {
+        if (champions == null || champions.Count == 0)
+        {
+            Debug.Log("주변에 챔피언이 없습니다.");
+            return;
+        }
+
+        Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
+        foreach (var champion in champions)
+        {
+            if (champion != null)
+            {
+                Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
+            }
+            else
+            {
+                Debug.Log("챔피언이 null입니다.");
+            }
+        }
     }
 }
