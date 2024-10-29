@@ -33,7 +33,7 @@ public class BaseItem : MonoBehaviour
 
     #endregion
 
-    public virtual void Initialize(ItemBlueprint blueprint)
+    public void Initialize(ItemBlueprint blueprint)
     {
         icon = blueprint.Icon;
         itemId = blueprint.ItemId;
@@ -49,7 +49,11 @@ public class BaseItem : MonoBehaviour
 
         equipChampionBase = champion.GetComponent<ChampionBase>();
     }
-    // 타겟 가져오기(스킬 사용 여부)
+    
+    /// <summary>
+    /// 공격 할때마다 호출
+    /// </summary>
+    /// <param name="targetChampion"></param>
     public virtual void InitTargetObject(GameObject targetChampion)
     {
         Debug.Log("Base Item Init");
@@ -60,6 +64,9 @@ public class BaseItem : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 아이템 장착시 호출
+    /// </summary>
     public virtual void InitItemSkill()
     {
 

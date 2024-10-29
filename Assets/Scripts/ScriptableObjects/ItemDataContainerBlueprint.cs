@@ -85,6 +85,14 @@ public class ItemBlueprint
 
         return ChampionJob == cJob;
     }
+
+    public void InitAttribute()
+    {
+        foreach(var attribute in itemAttribute)
+        {
+            //attribute.InitItemAttributeValue();
+        }
+    }
 }
 
 

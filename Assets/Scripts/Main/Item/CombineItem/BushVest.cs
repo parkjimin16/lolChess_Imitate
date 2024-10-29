@@ -4,14 +4,48 @@ using UnityEngine;
 
 public class BushVest : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    private int originalMaxHp;
+    private int tempMaxHp;
+    private float defValue;
+
+    private ItemAttribute hpItemAttribute = new ItemAttribute();
+    private ItemAttribute totalDefItemAttribute = new ItemAttribute();
+
+
+    public override void InitItemSkill()
     {
-        
+        defValue = 0.08f;
+
+        foreach (ItemAttribute iAttribute in ItemAttributes)
+        {
+            if(iAttribute.ItemAttributeType == ItemAttributeType.HP)
+            {
+                hpItemAttribute = iAttribute;
+            }
+            else if(iAttribute.ItemAttributeType == ItemAttributeType.TotalDefense)
+            {
+                totalDefItemAttribute = iAttribute;
+            }
+
+            iAttribute.InitItemAttributeValue();
+        }
+
+        if (EquipChampionBase == null)
+            return;
+
+
+        tempMaxHp = (int)(EquipChampionBase.Champion_MaxHp * 0.05f);
+        hpItemAttribute.SetAttributeValue(tempMaxHp);
+        totalDefItemAttribute.SetAttributeValue(defValue);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ResetItem()
+    {
+        hpItemAttribute.InitItemAttributeValue();
+        totalDefItemAttribute.InitItemAttributeValue();
+    }
+
+    public override void InitTargetObject(GameObject targetChampion)
     {
         
     }

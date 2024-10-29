@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class HextechBayonet : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    private ChampionBase targetChampion;
+    
+
+    public override void InitItemSkill()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void InitTargetObject(GameObject target)
     {
-        
+        if (target == null)
+        {
+            return;
+        }
+
+        SelectChampion();
+
+        if (targetChampion == null)
+        {
+            return;
+        }
+
+        targetChampion.ChampionHpMpController.AddHealth((int)(targetChampion.Champion_TotalDamage * 0.2f), targetChampion.HealHpValue);
+    }
+
+    private void SelectChampion()
+    {
+        int max = 100000000;
+
+        foreach(ChampionBase champion in Manager.Game.BattleChampionBase)
+        {
+            if (champion == null)
+                return;
+
+            if(champion.Champion_CurHp < max)
+            {
+                max = champion.Champion_CurHp;
+                targetChampion = champion;
+            }
+        }
     }
 }

@@ -61,7 +61,10 @@ public class UIShopPanel : UIBase
 
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
+
             currentChampionIndex++;
+            Manager.Game.AddBattleChampion(newChampionObject);
+            
 
             button.interactable = false;
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using UnityEngine;
 
@@ -46,6 +47,7 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float blood_Suck;
     [SerializeField] private float power_Upgrade;
     [SerializeField] private float total_Defense;
+    [SerializeField] private float healHpValue;
 
     [Header("아이템 스탯")]
     // Item Stats
@@ -66,26 +68,45 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float item_Power_Upgrade;
     [SerializeField] private float item_Total_Def;
 
+    [Header("챔피언 전체 스탯 = 챔피언 기본 스탯 + 아이템 스탯")]
+    [SerializeField] private int champion_MaxHp;
+    [SerializeField] private int champion_CurHp;
+    [SerializeField] private int champion_MaxMana;
+    [SerializeField] private int champion_CurMana;
+    [SerializeField] private float champion_Speed;
+    [SerializeField] private float champion_AD_Power;
+    [SerializeField] private float champion_AP_Power;
+    [SerializeField] private float champion_AD_Def;
+    [SerializeField] private float champion_AP_Def;
+    [SerializeField] private float champion_Atk_Spd;
+    [SerializeField] private float champion_Critical_Percent;
+    [SerializeField] private float champion_Critical_Power;
+    [SerializeField] private float champion_Blood_Suck;
+    [SerializeField] private float champion_Power_Upgrade;
+    [SerializeField] private float champion_Total_Def;
+    [SerializeField] private int champion_Shield;
+    [SerializeField] private int champion_TotalDamage;  // 최종 데미지
 
-    [Header("최종 스탯")]
+
+    [Header("보여지는 스탯")]
     // Display Stats
-    [SerializeField] private int display_MaxHp;
-    [SerializeField] private int display_CurHp;
-    [SerializeField] private int display_MaxMana;
-    [SerializeField] private int display_CurMana;
-    [SerializeField] private float display_Speed;
-    [SerializeField] private float display_AD_Power;
-    [SerializeField] private float display_AP_Power;
-    [SerializeField] private float display_AD_Def;
-    [SerializeField] private float display_AP_Def;
-    [SerializeField] private float display_Atk_Spd;
-    [SerializeField] private float display_Critical_Percent;
-    [SerializeField] private float display_Critical_Power;
-    [SerializeField] private float display_Blood_Suck;
-    [SerializeField] private float display_Power_Upgrade;
-    [SerializeField] private float display_Total_Def;
-    [SerializeField] private int display_Shield;
-
+    private int display_MaxHp;
+    private int display_CurHp;
+    private int display_MaxMana;
+    private int display_CurMana;
+    private float display_Speed;
+    private float display_AD_Power;
+    private float display_AP_Power;
+    private float display_AD_Def;
+    private float display_AP_Def;
+    private float display_Atk_Spd;
+    private float display_Critical_Percent;
+    private float display_Critical_Power;
+    private float display_Blood_Suck;
+    private float display_Power_Upgrade;
+    private float display_Total_Def;
+    private int display_Shield;
+    private int display_TotalDamage;  // 최종 데미지
 
 
     // Champion Base
@@ -130,116 +151,59 @@ public class ChampionBase : MonoBehaviour
         get { return championLevel; }
         set { championLevel = value; }
     }
-    public int MaxHP
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int CurHP
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int MaxMana
-    {
-        get { return maxMana; }
-        set { maxMana = value; }
-    }
-    public int CurMana
-    {
-        get { return curMana; }
-        set { curMana = value; }
-    }
-    public int Attack_Range
-    {
-        get { return attack_Range; }
-        set { attack_Range = value; }
-    }
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
     public SkillBlueprint SkillBlueprint => skillBlueprint;
 
 
     // Champion Stats_2
-
-
-    public float AD_Power
+    public float HealHpValue
     {
-        get { return ad_Power; }
-        set { ad_Power = value; }
-    }
-    public float AP_Power
-    {
-        get { return ap_Power; }
-        set { ap_Power = value; }
-    }
-    public int Ad_Defense
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int Ap_Defense
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public float Attack_Speed
-    {
-        get { return attack_Speed; }
-        set { attack_Speed = value; }
-    }
-    public float Critical_Percent
-    {
-        get { return critical_Percent; }
-        set { critical_Percent = value; }
-    }
-    public float Critical_Power
-    {
-        get { return critical_Power; }
-        set { critical_Power = value; }
-    }
-    public float Blood_Suck
-    {
-        get { return blood_Suck; }
-        set { blood_Suck = value;}
-    }
-    public float Power_Upgrade
-    {
-        get { return power_Upgrade; }
-        set { power_Upgrade = value; }
-    }
-    public float Total_Defense
-    {
-        get { return total_Defense; }
-        set { total_Defense = value; }
+        get { return healHpValue; }
+        set { healHpValue = value; }
     }
 
-
-    // 최종 스탯
-    public int Display_MaxHp => display_MaxHp;
-    public int Display_CurHp => display_CurHp;
-    public int Display_MaxMana => display_MaxMana;
-    public int DIsplay_CurMana => display_CurMana;
-
-    public float Display_Speed => display_Speed;
-    public float Display_AD_Power => display_AD_Power;
-    public float Display_AP_Power => display_AP_Power;
-    public float Display_AD_Def => display_AD_Def;
-    public float Display_AP_Def => display_AP_Def;
-    public float Display_Atk_Spd => display_Atk_Spd;
-    public float Display_Critical_Percent => display_Critical_Percent;
-    public float Display_Critical_Power => display_Critical_Power;
-    public float Display_Blood_Suck => display_Blood_Suck;
-    public float Display_Power_Upgrade => display_Power_Upgrade;
-    public float Display_Total_Def => display_Total_Def;
-    public int Display_Shield
+    // 챔피언 최종 스탯
+    public int Champion_MaxHp
     {
-        get { return display_Shield; }
-        set { display_Shield = value; }
+        get => champion_MaxHp;
+        set => champion_MaxHp = value;
     }
+    public int Champion_CurHp
+    {
+        get => champion_CurHp;
+        set => champion_CurHp = value;
+    }
+    public int Champion_MaxMana
+    {
+        get => champion_MaxMana;
+        set => champion_MaxMana = value;
+    }
+    public int Champion_CurMana
+    {
+        get => champion_CurMana;
+        set => champion_CurMana = value;
+    }
+
+    public float Champion_Speed => champion_Speed;
+    public float Champion_AD_Power => champion_AD_Power;
+    public float Champion_AP_Power => champion_AP_Power;
+    public float Champion_AD_Def
+    {
+        get => champion_AD_Def;
+        set => champion_AD_Def = value;
+    }
+    public float Champion_AP_Def
+    {
+        get => champion_AP_Def;
+        set => champion_AP_Def = value;
+    }
+    public float Champion_Atk_Spd => champion_Atk_Spd;
+    public float Champion_Critical_Percent => champion_Critical_Percent;
+    public float Champion_Critical_Power => champion_Critical_Power;
+    public float Champion_Blood_Suck => champion_Blood_Suck;
+    public float Champion_Power_Upgrade => champion_Power_Upgrade; // 총 피해량
+    public float Champion_Total_Def => champion_Total_Def; // 내구력
+    public int Champion_Shield => champion_Shield; // 쉴드
+    public int Champion_TotalDamage => champion_TotalDamage; // 최종 데미지
 
     public int ChampionSellCost(int cost, int level)
     {
@@ -247,6 +211,22 @@ public class ChampionBase : MonoBehaviour
             return (cost * 3) * level;
 
         return (cost * 3) * level - 1;
+    }
+
+    public void SetShield(int shield)
+    {
+        champion_Shield = shield;
+    }
+
+    public void SetTotalDamage(int damage)
+    {
+        champion_TotalDamage = damage;
+    }
+
+    public void SetTotalDamagePlus(float value)
+    {
+        float temp = champion_TotalDamage * value;
+        champion_TotalDamage = (int)temp;
     }
     #endregion
 
@@ -298,12 +278,15 @@ public class ChampionBase : MonoBehaviour
         blood_Suck = blueprint.Blood_Suck;
         power_Upgrade = blueprint.Power_Upgrade;
         total_Defense = blueprint.Total_Defense;
+        healHpValue = 1.0f;
 
+        SetTotalDamage(GetDamage());
 
         // Champion Logic
         maxItemSlot = 3;
 
-        UpdateDisplayStat();
+        UpdateStat(EquipItem);
+        UpdateChampmionStat();
     }
 
     public void ResetHealth()
@@ -327,7 +310,9 @@ public class ChampionBase : MonoBehaviour
         championView.Init(this); 
         championFrame.Init(this, championBlueprint);
     }
-
+    /// <summary>
+    /// 아이템 스탯 초기화
+    /// </summary>
     public void InitItemStat()
     {
         item_MaxHP = 0;
@@ -345,6 +330,11 @@ public class ChampionBase : MonoBehaviour
         item_Blood_Suck = 0;
         item_Power_Upgrade = 0;
         item_Total_Def = 0;
+    }
+
+    public int GetDamage()
+    {
+        return (int)(champion_AD_Power * (1 + champion_Total_Def));
     }
     #endregion
 
@@ -368,7 +358,7 @@ public class ChampionBase : MonoBehaviour
             championHpMpController.TakeDamage(100);
             UpdateStat(equipItem);
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Q)) // 전투종료시 아이템 증가량 초기화
         {
             foreach(ItemBlueprint it in EquipItem)
             {
@@ -515,81 +505,105 @@ public class ChampionBase : MonoBehaviour
 
     #region Stat
     
-    private void UpdateDisplayStat()
+    /// <summary>
+    /// SetChampion 에서 호출하고 보유 아이템도 체크
+    /// </summary>
+    public void UpdateChampmionStat()
     {
-        display_MaxHp = maxHp + item_MaxHP;
-        display_CurHp = curHp + item_CurHP;
-        display_MaxMana = maxMana + item_MaxMana;
-        display_CurMana = curMana + item_CurMana;
-        display_Speed =  speed + item_Speed;
-        display_AD_Power = ad_Power + item_AD_Power;
-        display_AP_Power = ap_Power + item_AP_Power;
-        display_AD_Def = ad_Defense + item_AD_Def;
-        display_AP_Def = ap_Defense + item_AP_Def;
-        display_Atk_Spd = attack_Speed + item_Atk_Spd;
-        display_Critical_Percent = critical_Percent + item_Critical_Percent;
-        display_Critical_Power = critical_Power + item_Cirtical_Power;
-        display_Blood_Suck = blood_Suck + item_Blood_Suck;
-        display_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
-        display_Total_Def = total_Defense + item_Total_Def;
-        display_Shield = 0;
+        champion_MaxHp = maxHp + item_MaxHP;
+        champion_MaxMana = maxMana + item_MaxMana;
+        champion_Speed =  speed + item_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Cirtical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def;
+        champion_Shield = 0;
+
+        UpdateDisplayStat();
     }
 
+    private void UpdateDisplayStat()
+    {
+        display_MaxHp = champion_MaxHp;
+        display_CurHp = champion_CurHp;
+        display_MaxMana = champion_MaxMana;
+        display_CurMana = champion_CurMana;
+        display_Speed = champion_Speed;
+        display_AD_Power = champion_AD_Power;
+        display_AP_Power = champion_AP_Power;
+        display_AD_Def = champion_AD_Def;
+        display_AP_Def = champion_AP_Def;
+        display_Atk_Spd = champion_Atk_Spd;
+        display_Critical_Percent = champion_Critical_Percent;
+        display_Critical_Power = champion_Critical_Power;
+        display_Blood_Suck = champion_Blood_Suck;
+        display_Power_Upgrade = champion_Power_Upgrade;
+        display_Total_Def = champion_Total_Def;
+        display_Shield = champion_Shield;
+    }
 
     public void UpdateStat(List<ItemBlueprint> equipItem)
     {
+
         InitItemStat();
 
-        List<ItemAttribute> equipItemAttribute = new List<ItemAttribute>();
-        
+        if (equipItem.Count <= 0)
+            return;
+
         foreach (ItemBlueprint blueprint in equipItem)
         {
             ItemSkillUpdate(blueprint);
 
-            equipItemAttribute = blueprint.Attribute;
-
-            foreach (ItemAttribute item in equipItemAttribute)
+            foreach (ItemAttribute item in blueprint.Attribute)
             {
                 switch (item.ItemAttributeType)
                 {
                     case ItemAttributeType.HP:
-                        item_MaxHP += (int)item.AttributeValue;
+                        item_MaxHP += (int)item.GetAttributeValue();
+                        item_CurHP += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.Mana:
-                        item_MaxMana += (int)item.AttributeValue;
+                        item_MaxMana += (int)item.GetAttributeValue();
+                        item_CurMana += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AD_Power:
-                        item_AD_Power += item.AttributeValue;
+                        item_AD_Power += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AP_Power:
-                        item_AP_Power += item.AttributeValue;
+                        item_AP_Power += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AD_Defense:
-                        item_AD_Def += (int)item.AttributeValue;
+                        item_AD_Def += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AP_Defense:
-                        item_AP_Def += (int)item.AttributeValue;
+                        item_AP_Def += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AD_Speed:
-                        item_Atk_Spd += item.AttributeValue;
+                        item_Atk_Spd += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.CriticalPercent:
-                        item_Critical_Percent += item.AttributeValue;
+                        item_Critical_Percent += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.BloodSuck:
-                        item_Blood_Suck += item.AttributeValue;
+                        item_Blood_Suck += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.TotalPower:
-                        item_Power_Upgrade += item.AttributeValue;
+                        item_Power_Upgrade += item.GetAttributeValue();
                         break;
                     case ItemAttributeType.TotalDefense:
-                        item_Total_Def += item.AttributeValue;
+                        item_Total_Def += item.GetAttributeValue();
                         break;
                 }
             }
         }
 
-        UpdateDisplayStat();
+        UpdateChampmionStat();
     }
 
     public void ChampionLevelUp()

@@ -26,28 +26,31 @@ public class BloodFlower : BaseItem
         shieldAmount = 0;
     }
 
+    public override void ResetItem()
+    {
+        isShieldDestroy = false;
+        hasShieldActivated = false;
+        shieldAmount = 0;
+    }
+
+    /// <summary>
+    /// 공격 받을때마다 호출
+    /// </summary>
+    /// <param name="curHp"></param>
+    /// <param name="maxHp"></param>
     public override void CheckHp(int curHp, int maxHp)
     {
         ActivateShield(curHp, maxHp);
     }
-    public void ActivateShield(int currentHealth, int maxHealth)
+
+    private void ActivateShield(int currentHealth, int maxHealth)
     {
-        float curHp = currentHealth;
-        float maxHp = maxHealth;
-
-        Debug.Log($"체력 % : {curHp / maxHp}");
-
-        if (curHp / maxHp > 0.4f || hasShieldActivated)
+        if (currentHealth / maxHealth > 0.4f || hasShieldActivated)
         {
-            Debug.Log("Return");
             return;
         }
-   
-
-        
-
-
-        shieldAmount = Mathf.RoundToInt(maxHp * 0.25f);
+ 
+        shieldAmount = Mathf.RoundToInt(maxHealth * 0.25f);
         hasShieldActivated = true;
 
         CoroutineHelper.StartCoroutine(ShieldDurationCoroutine());
@@ -55,7 +58,7 @@ public class BloodFlower : BaseItem
 
     private IEnumerator ShieldDurationCoroutine()
     {
-        EquipChampionBase.Display_Shield = shieldAmount;
+        EquipChampionBase.SetShield(shieldAmount);
 
         Debug.Log("Shield Create");
         yield return new WaitForSeconds(shieldDuration);
@@ -63,7 +66,7 @@ public class BloodFlower : BaseItem
         Debug.Log("Shield Destroy");
 
         shieldAmount = 0;
-        EquipChampionBase.Display_Shield = shieldAmount;
+        EquipChampionBase.SetShield(shieldAmount);
         isShieldDestroy = true;
     }
 
