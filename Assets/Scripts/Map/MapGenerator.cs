@@ -64,10 +64,10 @@ public class MapGenerator : MonoBehaviour
         CreatUserMap();
         AdjustCamera();
         PositionMinimapCamera();
-        if (mapInfos.Count > 0)
+        /*if (mapInfos.Count > 0)
         {
             DebugTileDictionary(mapInfos[0]);
-        }
+        }*/
     }
 
     void CalculateTileSize()

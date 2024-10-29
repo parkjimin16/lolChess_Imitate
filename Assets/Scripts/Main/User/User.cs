@@ -210,8 +210,8 @@ public class User : MonoBehaviour
                         else if (_movableObjectType == MovableObjectType.Champion)
                         {
                             HandleUnitDrop(hitTile, hitTile.gameObject);
-                            var nearbyChampions = GetChampionsWithinOneTile(_movableObj);
-                            DebugChampionList(nearbyChampions); // 디버깅 코드 호출
+                            //var nearbyChampions = GetChampionsWithinOneTile(_movableObj);
+                            //DebugChampionList(nearbyChampions); // 디버깅 코드 호출
                         }
 
                         return; // 타일을 찾았으므로 메서드를 종료합니다.
@@ -313,7 +313,7 @@ public class User : MonoBehaviour
             // 타일 상태 업데이트
             hitTile.isOccupied = true;
             hitTile.itemOnTile = _movableObj;
-            GetChampionsWithinOneTile(_movableObj);
+            //GetChampionsWithinOneTile(_movableObj);
 
             // 이전 타일의 상태 업데이트 (현재 타일과 다를 때만)
             if (currentTile != null && currentTile != hitTileObj)
