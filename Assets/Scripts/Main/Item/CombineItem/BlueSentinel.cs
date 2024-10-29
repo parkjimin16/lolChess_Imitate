@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class BlueSentinel : BaseItem
 {
-    // Start is called before the first frame update
-    void Start()
+    private int decreaseMana;
+    private ItemAttribute totalPowerItemAttribute = new ItemAttribute();
+
+
+    public override void InitItemSkill()
     {
-        
+        decreaseMana = 10;
+
+        foreach (ItemAttribute iAttribute in ItemAttributes)
+        {
+            if (iAttribute.ItemAttributeType == ItemAttributeType.TotalPower)
+            {
+                totalPowerItemAttribute = iAttribute;
+            }
+
+            iAttribute.InitItemAttributeValue();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ResetItem()
     {
-        
+        totalPowerItemAttribute.InitItemAttributeValue();
+    }
+
+    public override void InitTargetObject(GameObject targetChampion)
+    {
+        if (EquipChampionBase == null)
+            return;
+
+        if (EquipChampionBase.Champion_MaxMana == 0)
+            return;
+
+        EquipChampionBase.Item_MaxMana = -10;
     }
 }

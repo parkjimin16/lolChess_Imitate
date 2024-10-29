@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
+using UnityEditor.Build.Content;
 
 public class MergeScene : MonoBehaviour
 {
@@ -35,7 +37,7 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Item.CreateItem("B022", new Vector3(0, 0, 0));
+            Manager.Item.CreateItem("B036", new Vector3(0, 0, 0));
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
         {
@@ -56,5 +58,6 @@ public class MergeScene : MonoBehaviour
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
         }
+        
     }
 }

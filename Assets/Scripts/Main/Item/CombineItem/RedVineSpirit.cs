@@ -38,16 +38,12 @@ public class RedVineSpirit : BaseItem
         if(target == null) 
             return;
 
-        CheckFireDamage(target);
-    }
-
-    private void CheckFireDamage(ChampionBase target)
-    {
         if (!isCoroutineRunning)
         {
             CoroutineHelper.StartCoroutine(ResetHealHpValueAfterDelay(target, 5.0f));
         }
     }
+
 
     private IEnumerator ResetHealHpValueAfterDelay(ChampionBase target, float delay)
     {

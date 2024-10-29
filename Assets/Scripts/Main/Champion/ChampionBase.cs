@@ -161,6 +161,12 @@ public class ChampionBase : MonoBehaviour
         set { healHpValue = value; }
     }
 
+    public int Item_MaxMana
+    {
+        get { return item_MaxMana; }
+        set { item_MaxMana = value; }
+    }
+
     // 챔피언 최종 스탯
     public int Champion_MaxHp
     {
@@ -196,7 +202,11 @@ public class ChampionBase : MonoBehaviour
         get => champion_AP_Def;
         set => champion_AP_Def = value;
     }
-    public float Champion_Atk_Spd => champion_Atk_Spd;
+    public float Champion_Atk_Spd
+    {
+        get => champion_Atk_Spd;
+        set => champion_Atk_Spd = value;
+    }
     public float Champion_Critical_Percent => champion_Critical_Percent;
     public float Champion_Critical_Power => champion_Critical_Power;
     public float Champion_Blood_Suck => champion_Blood_Suck;
@@ -358,11 +368,12 @@ public class ChampionBase : MonoBehaviour
             championHpMpController.TakeDamage(100);
             UpdateStat(equipItem);
         }
-        else if (Input.GetKeyDown(KeyCode.Q)) // 전투종료시 아이템 증가량 초기화
+        else if (Input.GetKeyDown(KeyCode.Q))
         {
-            foreach(ItemBlueprint it in EquipItem)
+            for (int i = 0; i < equipItem.Count; i++)
             {
-                it.BaseItem.ResetItem();
+                var item = equipItem[i];
+                item.BaseItem.ResetItem();
             }
         }
     }
@@ -432,8 +443,12 @@ public class ChampionBase : MonoBehaviour
 
     private void EquipItemChampionSetting()
     {
-        foreach(var item in equipItem)
+        if (equipItem.Count > maxItemSlot || equipItem.Count == 0)
+            return;
+
+        for (int i = 0; i < equipItem.Count; i++)
         {
+            var item = equipItem[i];
             item.BaseItem.EquipChampionSetting(this.gameObject);
             item.BaseItem.InitItemSkill();
         }
@@ -569,7 +584,6 @@ public class ChampionBase : MonoBehaviour
                         item_CurHP += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.Mana:
-                        item_MaxMana += (int)item.GetAttributeValue();
                         item_CurMana += (int)item.GetAttributeValue();
                         break;
                     case ItemAttributeType.AD_Power:
