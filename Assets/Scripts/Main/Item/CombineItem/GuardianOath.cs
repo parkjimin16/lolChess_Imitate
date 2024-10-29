@@ -55,7 +55,7 @@ public class GuardianOath : BaseItem
 
         if (!hasShieldActivated)
         {
-            shieldAmount = (int)(EquipChampionBase.Display_CurHp * shieldPercent);
+            shieldAmount = (int)(EquipChampionBase.Champion_CurHp * shieldPercent);
             CoroutineHelper.StartCoroutine(ShieldCoroutine());
         }
     }

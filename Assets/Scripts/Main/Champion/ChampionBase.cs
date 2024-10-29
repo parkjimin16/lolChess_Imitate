@@ -90,23 +90,23 @@ public class ChampionBase : MonoBehaviour
 
     [Header("보여지는 스탯")]
     // Display Stats
-    [SerializeField] private int display_MaxHp;
-    [SerializeField] private int display_CurHp;
-    [SerializeField] private int display_MaxMana;
-    [SerializeField] private int display_CurMana;
-    [SerializeField] private float display_Speed;
-    [SerializeField] private float display_AD_Power;
-    [SerializeField] private float display_AP_Power;
-    [SerializeField] private float display_AD_Def;
-    [SerializeField] private float display_AP_Def;
-    [SerializeField] private float display_Atk_Spd;
-    [SerializeField] private float display_Critical_Percent;
-    [SerializeField] private float display_Critical_Power;
-    [SerializeField] private float display_Blood_Suck;
-    [SerializeField] private float display_Power_Upgrade;
-    [SerializeField] private float display_Total_Def;
-    [SerializeField] private int display_Shield;
-    [SerializeField] private int display_TotalDamage;  // 최종 데미지
+    private int display_MaxHp;
+    private int display_CurHp;
+    private int display_MaxMana;
+    private int display_CurMana;
+    private float display_Speed;
+    private float display_AD_Power;
+    private float display_AP_Power;
+    private float display_AD_Def;
+    private float display_AP_Def;
+    private float display_Atk_Spd;
+    private float display_Critical_Percent;
+    private float display_Critical_Power;
+    private float display_Blood_Suck;
+    private float display_Power_Upgrade;
+    private float display_Total_Def;
+    private int display_Shield;
+    private int display_TotalDamage;  // 최종 데미지
 
 
     // Champion Base
@@ -151,93 +151,10 @@ public class ChampionBase : MonoBehaviour
         get { return championLevel; }
         set { championLevel = value; }
     }
-    public int MaxHP
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int CurHP
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int MaxMana
-    {
-        get { return maxMana; }
-        set { maxMana = value; }
-    }
-    public int CurMana
-    {
-        get { return curMana; }
-        set { curMana = value; }
-    }
-    public int Attack_Range
-    {
-        get { return attack_Range; }
-        set { attack_Range = value; }
-    }
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
     public SkillBlueprint SkillBlueprint => skillBlueprint;
 
 
     // Champion Stats_2
-
-
-    public float AD_Power
-    {
-        get { return ad_Power; }
-        set { ad_Power = value; }
-    }
-    public float AP_Power
-    {
-        get { return ap_Power; }
-        set { ap_Power = value; }
-    }
-    public int Ad_Defense
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public int Ap_Defense
-    {
-        get { return curHp; }
-        set { curHp = value; }
-    }
-    public float Attack_Speed
-    {
-        get { return attack_Speed; }
-        set { attack_Speed = value; }
-    }
-    public float Critical_Percent
-    {
-        get { return critical_Percent; }
-        set { critical_Percent = value; }
-    }
-    public float Critical_Power
-    {
-        get { return critical_Power; }
-        set { critical_Power = value; }
-    }
-    public float Blood_Suck
-    {
-        get { return blood_Suck; }
-        set { blood_Suck = value;}
-    }
-    public float Power_Upgrade
-    {
-        get { return power_Upgrade; }
-        set { power_Upgrade = value; }
-    }
-    public float Total_Defense
-    {
-        get { return total_Defense; }
-        set { total_Defense = value; }
-    }
-
     public float HealHpValue
     {
         get { return healHpValue; }
@@ -255,8 +172,16 @@ public class ChampionBase : MonoBehaviour
         get => champion_CurHp;
         set => champion_CurHp = value;
     }
-    public int Champion_MaxMana => champion_MaxMana;
-    public int Champion_CurMana => champion_CurMana;
+    public int Champion_MaxMana
+    {
+        get => champion_MaxMana;
+        set => champion_MaxMana = value;
+    }
+    public int Champion_CurMana
+    {
+        get => champion_CurMana;
+        set => champion_CurMana = value;
+    }
 
     public float Champion_Speed => champion_Speed;
     public float Champion_AD_Power => champion_AD_Power;
@@ -280,43 +205,6 @@ public class ChampionBase : MonoBehaviour
     public int Champion_Shield => champion_Shield; // 쉴드
     public int Champion_TotalDamage => champion_TotalDamage; // 최종 데미지
 
-
-    // 보여지는 스탯
-    public int Display_MaxHp
-    {
-        get => display_MaxHp;
-        set => display_MaxHp = value;
-    }
-    public int Display_CurHp
-    {
-        get => display_CurHp;
-        set => display_CurHp = value;
-    }
-    public int Display_MaxMana => display_MaxMana;
-    public int DIsplay_CurMana => display_CurMana;
-
-    public float Display_Speed => display_Speed;
-    public float Display_AD_Power => display_AD_Power;
-    public float Display_AP_Power => display_AP_Power;
-    public float Display_AD_Def
-    {
-        get => display_AD_Def;
-        set => display_AD_Def = value; 
-    }
-    public float Display_AP_Def
-    {
-        get => display_AP_Def;
-        set => display_AP_Def = value;
-    }
-    public float Display_Atk_Spd => display_Atk_Spd;
-    public float Display_Critical_Percent => display_Critical_Percent;
-    public float Display_Critical_Power => display_Critical_Power;
-    public float Display_Blood_Suck => display_Blood_Suck;
-    public float Display_Power_Upgrade => display_Power_Upgrade; // 총 피해량
-    public float Display_Total_Def => display_Total_Def; // 내구력
-    public int Display_Shield => display_Shield; // 쉴드
-    public int Display_TotalDamage => display_TotalDamage; // 최종 데미지
-
     public int ChampionSellCost(int cost, int level)
     {
         if (cost == 1)
@@ -327,18 +215,18 @@ public class ChampionBase : MonoBehaviour
 
     public void SetShield(int shield)
     {
-        display_Shield = shield;
+        champion_Shield = shield;
     }
 
     public void SetTotalDamage(int damage)
     {
-        display_TotalDamage = damage;
+        champion_TotalDamage = damage;
     }
 
     public void SetTotalDamagePlus(float value)
     {
-        float temp = display_TotalDamage * value;
-        display_TotalDamage = (int)temp;
+        float temp = champion_TotalDamage * value;
+        champion_TotalDamage = (int)temp;
     }
     #endregion
 
@@ -446,7 +334,7 @@ public class ChampionBase : MonoBehaviour
 
     public int GetDamage()
     {
-        return (int)(Display_AD_Power * (1 + display_Total_Def));
+        return (int)(champion_AD_Power * (1 + champion_Total_Def));
     }
     #endregion
 
@@ -623,9 +511,7 @@ public class ChampionBase : MonoBehaviour
     public void UpdateChampmionStat()
     {
         champion_MaxHp = maxHp + item_MaxHP;
-        champion_CurHp = curHp + item_CurHP;
         champion_MaxMana = maxMana + item_MaxMana;
-        champion_CurMana = curMana + item_CurMana;
         champion_Speed =  speed + item_Speed;
         champion_AD_Power = ad_Power + item_AD_Power;
         champion_AP_Power = ap_Power + item_AP_Power;

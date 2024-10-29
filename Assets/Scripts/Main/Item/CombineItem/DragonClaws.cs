@@ -33,7 +33,7 @@ public class DragonClaws : BaseItem
             return;
 
 
-        tempMaxHp = (int)(EquipChampionBase.Display_MaxHp * 0.09f);
+        tempMaxHp = (int)(EquipChampionBase.Champion_MaxHp * 0.09f);
         hpItemAttribute.SetAttributeValue(tempMaxHp);
     }
 
@@ -54,7 +54,7 @@ public class DragonClaws : BaseItem
         while (true)
         {
             Debug.Log("Heal");
-            healAmount = (int)(EquipChampionBase.Display_MaxHp * healPercent);
+            healAmount = (int)(EquipChampionBase.Champion_MaxHp * healPercent);
             EquipChampionBase.ChampionHpMpController.AddHealth(healAmount, 1.0f);
 
             yield return new WaitForSeconds(2);

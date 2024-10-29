@@ -26,10 +26,7 @@ public class HextechBayonet : BaseItem
             return;
         }
 
-        Debug.Log($"Target Champion Name : {targetChampion.name} +  || Cur Health : {targetChampion.CurHP}");
-
-
-        targetChampion.ChampionHpMpController.AddHealth((int)(targetChampion.Display_TotalDamage * 0.2f), targetChampion.HealHpValue);
+        targetChampion.ChampionHpMpController.AddHealth((int)(targetChampion.Champion_TotalDamage * 0.2f), targetChampion.HealHpValue);
     }
 
     private void SelectChampion()
@@ -41,9 +38,9 @@ public class HextechBayonet : BaseItem
             if (champion == null)
                 return;
 
-            if(champion.Display_CurHp < max)
+            if(champion.Champion_CurHp < max)
             {
-                max = champion.Display_CurHp;
+                max = champion.Champion_CurHp;
                 targetChampion = champion;
             }
         }

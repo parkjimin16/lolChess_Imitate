@@ -48,7 +48,7 @@ public class GiantSlayer : BaseItem
 
     private void GiantSlayerSkill(ChampionBase champion)
     {
-        if (champion.MaxHP >= 1750)
+        if (champion.Champion_MaxHp >= 1750)
         {
             itemAttribute.AttributeValue = 0.25f;
         }

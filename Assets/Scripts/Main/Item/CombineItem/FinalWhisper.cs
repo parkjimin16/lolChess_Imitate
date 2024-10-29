@@ -33,13 +33,13 @@ public class FinalWhisper : BaseItem
     private IEnumerator DefDecrease(ChampionBase cBase)
     {
         isDecreaseDef = true;
-        originalDef = cBase.Display_AD_Def;
+        originalDef = cBase.Champion_AD_Def;
         tempDef = originalDef * 0.7f;
-        cBase.Display_AD_Def = tempDef;
+        cBase.Champion_AD_Def = tempDef;
 
         yield return new WaitForSeconds(3.0f);
 
-        cBase.Display_AD_Def = originalDef;
+        cBase.Champion_AD_Def = originalDef;
         isDecreaseDef = false;
     }
 }

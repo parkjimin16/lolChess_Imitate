@@ -149,7 +149,7 @@ public class ChampionAttackController : MonoBehaviour
 
     private int ChampionDamageSet()
     {
-        return cBase.Display_TotalDamage;
+        return cBase.Champion_TotalDamage;
     }
 
 

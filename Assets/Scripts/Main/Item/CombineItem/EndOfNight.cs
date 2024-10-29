@@ -53,7 +53,7 @@ public class EndOfNight : BaseItem
         }
             
 
-        if (EquipChampionBase.Display_CurHp / EquipChampionBase.Display_MaxHp <= 0.6f)
+        if (EquipChampionBase.Champion_CurHp / EquipChampionBase.Champion_MaxHp <= 0.6f)
         {
             itemAttribute.SetAttributeValue(0.15f);
             CoroutineHelper.StartCoroutine(ChangeTagTemporarily(EquipChampionBase.gameObject, "CantSelectChampion", "Champion", 1f));

@@ -39,7 +39,7 @@ public class CrownGuard : BaseItem
 
         if (!hasShieldActivated)
         {
-            shieldAmount = (int)(EquipChampionBase.Display_MaxHp * shieldPercent);
+            shieldAmount = (int)(EquipChampionBase.Champion_MaxHp * shieldPercent);
             CoroutineHelper.StartCoroutine(ShieldCoroutine());
         }
     }

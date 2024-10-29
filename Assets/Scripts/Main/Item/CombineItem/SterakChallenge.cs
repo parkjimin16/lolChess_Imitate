@@ -51,7 +51,7 @@ public class SterakChallenge : BaseItem
         }
 
 
-        if (EquipChampionBase.Display_CurHp / EquipChampionBase.Display_MaxHp <= 0.6f)
+        if (EquipChampionBase.Champion_CurHp / EquipChampionBase.Champion_MaxHp <= 0.6f)
         {
             hpItemAttribute.SetAttributeValue(300);
             adPowerItemAttribute.SetAttributeValue(0.35f);

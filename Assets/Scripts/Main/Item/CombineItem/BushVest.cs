@@ -34,7 +34,7 @@ public class BushVest : BaseItem
             return;
 
 
-        tempMaxHp = (int)(EquipChampionBase.Display_MaxHp * 0.05f);
+        tempMaxHp = (int)(EquipChampionBase.Champion_MaxHp * 0.05f);
         hpItemAttribute.SetAttributeValue(tempMaxHp);
         totalDefItemAttribute.SetAttributeValue(defValue);
     }
