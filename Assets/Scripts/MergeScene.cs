@@ -37,7 +37,7 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Item.CreateItem("B036", new Vector3(0, 0, 0));
+            Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
         {

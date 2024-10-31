@@ -79,7 +79,7 @@ public static class Utilities
         }
     }
 
-    public static string SetLineName(ChampionLine line)
+    public static string GetLineName(ChampionLine line)
     {
         string _line = SetAttributeNameLine(line);
         return _line;
@@ -125,7 +125,7 @@ public static class Utilities
         }
     }
 
-    public static string SetJobName(ChampionJob job)
+    public static string GetJobName(ChampionJob job)
     {
         string _job = SetAttributeNameJob(job);
         return _job;

@@ -1,0 +1,700 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f503f52df772a204dadb30af3c7d979d, type: 3}
+  m_Name: SymbolDataBlueprint
+  m_EditorClassIdentifier: 
+  championLineData:
+  - championLine: 0
+    championLineSprite: {fileID: 0}
+    championLineName: 
+    championLineDesc: 
+    symbolData: []
+    championBlueprint: []
+  - championLine: 1
+    championLineSprite: {fileID: 21300000, guid: 2e135e63a1c0d404295558a4e6e29420, type: 3}
+    championLineName: "\uB2EC\uCF64\uC220\uC0AC"
+    championLineDesc: "\uB2EC\uCF64\uC220\uC0AC\uAC00 \uC124\uD0D5\uC73C\uB85C \uCF00\uC774\uD06C\uB97C
+      \uACB9\uACB9\uD788 \uC313\uC544 \uC62C\uB9BD\uB2C8\uB2E4. \uD50C\uB808\uC774\uC5B4
+      \uB300\uC0C1 \uC804\uD22C \uB9CC\uB4ED\uB2C8\uB2E4. \uD50C\uB808\uC774\uC5B4
+      \uB300\uC0C1 \uC804\uD22C \uD6C4 \uC544\uAD70 \uCC54\uD53C\uC5B8\uC774 \uC7A5\uCC29\uD55C
+      \uC870\uD569 \uC544\uC774\uD15C 1\uAC1C\uB2F9 \uC124\uD0D5\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uB2EC\uCF64\uC220\uC0AC\uAC00
+      \uACF5\uACA9\uB825\uACFC \uC8FC\uBB38\uB825\uC744 \uC5BB\uC73C\uBA70, \uCF00\uC774\uD06C
+      \uD55C \uCE35\uB2F9 \uCD94\uAC00 \uB2A5\uB825\uCE58\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4.
+      \uCF00\uC774\uD06C\uAC00 7\uCE35\uAE4C\uC9C0 \uC313\uC774\uBA74, \uB300\uC2E0
+      \uAC04\uC2DD\uC744 \uC5BB\uC2B5\uB2C8\uB2E4!"
+    symbolData:
+    - level: 2
+      desc: "\uC124\uD0D5 3\uAC1C, \uACF5\uACA9\uB825/\uC8FC\uBB38\uB825 22\r\n"
+      color: 1
+    - level: 4
+      desc: "\uC124\uD0D5 4\uAC1C, \uACF5\uACA9\uB825/\uC8FC\uBB38\uB825 33"
+      color: 2
+    - level: 6
+      desc: "\uC124\uD0D5 6\uAC1C, \uACF5\uACA9\uB825/\uC8FC\uBB38\uB825 36, \uC544\uAD70
+        \uCCB4\uB825 100 \uC99D\uAC00"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: fb352e08514da4348a6fc1ac33220e4a, type: 2}
+    - {fileID: 11400000, guid: 550046aa28fc70649b05fa14edb63211, type: 2}
+    - {fileID: 11400000, guid: cc9f1020245a0a54c8ca045792592c9f, type: 2}
+    - {fileID: 11400000, guid: 66774a9c7f656de41b419de506d7b4a9, type: 2}
+    - {fileID: 11400000, guid: 769c59dabe5fda14598a6eb1333981db, type: 2}
+  - championLine: 2
+    championLineSprite: {fileID: 21300000, guid: cf53d6cb14268ed4d9165d0c170183a6, type: 3}
+    championLineName: "\uB4DC\uB8E8\uC774\uB4DC"
+    championLineDesc: 
+    symbolData:
+    - level: 1
+      desc: "\uC624\uACF5\uC740 \uD2B9\uC131 \uCD94\uAC00 \uD6A8\uACFC\uAC00 \uC5C6\uC9C0\uB9CC,
+        \uB300\uC2E0 \uC2A4\uD0AC\uC774 \uAC15\uB825\uD558\uACE0 \uB2A5\uB825\uCE58\uAC00
+        \uB192\uC2B5\uB2C8\uB2E4."
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: ea4072e9389033440906c4dc81b22441, type: 2}
+  - championLine: 3
+    championLineSprite: {fileID: 21300000, guid: e79ab952f601bad45bb658d52d900eeb, type: 3}
+    championLineName: "\uB9C8\uB140"
+    championLineDesc: "\uB9C8\uB140\uC758 \uC2A4\uD0AC\uC774 4\uCD08 \uB3D9\uC548
+      \uC801\uC5D0\uAC8C \uC800\uC8FC\uB97C \uAC81\uB2C8\uB2E4. \uC800\uC8FC\uC5D0
+      \uAC78\uB9B0 \uC801\uC774 \uCC98\uCE58\uB418\uBA74 \uC800\uC8FC\uAC00 \uAC00\uC7A5
+      \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uC62E\uACA8\uAC11\uB2C8\uB2E4.\r\n\r\n\uC800\uC8FC\uC758
+      \uD6A8\uACFC:"
+    symbolData:
+    - level: 2
+      desc: "\uD06C\uAE30\uAC00 \uC791\uC544\uC9C0\uACE0, \uCCB4\uB825 120 \uAC10\uC18C"
+      color: 1
+    - level: 4
+      desc: " \uB610\uD55C \uCD08\uB85D\uC0C9\uC774 \uB418\uACE0, \uB9E4\uCD08 \uCD5C\uB300
+        \uCCB4\uB825\uC758 6%\uB9CC\uD07C \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uC74C"
+      color: 2
+    - level: 6
+      desc: "\uB610\uD55C \uD5C8\uC57D\uD574\uC838, \uB9C8\uB140\uB85C\uBD80\uD130
+        25%\uC758 \uCD94\uAC00 \uACE0\uC815 \uD53C\uD574\uB97C \uC785\uC74C"
+      color: 2
+    - level: 8
+      desc: " \uB610\uD55C \uAC1C\uAD6C\uB9AC\uAC00 \uB418\uC5B4, 8\uCD08\uB9C8\uB2E4
+        2\uCD08 \uB3D9\uC548 \uAE30\uC808. \uB2E4\uB978 \uBAA8\uB4E0 \uC800\uC8FC\uC758
+        \uD6A8\uACFC\uAC00 50% \uC99D\uAC00"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 83342e083a5e1cf46b10f77c1fce614c, type: 2}
+    - {fileID: 11400000, guid: 5d68ecd5baca5c64490b9e74833f29ce, type: 2}
+    - {fileID: 11400000, guid: 9e34fe8a669a7084c8b77236a9fe0ef3, type: 2}
+    - {fileID: 11400000, guid: 7fb6710006041584a967b7f205673a48, type: 2}
+    - {fileID: 11400000, guid: 93347185257a1ae428c9474f198e2d19, type: 2}
+    - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
+  - championLine: 4
+    championLineSprite: {fileID: 21300000, guid: d2fd35db89d3e854a97a916a50000bb2, type: 3}
+    championLineName: "\uBC8C\uAFC0\uC220\uC0AC"
+    championLineDesc: "\uBC8C\uAFC0\uC220\uC0AC\uAC00 \uAFC0\uBC8C 5\uB9C8\uB9AC\uB97C
+      \uC5BB\uC2B5\uB2C8\uB2E4. \uAFC0\uBC8C\uC740 3\uCD08\uB9C8\uB2E4 \uB300\uC0C1\uC5D0\uAC8C
+      \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. \uAC01 \uAFC0\uBC8C\uC740
+      \uBC8C\uAFC0\uC220\uC0AC\uAC00 \uC785\uD78C \uD53C\uD574 \uBC0F \uBC1B\uC740
+      \uD53C\uD574\uB9CC\uD07C \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4.\r\n\r\n\uBC8C\uAFC0\uC220\uC0AC\uAC00
+      \uCC98\uCE58\uB418\uBA74 \uC804\uD22C\uAC00 \uB05D\uB0A0 \uB54C\uAE4C\uC9C0
+      \uADFC\uCC98 \uBC8C\uAFC0\uC220\uC0AC\uB97C \uB530\uB77C\uB2E4\uB2C8\uB294
+      \uAFC0\uBC8C 1/1/3\uB9C8\uB9AC\uB97C \uB0A8\uAE41\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "\uC785\uD78C \uD53C\uD574\uB7C9\uC758 7%, \uBC1B\uC740 \uD53C\uD574\uB7C9\uC758
+        3%"
+      color: 1
+    - level: 5
+      desc: "\uC785\uD78C \uD53C\uD574\uB7C9\uC758 13%, \uBC1B\uC740 \uD53C\uD574\uB7C9\uC758
+        5%"
+      color: 2
+    - level: 7
+      desc: "\uC785\uD78C \uD53C\uD574\uB7C9\uC758 20%, \uBC1B\uC740 \uD53C\uD574\uB7C9\uC758
+        10%, \uAFC0\uBC8C\uC758 \uD53C\uD574 \uBE48\uB3C4\uAC00 \uB450 \uBC30\uB85C
+        \uC99D\uAC00"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 75e9128e3d9413d49bf692c25cdf7f01, type: 2}
+    - {fileID: 11400000, guid: 3214a5742824e6e43b641501f060edf4, type: 2}
+    - {fileID: 11400000, guid: 4c506428b87ec8146af0c4b457282cb7, type: 2}
+    - {fileID: 11400000, guid: fa5c596297a15be439df0a3268b96d43, type: 2}
+    - {fileID: 11400000, guid: d9f1a07f7429f644abfbd6795ddc041d, type: 2}
+  - championLine: 5
+    championLineSprite: {fileID: 21300000, guid: 1fc6269d445738c4b97f6dfe8bef3fec, type: 3}
+    championLineName: "\uC11C\uB9AC"
+    championLineDesc: "\uC11C\uB9AC \uCC54\uD53C\uC5B8\uC774 \uC8FC\uBB38\uB825\uACFC
+      \uACF5\uACA9\uB825\uC744 \uC5BB\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uCC98\uCE58\uB41C
+      \uC801 \uBA87 \uBA85\uC774 \uC544\uAD70 \uC5BC\uC74C \uBCD1\uC0AC\uAC00 \uB429\uB2C8\uB2E4.
+      \uC5BC\uC74C \uBCD1\uC0AC\uB294 \uC801\uC774 \uBC94\uC704 \uB0B4\uC5D0\uC11C
+      \uB300\uC0C1\uC744 \uC7AC\uC9C0\uC815\uD560 \uB54C \uC790\uC2E0\uC5D0\uAC8C
+      \uAE30\uBCF8 \uACF5\uACA9\uC744 \uD558\uB3C4\uB85D \uC720\uB3C4\uD569\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "\uACF5\uACA9\uB825/\uC8FC\uBB38\uB825\uC758 16%, \uBCD1\uC0AC 1\uBA85"
+      color: 1
+    - level: 5
+      desc: "\uACF5\uACA9\uB825/\uC8FC\uBB38\uB825\uC758 40%, \uBCD1\uC0AC 2\uBA85"
+      color: 2
+    - level: 7
+      desc: "\uACF5\uACA9\uB825/\uC8FC\uBB38\uB825\uC758 55%, \uBCD1\uC0AC 3\uBA85,
+        \uBCD1\uC0AC\uAC00 \uCC98\uCE58\uB418\uBA74 \uD3ED\uBC1C\uD568"
+      color: 2
+    - level: 9
+      desc: "\uACF5\uACA9\uB825/\uC8FC\uBB38\uB825\uC758 90%, \uBCD1\uC0AC 4\uBA85,
+        \uD3ED\uBC1C \uC704\uB825\uC774 2\uBC30\uB85C \uC99D\uAC00"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: cb1e1315f90235643bdd1f20818bc7c7, type: 2}
+    - {fileID: 11400000, guid: ff19ea26559bc06409708b58f98d6291, type: 2}
+    - {fileID: 11400000, guid: 264234090db5daf4fb69d8a208699206, type: 2}
+    - {fileID: 11400000, guid: d8b2f9526676eb546bd1c48d49929292, type: 2}
+    - {fileID: 11400000, guid: ee50fcc18db54b84a9bc8412ef9e5bc3, type: 2}
+    - {fileID: 11400000, guid: 3c06fa5b484fa43429b70ca6eb51bf7c, type: 2}
+    - {fileID: 11400000, guid: 0d5fec849f4256643975c4d5d5d129dd, type: 2}
+  - championLine: 6
+    championLineSprite: {fileID: 21300000, guid: d6d49d384b3d54d47902d43560726bf9, type: 3}
+    championLineName: "\uC12C\uB729\uD55C \uD798"
+    championLineDesc: "\uC544\uAD70\uC774 \uCCB4\uB825\uC744 20% \uC783\uC73C\uBA74
+      \uACE0\uB300 \uC2E0\uC774 \uAC15\uB9BC\uD569\uB2C8\uB2E4. \uACE0\uB300 \uC2E0\uC740
+      \uC12C\uB729\uD55C \uD798\uC758 \uBCC4 \uB808\uBCA8\uB2F9 \uCCB4\uB825\uC744
+      25%, \uC8FC\uBB38\uB825\uC744 10% \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "\uB354\uB7FD\uD600\uC9C4 \uACE8\uB818"
+      color: 1
+    - level: 5
+      desc: "\uC554\uD751 \uAC70\uC11D"
+      color: 2
+    - level: 7
+      desc: "\uC218\uB9CE\uC740 \uB208\uC758 \uC9D0\uC2B9"
+      color: 2
+    - level: 10
+      desc: "\uD3ED\uD48D\uC744 \uBD80\uB974\uB294 \uC790"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 2f3186f822334c44bae506b95cdc0ff5, type: 2}
+    - {fileID: 11400000, guid: 980f5d0119c58b54584e29aff46578e2, type: 2}
+    - {fileID: 11400000, guid: 2d29308d43207464288a8373e7429e4f, type: 2}
+    - {fileID: 11400000, guid: 62dcb01ab8630f74b9bc1bf0e5a6993c, type: 2}
+    - {fileID: 11400000, guid: c1bb836a2567848418d5f1035a95e567, type: 2}
+    - {fileID: 11400000, guid: a0c68e99b5104b840945802848f39f10, type: 2}
+    - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
+  - championLine: 7
+    championLineSprite: {fileID: 21300000, guid: 2b1fc1557db492840a38d94015b81343, type: 3}
+    championLineName: "\uC2DC\uACF5\uAC04"
+    championLineDesc: "\uC2DC\uACF5\uAC04\uC774 \uC8FC\uBB38\uB825\uC744 15 \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uC804\uD22C
+      \uC2DC\uC791: 14\uCD08\uC758 \uCD08\uC77D\uAE30\uAC00 \uC2DC\uC791\uB418\uACE0,
+      \uC2DC\uACF5\uAC04\uC774 \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD560 \uB54C\uB9C8\uB2E4
+      1\uCD08\uC529 \uC904\uC5B4\uB4ED\uB2C8\uB2E4. \uCD08\uC77D\uAE30\uAC00 \uB05D\uB098\uBA74
+      \uD2B9\uBCC4\uD55C \uD6A8\uACFC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uC544\uAD70\uC774 \uCCB4\uB825 15% \uD68C\uBCF5, \uC2DC\uACF5\uAC04\uC740
+        \uC8FC\uBB38\uB825 20 \uCD94\uAC00\uB85C \uC99D\uAC00"
+      color: 1
+    - level: 4
+      desc: "\uB610\uD55C 3\uCD08 \uB3D9\uC548 \uC2DC\uAC04\uC744 \uBA48\uCDA4. \uC2DC\uACF5\uAC04\uC740
+        \uC2DC\uAC04 \uC815\uC9C0\uC758 \uC601\uD5A5\uC744 \uBC1B\uC9C0 \uC54A\uC73C\uBA70
+        \uC8FC\uBB38\uB825 55 \uC99D\uAC00"
+      color: 2
+    - level: 6
+      desc: "4\uCD08 \uB3D9\uC548 \uC2DC\uAC04\uC744 \uBA48\uCD94\uACE0 \uC544\uAD70\uC774
+        100% \uCCB4\uB825 \uD68C\uBCF5, \uC2DC\uACF5\uAC04\uC740 \uC2DC\uAC04 \uC815\uC9C0\uC758
+        \uC601\uD5A5\uC744 \uBC1B\uC9C0 \uC54A\uC73C\uBA70, \uC8FC\uBB38\uB825\uC744
+        70, \uACF5\uACA9 \uC18D\uB3C4\uB97C 35% \uC5BB\uC74C"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 0cd932e2a1a065b49bc88597329a30f3, type: 2}
+    - {fileID: 11400000, guid: 264234090db5daf4fb69d8a208699206, type: 2}
+    - {fileID: 11400000, guid: 55254cab5b8d4ca4180ed689b365b8ca, type: 2}
+    - {fileID: 11400000, guid: d862f6fb02e8c3241b4543b212281611, type: 2}
+    - {fileID: 11400000, guid: a91fa52a5bd010c428faf7649fe2ee74, type: 2}
+  - championLine: 8
+    championLineSprite: {fileID: 21300000, guid: 1e9123cbb04e45a4e88c5431b7530ba6, type: 3}
+    championLineName: "\uC544\uB974\uCE74\uB098"
+    championLineDesc: "\uC544\uB974\uCE74\uB098 \uC99D\uD45C \uC544\uC774\uD15C\uC744
+      \uC0AC\uC6A9\uD574 \uD558\uC774 \uC544\uB974\uCE74\uB098 \uCC54\uD53C\uC5B8\uC744
+      \uC120\uD0DD\uD558\uC138\uC694. \uAC01 \uC544\uB974\uCE74\uB098\uB294 \uC11C\uB85C
+      \uB2E4\uB978 \uC870\uAC74\uC5D0 \uB530\uB77C \uD6A8\uACFC\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4.\r\n\r\n\uD6A8\uACFC
+      \uD68D\uB4DD \uC870\uAC74:\r\n\uC544\uB9AC: 3\uC131 \uCC54\uD53C\uC5B8 \uBC30\uCE58\r\n\uD5E4\uCE74\uB9BC:
+      \uC544\uC774\uD15C \uC7A5\uCC29\r\n\uD0D0 \uCF04\uCE58: \uD2B9\uC131 \uD65C\uC131\uD654\r\n\uC81C\uB77C\uC2A4:
+      \uC8FC\uC220 \uAD6C\uB9E4\r\n\uC0C1\uC9D5: \uB4A4\uC9D1\uAC1C \uC544\uC774\uD15C
+      \uC7A5\uCC29"
+    symbolData:
+    - level: 2
+      desc: "\uD574\uB2F9 \uC720\uB2DB\uC758 \uD6A8\uACFC"
+      color: 1
+    - level: 3
+      desc: "\uD574\uB2F9 \uC720\uB2DB\uC758 \uD6A8\uACFC"
+      color: 2
+    - level: 4
+      desc: "\uD574\uB2F9 \uC720\uB2DB\uC758 \uD6A8\uACFC"
+      color: 2
+    - level: 5
+      desc: "\uD574\uB2F9 \uC720\uB2DB\uC758 \uD6A8\uACFC"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 42b568754d8ed2c4394eca0aeba54235, type: 2}
+    - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
+    - {fileID: 11400000, guid: d8b1a4f3d7160864fb16b27e2a21c750, type: 2}
+    - {fileID: 11400000, guid: 8fcaadaafbb875744bbad2a3187f6b09, type: 2}
+  - championLine: 9
+    championLineSprite: {fileID: 21300000, guid: d441a6f685f7df4439c59d41fffe21bd, type: 3}
+    championLineName: "\uC694\uC815"
+    championLineDesc: "\uC694\uC815\uC774 \uCCB4\uB825\uC744 \uC5BB\uACE0 \uD2B9\uC131
+      \uB2E8\uACC4\uC5D0 \uB530\uB77C \uB354 \uAC15\uB825\uD574\uC9C0\uB294 \uD2B9\uBCC4\uD55C
+      \uC544\uC774\uD15C\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4.\r\n\r\n\uC694\uC815\uB9CC
+      \uC694\uC815 \uC544\uC774\uD15C\uC744 \uC7A5\uCC29\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "\uCCB4\uB825 150, \uD53C\uD574 \uC99D\uD3ED\uC744 30% \uBD80\uC5EC\uD558\uB294
+        \uC694\uC815 \uC5EC\uC655\uC758 \uC655\uAD00 \uD68D\uB4DD"
+      color: 1
+    - level: 5
+      desc: "\uCCB4\uB825 400, \uC655\uAD00 \uD53C\uD574 \uC99D\uD3ED 45%, \uC5EC\uC655
+        \uADFC\uC704\uB300\uC758 \uAC11\uC637 \uD68D\uB4DD"
+      color: 2
+    - level: 7
+      desc: "\uCCB4\uB825 700, \uC655\uAD00 \uD53C\uD574 \uC99D\uD3ED 65%, \uB450
+        \uBC88\uC9F8 \uC655\uAD00 \uD68D\uB4DD"
+      color: 2
+    - level: 9
+      desc: "\uCCB4\uB825 999, \uC655\uAD00 \uD53C\uD574 \uC99D\uD3ED 66%, \uC544\uC774\uD15C\uC774
+        \uBAA8\uB450 \uCC2C\uB780\uD55C \uC544\uC774\uD15C\uC774 \uB428"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 97e6686a7d9857f4d881faa59c3bc3bd, type: 2}
+    - {fileID: 11400000, guid: 668b104da26cf6c44bfb1cd5396d3161, type: 2}
+    - {fileID: 11400000, guid: 5d7616bc098a7074fa6512c6bfd536fc, type: 2}
+    - {fileID: 11400000, guid: a5db2ad698d7dea4892ea63492de2538, type: 2}
+    - {fileID: 11400000, guid: 7949b1d34f173394e89cb65f8df4ffb4, type: 2}
+    - {fileID: 11400000, guid: d50e60011845f19418e3064493383b25, type: 2}
+    - {fileID: 11400000, guid: faf2babdcf60f7c4daebdad6ad33f939, type: 2}
+  - championLine: 10
+    championLineSprite: {fileID: 21300000, guid: c3d2d2a61e0e3734bb024d8b4043829c, type: 3}
+    championLineName: "\uC6A9"
+    championLineDesc: 
+    symbolData:
+    - level: 2
+      desc: "\uC6A9\uC758 \uAE30\uBCF8 \uACF5\uACA9\uACFC \uC2A4\uD0AC\uC774 5\uCD08
+        \uB3D9\uC548 \uC801\uC5D0\uAC8C \uBD88\uD0DC\uC6B0\uAE30\uC640 \uC0C1\uCC98\uB97C
+        1% \uC801\uC6A9"
+      color: 1
+    - level: 3
+      desc: "\uC6B0\uC815\uC758 \uD798\uC73C\uB85C \uBAA8\uB4E0 \uC6A9\uC758 \uC2A4\uD0AC
+        \uAC15\uD654!"
+      color: 2
+    championBlueprint:
+    - {fileID: 11400000, guid: 13dbb4f95f055b84fb05e2f41333c3f9, type: 2}
+    - {fileID: 11400000, guid: c7dadf79c48912145b5e1751bee4023b, type: 2}
+    - {fileID: 11400000, guid: 0923ccaf8317bdd4392431ea2bbf24ee, type: 2}
+  - championLine: 11
+    championLineSprite: {fileID: 21300000, guid: ca96993c5b250f647aaf0beb6b4ce662, type: 3}
+    championLineName: "\uCC28\uC6D0\uBB38"
+    championLineDesc: "\uC804\uD22C \uC2DC\uC791: 15\uCD08 \uB3D9\uC548 \uCC28\uC6D0\uBB38
+      \uCC54\uD53C\uC5B8\uC774 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uBA87
+      \uCD08\uB9C8\uB2E4 \uB2E4\uB978 \uCC28\uC6D0\uC758 \uBB3C\uCCB4\uAC00 \uCC28\uC6D0\uBB38\uC5D0\uC11C
+      \uB0A0\uC544\uC640 \uC544\uAD70\uC744 \uB3D5\uACE0 \uC801\uC744 \uBC29\uD574\uD569\uB2C8\uB2E4.
+      \uCC28\uC6D0\uBB38 \uD6A8\uACFC\uB294 \uCC28\uC6D0\uBB38 \uCC54\uD53C\uC5B8\uC758
+      \uBCC4 \uB808\uBCA8\uB2F9 8%\uB9CC\uD07C \uB354 \uAC15\uB825\uD574\uC9D1\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "200\uC758 \uBCF4\uD638\uB9C9, \uC18C\uD615 \uCC28\uC6D0\uBB38"
+      color: 1
+    - level: 6
+      desc: "450\uC758 \uBCF4\uD638\uB9C9, \uC911\uD615 \uCC28\uC6D0\uBB38"
+      color: 2
+    - level: 8
+      desc: "700\uC758 \uBCF4\uD638\uB9C9, \uB300\uD615 \uCC28\uC6D0\uBB38"
+      color: 2
+    - level: 10
+      desc: "1500\uC758 \uBCF4\uD638\uB9C9, \uD2B9\uB300\uD615 \uCC28\uC6D0\uBB38"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 8a7d7493e821e8249b364b87f30dadc6, type: 2}
+    - {fileID: 11400000, guid: 5d68ecd5baca5c64490b9e74833f29ce, type: 2}
+    - {fileID: 11400000, guid: b43ad86d545cf48488be4f3166855571, type: 2}
+    - {fileID: 11400000, guid: 67a1ea180c15e6b4c9a9db4604618b7e, type: 2}
+    - {fileID: 11400000, guid: 93f01eec496554a43850c25d8231e884, type: 2}
+    - {fileID: 11400000, guid: adda9131ab7af224db9a10d371e4359c, type: 2}
+    - {fileID: 11400000, guid: 944964323a2cc8848a01042d9a1213a8, type: 2}
+    - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
+  - championLine: 12
+    championLineSprite: {fileID: 21300000, guid: 28384fd73fe68974c8f8aa60a4566159, type: 3}
+    championLineName: "\uD5C8\uAE30"
+    championLineDesc: 
+    symbolData:
+    - level: 1
+      desc: "\uC783\uC740 \uD50C\uB808\uC774\uC5B4 \uCCB4\uB825\uB2F9 \uBE0C\uB77C\uC774\uC5B4\uAC00
+        \uD53C\uD574 \uC99D\uD3ED\uC744 0.8% \uC5BB\uC2B5\uB2C8\uB2E4. \uB77C\uC6B4\uB4DC\uB9C8\uB2E4
+        \uD50C\uB808\uC774\uC5B4 \uCCB4\uB825\uC744 3 \uC18C\uBAA8\uD574 \uBE0C\uB77C\uC774\uC5B4\uC5D0\uAC8C
+        \uCCB4\uB825\uC744 180 \uBD80\uC5EC\uD560 \uC218 \uC788\uB294 \uAC04\uC2DD
+        1\uAC1C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
+  - championLine: 13
+    championLineSprite: {fileID: 21300000, guid: 2ecd26f116046834580946533552a9f3, type: 3}
+    championLineName: "\uD654\uC5FC"
+    championLineDesc: "\uC544\uAD70\uC774 \uACF5\uACA9 \uC18D\uB3C4\uB97C 3% \uC5BB\uC2B5\uB2C8\uB2E4.
+      \uD654\uC5FC \uCC54\uD53C\uC5B8\uC774 \uACF5\uACA9 \uC18D\uB3C4\uB97C \uC5BB\uACE0
+      \uCCB4\uB825\uC774 10% \uC544\uB798\uC778 \uC801\uC744 \uCC98\uD615\uD569\uB2C8\uB2E4.\r\n\r\n\uC801\uC744
+      \uCC98\uCE58\uD560 \uB54C\uB9C8\uB2E4 \uD654\uC5FC \uCC54\uD53C\uC5B8\uC774
+      \uB2E4\uC74C \uB77C\uC6B4\uB4DC\uC5D0 \uC218\uC9D1\uD560 \uC218 \uC788\uB294
+      \uC9C0\uC625 \uC789\uAC78\uBD88\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4. \uC789\uAC78\uBD88\uC744
+      5\uAC1C \uC218\uC9D1\uD560 \uB54C\uB9C8\uB2E4 \uC544\uAD70\uC758 \uACF5\uACA9
+      \uC18D\uB3C4\uAC00 2% \uB354 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uACF5\uACA9 \uC18D\uB3C4 5% \uC99D\uAC00"
+      color: 1
+    - level: 3
+      desc: "\uACF5\uACA9 \uC18D\uB3C4 25% \uC99D\uAC00"
+      color: 2
+    - level: 4
+      desc: "\uACF5\uACA9 \uC18D\uB3C4 50% \uC99D\uAC00"
+      color: 2
+    - level: 5
+      desc: "\uACF5\uACA9 \uC18D\uB3C4 65% \uC99D\uAC00 \uBC0F \uCCB4\uB825 15% \uC544\uB798
+        \uC801 \uCC98\uD615"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: e989b38845371b5488c78fc237a404b2, type: 2}
+    - {fileID: 11400000, guid: 474abcec496489142ba0c18a9ec39092, type: 2}
+    - {fileID: 11400000, guid: 6e17f50e985071340bb5b7c91a96525a, type: 2}
+    - {fileID: 11400000, guid: 626a393c2cc51e54cb76265d5ed08e18, type: 2}
+  championJobData:
+  - championJob: 1
+    championJobSprite: {fileID: 21300000, guid: 4661ae8ff6585bb44873ab30ad434914, type: 3}
+    championJobName: "\uB2E8\uC9DD"
+    championJobDesc: 
+    symbolData:
+    - level: 1
+      desc: "\uB178\uB77C\uAC00 \uC544\uAD70\uC744 \uB3D5\uAE30 \uC704\uD574 \uC720\uBBF8\uB97C
+        \uC18C\uD658\uD569\uB2C8\uB2E4! \uC720\uBBF8\uB97C \uC544\uAD70 \uC720\uB2DB
+        \uC704\uC5D0 \uC62C\uB824 \uC544\uAD70\uC5D0\uAC8C \uBC00\uCC29\uC2DC\uD0AC
+        \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC720\uBBF8\uB294 \uB178\uB77C\uC640 \uC8FC\uBB38\uB825\uC744
+        \uACF5\uC720\uD558\uACE0 \uB178\uB77C\uAC00 \uCC98\uCE58\uB418\uBA74 \uD568\uAED8
+        \uCC98\uCE58\uB429\uB2C8\uB2E4."
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
+  - championJob: 2
+    championJobSprite: {fileID: 21300000, guid: 3031e8827bd05994e89eef565048cae6, type: 3}
+    championJobName: "\uB9C8\uB3C4\uC0AC"
+    championJobDesc: "\uC544\uAD70\uC774 \uC8FC\uBB38\uB825\uC744 10 \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uB9C8\uB3C4\uC0AC\uAC00
+      \uAE30\uBCF8 \uACF5\uACA9\uC744 \uD558\uAC70\uB098 \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD558\uBA74
+      \uBAA8\uB4E0 \uB9C8\uB3C4\uC0AC\uAC00 \uC8FC\uBB38\uB825 \uC911\uCCA9\uC744
+      \uC5BB\uC2B5\uB2C8\uB2E4. \uCD5C\uB300 40\uD68C \uC911\uCCA9\uB429\uB2C8\uB2E4.
+      \uAE30\uBCF8 \uACF5\uACA9 2\uD68C\uB9C8\uB2E4 \uC911\uCCA9\uC744 1\uD68C \uC5BB\uACE0,
+      \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD560 \uB54C\uB9C8\uB2E4 \uC911\uCCA9\uC744
+      3\uD68C \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: " \uC911\uCCA9\uB2F9 \uC8FC\uBB38\uB825 1"
+      color: 1
+    - level: 4
+      desc: "\uC911\uCCA9\uB2F9 \uC8FC\uBB38\uB825 2, \uC544\uAD70 \uC8FC\uBB38\uB825
+        30 \uD68D\uB4DD"
+      color: 2
+    championBlueprint:
+    - {fileID: 11400000, guid: 3214a5742824e6e43b641501f060edf4, type: 2}
+    - {fileID: 11400000, guid: 62dcb01ab8630f74b9bc1bf0e5a6993c, type: 2}
+    - {fileID: 11400000, guid: 9e34fe8a669a7084c8b77236a9fe0ef3, type: 2}
+    - {fileID: 11400000, guid: d862f6fb02e8c3241b4543b212281611, type: 2}
+  - championJob: 3
+    championJobSprite: {fileID: 21300000, guid: c735b47ff2d9d5f49994372ce952f0bd, type: 3}
+    championJobName: "\uBC15\uC950\uC5EC\uC655"
+    championJobDesc: 
+    symbolData:
+    - level: 1
+      desc: "\uBAA8\uB974\uAC00\uB098\uC758 \uBC15\uC950\uAC00 \uC801\uC744 \uCC98\uCE58\uD558\uBA74,
+        40% \uD655\uB960\uB85C \uD574\uB2F9 \uC801\uC758 1\uC131 \uBCF5\uC0AC\uBCF8\uC744
+        \uB0A9\uCE58\uD569\uB2C8\uB2E4."
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
+  - championJob: 4
+    championJobSprite: {fileID: 21300000, guid: 9fd75745d6e09074f9019a61d4701239, type: 3}
+    championJobName: "\uBCF4\uD638\uC220\uC0AC"
+    championJobDesc: "3\uCD08\uB9C8\uB2E4 \uC544\uAD70\uC774 \uCD5C\uB300 \uCCB4\uB825\uC758
+      \uC77C\uC815 \uBE44\uC728\uB9CC\uD07C \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4.
+      \uCCB4\uB825\uC774 \uCD5C\uB300\uB77C\uBA74, \uB300\uC2E0 \uB9C8\uB098\uB97C
+      \uD68C\uBCF5\uD569\uB2C8\uB2E4.\r\n\r\n\uBCF4\uD638\uC220\uC0AC\uB294 2\uBC30\uB85C
+      \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: " \uCCB4\uB825\uC758 2% \uB610\uB294 \uB9C8\uB098\uC758 3%"
+      color: 1
+    - level: 3
+      desc: "\uCCB4\uB825\uC758 4% \uB610\uB294 \uB9C8\uB098\uC758 5%"
+      color: 2
+    - level: 4
+      desc: "\uCCB4\uB825\uC758 6% \uB610\uB294 \uB9C8\uB098\uC758 7%"
+      color: 2
+    - level: 5
+      desc: "\uCCB4\uB825\uC758 9% \uB610\uB294 \uB9C8\uB098\uC758 11%"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 264234090db5daf4fb69d8a208699206, type: 2}
+    - {fileID: 11400000, guid: cc9f1020245a0a54c8ca045792592c9f, type: 2}
+    - {fileID: 11400000, guid: 7949b1d34f173394e89cb65f8df4ffb4, type: 2}
+    - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
+  - championJob: 5
+    championJobSprite: {fileID: 21300000, guid: 41fddf470f79bb5469ad74957cf78d3d, type: 3}
+    championJobName: "\uC0AC\uB0E5\uAFBC"
+    championJobDesc: "\uC0AC\uB0E5\uAFBC\uC774 \uACF5\uACA9\uB825\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.
+      \uAC01 \uC804\uD22C\uC5D0\uC11C \uCC98\uC74C\uC73C\uB85C \uCC98\uCE58\uC5D0
+      \uAD00\uC5EC\uD560 \uB54C\uB9C8\uB2E4 \uACF5\uACA9\uB825\uC774 \uCD94\uAC00\uB85C
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uACF5\uACA9\uB825 15%, \uCC98\uCE58 \uAD00\uC5EC \uD6C4 35%"
+      color: 1
+    - level: 4
+      desc: " \uACF5\uACA9\uB825 40%, \uCC98\uCE58 \uAD00\uC5EC \uD6C4 65%"
+      color: 2
+    - level: 6
+      desc: "\uACF5\uACA9\uB825 70%, \uCC98\uCE58 \uAD00\uC5EC \uD6C4 100%, \uACF5\uACA9\uC18D\uB3C4
+        20%"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 13dbb4f95f055b84fb05e2f41333c3f9, type: 2}
+    - {fileID: 11400000, guid: ff19ea26559bc06409708b58f98d6291, type: 2}
+    - {fileID: 11400000, guid: fa5c596297a15be439df0a3268b96d43, type: 2}
+    - {fileID: 11400000, guid: 66774a9c7f656de41b419de506d7b4a9, type: 2}
+    - {fileID: 11400000, guid: 3c06fa5b484fa43429b70ca6eb51bf7c, type: 2}
+  - championJob: 6
+    championJobSprite: {fileID: 21300000, guid: c8a67aa7baa1fea4a8ce438db0363e99, type: 3}
+    championJobName: "\uC120\uBD09\uB300"
+    championJobDesc: "\uC120\uBD09\uB300\uAC00 \uBCF4\uD638\uB9C9\uC774 \uC50C\uC6CC\uC84C\uC744
+      \uB54C \uB0B4\uAD6C\uB825\uC744 10% \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uC804\uD22C
+      \uC2DC\uC791 \uC2DC \uBC0F \uCCB4\uB825 50% \uB3C4\uB2EC \uC2DC: 10\uCD08 \uB3D9\uC548
+      \uCD5C\uB300 \uCCB4\uB825\uC758 \uC77C\uBD80\uB9CC\uD07C \uBCF4\uD638\uB9C9\uC744
+      \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uCD5C\uB300 \uCCB4\uB825\uC758 18%"
+      color: 1
+    - level: 4
+      desc: "\uCD5C\uB300 \uCCB4\uB825\uC758 35%"
+      color: 2
+    - level: 6
+      desc: "\uCD5C\uB300 \uCCB4\uB825\uC758 50%, \uBCF4\uD638\uB9C9\uC774 \uC50C\uC6CC\uC84C\uC744
+        \uB54C \uB0B4\uAD6C\uB825 15%"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 75e9128e3d9413d49bf692c25cdf7f01, type: 2}
+    - {fileID: 11400000, guid: cb1e1315f90235643bdd1f20818bc7c7, type: 2}
+    - {fileID: 11400000, guid: b43ad86d545cf48488be4f3166855571, type: 2}
+    - {fileID: 11400000, guid: 550046aa28fc70649b05fa14edb63211, type: 2}
+    - {fileID: 11400000, guid: c1bb836a2567848418d5f1035a95e567, type: 2}
+    - {fileID: 11400000, guid: d8b1a4f3d7160864fb16b27e2a21c750, type: 2}
+  - championJob: 7
+    championJobSprite: {fileID: 21300000, guid: 355e048a682ac804c9415b955968450b, type: 3}
+    championJobName: "\uC1C4\uB3C4\uC790"
+    championJobDesc: "\uC1C4\uB3C4\uC790\uAC00 \uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uC77C\uC815
+      \uD655\uB960\uB85C 2\uD68C \uCD94\uAC00\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4.\r\n"
+    symbolData:
+    - level: 3
+      desc: "25% \uD655\uB960"
+      color: 1
+    - level: 5
+      desc: "65% \uD655\uB960"
+      color: 2
+    - level: 7
+      desc: "80% \uD655\uB960, \uAE30\uBCF8 \uACF5\uACA9\uD560 \uB54C\uB9C8\uB2E4
+        \uCD5C\uB300 \uCCB4\uB825\uC758 3% \uD68C\uBCF5"
+      color: 2
+    - level: 9
+      desc: "100% \uD655\uB960, \uAE30\uBCF8 \uACF5\uACA9\uD560 \uB54C\uB9C8\uB2E4
+        \uCD5C\uB300 \uCCB4\uB825\uC758 10% \uD68C\uBCF5"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 2f3186f822334c44bae506b95cdc0ff5, type: 2}
+    - {fileID: 11400000, guid: 0cd932e2a1a065b49bc88597329a30f3, type: 2}
+    - {fileID: 11400000, guid: e989b38845371b5488c78fc237a404b2, type: 2}
+    - {fileID: 11400000, guid: 67a1ea180c15e6b4c9a9db4604618b7e, type: 2}
+    - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
+    - {fileID: 11400000, guid: d50e60011845f19418e3064493383b25, type: 2}
+    - {fileID: 11400000, guid: a91fa52a5bd010c428faf7649fe2ee74, type: 2}
+  - championJob: 8
+    championJobSprite: {fileID: 21300000, guid: ee8ad7f8db1edbc4f8fca728eaf57e1c, type: 3}
+    championJobName: "\uC694\uC0C8"
+    championJobDesc: "\uC544\uAD70\uC774 \uBC29\uC5B4\uB825\uACFC \uB9C8\uBC95 \uC800\uD56D\uB825\uC744
+      10 \uC5BB\uC2B5\uB2C8\uB2E4.\r\n\r\n\uC694\uC0C8\uB294 \uB2A5\uB825\uCE58\uB97C
+      \uB354 \uC5BB\uC2B5\uB2C8\uB2E4. \uC804\uD22C \uC2DC\uC791 \uD6C4 10\uCD08
+      \uB3D9\uC548, \uC694\uC0C8\uB294 \uCD94\uAC00 \uC218\uCE58\uB97C 2\uBC30\uB85C
+      \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uBC29\uC5B4\uB825 \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825 15"
+      color: 1
+    - level: 4
+      desc: "\uBC29\uC5B4\uB825 \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825 40"
+      color: 2
+    - level: 6
+      desc: "\uBC29\uC5B4\uB825 \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825 100"
+      color: 2
+    - level: 8
+      desc: "\uBC29\uC5B4\uB825 \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825 200, \uC694\uC0C8
+        \uC720\uB2DB 4\uBA85\uC774 \uCC98\uCE58\uB420 \uB54C\uAE4C\uC9C0 \uD6C4\uBC29
+        \uAC00\uB85C 2\uC5F4\uC5D0\uC11C \uC804\uD22C\uB97C \uC2DC\uC791\uD55C \uCC54\uD53C\uC5B8
+        2\uBA85\uC774 \uBB34\uC801\uC774 \uB428"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 97e6686a7d9857f4d881faa59c3bc3bd, type: 2}
+    - {fileID: 11400000, guid: 83342e083a5e1cf46b10f77c1fce614c, type: 2}
+    - {fileID: 11400000, guid: 4c506428b87ec8146af0c4b457282cb7, type: 2}
+    - {fileID: 11400000, guid: 474abcec496489142ba0c18a9ec39092, type: 2}
+    - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
+    - {fileID: 11400000, guid: 944964323a2cc8848a01042d9a1213a8, type: 2}
+    - {fileID: 11400000, guid: 0d5fec849f4256643975c4d5d5d129dd, type: 2}
+  - championJob: 9
+    championJobSprite: {fileID: 21300000, guid: be35772a5b53d5b4a9cce38e638d545c, type: 3}
+    championJobName: "\uC694\uC220\uC0AC"
+    championJobDesc: "\uC694\uC220\uC0AC\uB294 \uC2A4\uD0AC\uC744 2\uBC88 \uC0AC\uC6A9\uD558\uACE0
+      \uC8FC\uBB38\uB825\uC758 \uCD1D\uD569\uC774 \uC870\uC815\uB429\uB2C8\uB2E4."
+    symbolData:
+    - level: 3
+      desc: "\uC8FC\uBB38\uB825\uC758 85%"
+      color: 1
+    - level: 5
+      desc: "\uC8FC\uBB38\uB825\uC758 95%"
+      color: 2
+    - level: 7
+      desc: "\uC8FC\uBB38\uB825\uC758 110%"
+      color: 2
+    - level: 10
+      desc: "\uC8FC\uBB38\uB825\uC758 200%, \uC694\uC220\uC0AC\uAC00 \uC2A4\uD0AC\uC744
+        \uD6E8\uC52C \uB354 \uC790\uC8FC \uC0AC\uC6A9\uD568"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 668b104da26cf6c44bfb1cd5396d3161, type: 2}
+    - {fileID: 11400000, guid: fb352e08514da4348a6fc1ac33220e4a, type: 2}
+    - {fileID: 11400000, guid: b43ad86d545cf48488be4f3166855571, type: 2}
+    - {fileID: 11400000, guid: d9f1a07f7429f644abfbd6795ddc041d, type: 2}
+    - {fileID: 11400000, guid: 55254cab5b8d4ca4180ed689b365b8ca, type: 2}
+    - {fileID: 11400000, guid: a0c68e99b5104b840945802848f39f10, type: 2}
+    - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
+  - championJob: 10
+    championJobSprite: {fileID: 21300000, guid: 6c083342b214e344bbc8bbfe5d424699, type: 3}
+    championJobName: "\uC804\uC0AC"
+    championJobDesc: "\uC804\uC0AC\uAC00 \uBAA8\uB4E0 \uD53C\uD574 \uD761\uD608\uACFC
+      \uD53C\uD574 \uC99D\uD3ED\uC744 \uC5BB\uC2B5\uB2C8\uB2E4. \uC804\uC0AC\uC758
+      \uCCB4\uB825\uC774 70% \uC544\uB798\uB85C \uB5A8\uC5B4\uC9C0\uBA74, \uD53C\uD574
+      \uC99D\uD3ED\uC744 2\uBC30\uB85C \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uBAA8\uB4E0 \uD53C\uD574 \uD761\uD608 10%, \uD53C\uD574 \uC99D\uD3ED
+        10%"
+      color: 1
+    - level: 4
+      desc: "\uBAA8\uB4E0 \uD53C\uD574 \uD761\uD608 20%, \uD53C\uD574 \uC99D\uD3ED
+        20%"
+      color: 2
+    - level: 6
+      desc: "\uBAA8\uB4E0 \uD53C\uD574 \uD761\uD608 25%, \uD53C\uD574 \uC99D\uD3ED
+        25%, \uB610\uD55C \uB0B4\uAD6C\uB825\uC744 15% \uC5BB\uC74C"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 2d29308d43207464288a8373e7429e4f, type: 2}
+    - {fileID: 11400000, guid: e989b38845371b5488c78fc237a404b2, type: 2}
+    - {fileID: 11400000, guid: a5db2ad698d7dea4892ea63492de2538, type: 2}
+    - {fileID: 11400000, guid: 769c59dabe5fda14598a6eb1333981db, type: 2}
+    - {fileID: 11400000, guid: 93347185257a1ae428c9474f198e2d19, type: 2}
+  - championJob: 11
+    championJobSprite: {fileID: 21300000, guid: 582be4b0f24eb6645a9cb0aee57d9a38, type: 3}
+    championJobName: "\uCD08\uC6D4\uCCB4"
+    championJobDesc: 
+    symbolData:
+    - level: 1
+      desc: "\uCD08\uC6D4\uCCB4 \uC8FC\uC220\uC774 \uC0C1\uC810\uC5D0 \uB4F1\uC7A5\uD560
+        \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB4F1\uC7A5 \uD655\uB960\uC740 \uD50C\uB808\uC774\uC5B4
+        \uB300\uC0C1 \uC804\uD22C\uAC00 \uB05D\uB098\uBA74 8% \uC99D\uAC00\uD558\uBA70,
+        \uCD5C\uB300 40% \uC99D\uAC00\uD569\uB2C8\uB2E4. \uCD08\uC6D4\uCCB4 \uC8FC\uC220\uC744
+        \uAD6C\uB9E4\uD558\uBA74 \uC774 \uD655\uB960\uC740 \uCD08\uAE30\uD654\uB429\uB2C8\uB2E4."
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 8fcaadaafbb875744bbad2a3187f6b09, type: 2}
+  - championJob: 12
+    championJobSprite: {fileID: 21300000, guid: 07fd66967705d08499a041077d1c6805, type: 3}
+    championJobName: "\uD3ED\uD30C\uB2E8"
+    championJobDesc: "\uD3ED\uD30C\uB2E8\uC774 \uD53C\uD574 \uC99D\uD3ED\uC744 \uC5BB\uC73C\uBA70,
+      \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD558\uBA74 3\uCD08 \uB3D9\uC548 \uD53C\uD574
+      \uC99D\uD3ED\uC774 \uB354 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uD53C\uD574 \uC99D\uD3ED 12%, \uC2A4\uD0AC \uC0AC\uC6A9 \uD6C4 \uC9C0\uC18D\uC2DC\uAC04
+        \uB3D9\uC548 30%"
+      color: 1
+    - level: 4
+      desc: "\uD53C\uD574 \uC99D\uD3ED 35%, \uC2A4\uD0AC \uC0AC\uC6A9 \uD6C4 \uC9C0\uC18D\uC2DC\uAC04
+        \uB3D9\uC548 65%"
+      color: 2
+    - level: 6
+      desc: "\uD53C\uD574 \uC99D\uD3ED 45%, \uC2A4\uD0AC \uC0AC\uC6A9 \uD6C4 \uC9C0\uC18D\uC2DC\uAC04
+        \uB3D9\uC548 100%"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 550046aa28fc70649b05fa14edb63211, type: 2}
+    - {fileID: 11400000, guid: 5d7616bc098a7074fa6512c6bfd536fc, type: 2}
+    - {fileID: 11400000, guid: 93f01eec496554a43850c25d8231e884, type: 2}
+    - {fileID: 11400000, guid: ee50fcc18db54b84a9bc8412ef9e5bc3, type: 2}
+    - {fileID: 11400000, guid: 626a393c2cc51e54cb76265d5ed08e18, type: 2}
+    - {fileID: 11400000, guid: 0923ccaf8317bdd4392431ea2bbf24ee, type: 2}
+  - championJob: 13
+    championJobSprite: {fileID: 21300000, guid: 9fa117c66e7a63d4687fcb2b34553c38, type: 3}
+    championJobName: "\uD559\uC790"
+    championJobDesc: "\uD559\uC790\uB4E4\uC740 \uAE30\uBCF8 \uACF5\uACA9 \uC2DC \uCD94\uAC00
+      \uB9C8\uB098\uB97C \uC5BB\uC2B5\uB2C8\uB2E4. \uB610\uD55C \uC8FC\uBB38\uB825\uC744
+      \uC5BB\uC2B5\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uAE30\uBCF8 \uACF5\uACA9\uB2F9 \uB9C8\uB098 3, \uC8FC\uBB38\uB825 10"
+      color: 1
+    - level: 4
+      desc: "\uAE30\uBCF8 \uACF5\uACA9\uB2F9 \uB9C8\uB098 6, \uC8FC\uBB38\uB825 20"
+      color: 2
+    - level: 6
+      desc: "\uAE30\uBCF8 \uACF5\uACA9\uB2F9 \uB9C8\uB098 12, \uC8FC\uBB38\uB825
+        20, \uC2A4\uD0AC\uB85C \uC785\uD78C \uD53C\uD574\uB7C9\uC758 10%\uB9CC\uD07C
+        \uC544\uAD70 1\uBA85\uC758 \uCCB4\uB825\uC744 \uD68C\uBCF5\uC2DC\uD0B4"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 5d68ecd5baca5c64490b9e74833f29ce, type: 2}
+    - {fileID: 11400000, guid: 42b568754d8ed2c4394eca0aeba54235, type: 2}
+    - {fileID: 11400000, guid: cc9f1020245a0a54c8ca045792592c9f, type: 2}
+    - {fileID: 11400000, guid: adda9131ab7af224db9a10d371e4359c, type: 2}
+    - {fileID: 11400000, guid: faf2babdcf60f7c4daebdad6ad33f939, type: 2}
+  - championJob: 14
+    championJobSprite: {fileID: 21300000, guid: 9f87cb3833e757c4a8e664922c2c860d, type: 3}
+    championJobName: "\uD615\uC0C1\uBCC0\uD658\uC790"
+    championJobDesc: "\uD615\uC0C1\uBCC0\uD658\uC790\uAC00 \uCD5C\uB300 \uCCB4\uB825\uC744
+      \uC5BB\uC2B5\uB2C8\uB2E4. \uC2A4\uD0AC\uC744 \uCC98\uC74C\uC73C\uB85C \uC0AC\uC6A9\uD558\uBA74
+      \uC774 \uD6A8\uACFC\uAC00 3\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+    symbolData:
+    - level: 2
+      desc: "\uCCB4\uB825 10%"
+      color: 1
+    - level: 4
+      desc: "\uCCB4\uB825 18%"
+      color: 2
+    - level: 6
+      desc: "\uCCB4\uB825 27%"
+      color: 2
+    - level: 8
+      desc: "\uCCB4\uB825 33%, 2\uCD08\uB9C8\uB2E4 3% \uCCB4\uB825 \uD68C\uBCF5"
+      color: 3
+    championBlueprint:
+    - {fileID: 11400000, guid: 980f5d0119c58b54584e29aff46578e2, type: 2}
+    - {fileID: 11400000, guid: 8a7d7493e821e8249b364b87f30dadc6, type: 2}
+    - {fileID: 11400000, guid: c7dadf79c48912145b5e1751bee4023b, type: 2}
+    - {fileID: 11400000, guid: 7fb6710006041584a967b7f205673a48, type: 2}
+    - {fileID: 11400000, guid: d8b2f9526676eb546bd1c48d49929292, type: 2}
+    - {fileID: 11400000, guid: 6e17f50e985071340bb5b7c91a96525a, type: 2}
+    - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}

@@ -20,7 +20,7 @@ MonoBehaviour:
   championJob_First: 12
   championJob_Second: 0
   championCost: 4
-  championImage: {fileID: 0}
+  championImage: {fileID: 21300000, guid: fde038a7c9c571f46b5cfa8580892549, type: 3}
   championLevelData:
   - Level: 1
     Hp: 850

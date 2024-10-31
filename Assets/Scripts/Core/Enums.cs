@@ -38,7 +38,13 @@ public enum ChampionJob
     Scholar, // 학자
     Transmogrifier // 형상변환자
 }
-
+public enum SymbolColor
+{
+    None = 0,
+    Bronze,
+    Sliver,
+    Gold
+}
 
 // 챔피언 코스트
 public enum ChampionCost
@@ -58,6 +64,7 @@ public enum ChampionState
     Attack,
     Die
 }
+
 
 
 // 아이템 타입
@@ -88,6 +95,8 @@ public enum ItemAttributeType
     TotalPower,
     TotalDefense
 }
+
+
 
 // 스킬 타입
 public enum SkillType
