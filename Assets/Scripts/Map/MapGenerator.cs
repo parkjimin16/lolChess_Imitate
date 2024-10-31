@@ -38,12 +38,10 @@ public class MapGenerator : MonoBehaviour
     private float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
     private float boundaryExtraHeight = 10f;
 
-    //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
+    private GameObject championPrefab; // 챔피언 프리팹
+    private GameObject playerPrefab;   // 플레이어 프리팹
 
-    void Start()
-    {
-        
-    }
+    //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
 
 
     public void InitMapGenerator(GameDataBlueprint gdb)
@@ -58,16 +56,14 @@ public class MapGenerator : MonoBehaviour
         height = gdb.Height;
         rectWidth = gdb.RectWidth;
         desiredMapWidth = gdb.DesiredMapWidth;
-        //hexTiles = gdb.HexTile;
+
+        championPrefab = gdb.ChampionPrefeb; // GameDataBlueprint에서 챔피언 프리팹 할당
+        playerPrefab = gdb.PlayerPrefeb;     // GameDataBlueprint에서 플레이어 프리팹 할당
 
         CalculateTileSize();
         CreatUserMap();
         AdjustCamera();
         PositionMinimapCamera();
-        /*if (mapInfos.Count > 0)
-        {
-            DebugTileDictionary(mapInfos[0]);
-        }*/
     }
 
     void CalculateTileSize()
@@ -119,14 +115,13 @@ public class MapGenerator : MonoBehaviour
 
     void CreatUserMap()
     {
-        int totalUsers = 8; // 총 유저 수 (플레이어 포함)
+        //int totalUsers = 8; // 총 유저 수 (플레이어 포함)
         PlayerData[] allPlayers = Manager.Stage.AllPlayers;
 
         if (allPlayers == null)
             Debug.Log("AllPlayers is Null");
 
-
-        // 3x3 격자에서 (1,1)은 비워두고, 나머지 8개의 칸에 맵을 배치
+        // 3x3 격자에서 (1,1)은 공동 선택 맵으로 사용하고, 나머지 8개의 칸에 맵을 배치
         int[,] gridPositions = new int[,]
         {
         {0, 0}, {0, 1}, {0, 2},
@@ -134,53 +129,63 @@ public class MapGenerator : MonoBehaviour
         {2, 0}, {2, 1}, {2, 2}
         };
 
-        for (int i = 0; i < totalUsers; i++)
+        int userIndex = 0;
+
+        for (int i = 0; i < 3; i++) // gridPositions의 행
         {
-            // 격자의 (x, z) 위치 계산
-            int gridX = gridPositions[i, 0];
-            int gridZ = gridPositions[i, 1];
-
-            // 각 유저의 맵 위치 계산
-            Vector3 mapPosition = new Vector3(gridX * mapSpacing, 0, gridZ * mapSpacing);
-
-            // 맵을 생성하고 해당 위치에 배치
-            GameObject userMap = new GameObject($"User_{i}_Map");
-            userMap.transform.position = mapPosition;
-            userMap.transform.SetParent(this.transform);
-            userMap.AddComponent<GoldDisplay>();
-            userMap.AddComponent<RectTile>();
-
-            
-
-            GameObject shop = GameObject.Find("ShopPanel");
-            UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
-            if (i == 0) //유저 정보 받아와서 수정하기
+            for (int j = 0; j < 3; j++) // gridPositions의 열
             {
-                uIShop.SetChampionPos(userMap.GetComponent<RectTile>());
+                if (i == 1 && j == 1)
+                {
+                    // 공동 선택 맵 생성
+                    Vector3 sharedMapPosition = new Vector3(i * mapSpacing, 0, j * mapSpacing);
+                    CreateSharedSelectionMap(sharedMapPosition);
+                }
+                else
+                {
+                    // 각 유저의 맵 위치 계산
+                    Vector3 mapPosition = new Vector3(i * mapSpacing, 0, j * mapSpacing);
+
+                    // 맵을 생성하고 해당 위치에 배치
+                    GameObject userMap = new GameObject($"User_{userIndex}_Map");
+                    userMap.transform.position = mapPosition;
+                    userMap.transform.SetParent(this.transform);
+                    userMap.AddComponent<GoldDisplay>();
+                    userMap.AddComponent<RectTile>();
+
+                    GameObject shop = GameObject.Find("ShopPanel");
+                    UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
+                    if (userIndex == 0) // 유저 정보 받아와서 수정하기
+                    {
+                        uIShop.SetChampionPos(userMap.GetComponent<RectTile>());
+                    }
+
+                    // 각 유저들 맵정보 저장
+                    MapInfo mapInfo = new MapInfo();
+                    mapInfo.mapId = userIndex;
+                    mapInfo.mapTransform = userMap.transform;
+
+                    // 맵의 경계 영역 계산
+                    float mapWidth = desiredMapWidth;
+                    float mapHeight = mapHeightSize + rectWidthSize * 2;
+
+                    Vector3 center = mapPosition;
+                    Vector3 size = new Vector3(mapWidth, 0, mapHeight);
+
+                    // 경계선 크기 반영
+                    size.x += boundaryExtraWidth;
+                    size.z += boundaryExtraHeight;
+
+                    mapInfo.mapBounds = new Bounds(center, size);
+                    mapInfo.playerData = allPlayers[userIndex];
+                    mapInfos.Add(mapInfo);
+
+                    GenerateMap(userMap.transform, mapInfo);
+                    CreateMapBoundary(userMap.transform, userIndex, mapInfo);
+
+                    userIndex++;
+                }
             }
-
-            //각 유저들 맵정보 저장
-            MapInfo mapInfo = new MapInfo();
-            mapInfo.mapId = i;
-            mapInfo.mapTransform = userMap.transform;
-
-            // 맵의 경계 영역 계산 (맵의 크기를 알고 있어야 함)
-            float mapWidth = desiredMapWidth;
-            float mapHeight = mapHeightSize + rectWidthSize * 2; // 육각형 타일 높이 + 직사각형 타일 높이
-
-            Vector3 center = mapPosition;
-            Vector3 size = new Vector3(mapWidth, 0, mapHeight);
-
-            // 만약 경계선 크기를 반영하려면
-            size.x += boundaryExtraWidth;
-            size.z += boundaryExtraHeight;
-
-            mapInfo.mapBounds = new Bounds(center, size);
-            mapInfo.playerData = allPlayers[i];
-            mapInfos.Add(mapInfo);
-            //Debug.Log(allPlayers[i].playerName);
-            GenerateMap(userMap.transform, mapInfo);
-            CreateMapBoundary(userMap.transform, i, mapInfo);
         }
     }
 
@@ -314,19 +319,6 @@ public class MapGenerator : MonoBehaviour
         Camera.main.farClipPlane = 100f;
     }
 
-
-    /*void CreateItemTile(Vector3 position, int cornerId)
-    {
-        GameObject tile = Instantiate(itemTilePrefab, position, Quaternion.identity, this.transform);
-        tile.name = $"ItemTile_{cornerId}";
-        if (cornerId == 1)
-        {
-            tile.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-        }
-        GameObject item1 = Instantiate(itemPrefeb, gameObject.GetComponent<ItemHandler>()._items[0].transform.position, 
-            Quaternion.identity, this.transform);
-    }*/
-
     void CreateItemTiles(Transform parent)
     {
         float cornerTileOffset = rectWidthSize * 0.6f;
@@ -445,16 +437,99 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void DebugTileDictionary(MapInfo mapInfo)
+    void CreateSharedSelectionMap(Vector3 position)
     {
-        Debug.Log($"Map ID: {mapInfo.mapId} - Tile Dictionary Contents:");
+        // 공동 선택 맵 오브젝트 생성
+        GameObject sharedMap = new GameObject("SharedSelectionMap");
+        sharedMap.transform.position = position;
+        sharedMap.transform.SetParent(this.transform);
 
-        foreach (var kvp in mapInfo.tileDictionary)
+        // 경계선 생성
+        CreateSharedMapBoundary(sharedMap.transform);
+
+        // **회전 축 오브젝트 생성**
+        GameObject carouselPivot = new GameObject("CarouselPivot");
+        carouselPivot.transform.position = position;
+        carouselPivot.transform.SetParent(sharedMap.transform);
+
+        // 챔피언 배치 (carouselPivot을 부모로 설정)
+        PlaceChampionsInSharedMap(carouselPivot.transform);
+
+        // **회전 스크립트 추가**
+        CarouselRotation carouselRotation = carouselPivot.AddComponent<CarouselRotation>();
+        carouselRotation.rotationSpeed = 20f; // 원하는 회전 속도 설정
+
+        // 플레이어 배치
+        PlacePlayersInSharedMap(sharedMap.transform);
+    }
+    void CreateSharedMapBoundary(Transform parent)
+    {
+        float boundaryRadius = 10f; // 경계선의 반지름
+        int segments = 100;         // 원을 그리기 위한 세그먼트 수
+
+        GameObject boundaryObj = new GameObject("SharedMapBoundary");
+        boundaryObj.transform.SetParent(parent);
+        LineRenderer lineRenderer = boundaryObj.AddComponent<LineRenderer>();
+
+        lineRenderer.positionCount = segments + 1;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.loop = true;
+
+        // LineRenderer 설정
+        Vector3[] positions = new Vector3[segments + 1];
+        for (int i = 0; i <= segments; i++)
         {
-            var key = kvp.Key;
-            var hexTile = kvp.Value;
+            float angle = i * 2 * Mathf.PI / segments;
+            float x = boundaryRadius * Mathf.Cos(angle);
+            float z = boundaryRadius * Mathf.Sin(angle);
+            positions[i] = new Vector3(x, 0.1f, z) + parent.position;
+        }
+        lineRenderer.SetPositions(positions);
 
-            Debug.Log($"Key (q, r): ({key.Item1}, {key.Item2}), HexTile Position: {hexTile.transform.position}");
+        // 재질 및 색상 설정
+        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
+        lineRenderer.material.color = Color.yellow;
+    }
+    void PlaceChampionsInSharedMap(Transform parent)
+    {
+        float circleRadius = 5f; // 챔피언들이 배치될 원의 반지름
+        int championCount = 9;
+
+        for (int i = 0; i < championCount; i++)
+        {
+            float angle = i * 2 * Mathf.PI / championCount;
+            float x = circleRadius * Mathf.Cos(angle);
+            float z = circleRadius * Mathf.Sin(angle);
+            Vector3 position = new Vector3(x, 0.7f, z) + parent.position;
+
+            // 챔피언 프리팹을 해당 위치에 생성
+            GameObject champion = Instantiate(championPrefab, position, Quaternion.identity, parent);
+            champion.name = $"Champion_{i}";
+
+            // 챔피언에게 회전하는 애니메이션이나 효과를 추가할 수 있습니다.
         }
     }
+    void PlacePlayersInSharedMap(Transform parent)
+    {
+        int totalPlayers = 8;
+        float spawnRadius = 8f; // 플레이어들이 스폰될 원의 반지름
+
+        for (int i = 0; i < totalPlayers; i++)
+        {
+            float angle = i * 2 * Mathf.PI / totalPlayers;
+            float x = spawnRadius * Mathf.Cos(angle);
+            float z = spawnRadius * Mathf.Sin(angle);
+            Vector3 position = new Vector3(x, 0, z) + parent.position;
+
+            // 플레이어 프리팹을 해당 위치에 생성
+            GameObject player = Instantiate(playerPrefab, position, Quaternion.identity, parent);
+            player.name = $"Player_{i}";
+
+            // 플레이어에게 컨트롤러나 이동 스크립트를 추가하여 이동 가능하게 합니다.
+        }
+    }
+   
+
 }

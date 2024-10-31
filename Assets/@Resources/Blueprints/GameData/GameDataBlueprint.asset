@@ -183,4 +183,5 @@ MonoBehaviour:
   height: 8
   rectWidth: 9
   desiredMapWidth: 20
-  hextile: []
+  championPrefeb: {fileID: 6221000076962383027, guid: aa4292bf4d98593499554b4c372028b8, type: 3}
+  playerPrefeb: {fileID: 6480685925906502462, guid: f66946e822f083749b0655c89604aebd, type: 3}
