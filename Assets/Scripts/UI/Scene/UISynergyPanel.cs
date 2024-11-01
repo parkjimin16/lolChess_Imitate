@@ -25,128 +25,61 @@ public class UISynergyPanel : UIBase
         synergyData = Manager.User.User1_Data.GetSortedChampionSynergiesWithCount();
         int totalSynergies = synergyData.Count;
 
+        synergySlots.ForEach(slot => slot.SetActive(true));
 
-        int slotIndex = 0;
-
-        for (int i = 0; i < synergySlotsScript.Count; i++)
-        {
-            synergySlots[i].SetActive(true);
-        }
-
+        // 정렬된 시너지 데이터를 가져옴
         var sortedSynergyData = synergyData
-       .OrderByDescending(s => s.Value)
-       .ToList();
-
-        var finalSortedList = new List<(string SynergyName, int SynergyCount, int ActiveLevelsCount)>();
-
-
-        for (int i = 0; i < sortedSynergyData.Count; i++)
-        {
-            var synergyEntry = sortedSynergyData[i];
-            string synergyName = synergyEntry.Key;
-            int synergyCount = synergyEntry.Value;
-
-            // ChampionLineData와 ChampionJobData 가져오기
-            ChampionLineData line = symbolData.GetChampionLineDataToString(synergyName);
-            ChampionJobData job = symbolData.GetChampionJobDataToString(synergyName);
-
-            // 활성화된 레벨 수를 계산
-            int activeLevelsCount = 0;
-
-            // 활성화된 레벨 수 계산
-            if (line != null)
+            .OrderByDescending(s => s.Value)
+            .Select(entry => new
             {
-                foreach (var symbol in line.SymbolData)
-                {
-                    if (synergyCount >= symbol.Level)
-                    {
-                        activeLevelsCount++;
-                    }
-                }
-            }
-
-            if (job != null)
-            {
-                foreach (var symbol in job.SymbolData)
-                {
-                    if (synergyCount >= symbol.Level)
-                    {
-                        activeLevelsCount++;
-                    }
-                }
-            }
-
-            // 최종 리스트에 추가
-            finalSortedList.Add((synergyName, synergyCount, activeLevelsCount));
-        }
-
-        // 최종 정렬 (활성화된 레벨 수로 먼저 정렬하고, 그 다음 Value 기준으로 정렬)
-        finalSortedList = finalSortedList
-            .OrderByDescending(item => item.ActiveLevelsCount) // 활성화된 레벨 수 기준 내림차순
-            .ThenByDescending(item => item.SynergyCount) // Value 기준 내림차순
+                SynergyName = entry.Key,
+                SynergyCount = entry.Value,
+                ActiveLevelsCount = CalculateActiveLevels(entry.Key, entry.Value)
+            })
+            .OrderByDescending(entry => entry.ActiveLevelsCount)
+            .ThenByDescending(entry => entry.SynergyCount)
             .ToList();
 
-
-        for (int i = 0; i < finalSortedList.Count; i++)
+        // 슬롯 초기화
+        for (int i = 0; i < sortedSynergyData.Count && i < synergySlotsScript.Count; i++)
         {
-            var (synergyName, synergyCount, _) = finalSortedList[i];
+            var synergyEntry = sortedSynergyData[i];
+            ChampionLineData line = symbolData.GetChampionLineDataToString(synergyEntry.SynergyName);
+            ChampionJobData job = symbolData.GetChampionJobDataToString(synergyEntry.SynergyName);
 
-            // ChampionLineData와 ChampionJobData 가져오기
-            ChampionLineData line = symbolData.GetChampionLineDataToString(synergyName);
-            ChampionJobData job = symbolData.GetChampionJobDataToString(synergyName);
-
-            if (i < synergySlotsScript.Count)
+            if (line != null)
             {
-                if (line != null)
-                {
-                    synergySlotsScript[i].InitSlotLine(line, synergyCount);
-                }
-                else if (job != null)
-                {
-                    synergySlotsScript[i].InitSlotJob(job, synergyCount);
-                }
-
-                slotIndex++;
+                synergySlotsScript[i].InitSlotLine(line, synergyEntry.SynergyCount);
+            }
+            else if (job != null)
+            {
+                synergySlotsScript[i].InitSlotJob(job, synergyEntry.SynergyCount);
             }
         }
 
-        /*
-        for (int i = 0; i < totalSynergies; i++)
-        {
-            var synergyEntry = synergyData[i];
-            string synergyName = synergyEntry.Key;
-
-            ChampionLineData line = symbolData.GetChampionLineDataToString(synergyName);
-            ChampionJobData job = symbolData.GetChampionJobDataToString(synergyName);
-
-            int synergyCount = synergyEntry.Value;
-
-            if (i < synergySlotsScript.Count)
-            {
-                if (line != null)
-                {
-                    synergySlotsScript[i].InitSlotLine(line, synergyCount);
-                }
-                else if (job != null)
-                {
-                    synergySlotsScript[i].InitSlotJob(job, synergyCount);
-                }
-                slotIndex++;
-            }
-        }
-        */
-        for (int i = slotIndex; i < synergySlots.Count; i++)
+        for (int i = sortedSynergyData.Count; i < synergySlots.Count; i++)
         {
             synergySlots[i].SetActive(false);
         }
-
-        //SortedSlots();
     }
 
-    private void SortedSlots()
+    private int CalculateActiveLevels(string synergyName, int synergyCount)
     {
-        synergySlotsScript = synergySlotsScript
-       .OrderBy(slot => slot.SynergyCount)
-       .ToList(); 
+        int activeLevelsCount = 0;
+
+        ChampionLineData line = symbolData.GetChampionLineDataToString(synergyName);
+        ChampionJobData job = symbolData.GetChampionJobDataToString(synergyName);
+
+        if (line != null)
+        {
+            activeLevelsCount += line.SymbolData.Count(symbol => synergyCount >= symbol.Level);
+        }
+
+        if (job != null)
+        {
+            activeLevelsCount += job.SymbolData.Count(symbol => synergyCount >= symbol.Level);
+        }
+
+        return activeLevelsCount;
     }
 }
