@@ -83,6 +83,7 @@ public class ChampionJobData
     [SerializeField] private List<SymbolLevelData> symbolData;
     [SerializeField] private List<ChampionBlueprint> championBlueprint;
 
+
     public ChampionJob ChampionJob => championJob;
     public Sprite ChampionJobSprite => championJobSprite;
     public string ChampionJobName => championJobName;

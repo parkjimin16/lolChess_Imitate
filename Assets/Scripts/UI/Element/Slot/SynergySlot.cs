@@ -47,6 +47,8 @@ public class SynergySlot : MonoBehaviour
         StringBuilder descBuilder = new StringBuilder();
 
         int highlightLevel = 0;
+        txt_SynergyCount.color = Color.white;
+
         for (int i = 0; i < symbol.Count; i++)
         {
             if (levelCount >= symbol[i].Level)
@@ -61,7 +63,8 @@ public class SynergySlot : MonoBehaviour
 
             if (symbol[i].Level == highlightLevel)
             {
-                levelText = "<color=yellow>" + levelText + "</color>"; 
+                levelText = "<color=yellow>" + levelText + "</color>";
+                txt_SynergyCount.color = Color.yellow;
             }
 
             descBuilder.Append(levelText);
@@ -73,5 +76,29 @@ public class SynergySlot : MonoBehaviour
         }
 
         return descBuilder.ToString();
+    }
+
+    public SymbolLevelData GetCurrentLevelData(List<SymbolLevelData> symbol)
+    {
+        if (symbol == null || symbol.Count == 0)
+        {
+            return null;
+        }
+
+        SymbolLevelData currentLevelData = null;
+
+        foreach (var levelData in symbol)
+        {
+            if (SynergyCount >= levelData.Level)
+            {
+                currentLevelData = levelData;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return currentLevelData;
     }
 }
