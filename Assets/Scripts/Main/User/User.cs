@@ -69,7 +69,7 @@ public class User : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             TouchEndedEvent();
-        }
+        } 
 
         ObjectReturn();
 

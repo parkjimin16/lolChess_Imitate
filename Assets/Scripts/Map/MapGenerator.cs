@@ -43,6 +43,7 @@ public class MapGenerator : MonoBehaviour
 
     //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
 
+    public Transform sharedSelectionMapTransform;
 
     public void InitMapGenerator(GameDataBlueprint gdb)
     {
@@ -444,6 +445,9 @@ public class MapGenerator : MonoBehaviour
         sharedMap.transform.position = position;
         sharedMap.transform.SetParent(this.transform);
 
+        // 공동 선택 맵의 Transform을 저장
+        sharedSelectionMapTransform = sharedMap.transform;
+
         // 경계선 생성
         CreateSharedMapBoundary(sharedMap.transform);
 
@@ -457,7 +461,7 @@ public class MapGenerator : MonoBehaviour
 
         // **회전 스크립트 추가**
         CarouselRotation carouselRotation = carouselPivot.AddComponent<CarouselRotation>();
-        carouselRotation.rotationSpeed = 20f; // 원하는 회전 속도 설정
+        carouselRotation.rotationSpeed = -20f; // 원하는 회전 속도 설정
 
         // 플레이어 배치
         PlacePlayersInSharedMap(sharedMap.transform);
@@ -470,10 +474,11 @@ public class MapGenerator : MonoBehaviour
         GameObject boundaryObj = new GameObject("SharedMapBoundary");
         boundaryObj.transform.SetParent(parent);
         LineRenderer lineRenderer = boundaryObj.AddComponent<LineRenderer>();
+        boundaryObj.layer = LayerMask.NameToLayer("Minimap");
 
         lineRenderer.positionCount = segments + 1;
-        lineRenderer.startWidth = 0.2f;
-        lineRenderer.endWidth = 0.2f;
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 1f;
         lineRenderer.useWorldSpace = true;
         lineRenderer.loop = true;
 
@@ -502,13 +507,17 @@ public class MapGenerator : MonoBehaviour
             float angle = i * 2 * Mathf.PI / championCount;
             float x = circleRadius * Mathf.Cos(angle);
             float z = circleRadius * Mathf.Sin(angle);
-            Vector3 position = new Vector3(x, 0.7f, z) + parent.position;
+            Vector3 position = new Vector3(x, 0, z) + parent.position;
 
-            // 챔피언 프리팹을 해당 위치에 생성
+            // 챔피언 프리팹을 해당 위치에 생성하고, 회전 축을 부모로 설정
             GameObject champion = Instantiate(championPrefab, position, Quaternion.identity, parent);
             champion.name = $"Champion_{i}";
 
-            // 챔피언에게 회전하는 애니메이션이나 효과를 추가할 수 있습니다.
+            // 이동 방향(접선 방향) 계산
+            Vector3 tangent = new Vector3(-Mathf.Sin(angle), 0, Mathf.Cos(angle));
+
+            // 챔피언의 회전을 이동 방향으로 설정
+            champion.transform.localRotation = Quaternion.LookRotation(tangent);
         }
     }
     void PlacePlayersInSharedMap(Transform parent)
@@ -530,6 +539,4 @@ public class MapGenerator : MonoBehaviour
             // 플레이어에게 컨트롤러나 이동 스크립트를 추가하여 이동 가능하게 합니다.
         }
     }
-   
-
 }
