@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameDataBlueprint", menuName = "Blueprints/GameDataBlueprint")]
 public class GameDataBlueprint : ScriptableObject
-{ 
+{
     [Header("Champion Data")]
     [SerializeField] private List<ChampionData> championDataList;
     [SerializeField] private List<ChampionRandomData> championRandomDataList;

@@ -15,7 +15,7 @@ public class ChampionBlueprint : ScriptableObject
     [SerializeField] private ChampionJob championJob_First;
     [SerializeField] private ChampionJob championJob_Second;
     [SerializeField] private ChampionCost championCost;
-    [SerializeField] private Image championImage;
+    [SerializeField] private Sprite championImage;
 
     [Header("Champion Stats_1")]
     [SerializeField] private List<ChampionLevelData> championLevelData;
@@ -53,7 +53,7 @@ public class ChampionBlueprint : ScriptableObject
     public ChampionJob ChampionJob_First => championJob_First;
     public ChampionJob ChampionJob_Second => championJob_Second;
     public ChampionCost ChampionCost => championCost;
-    public Image ChampionImage => championImage;
+    public Sprite ChampionImage => championImage;
 
 
     // Champion Stats_1

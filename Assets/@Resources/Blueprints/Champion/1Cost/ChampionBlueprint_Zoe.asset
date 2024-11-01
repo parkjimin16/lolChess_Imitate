@@ -20,7 +20,7 @@ MonoBehaviour:
   championJob_First: 13
   championJob_Second: 0
   championCost: 1
-  championImage: {fileID: 0}
+  championImage: {fileID: 21300000, guid: 4165f976877f99344a8af67857168b3d, type: 3}
   championLevelData:
   - Level: 1
     Hp: 450
@@ -32,10 +32,10 @@ MonoBehaviour:
     Hp: 1458
     Power: 68
   championLevel: 1
-  hp_Total: 0
-  hp_Cur: 0
-  mana_Total: 30
-  mana_Cur: 0
+  maxHp: 0
+  curHp: 0
+  maxMana: 0
+  curMana: 0
   attack_Range: 4
   speed: 1
   skillBlueprint: {fileID: 11400000, guid: cb6265b4a8b254141b07504f4f400af0, type: 2}

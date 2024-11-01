@@ -74,17 +74,16 @@ public static class Utilities
             case ChampionLine.Pyro:
                 return "화염";
             default:
-                return "오류";
+                return "예외";
 
         }
     }
 
-    public static string SetLineName(ChampionLine line)
+    public static string GetLineName(ChampionLine line)
     {
         string _line = SetAttributeNameLine(line);
         return _line;
     }
-
 
     private static string SetAttributeNameJob(ChampionJob job)
     {
@@ -121,16 +120,15 @@ public static class Utilities
             case ChampionJob.Transmogrifier:
                 return "형상변환자";
             default:
-                return "오류";
+                return "예외";
         }
     }
 
-    public static string SetJobName(ChampionJob job)
+    public static string GetJobName(ChampionJob job)
     {
         string _job = SetAttributeNameJob(job);
         return _job;
     }
-
 
     #endregion
 

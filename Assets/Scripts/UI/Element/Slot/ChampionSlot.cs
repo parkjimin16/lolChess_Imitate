@@ -49,16 +49,16 @@ public class ChampionSlot : MonoBehaviour
 
         this.championBlueprint = championBlueprint;
         image_ChampionBackground.color = color;
-        // Image_champion = championBlueprint.championImage;
+        image_Champion.sprite = championBlueprint.ChampionImage;
         // image_Attribute_1 = Dic 사용해서 속성 이미지 매핑
         // image_Attribute_2 = Dic 사용해서 속성 이미지 매핑
 
 
         attributeString.AddRange(new List<string> {
-            Utilities.SetLineName(championBlueprint.ChampionLine_First),
-             Utilities.SetLineName(championBlueprint.ChampionLine_Second),
-             Utilities.SetJobName(championBlueprint.ChampionJob_First),
-            Utilities.SetJobName(championBlueprint.ChampionJob_Second)
+            Utilities.GetLineName(championBlueprint.ChampionLine_First),
+             Utilities.GetLineName(championBlueprint.ChampionLine_Second),
+             Utilities.GetJobName(championBlueprint.ChampionJob_First),
+            Utilities.GetJobName(championBlueprint.ChampionJob_Second)
         }.Where(attribute => attribute != "None"));
         
 
@@ -105,5 +105,3 @@ public class ChampionSlot : MonoBehaviour
     }
     #endregion
 }
-
-
