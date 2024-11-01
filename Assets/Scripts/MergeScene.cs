@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
-using UnityEditor.Build.Content;
 
 public class MergeScene : MonoBehaviour
 {
@@ -12,6 +8,7 @@ public class MergeScene : MonoBehaviour
 
     [SerializeField] private UISceneMain mainScene;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
+    [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
     public int Level = 1;
 
@@ -24,9 +21,11 @@ public class MergeScene : MonoBehaviour
             if (count >= totalCount)
             {
                 gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
+                symbolDataBlueprint = Manager.Asset.GetBlueprint("SymbolDataBlueprint") as SymbolDataBlueprint;
                 GameStart = true;
-                mainScene.InitPanel(gameDataBlueprint);
+                mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                 Manager.Item.Init();
+                Manager.User.Init();
                 Manager.Game.InitGameManager();
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
             }

@@ -15,7 +15,7 @@ MonoBehaviour:
   championLineData:
   - championLine: 0
     championLineSprite: {fileID: 0}
-    championLineName: 
+    championLineName: "\uC624\uB958"
     championLineDesc: 
     symbolData: []
     championBlueprint: []
@@ -334,7 +334,7 @@ MonoBehaviour:
         \uD50C\uB808\uC774\uC5B4 \uCCB4\uB825\uC744 3 \uC18C\uBAA8\uD574 \uBE0C\uB77C\uC774\uC5B4\uC5D0\uAC8C
         \uCCB4\uB825\uC744 180 \uBD80\uC5EC\uD560 \uC218 \uC788\uB294 \uAC04\uC2DD
         1\uAC1C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-      color: 3
+      color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
   - championLine: 13
@@ -368,6 +368,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6e17f50e985071340bb5b7c91a96525a, type: 2}
     - {fileID: 11400000, guid: 626a393c2cc51e54cb76265d5ed08e18, type: 2}
   championJobData:
+  - championJob: 0
+    championJobSprite: {fileID: 0}
+    championJobName: "\uC624\uB958"
+    championJobDesc: 
+    symbolData: []
+    championBlueprint: []
   - championJob: 1
     championJobSprite: {fileID: 21300000, guid: 4661ae8ff6585bb44873ab30ad434914, type: 3}
     championJobName: "\uB2E8\uC9DD"
@@ -380,7 +386,7 @@ MonoBehaviour:
         \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC720\uBBF8\uB294 \uB178\uB77C\uC640 \uC8FC\uBB38\uB825\uC744
         \uACF5\uC720\uD558\uACE0 \uB178\uB77C\uAC00 \uCC98\uCE58\uB418\uBA74 \uD568\uAED8
         \uCC98\uCE58\uB429\uB2C8\uB2E4."
-      color: 3
+      color: 4
     championBlueprint:
     - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
   - championJob: 2
@@ -415,7 +421,7 @@ MonoBehaviour:
       desc: "\uBAA8\uB974\uAC00\uB098\uC758 \uBC15\uC950\uAC00 \uC801\uC744 \uCC98\uCE58\uD558\uBA74,
         40% \uD655\uB960\uB85C \uD574\uB2F9 \uC801\uC758 1\uC131 \uBCF5\uC0AC\uBCF8\uC744
         \uB0A9\uCE58\uD569\uB2C8\uB2E4."
-      color: 3
+      color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
   - championJob: 4
@@ -618,7 +624,7 @@ MonoBehaviour:
         \uB300\uC0C1 \uC804\uD22C\uAC00 \uB05D\uB098\uBA74 8% \uC99D\uAC00\uD558\uBA70,
         \uCD5C\uB300 40% \uC99D\uAC00\uD569\uB2C8\uB2E4. \uCD08\uC6D4\uCCB4 \uC8FC\uC220\uC744
         \uAD6C\uB9E4\uD558\uBA74 \uC774 \uD655\uB960\uC740 \uCD08\uAE30\uD654\uB429\uB2C8\uB2E4."
-      color: 3
+      color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 8fcaadaafbb875744bbad2a3187f6b09, type: 2}
   - championJob: 12

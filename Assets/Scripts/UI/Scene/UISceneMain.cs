@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class UISceneMain : UIBase
 {
+    [Header("시너지")]
+    [SerializeField] private UISynergyPanel uiSynergyPanel;
+    private SymbolDataBlueprint symbol;
+
+
     [Header("상점")]
     [SerializeField] private UIShopPanel uiShopPanel;
 
@@ -27,8 +32,22 @@ public class UISceneMain : UIBase
     }
 
 
-    public void InitPanel(GameDataBlueprint gameData)
+    public void InitPanel(GameDataBlueprint gameData, SymbolDataBlueprint symbolData)
     {
+        symbol = symbolData;
+
         uiShopPanel.InitShopBtn(gameData);
+        uiSynergyPanel.InitSynergyBtn(symbolData);
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.U)) 
+        {
+            Debug.Log("Press U");
+            uiSynergyPanel.UpdateSynergy();
+            //Manager.User.User1_Data.PrintSortedChampionSynergiesWithCount();
+        }
+    }
+
 }

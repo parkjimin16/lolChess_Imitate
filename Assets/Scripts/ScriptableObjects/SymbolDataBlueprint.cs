@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,45 @@ public class SymbolDataBlueprint : ScriptableObject
 
     public List<ChampionLineData> ChampionLIneData => championLineData;
     public List<ChampionJobData> ChampionJobData => championJobData;
+
+    public ChampionLineData GetChampionLineData(ChampionLine targetLine)
+    {
+        return championLineData.FirstOrDefault(data => data.ChampionLine == targetLine);
+    }
+    public ChampionLineData GetChampionLineDataToString(string lineName)
+    {
+        if (string.IsNullOrWhiteSpace(lineName))
+        {
+            throw new ArgumentException("공백이 들어옴", nameof(lineName));
+        }
+
+        if (lineName == "오류")
+            return null;
+
+        var lineData = championLineData.FirstOrDefault(data => data.ChampionLineName == lineName);   
+
+        return lineData;
+    }
+
+    public ChampionJobData GetChampionJobData(ChampionJob targetJob)
+    {
+        return championJobData.FirstOrDefault(data => data.ChampionJob == targetJob);
+    }
+
+    public ChampionJobData GetChampionJobDataToString(string jobName)
+    {
+        if (string.IsNullOrWhiteSpace(jobName))
+        {
+            throw new ArgumentException("공백이 들어옴.", nameof(jobName));
+        }
+
+        if (jobName == "오류")
+            return null;
+
+        var jobData = championJobData.FirstOrDefault(data => data.ChampionJobName == jobName);
+
+        return jobData;
+    }
 }
 
 

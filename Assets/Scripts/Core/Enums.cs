@@ -43,7 +43,8 @@ public enum SymbolColor
     None = 0,
     Bronze,
     Sliver,
-    Gold
+    Gold,
+    Special
 }
 
 // 챔피언 코스트

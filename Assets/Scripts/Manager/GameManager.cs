@@ -26,7 +26,7 @@ public class GameManager
         nonBattleChampionBase = new List<ChampionBase>();
     }
 
-    public void AddBattleChampion(GameObject champion)
+    public void AddBattleChampion(GameObject champion, ChampionBlueprint cBlueprint)
     {
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
@@ -47,6 +47,13 @@ public class GameManager
             battleChampionBase.Remove(cBase);
         }
     }
+
+    #region À¯Àú
+
+
+
+
+    #endregion
 }
 
 
