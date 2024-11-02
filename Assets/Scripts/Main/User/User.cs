@@ -49,6 +49,12 @@ public class User : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("클릭");
+            if (Manager.UI.CheckPopupStack())
+            {
+                Manager.UI.CloseAllPopupUI();
+            }
+;
             TouchBeganEvent();
             FindcurrentTile();
             _prePos = Input.mousePosition;
@@ -56,6 +62,7 @@ public class User : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
+            Debug.Log("클릭2");
             if (Input.mousePosition != _prePos)
             {
                 TouchMovedEvent();
@@ -69,7 +76,9 @@ public class User : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             TouchEndedEvent();
-        } 
+        }
+
+ 
 
         ObjectReturn();
 

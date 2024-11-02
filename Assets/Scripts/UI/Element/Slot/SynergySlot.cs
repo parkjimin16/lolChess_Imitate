@@ -14,6 +14,14 @@ public class SynergySlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txt_SynergyCount;
     [SerializeField] private TextMeshProUGUI txt_SynergyName;
     [SerializeField] private TextMeshProUGUI txt_SynergyLevelDesc;
+    [SerializeField] private GameObject synergy_IconBtn;
+
+
+    public GameObject Synergy_IconBtn
+    {
+        get { return synergy_IconBtn; }
+        set { synergy_IconBtn = value; }
+    }
 
     public int SynergyCount;
 
@@ -25,6 +33,12 @@ public class SynergySlot : MonoBehaviour
         txt_SynergyCount.text = levelCount.ToString();
         txt_SynergyName.text = cData.ChampionLineName;
         txt_SynergyLevelDesc.text = GetSymbolDesc(cData.SymbolData, levelCount);
+
+        BtnSynergyIcon sBtn = synergy_IconBtn.GetComponent<BtnSynergyIcon>();
+        if (sBtn == null)
+            return;
+
+        sBtn.SetSymbolData_Line(cData);
     }
 
     public void InitSlotJob(ChampionJobData cData, int levelCount)
@@ -35,6 +49,12 @@ public class SynergySlot : MonoBehaviour
         txt_SynergyCount.text = levelCount.ToString();
         txt_SynergyName.text = cData.ChampionJobName;
         txt_SynergyLevelDesc.text = GetSymbolDesc(cData.SymbolData, levelCount);
+
+        BtnSynergyIcon sBtn = synergy_IconBtn.GetComponent<BtnSynergyIcon>();
+        if (sBtn == null)
+            return;
+
+        sBtn.SetSymbolData_Job(cData);
     }
 
     public string GetSymbolDesc(List<SymbolLevelData> symbol, int levelCount)

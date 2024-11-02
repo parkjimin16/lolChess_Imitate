@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4095f0bcee6ee41940e1536be3d20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  synergyDescPopup: {fileID: 126141103639278208, guid: bcf6bf4c988f354459f9b6cff6546e7d, type: 3}
 --- !u!1 &7714421600776853772
 GameObject:
   m_ObjectHideFlags: 0

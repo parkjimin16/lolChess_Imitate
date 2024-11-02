@@ -1631,6 +1631,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcf6bf4c988f354459f9b6cff6546e7d
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupSynergyDetail.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5ce0b6e853a22f4d896f42712d69f8a
+    m_Address: Assets/@Resources/Prefab/UI/Element/Slot/SynergeChampionImageSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f1f13a91bd94ff47aec233ab28931fa
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupSynergyChampionDetail.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

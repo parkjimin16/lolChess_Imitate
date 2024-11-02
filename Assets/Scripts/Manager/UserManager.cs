@@ -20,6 +20,11 @@ public class UserManager
     {
         User1_Data.AddBattleChampion(chamipon, cBlueprint);
     }
+
+    public bool CheckChamipon(UserData user, ChampionBlueprint cBlueprint)
+    {
+        return user.BattleChampion.Any(champion => champion.ChampionName == cBlueprint.ChampionName);
+    }
 }
 
 
@@ -121,6 +126,7 @@ public class UserData
     {
         // 임시
         battleChampionObject.Add(champion);
+        battleChampion.Add(cBlueprint);
 
         AddSynergyLine(cBlueprint.ChampionName, Utilities.GetLineName(cBlueprint.ChampionLine_First));
         AddSynergyLine(cBlueprint.ChampionName, Utilities.GetLineName(cBlueprint.ChampionLine_Second));
@@ -252,50 +258,27 @@ public class UserData
         }
         return synergyCounts.OrderByDescending(s => s.Value).ToList();
     }
-    
 
-    /*
-    public List<KeyValuePair<string, int>> GetSortedChampionSynergiesWithCount()
+
+    public int GetSynergyCount(string synergyName)
     {
-        var synergyCounts = new Dictionary<string, int>();
-
-        foreach (var champion in championSynergies)
+        foreach(var line in synergies_Line)
         {
-            var synergyData = champion.Value;
-
-            foreach (var line in synergyData.Lines)
+            if(line.Key.Contains(synergyName))
             {
-                if (synergyCounts.ContainsKey(line))
-                    synergyCounts[line]++;
-                else
-                    synergyCounts[line] = 1;
-            }
-
-            foreach (var job in synergyData.Jobs)
-            {
-                if (synergyCounts.ContainsKey(job))
-                    synergyCounts[job]++;
-                else
-                    synergyCounts[job] = 1;
+                return line.Value;
             }
         }
 
-        // 예: 시너지 활성화 여부를 확인할 메서드 추가
-        return synergyCounts
-            .OrderByDescending(s => s.Value)
-            .ThenBy(s => IsSynergyActive(s.Key)) // IsSynergyActive 메서드 사용
-            .ToList();
-    }
-    */
-    // 시너지가 활성화되었는지를 확인하는 메서드
-    private bool IsSynergyActive(string synergyName)
-    {
-        // 활성화 여부를 확인하는 로직을 작성합니다.
-        // 예를 들어, 해당 시너지가 특정 상태에 있을 경우 true를 반환하도록 구현할 수 있습니다.
-
-        // 아래는 예시이며, 실제 구현에 맞게 조정이 필요합니다.
-        // return CheckSynergyState(synergyName); // 실제 상태를 확인하는 메서드 호출
-        return true; // 임시로 true를 반환 (실제 로직으로 대체해야 함)
+        foreach(var job in synergies_Job)
+        {
+            if(job.Key.Contains(synergyName))
+            {
+                return job.Value; 
+            }
+        }
+        
+        return 0;
     }
     #endregion
 }

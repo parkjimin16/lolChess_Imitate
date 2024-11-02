@@ -145,7 +145,6 @@ public class UIManagerTemp
         return popup;
     }
 
-
     public void ClosePopup()
     {
         if (popupStack.Count == 0) return;
@@ -166,6 +165,7 @@ public class UIManagerTemp
 
     public bool CheckPopupStack()
     {
+        Debug.Log($"ÆË¾÷ ¼ö : {popupStack.Count} ");
         return popupStack.Count != 0;
     }
 

@@ -44,9 +44,7 @@ public class UISceneMain : UIBase
     {
         if(Input.GetKeyUp(KeyCode.U)) 
         {
-            Debug.Log("Press U");
             uiSynergyPanel.UpdateSynergy();
-            //Manager.User.User1_Data.PrintSortedChampionSynergiesWithCount();
         }
     }
 

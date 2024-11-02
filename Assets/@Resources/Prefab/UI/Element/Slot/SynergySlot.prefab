@@ -401,6 +401,8 @@ MonoBehaviour:
   txt_SynergyCount: {fileID: 1132063386771071094}
   txt_SynergyName: {fileID: 793257650014364859}
   txt_SynergyLevelDesc: {fileID: 6266678586492168867}
+  synergy_IconBtn: {fileID: 8434438370360975064}
+  SynergyCount: 0
 --- !u!1 &2518374203416254390
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +495,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -735,3 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8434438370360975064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7229696117219478275, guid: b8040bdfb6e4eb04984ca40fba1041be, type: 3}
+  m_PrefabInstance: {fileID: 1249800929145329115}
+  m_PrefabAsset: {fileID: 0}
