@@ -15,7 +15,7 @@ public class UISceneMain : UIBase
     [SerializeField] private UIShopPanel uiShopPanel;
 
     [Header("스테이지")]
-    [SerializeField] private PlayerData[] player;
+    [SerializeField] private GameObject[] player;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private GameObject go;
 
@@ -49,5 +49,4 @@ public class UISceneMain : UIBase
             //Manager.User.User1_Data.PrintSortedChampionSynergiesWithCount();
         }
     }
-
 }

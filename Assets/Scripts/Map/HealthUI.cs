@@ -11,33 +11,36 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI playerNameText; // Inspector에서 할당
     public TextMeshProUGUI currentHealth; // Inspector에서 할당
     private float healthPercent;
-    private PlayerData playerData;
+    private Player playerData;
 
     private Vector2 originalPosition; // 원래 위치 저장
     private bool isSelected = false; // 선택 여부
 
     public RectTransform contentRectTransform; // Content 오브젝트의 RectTransform 참조
 
-    public PlayerData PlayerData
+    public Player PlayerData
     {
         get { return playerData; }
     }
 
     private void Start()
     {
+        
         if (contentRectTransform != null)
         {
             originalPosition = contentRectTransform.anchoredPosition;
         }
     }
 
-    public void SetPlayer(PlayerData player)
+    public void SetPlayer(GameObject player)
     {
-        playerData = player;
+        playerData = player.GetComponent<Player>();
+
         if (playerNameText != null)
         {
-            playerNameText.text = $"{player.playerName}";
-            currentHealth.text = $"{player.health}";
+            playerNameText.text = $"{playerData.PlayerName}";
+            currentHealth.text = $"{playerData.CurrentHealth}";
+            Debug.Log(player.GetComponent<Player>().PlayerName);
         }
         UpdateHealthBar();
     }
@@ -46,12 +49,12 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
     {
         if (healthBarImage != null && playerData != null)
         {
-            healthPercent = (float)playerData.health / 100f;
+            healthPercent = (float)playerData.CurrentHealth / 100f;
             healthBarImage.fillAmount = healthPercent;
         }
-        if (currentHealth != null)
+        if (currentHealth != null && playerData != null)
         {
-            currentHealth.text = $"{playerData.health}";
+            currentHealth.text = $"{playerData.CurrentHealth}";
         }
     }
     public void SetDead()

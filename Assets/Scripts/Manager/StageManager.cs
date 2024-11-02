@@ -5,10 +5,10 @@ using UnityEngine.UIElements;
 
 public class StageManager
 {
-    public PlayerData[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
-    private List<PlayerData> opponents; // 상대 플레이어 목록 (자기 자신 제외)
-    private PlayerData selfPlayer; // 자기 자신
-    private PlayerData currentOpponent; // 현재 상대
+    public GameObject[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
+    private List<GameObject> opponents; // 상대 플레이어 목록 (자기 자신 제외)
+    private GameObject selfPlayer; // 자기 자신
+    private GameObject currentOpponent; // 현재 상대
 
     private MapGenerator _mapGenerator;
 
@@ -20,10 +20,10 @@ public class StageManager
     public int[] damagePerEnemyUnit = new int[] { 1, 2, 3, 4, 5, 6, 7 }; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
-    private int normalWaitTime = 3;
-    private int augmentWaitTime = 50;
-    private int postMatchWaitTime = 3;
-    private int roundDuration = 3;
+    private int normalWaitTime = 3; //라운드 전 대기시간
+    private int augmentWaitTime = 3; //증강 선택 라운드 시간
+    private int postMatchWaitTime = 3; //매치 후 대기시간
+    private int roundDuration = 3; //일반 라운드 진행시간
 
     private bool isAugmentRound = false;
 
@@ -32,7 +32,7 @@ public class StageManager
     public GameObject go;
     #region Init
 
-    public void InitStage(PlayerData[] playerData, MapGenerator mapGenerator, GameObject Go)
+    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameObject Go)
     {
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
@@ -51,12 +51,9 @@ public class StageManager
         
         selfPlayer = AllPlayers[0];
         
-        opponents = new List<PlayerData>(AllPlayers);
+        opponents = new List<GameObject>(AllPlayers);
         opponents.Remove(selfPlayer);
-        for (int i = 0; i < AllPlayers.Length; i++)
-        {
-            AllPlayers[i].health = 100;
-        }
+
     }
 
     void StartStage(int stageNumber)
@@ -78,6 +75,9 @@ public class StageManager
         // 증강 선택 라운드 여부 확인
         isAugmentRound = IsAugmentRound(currentStage, currentRound);
 
+        // **공동 선택 라운드 여부 확인**
+        bool isCarouselRound = IsCarouselRound(currentStage, currentRound);
+
         // 대기시간 설정
         int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
@@ -88,27 +88,37 @@ public class StageManager
 
         yield return new WaitForSeconds(waitTime);
 
-        // 상대 매칭
-        int opponentIndex = (currentRound - 1) % opponents.Count;
-        currentOpponent = opponents[opponentIndex];
+        if (isCarouselRound)
+        {
+            // **공동 선택 라운드 처리**
+            CoroutineHelper.StartCoroutine(StartCarouselRound());
+        }
+        else
+        {
+            // **일반 라운드 처리**
 
-        Debug.Log($"{currentOpponent.playerName}와 매칭되었습니다.");
+            // 상대 매칭
+            int opponentIndex = (currentRound - 1) % opponents.Count;
+            currentOpponent = opponents[opponentIndex];
 
-        // 매칭 후 대기시간
-        Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
+            Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
 
-        // 매칭 후 대기시간 타이머 시작
-        UIManager.Instance.StartTimer(postMatchWaitTime);
+            // 매칭 후 대기시간
+            Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
 
-        yield return new WaitForSeconds(postMatchWaitTime);
+            // 매칭 후 대기시간 타이머 시작
+            UIManager.Instance.StartTimer(postMatchWaitTime);
 
-        Debug.Log("라운드가 시작됩니다!");
+            yield return new WaitForSeconds(postMatchWaitTime);
 
-        // 전투 시작
-        Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
+            Debug.Log("라운드가 시작됩니다!");
 
-        // 라운드 진행 시간 타이머 시작
-        UIManager.Instance.StartTimer(roundDuration);
+            // 전투 시작
+            Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
+
+            // 라운드 진행 시간 타이머 시작
+            UIManager.Instance.StartTimer(roundDuration);
+        }
     }
 
     public void OnRoundEnd(bool playerWon, int survivingEnemyUnits)
@@ -150,15 +160,17 @@ public class StageManager
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
 
         // 플레이어에게 데미지 적용
-        selfPlayer.health -= totalDamage;
-        Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.health}");
+        int Hp = selfPlayer.GetComponent<Player>().CurrentHealth;
+        Hp -= totalDamage;
+        selfPlayer.GetComponent<Player>().setCurrentHealth = Hp;
+        Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.GetComponent<Player>().CurrentHealth}");
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();
 
 
         // 게임 오버 체크
-        if (selfPlayer.health <= 0)
+        if (selfPlayer.GetComponent<Player>().CurrentHealth <= 0)
         {
             Debug.Log("게임 오버!");
             // 게임 오버 로직 처리
@@ -174,7 +186,7 @@ public class StageManager
     {
         for (int i = 0; i < opponents.Count; i++)
         {
-            PlayerData temp = opponents[i];
+            GameObject temp = opponents[i];
             int randomIndex = Random.Range(i, opponents.Count);
             opponents[i] = opponents[randomIndex];
             opponents[randomIndex] = temp;
@@ -189,6 +201,160 @@ public class StageManager
             return true;
         }
         return false;
+    }
+
+    IEnumerator StartCarouselRound()
+    {
+        Debug.Log("공동 선택 라운드가 시작됩니다!");
+
+        // 카메라를 공동 선택 맵으로 이동
+        CameraManager.Instance.MoveCameraToSharedSelectionMap();
+
+        // 모든 플레이어의 움직임을 일시적으로 비활성화
+        DisableAllPlayerMovement();
+
+        foreach (GameObject playerObj in AllPlayers)
+        {
+            PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                playerMove.StartCarouselRound(_mapGenerator.sharedSelectionMapTransform, _mapGenerator.sharedMapInfo);
+            }
+        }
+
+        // 플레이어들을 체력 순서대로 정렬
+        List<GameObject> sortedPlayers = GetPlayersSortedByHealth();
+
+        int playersPerInterval = 2; // 한 번에 움직일 수 있는 플레이어 수
+        int intervalWaitTime = 6;   // 다음 그룹이 움직이기까지의 대기 시간
+
+        // 플레이어들을 공동 선택 맵 위치로 이동
+        _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.sharedSelectionMapTransform);
+
+        for (int i = 0; i < sortedPlayers.Count; i += playersPerInterval)
+        {
+            // 현재 그룹의 플레이어들
+            List<GameObject> currentGroup = sortedPlayers.GetRange(i, Mathf.Min(playersPerInterval, sortedPlayers.Count - i));
+
+            // 해당 플레이어들의 움직임 활성화
+            EnablePlayerMovement(currentGroup);
+
+            // 대기 시간
+            if (i + playersPerInterval < sortedPlayers.Count)
+            {
+                yield return new WaitForSeconds(intervalWaitTime);
+            }
+        }
+
+        // 모든 플레이어가 챔피언을 선택할 때까지 대기 (간단하게 일정 시간 대기하도록 설정)
+        float totalCarouselDuration = 30f; // 전체 공동 선택 라운드 시간
+        yield return new WaitForSeconds(totalCarouselDuration);
+
+        // 공동 선택 라운드 종료 처리
+        EndCarouselRound();
+    }
+
+    bool IsCarouselRound(int stage, int round)
+    {
+        // 2스테이지부터 매 4라운드마다 공동 선택 라운드
+        if (stage >= 2 && round % 4 == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void DisableAllPlayerMovement()
+    {
+        foreach (GameObject playerObj in AllPlayers)
+        {
+            PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                playerMove.SetCanMove(false);
+            }
+        }
+    }
+
+    void EnablePlayerMovement(List<GameObject> players)
+    {
+        foreach (GameObject playerObj in players)
+        {
+            PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                playerMove.SetCanMove(true);
+
+                // AI 플레이어의 경우 자동으로 챔피언을 선택하도록 처리
+                Player playerComponent = playerObj.GetComponent<Player>();
+                if (playerComponent.PlayerType != PlayerType.Player1)
+                {
+                    playerMove.MoveToRandomChampion();
+                }
+            }
+        }
+    }
+    List<GameObject> GetPlayersSortedByHealth()
+    {
+        List<GameObject> sortedPlayers = new List<GameObject>(AllPlayers);
+
+        sortedPlayers.Sort((a, b) =>
+        {
+            int healthA = a.GetComponent<Player>().CurrentHealth;
+            int healthB = b.GetComponent<Player>().CurrentHealth;
+
+            // 체력이 낮은 순서대로 정렬
+            return healthA.CompareTo(healthB);
+        });
+
+        return sortedPlayers;
+    }
+    void EndCarouselRound()
+    {
+        Debug.Log("공동 선택 라운드가 종료되었습니다.");
+
+        // 모든 플레이어들에게 공동 선택 라운드 종료를 알리고 원래 위치로 복귀
+        foreach (GameObject playerObj in AllPlayers)
+        {
+            PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                // 부모를 다시 설정 (최상위 또는 원래 부모로)
+                playerObj.transform.SetParent(null);
+
+                // 원래 위치로 복귀
+                playerMove.ReturnToOriginalPosition();
+
+                // 필요한 경우 추가적인 초기화 로직
+                playerMove.EndCarouselRound();
+            }
+        }
+
+        // 이후 라운드 진행 로직
+        // 다음 라운드로 이동
+        currentRound++;
+
+        int maxRounds = currentStage == 1 ? 3 : 7;
+
+        if (currentRound > maxRounds)
+        {
+            // 다음 스테이지로 이동
+            currentStage++;
+            if (currentStage > 8)
+            {
+                // 게임 종료
+                Debug.Log("게임 클리어!");
+                return;
+            }
+            StartStage(currentStage);
+        }
+        else
+        {
+            // 다음 라운드 시작
+            if (roundCoroutine != null)
+                CoroutineHelper.StopCoroutine(roundCoroutine);
+            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
+        }
     }
 
     public List<GameObject> GetChampionsWithinOneTile(GameObject champion)

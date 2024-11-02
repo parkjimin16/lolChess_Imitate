@@ -7,7 +7,7 @@ public class BattleManager
     private bool playerWon;
     private int survivingEnemyUnits;
 
-    public void StartBattle(PlayerData selfPlayer, PlayerData opponent, int duration)
+    public void StartBattle(GameObject selfPlayer, GameObject opponent, int duration)
     {
         // 전투 로직 구현
         // 여기서는 간단히 전투 시간을 고려하여 승패를 결정합니다.
@@ -15,7 +15,7 @@ public class BattleManager
         CoroutineHelper.StartCoroutine(BattleCoroutine(duration, selfPlayer, opponent));
     }
 
-    IEnumerator BattleCoroutine(int duration, PlayerData selfPlayer, PlayerData opponent)
+    IEnumerator BattleCoroutine(int duration, GameObject selfPlayer, GameObject opponent)
     {
         //Debug.Log($"전투가 시작되었습니다. 전투 시간: {duration}초");
 
