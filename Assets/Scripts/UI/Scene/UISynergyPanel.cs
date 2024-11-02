@@ -22,7 +22,7 @@ public class UISynergyPanel : UIBase
     public void UpdateSynergy()
     {
         synergyData.Clear();
-        synergyData = Manager.User.User1_Data.GetSortedChampionSynergiesWithCount();
+        synergyData = Manager.Synerge.GetSortedChampionSynergiesWithCount(Manager.User.GetUserData());
         int totalSynergies = synergyData.Count;
 
         synergySlots.ForEach(slot => slot.SetActive(true));

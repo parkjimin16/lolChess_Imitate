@@ -622,8 +622,32 @@ public class ChampionBase : MonoBehaviour
 
     public void ChampionLevelUp()
     {
-        championLevel++;
+        if (championLevel < levelData.Count)
+        {
+            championLevel++;
+        }
+        else
+        {
+            championLevel = levelData.Count;
+        }
+
+        ApplyLevelData();
     }
+
+    private void ApplyLevelData()
+    {
+        if (championLevel <= levelData.Count)
+        {
+            ChampionLevelData data = levelData[championLevel - 1];
+
+            maxHp = data.Hp;
+            curHp = maxHp;
+
+            ad_Power = data.Power;
+            UpdateStat(equipItem);
+        }
+    }
+
 
     #endregion
 }

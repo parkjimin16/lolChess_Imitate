@@ -41,6 +41,7 @@ public class Manager : MonoBehaviour
     private readonly ClickManager click = new();
     private readonly UIManagerTemp ui = new();
     private readonly UserManager user = new();
+    private readonly SynergyManager synergy = new();
 
 
     // Áö¹Î
@@ -58,7 +59,7 @@ public class Manager : MonoBehaviour
     public static ClickManager Click => Instance != null ? Instance.click : null;
     public static UIManagerTemp UI => Instance != null ? Instance.ui : null;
     public static UserManager User => Instance != null ? Instance.user : null;
-
+    public static SynergyManager Synerge => Instance != null ? Instance.synergy : null;
 
     // Áö¹Î
 

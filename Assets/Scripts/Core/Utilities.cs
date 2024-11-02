@@ -1,8 +1,3 @@
-using JetBrains.Annotations;
-using System;
-using System.Linq;
-using System.Text;
-using UnityEditor;
 using UnityEngine;
 
 public static class Utilities
@@ -10,6 +5,11 @@ public static class Utilities
     public static T GetOrAddComponent<T>(GameObject obj) where T : Component
     {
         return obj.GetComponent<T>() ?? obj.AddComponent<T>();
+    }
+
+    public static void Destroy(GameObject obj)
+    {
+        UnityEngine.Object.Destroy(obj.gameObject);
     }
 
     #region Cost Color
