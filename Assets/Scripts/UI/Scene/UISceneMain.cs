@@ -30,6 +30,7 @@ public class UISceneMain : UIBase
         get { return uiSynergyPanel; }
         set { uiSynergyPanel = value;}
     }
+
     public UIShopPanel UIShopPanel
     {
         get { return uiShopPanel; }
@@ -50,13 +51,5 @@ public class UISceneMain : UIBase
         uiSynergyPanel.InitSynergyBtn(symbolData);
         uiShopPanel.InitShopBtn(gameData);
 
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.U)) 
-        {
-            //uiSynergyPanel.UpdateSynergy();
-        }
     }
 }

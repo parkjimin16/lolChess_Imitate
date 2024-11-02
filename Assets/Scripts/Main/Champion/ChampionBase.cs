@@ -290,6 +290,12 @@ public class ChampionBase : MonoBehaviour
         total_Defense = blueprint.Total_Defense;
         healHpValue = 1.0f;
 
+
+        maxHp = blueprint.GetLevelHp(championLevel);
+        curHp = maxHp;
+        ad_Power = blueprint.GetLevelAdPower(championLevel);
+
+
         SetTotalDamage(GetDamage());
 
         // Champion Logic
@@ -519,7 +525,65 @@ public class ChampionBase : MonoBehaviour
     #endregion
 
     #region Stat
-    
+    public void UpdateStat(List<ItemBlueprint> equipItem)
+    {
+
+        InitItemStat();
+
+        if (equipItem.Count <= 0)
+            return;
+
+        foreach (ItemBlueprint blueprint in equipItem)
+        {
+            ItemSkillUpdate(blueprint);
+
+            foreach (ItemAttribute item in blueprint.Attribute)
+            {
+                Debug.Log($"아이템 스탯 적용 {item.ItemAttributeType} 값 : {item.GetAttributeValue()} ");
+                switch (item.ItemAttributeType)
+                {
+                    case ItemAttributeType.HP:
+                        item_MaxHP += (int)item.GetAttributeValue();
+                        item_CurHP += (int)item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.Mana:
+                        item_CurMana += (int)item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.AD_Power:
+                        item_AD_Power += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.AP_Power:
+                        item_AP_Power += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.AD_Defense:
+                        item_AD_Def += (int)item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.AP_Defense:
+                        item_AP_Def += (int)item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.AD_Speed:
+                        item_Atk_Spd += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.CriticalPercent:
+                        item_Critical_Percent += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.BloodSuck:
+                        item_Blood_Suck += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.TotalPower:
+                        item_Power_Upgrade += item.GetAttributeValue();
+                        break;
+                    case ItemAttributeType.TotalDefense:
+                        item_Total_Def += item.GetAttributeValue();
+                        break;
+                }
+            }
+        }
+
+        UpdateChampmionStat();
+    }
+
+
     /// <summary>
     /// SetChampion 에서 호출하고 보유 아이템도 체크
     /// </summary>
@@ -563,62 +627,7 @@ public class ChampionBase : MonoBehaviour
         display_Shield = champion_Shield;
     }
 
-    public void UpdateStat(List<ItemBlueprint> equipItem)
-    {
 
-        InitItemStat();
-
-        if (equipItem.Count <= 0)
-            return;
-
-        foreach (ItemBlueprint blueprint in equipItem)
-        {
-            ItemSkillUpdate(blueprint);
-
-            foreach (ItemAttribute item in blueprint.Attribute)
-            {
-                switch (item.ItemAttributeType)
-                {
-                    case ItemAttributeType.HP:
-                        item_MaxHP += (int)item.GetAttributeValue();
-                        item_CurHP += (int)item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.Mana:
-                        item_CurMana += (int)item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.AD_Power:
-                        item_AD_Power += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.AP_Power:
-                        item_AP_Power += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.AD_Defense:
-                        item_AD_Def += (int)item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.AP_Defense:
-                        item_AP_Def += (int)item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.AD_Speed:
-                        item_Atk_Spd += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.CriticalPercent:
-                        item_Critical_Percent += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.BloodSuck:
-                        item_Blood_Suck += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.TotalPower:
-                        item_Power_Upgrade += item.GetAttributeValue();
-                        break;
-                    case ItemAttributeType.TotalDefense:
-                        item_Total_Def += item.GetAttributeValue();
-                        break;
-                }
-            }
-        }
-
-        UpdateChampmionStat();
-    }
 
     public void ChampionLevelUp()
     {

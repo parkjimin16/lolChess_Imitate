@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ChampionManager
 {
-
-
     public void AddBattleChampion(UserData userData, GameObject champion)
     {
         ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
@@ -66,6 +64,9 @@ public class ChampionManager
 
     private GameObject MergeChampion(UserData userData, GameObject champion)
     {
+        List<ItemBlueprint> itemList = new List<ItemBlueprint> ();
+
+
         int countToRemove = 2;
         GameObject championToEnhance = champion;
 
@@ -80,12 +81,21 @@ public class ChampionManager
                     continue;
                 }
 
+
+                itemList.AddRange(championBase.EquipItem);
+
                 Utilities.Destroy(userData.BattleChampionObject[i]);
                 userData.BattleChampionObject.RemoveAt(i);
                 countToRemove--;
             }
         }
 
+        if (itemList.Count > 0)
+        {
+            Manager.Item.StartCreatingItems(itemList, new Vector3(0, 10, 0));
+        }
+
+        itemList.Clear();
         EnhanceChampion(championToEnhance);
         return championToEnhance;
     }

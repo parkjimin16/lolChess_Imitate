@@ -88,6 +88,16 @@ public class ChampionBlueprint : ScriptableObject
 
         curHp = maxHp;
     }
+
+    public int GetLevelHp(int level)
+    {
+        return ChampionLevelData[level - 1].Hp;
+    }
+
+    public int GetLevelAdPower(int level)
+    {
+        return ChampionLevelData[level - 1].Power;
+    }
 }
 
 
