@@ -120,7 +120,7 @@ public enum UIEventType
     Click, PointerDown, PointerUp, Drag,
 }
 
-public enum ItemTileType
+public enum PlayerType
 {
     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
 }

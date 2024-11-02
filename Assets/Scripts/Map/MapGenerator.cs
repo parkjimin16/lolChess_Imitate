@@ -23,6 +23,8 @@ public class MapGenerator : MonoBehaviour
     private GameObject goldPrefeb; // 골드 표시 프리팹
     public Camera minimapCamera;
 
+    private GameObject[] allPlayers;
+
     public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
     private float rectWidthSize; // 사각형 타일 폭
@@ -41,9 +43,11 @@ public class MapGenerator : MonoBehaviour
     private GameObject championPrefab; // 챔피언 프리팹
     private GameObject playerPrefab;   // 플레이어 프리팹
 
+    public List<GameObject> championsInCarousel = new List<GameObject>();
     //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
 
-    public Transform sharedSelectionMapTransform;
+    public Transform sharedSelectionMapTransform; // 공동 선택 맵의 Transform 참조
+    public MapInfo sharedMapInfo; // 공동 선택 맵의 MapInfo
 
     public void InitMapGenerator(GameDataBlueprint gdb)
     {
@@ -102,7 +106,7 @@ public class MapGenerator : MonoBehaviour
         public Transform mapTransform;
         public Bounds mapBounds;
         public LineRenderer boundaryLineRenderer; // 경계선 LineRenderer 참조 추가
-        public PlayerData playerData; // PlayerData 추가
+        public Player playerData; // PlayerData 추가
         public float minX;
         public float maxX;
         public float minZ;
@@ -117,7 +121,7 @@ public class MapGenerator : MonoBehaviour
     void CreatUserMap()
     {
         //int totalUsers = 8; // 총 유저 수 (플레이어 포함)
-        PlayerData[] allPlayers = Manager.Stage.AllPlayers;
+        allPlayers = Manager.Stage.AllPlayers;
 
         if (allPlayers == null)
             Debug.Log("AllPlayers is Null");
@@ -153,6 +157,8 @@ public class MapGenerator : MonoBehaviour
                     userMap.transform.SetParent(this.transform);
                     userMap.AddComponent<GoldDisplay>();
                     userMap.AddComponent<RectTile>();
+                    Vector3 PlayerPosition = userMap.transform.position + new Vector3(-13.5f, 0.8f, -5f);
+                    allPlayers[userIndex].transform.position = PlayerPosition;
 
                     GameObject shop = GameObject.Find("ShopPanel");
                     UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
@@ -178,7 +184,8 @@ public class MapGenerator : MonoBehaviour
                     size.z += boundaryExtraHeight;
 
                     mapInfo.mapBounds = new Bounds(center, size);
-                    mapInfo.playerData = allPlayers[userIndex];
+                    mapInfo.playerData = allPlayers[userIndex].GetComponent<Player>();
+                    
                     mapInfos.Add(mapInfo);
 
                     GenerateMap(userMap.transform, mapInfo);
@@ -448,25 +455,29 @@ public class MapGenerator : MonoBehaviour
         // 공동 선택 맵의 Transform을 저장
         sharedSelectionMapTransform = sharedMap.transform;
 
-        // 경계선 생성
-        CreateSharedMapBoundary(sharedMap.transform);
+        // 공동 선택 맵의 MapInfo 생성 및 설정
+        sharedMapInfo = new MapInfo();
+        sharedMapInfo.mapTransform = sharedMap.transform;
 
-        // **회전 축 오브젝트 생성**
+        // 경계선 생성
+        CreateSharedMapBoundary(sharedMap.transform, sharedMapInfo);
+
+        // 회전 축 오브젝트 생성 및 챔피언 배치
         GameObject carouselPivot = new GameObject("CarouselPivot");
         carouselPivot.transform.position = position;
         carouselPivot.transform.SetParent(sharedMap.transform);
 
+        // 회전 스크립트 추가
+        CarouselRotation carouselRotation = carouselPivot.AddComponent<CarouselRotation>();
+        carouselRotation.rotationSpeed = 20f; // 원하는 회전 속도 설정
+
         // 챔피언 배치 (carouselPivot을 부모로 설정)
         PlaceChampionsInSharedMap(carouselPivot.transform);
 
-        // **회전 스크립트 추가**
-        CarouselRotation carouselRotation = carouselPivot.AddComponent<CarouselRotation>();
-        carouselRotation.rotationSpeed = -20f; // 원하는 회전 속도 설정
-
-        // 플레이어 배치
-        PlacePlayersInSharedMap(sharedMap.transform);
+        // 플레이어 배치 함수는 수정하여 플레이어들을 이동시키도록 변경
+        // PlacePlayersInSharedMap(sharedMap.transform);
     }
-    void CreateSharedMapBoundary(Transform parent)
+    void CreateSharedMapBoundary(Transform parent, MapInfo mapInfo)
     {
         float boundaryRadius = 10f; // 경계선의 반지름
         int segments = 100;         // 원을 그리기 위한 세그먼트 수
@@ -474,28 +485,44 @@ public class MapGenerator : MonoBehaviour
         GameObject boundaryObj = new GameObject("SharedMapBoundary");
         boundaryObj.transform.SetParent(parent);
         LineRenderer lineRenderer = boundaryObj.AddComponent<LineRenderer>();
-        boundaryObj.layer = LayerMask.NameToLayer("Minimap");
 
         lineRenderer.positionCount = segments + 1;
-        lineRenderer.startWidth = 1f;
-        lineRenderer.endWidth = 1f;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
         lineRenderer.useWorldSpace = true;
         lineRenderer.loop = true;
 
         // LineRenderer 설정
         Vector3[] positions = new Vector3[segments + 1];
+        float minX = float.MaxValue;
+        float maxX = float.MinValue;
+        float minZ = float.MaxValue;
+        float maxZ = float.MinValue;
+
         for (int i = 0; i <= segments; i++)
         {
             float angle = i * 2 * Mathf.PI / segments;
             float x = boundaryRadius * Mathf.Cos(angle);
             float z = boundaryRadius * Mathf.Sin(angle);
             positions[i] = new Vector3(x, 0.1f, z) + parent.position;
+
+            // 경계 계산
+            minX = Mathf.Min(minX, positions[i].x);
+            maxX = Mathf.Max(maxX, positions[i].x);
+            minZ = Mathf.Min(minZ, positions[i].z);
+            maxZ = Mathf.Max(maxZ, positions[i].z);
         }
         lineRenderer.SetPositions(positions);
 
         // 재질 및 색상 설정
         lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
         lineRenderer.material.color = Color.yellow;
+
+        // MapInfo에 경계 정보 저장
+        mapInfo.minX = minX;
+        mapInfo.maxX = maxX;
+        mapInfo.minZ = minZ;
+        mapInfo.maxZ = maxZ;
     }
     void PlaceChampionsInSharedMap(Transform parent)
     {
@@ -512,6 +539,9 @@ public class MapGenerator : MonoBehaviour
             // 챔피언 프리팹을 해당 위치에 생성하고, 회전 축을 부모로 설정
             GameObject champion = Instantiate(championPrefab, position, Quaternion.identity, parent);
             champion.name = $"Champion_{i}";
+            champion.tag = "Champion";
+
+            championsInCarousel.Add(champion);
 
             // 이동 방향(접선 방향) 계산
             Vector3 tangent = new Vector3(-Mathf.Sin(angle), 0, Mathf.Cos(angle));
@@ -520,9 +550,9 @@ public class MapGenerator : MonoBehaviour
             champion.transform.localRotation = Quaternion.LookRotation(tangent);
         }
     }
-    void PlacePlayersInSharedMap(Transform parent)
+    public void PlacePlayersInSharedMap(Transform parent)
     {
-        int totalPlayers = 8;
+        int totalPlayers = allPlayers.Length;
         float spawnRadius = 8f; // 플레이어들이 스폰될 원의 반지름
 
         for (int i = 0; i < totalPlayers; i++)
@@ -532,11 +562,44 @@ public class MapGenerator : MonoBehaviour
             float z = spawnRadius * Mathf.Sin(angle);
             Vector3 position = new Vector3(x, 0, z) + parent.position;
 
-            // 플레이어 프리팹을 해당 위치에 생성
-            GameObject player = Instantiate(playerPrefab, position, Quaternion.identity, parent);
-            player.name = $"Player_{i}";
+            // 기존 플레이어 오브젝트를 가져옵니다.
+            GameObject player = allPlayers[i];
 
-            // 플레이어에게 컨트롤러나 이동 스크립트를 추가하여 이동 가능하게 합니다.
+            // 플레이어의 원래 위치를 저장합니다.
+            PlayerMove playerMove = player.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                playerMove.SaveOriginalPosition();
+            }
+
+            // 플레이어를 해당 위치로 이동시킵니다.
+            player.transform.position = position;
+
+            // 플레이어의 부모를 공동 선택 맵으로 설정하여 위치를 맞춥니다.
+            player.transform.SetParent(parent);
+
+            // 필요에 따라 플레이어의 회전을 조정합니다.
+            player.transform.LookAt(parent.position);
         }
     }
+    public List<GameObject> GetAvailableChampions()
+    {
+        List<GameObject> availableChampions = new List<GameObject>();
+
+        foreach (GameObject champion in championsInCarousel)
+        {
+            if (champion != null)
+            {
+                availableChampions.Add(champion);
+            }
+        }
+
+        return availableChampions;
+    }
+    public void RemoveChampion(GameObject champion)
+    {
+        championsInCarousel.Remove(champion);
+        Destroy(champion);
+    }
+
 }

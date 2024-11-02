@@ -44,7 +44,7 @@ public class UserHpManager
         }
 
         // 각 플레이어에 대한 체력바 생성
-        foreach (PlayerData player in Manager.Stage.AllPlayers)
+        foreach (GameObject player in Manager.Stage.AllPlayers)
         {
             //GameObject hbObj = Instantiate(healthBarPrefab, transform);
             //HealthUI hbUI = hbObj.GetComponent<HealthUI>();
@@ -55,11 +55,8 @@ public class UserHpManager
             idx++;
         }
 
-
-
-
         // 플레이어들의 체력을 기준으로 체력바 정렬
-        healthBars.Sort((hb1, hb2) => hb2.PlayerData.health.CompareTo(hb1.PlayerData.health));
+        healthBars.Sort((hb1, hb2) => hb2.PlayerData.CurrentHealth.CompareTo(hb1.PlayerData.CurrentHealth));
 
         // 정렬된 순서대로 체력바의 형제 순서(Sibling Index) 재배치
         for (int i = 0; i < healthBars.Count; i++)
@@ -74,7 +71,7 @@ public class UserHpManager
         foreach (HealthUI hbUI in healthBars)
         {
             hbUI.UpdateHealthBar();
-            if (hbUI.PlayerData.health <= 0)
+            if (hbUI.PlayerData.CurrentHealth <= 0)
             {
                 // 체력바를 회색으로 표시하거나 반투명하게 만들기
                 hbUI.SetDead(); // SetDead() 메서드를 HealthBarUI에 구현
@@ -84,10 +81,10 @@ public class UserHpManager
         // 플레이어들의 체력을 기준으로 체력바 정렬
         healthBars.Sort((hb1, hb2) =>
         {
-            int healthComparison = hb2.PlayerData.health.CompareTo(hb1.PlayerData.health);
+            int healthComparison = hb2.PlayerData.CurrentHealth.CompareTo(hb1.PlayerData.CurrentHealth);
             if (healthComparison == 0)
             {
-                return hb1.PlayerData.playerName.CompareTo(hb2.PlayerData.playerName);
+                return hb1.PlayerData.PlayerName.CompareTo(hb2.PlayerData.PlayerName);
             }
             return healthComparison;
         });
@@ -113,7 +110,7 @@ public class UserHpManager
         // 카메라 이동 로직 호출
         CameraManager.Instance.MoveCameraToPlayer(clickedHealthBar.PlayerData);
     }
-    public void HighlightHealthBar(PlayerData playerData)
+    public void HighlightHealthBar(Player playerData)
     {
         foreach (HealthUI hbUI in healthBars)
         {

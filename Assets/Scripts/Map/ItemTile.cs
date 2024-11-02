@@ -8,7 +8,7 @@ public class ItemTile : MonoBehaviour
     [SerializeField] private GameObject itemTile;
     [SerializeField] private List<GameObject> _items = new List<GameObject>(10);
 
-    public ItemTileType TileType;
+    public PlayerType TileType;
     public ItemOwner TileType1;
     // Start is called before the first frame update
     void Start()

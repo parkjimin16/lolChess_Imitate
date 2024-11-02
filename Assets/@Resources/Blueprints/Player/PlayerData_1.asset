@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData_1
   m_EditorClassIdentifier: 
   playerName: Player1
-  health: 99
-  playerObject: {fileID: 6480685925906502462, guid: f66946e822f083749b0655c89604aebd, type: 3}
+  health: 100
+  playerType: 0

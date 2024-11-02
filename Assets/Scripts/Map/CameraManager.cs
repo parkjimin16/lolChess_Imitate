@@ -34,7 +34,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void MoveCameraToPlayer(PlayerData playerData)
+    public void MoveCameraToPlayer(Player playerData)
     {
         // 해당 플레이어의 맵 정보를 찾음
         MapInfo targetMap = mapGenerator.mapInfos.Find(mapInfo => mapInfo.playerData == playerData);

@@ -5,7 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Blueprints/PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    public string playerName;
-    public int health = 100;
-    [SerializeField]private GameObject playerObject;
+    [SerializeField]string playerName;
+    [SerializeField]private int health = 100;
+    [SerializeField]private PlayerType playerType;
+    public string PlayerName => playerName;
+    public int Health => health;
+    public PlayerType PlayerType => playerType;
 }

@@ -15,3 +15,6 @@ MonoBehaviour:
   playerName: Player2
   health: 100
   playerObject: {fileID: 6480685925906502462, guid: f66946e822f083749b0655c89604aebd, type: 3}
+  playerName1: Player2
+  health1: 100
+  playerType: 1

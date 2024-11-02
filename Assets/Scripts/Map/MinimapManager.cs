@@ -51,7 +51,7 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
                 if (mapInfo.mapBounds.Contains(worldPosition))
                 {
                     // 해당 플레이어의 PlayerData 가져오기
-                    PlayerData playerData = mapInfo.playerData;
+                    Player playerData = mapInfo.playerData;
 
                     if (playerData != null)
                     {
