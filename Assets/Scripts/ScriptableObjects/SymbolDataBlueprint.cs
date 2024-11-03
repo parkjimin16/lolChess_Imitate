@@ -33,6 +33,13 @@ public class SymbolDataBlueprint : ScriptableObject
         return lineData;
     }
 
+    public GameObject GetLineSynergyBase(ChampionLine targetLine)
+    {
+        var lineData = championLineData.FirstOrDefault(data => data.ChampionLine == targetLine);
+
+        return lineData?.SynergyObject;
+    }
+
     public ChampionJobData GetChampionJobData(ChampionJob targetJob)
     {
         return championJobData.FirstOrDefault(data => data.ChampionJob == targetJob);
@@ -52,6 +59,12 @@ public class SymbolDataBlueprint : ScriptableObject
 
         return jobData;
     }
+    public GameObject GetJobSynergyBase(ChampionJob targetJob)
+    {
+        var lineData = championJobData.FirstOrDefault(data => data.ChampionJob == targetJob);
+
+        return lineData?.SynergyObject;
+    }
 }
 
 
@@ -64,6 +77,8 @@ public class ChampionLineData
     [SerializeField, TextArea] string championLineDesc;
     [SerializeField] private List<SymbolLevelData> symbolData;
     [SerializeField] private List<ChampionBlueprint> championBlueprint;
+    [SerializeField] private GameObject synergyObject;
+
 
     public ChampionLine ChampionLine => championLine;
     public Sprite ChampionLineSprite => championLineSprite;
@@ -71,6 +86,7 @@ public class ChampionLineData
     public string ChampionLineDesc => championLineDesc;
     public List<SymbolLevelData> SymbolData => symbolData;
     public List<ChampionBlueprint> ChampionBlueprint => championBlueprint;
+    public GameObject SynergyObject => synergyObject;
 }
 
 [System.Serializable]
@@ -82,7 +98,7 @@ public class ChampionJobData
     [SerializeField, TextArea] string championJobDesc;
     [SerializeField] private List<SymbolLevelData> symbolData;
     [SerializeField] private List<ChampionBlueprint> championBlueprint;
-
+    [SerializeField] private GameObject synergyObject;
 
     public ChampionJob ChampionJob => championJob;
     public Sprite ChampionJobSprite => championJobSprite;
@@ -90,7 +106,7 @@ public class ChampionJobData
     public string ChampionJobDesc => championJobDesc;
     public List<SymbolLevelData> SymbolData => symbolData;
     public List<ChampionBlueprint> ChampionBlueprint => championBlueprint;
-
+    public GameObject SynergyObject => synergyObject;
 }
 
 

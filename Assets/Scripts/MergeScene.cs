@@ -26,6 +26,7 @@ public class MergeScene : MonoBehaviour
                 mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                 Manager.Item.Init();
                 Manager.User.Init();
+                Manager.Synerge.Init(symbolDataBlueprint);
                 Manager.Game.InitGameManager();
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
             }
@@ -36,7 +37,8 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
+            Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
+            //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
         {
@@ -57,6 +59,6 @@ public class MergeScene : MonoBehaviour
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
         }
-        
+    
     }
 }

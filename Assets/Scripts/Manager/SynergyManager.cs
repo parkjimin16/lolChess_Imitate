@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,27 @@ using UnityEngine;
 
 public class SynergyManager
 {
+    #region 변수 및 프로퍼티
+
+    private SymbolDataBlueprint symbolDataBlueprint;
+    private List<KeyValuePair<string, int>> activeSynergy = new List<KeyValuePair<string, int>>();
+    private List<SynergyBase> synergyBaseList = new List<SynergyBase>();
+
+    // 프로퍼티
+    public SymbolDataBlueprint SymbolDataBlueprint => symbolDataBlueprint;
+    public List<SynergyBase> SynergyBaseList => synergyBaseList;
+    #endregion
+
+    #region 초기화 로직
+
+    public void Init(SymbolDataBlueprint symbolData)
+    {
+        symbolDataBlueprint = symbolData;
+    }
+
+    #endregion
+
+    #region 시너지 추가 및 삭제 로직
     public void AddSynergyLine(UserData userData, string championName, string synergyName)
     {
         if (ReferenceEquals(synergyName, "None"))
@@ -73,6 +95,8 @@ public class SynergyManager
         }
     }
 
+    
+    // 시너지 반환 및 디버깅 용
     public void PrintSortedChampionSynergiesWithCount(UserData userData)
     {
         var sortedSynergies = GetSortedChampionSynergiesWithCount(userData);
@@ -82,7 +106,6 @@ public class SynergyManager
             Debug.Log($"Synergy: {synergy.Key}, Count: {synergy.Value}");
         }
     }
-
 
     public List<KeyValuePair<string, int>> GetSortedChampionSynergiesWithCount(UserData userData)
     {
@@ -119,7 +142,6 @@ public class SynergyManager
         return synergyCounts.OrderByDescending(s => s.Value).ToList();
     }
 
-
     public int GetSynergyCount(UserData userData, string synergyName)
     {
         foreach (var line in userData.Synergies_Line)
@@ -140,4 +162,118 @@ public class SynergyManager
 
         return 0;
     }
+
+    #endregion
+
+
+    #region 시너지 적용 로직
+
+    public void UpdateSynergies(UserData userData)
+    {
+        // 현재 배치된 챔피언의 시너지를 확인
+        activeSynergy = GetSortedChampionSynergiesWithCount(userData);
+        synergyBaseList.Clear();
+
+        // ** 여기에 현재 켜져 있는 시너지를 확인하는 로직을 추가하세요. **
+        foreach (var synergy in activeSynergy)
+        {
+            string synergyName = synergy.Key;
+            int synergyCount = synergy.Value;
+
+
+            // 달콤술사 시너지 처리
+            if (synergyName == "달콤술사")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Sugarcraft);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Sugarcraft);
+
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    return;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(level);
+
+            }
+            // 마녀 시너지 처리
+            else if (synergyName == "마녀")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Witchcraft);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Witchcraft);
+
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    return;
+
+                synergyBaseList.Add(sBase); 
+                sBase.UpdateLevel(level);
+            }
+            else
+            {
+                Debug.Log("아직 구현 안함");
+            }
+        }
+
+        if(synergyBaseList.Count >0)
+            StartGame(SynergyBaseList);
+    }
+
+    private int CalculateSynergyLevel(int count, ChampionLineData lineData, ChampionJobData jobData)
+    {
+        int synergyLevel = 0;
+
+        if(lineData != null)
+        {
+            foreach (var symbolData in lineData.SymbolData)
+            {
+                if (count >= symbolData.Level)
+                {
+                    synergyLevel = symbolData.Level; // count가 해당 level 이상일 경우 업데이트
+                }
+            }
+        }
+        else if(jobData != null)
+        {
+            foreach (var symbolData in jobData.SymbolData)
+            {
+                if (count >= symbolData.Level)
+                {
+                    synergyLevel = symbolData.Level; // count가 해당 level 이상일 경우 업데이트
+                }
+            }
+        }
+        return synergyLevel;
+    }
+
+
+    #endregion
+
+
+
+    #region 예시 나중에 옮기던가 해야됨, 시너지 시작과 종료
+
+    private void StartGame(List<SynergyBase> sBaseList)
+    {
+        // 게임 시작 시 시너지 활성화
+        foreach (var synergy in sBaseList)
+        {
+            synergy.Activate();
+        }
+    }
+
+    private void OnChampionRemoved(List<SynergyBase> sBaseList)
+    {
+        // 챔피언이 제거될 때 시너지 비활성화
+        foreach (var synergy in sBaseList)
+        {
+            synergy.Deactivate();
+        }
+    }
+    #endregion
 }
