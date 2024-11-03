@@ -539,7 +539,7 @@ public class ChampionBase : MonoBehaviour
 
             foreach (ItemAttribute item in blueprint.Attribute)
             {
-                Debug.Log($"아이템 스탯 적용 {item.ItemAttributeType} 값 : {item.GetAttributeValue()} ");
+                item.InitItemAttributeValue();
                 switch (item.ItemAttributeType)
                 {
                     case ItemAttributeType.HP:
@@ -590,7 +590,9 @@ public class ChampionBase : MonoBehaviour
     public void UpdateChampmionStat()
     {
         champion_MaxHp = maxHp + item_MaxHP;
+        champion_CurHp = curHp;
         champion_MaxMana = maxMana + item_MaxMana;
+        champion_CurMana = curMana;
         champion_Speed =  speed + item_Speed;
         champion_AD_Power = ad_Power + item_AD_Power;
         champion_AP_Power = ap_Power + item_AP_Power;

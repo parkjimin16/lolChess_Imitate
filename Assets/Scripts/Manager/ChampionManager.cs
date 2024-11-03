@@ -22,16 +22,13 @@ public class ChampionManager
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
 
-
-        
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
         // 2¼º
         int sameChampionCount = userData.BattleChampionObject.Count(obj =>
         {
                 ChampionBase championBase = obj.GetComponent<ChampionBase>();
-                ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-                return championBase != null && cBase != null && championBase.ChampionLevel == cBase.ChampionLevel;
+                return championBase != null && cBase != null && championBase.ChampionName == cBase.ChampionName &&championBase.ChampionLevel == cBase.ChampionLevel;
         });
       
 

@@ -46,7 +46,9 @@ public class UserData
     [SerializeField] private List<ChampionBlueprint> battleChampion;
     [SerializeField] private List<ChampionBlueprint> nonBattleChampion;
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
-    
+    [SerializeField] private List<UserSynergyData> userSynergyData;
+
+
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
     private Dictionary<string, int> totalSynergies;
@@ -97,6 +99,12 @@ public class UserData
         get { return totalItemBlueprint; }
         set { totalItemBlueprint = value; } 
     }
+    public List<UserSynergyData> UserSynergyData
+    {
+        get { return userSynergyData; }
+        set { userSynergyData = value; }
+    }
+
     public Dictionary<string, int> Synergies_Line
     {
         get { return synergies_Line; }
@@ -168,5 +176,25 @@ public class SynergyData
     {
         Lines = new List<string>();
         Jobs = new List<string>();
+    }
+}
+
+[System.Serializable]
+public class UserSynergyData
+{
+    [SerializeField] string synergyName;
+    [SerializeField] int synergyCount;
+
+
+    public string SynergyName
+    {
+        get { return synergyName; }
+        set { synergyName = value; }
+    }
+
+    public int SynergyCount
+    {
+        get { return synergyCount; }
+        set { synergyCount = value; }
     }
 }
