@@ -372,7 +372,7 @@ public class StageManager
         HexTile nearestTile = null;
         float minDistance = float.MaxValue;
 
-        foreach (HexTile tile in _mapGenerator.mapInfos[0].tileDictionary.Values)
+        foreach (HexTile tile in _mapGenerator.mapInfos[0].HexDictionary.Values)
         {
             float distance = Vector3.Distance(championPosition, tile.transform.position);
             if (distance < minDistance)
@@ -428,7 +428,7 @@ public class StageManager
             int neighborR = r + dir.dr;
 
             // 인접 타일이 존재하는지 확인
-            if (_mapGenerator.mapInfos[0].tileDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            if (_mapGenerator.mapInfos[0].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
             {
                 if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
                 {

@@ -48,7 +48,6 @@ public class UserData
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
     [SerializeField] private List<UserSynergyData> userSynergyData;
 
-
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
     private Dictionary<string, int> totalSynergies;

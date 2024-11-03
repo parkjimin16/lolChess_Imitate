@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static MapGenerator;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -108,7 +109,8 @@ public class MapGenerator : MonoBehaviour
         public float minZ;
         public float maxZ;
 
-        public Dictionary<(int, int), HexTile> tileDictionary = new Dictionary<(int, int), HexTile>();
+        public Dictionary<(int, int), HexTile> HexDictionary = new Dictionary<(int, int), HexTile>();
+        public Dictionary<(int, int), HexTile> RectDictionary = new Dictionary<(int, int), HexTile>();
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -228,8 +230,8 @@ public class MapGenerator : MonoBehaviour
         }
 
         // 맨 위와 맨 아래에 직사각형 타일 생성 (위치 조정 포함)
-        CreateRectangularRow(-1, -hexHeight * 0.75f - zOffset, parent);
-        CreateRectangularRow(height, hexHeight * 0.75f * (height) - zOffset, parent);
+        CreateRectangularRow(-1, -hexHeight * 0.75f - zOffset, parent, mapInfo);
+        CreateRectangularRow(height, hexHeight * 0.75f * (height) - zOffset, parent, mapInfo);
         CreateItemTiles(parent);
         CreateGoldTiles(parent);
 
@@ -257,11 +259,11 @@ public class MapGenerator : MonoBehaviour
         hexTile.s = -q - r;
 
         //타일을 딕셔너리에 추가
-        mapInfo.tileDictionary.Add((q, r), hexTile);
+        mapInfo.HexDictionary.Add((q, r), hexTile);
         
     }
 
-    void CreateRectangularRow(int row, float zPos, Transform parent)
+    void CreateRectangularRow(int row, float zPos, Transform parent, MapInfo mapInfo)
     {
         // zPos에 부모의 z 위치를 더합니다.
         zPos += parent.position.z;
@@ -295,6 +297,8 @@ public class MapGenerator : MonoBehaviour
             HexTile hexTile = tile.GetComponent<HexTile>();
             hexTile.isRectangularTile = true;
             hexTile.isOccupied = false;
+
+            mapInfo.RectDictionary.Add((x, row), hexTile);
         }
     }
 

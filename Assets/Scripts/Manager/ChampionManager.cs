@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static MapGenerator;
 
 public class ChampionManager
 {
@@ -10,13 +11,12 @@ public class ChampionManager
     {
         ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
 
-        if (addChampionBase == null || userData.BattleChampionObject == null)
+        if (addChampionBase == null || userData.NonBattleChampionObject == null)
             return;
 
-
         // 임시
-        userData.BattleChampionObject.Add(champion);
-
+        userData.NonBattleChampionObject.Add(champion);
+        
         //battleChampion.Add(cBlueprint);
 
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
@@ -27,7 +27,7 @@ public class ChampionManager
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
         // 2성
-        int sameChampionCount = userData.BattleChampionObject.Count(obj =>
+        int sameChampionCount = userData.NonBattleChampionObject.Count(obj =>
         {
             ChampionBase championBase = obj.GetComponent<ChampionBase>();
             return championBase != null && cBase != null && championBase.ChampionName == cBase.ChampionName && championBase.ChampionLevel == cBase.ChampionLevel;
@@ -49,7 +49,7 @@ public class ChampionManager
         // 3성
         ChampionBase tempChampionBase = championToEnhance.GetComponent<ChampionBase>();
         string championName = tempChampionBase.ChampionName;
-        int sameChampionAfterMergeCount = userData.BattleChampionObject.Count(obj =>
+        int sameChampionAfterMergeCount = userData.NonBattleChampionObject.Count(obj =>
         {
             ChampionBase championBase = obj.GetComponent<ChampionBase>();
             return championBase != null && championBase.ChampionName == championName && championBase.ChampionLevel == 2;
@@ -74,8 +74,8 @@ public class ChampionManager
         if (addChampionBase == null || userData.BattleChampionObject == null)
             return;
 
-
         // 임시
+
         userData.BattleChampionObject.Add(champion);
 
         //battleChampion.Add(cBlueprint);
@@ -127,6 +127,7 @@ public class ChampionManager
 
     }
     #endregion
+
     #region 강화로직
     private GameObject MergeChampion(UserData userData, GameObject champion)
     {
@@ -175,8 +176,6 @@ public class ChampionManager
         }
     }
     #endregion
-
-
 }
 
 [System.Serializable]

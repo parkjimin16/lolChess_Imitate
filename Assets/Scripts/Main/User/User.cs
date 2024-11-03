@@ -610,7 +610,7 @@ public class User : MonoBehaviour
             //Debug.Log($"Checking neighbor at q: {neighborQ}, r: {neighborR}");
 
             // 인접 타일이 존재하는지 확인
-            if (_mapGenerator.mapInfos[0].tileDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            if (_mapGenerator.mapInfos[0].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
             {
                 if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
                 {
