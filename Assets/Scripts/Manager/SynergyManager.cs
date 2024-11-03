@@ -33,7 +33,7 @@ public class SynergyManager
         }
     }
 
-    private void AddSynergyJob(UserData userData, string championName, string synergyName)
+    public void AddSynergyJob(UserData userData, string championName, string synergyName)
     {
         if (ReferenceEquals(synergyName, "None"))
         {

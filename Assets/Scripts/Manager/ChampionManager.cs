@@ -5,6 +5,68 @@ using UnityEngine;
 
 public class ChampionManager
 {
+    #region 비전투챔피언
+    public void AddNonBattleChampion(UserData userData, GameObject champion)
+    {
+        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
+
+        if (addChampionBase == null || userData.BattleChampionObject == null)
+            return;
+
+
+        // 임시
+        userData.BattleChampionObject.Add(champion);
+
+        //battleChampion.Add(cBlueprint);
+
+        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
+        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
+        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
+        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
+
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+        // 2성
+        int sameChampionCount = userData.BattleChampionObject.Count(obj =>
+        {
+            ChampionBase championBase = obj.GetComponent<ChampionBase>();
+            return championBase != null && cBase != null && championBase.ChampionName == cBase.ChampionName && championBase.ChampionLevel == cBase.ChampionLevel;
+        });
+
+
+        GameObject championToEnhance = null;
+
+
+        if (sameChampionCount >= 3)
+        {
+            championToEnhance = MergeChampion(userData, champion);
+        }
+
+
+        if (championToEnhance == null)
+            return;
+
+        // 3성
+        ChampionBase tempChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        string championName = tempChampionBase.ChampionName;
+        int sameChampionAfterMergeCount = userData.BattleChampionObject.Count(obj =>
+        {
+            ChampionBase championBase = obj.GetComponent<ChampionBase>();
+            return championBase != null && championBase.ChampionName == championName && championBase.ChampionLevel == 2;
+        });
+
+        if (sameChampionAfterMergeCount >= 3)
+        {
+            championToEnhance = MergeChampion(userData, championToEnhance);
+        }
+    }
+    public void RemoveNonBattleChampion(UserData userData, GameObject champion)
+    {
+
+    }
+    #endregion
+
+    #region 전투챔피언
     public void AddBattleChampion(UserData userData, GameObject champion)
     {
         ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
@@ -15,12 +77,13 @@ public class ChampionManager
 
         // 임시
         userData.BattleChampionObject.Add(champion);
+
         //battleChampion.Add(cBlueprint);
 
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
+        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
+        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
 
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
@@ -59,6 +122,12 @@ public class ChampionManager
         }
     }
 
+    public void RemoveBattleChampion(UserData userData, GameObject champion)
+    {
+
+    }
+    #endregion
+    #region 강화로직
     private GameObject MergeChampion(UserData userData, GameObject champion)
     {
         List<ItemBlueprint> itemList = new List<ItemBlueprint> ();
@@ -105,11 +174,9 @@ public class ChampionManager
             cBase.ChampionLevelUp();
         }
     }
+    #endregion
 
-    public void RemoveBattleChampion(UserData userData, GameObject champion)
-    {
 
-    }
 }
 
 [System.Serializable]

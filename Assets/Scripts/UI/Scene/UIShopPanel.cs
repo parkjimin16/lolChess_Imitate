@@ -49,15 +49,34 @@ public class UIShopPanel : UIBase
 
     private void InstantiateChampion(ChampionBlueprint cBlueprint, Button button)
     {
-        if (currentChampionIndex < championPos.Count)
+        HexTile hextile = null;
+        Transform tileTransform = null;
+
+        // championPos 리스트에서 빈 타일을 찾습니다.
+        foreach (Transform pos in championPos)
         {
+            HexTile tile = pos.GetComponent<HexTile>();
+            if (!tile.isOccupied)
+            {
+                hextile = tile;
+                tileTransform = pos;
+                break;
+            }
+        }
+
+        if (hextile != null)
+        {
+            // 빈 타일을 찾았을 경우 챔피언을 생성합니다.
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
             newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
-
             frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = championPos[currentChampionIndex].position + new Vector3(0, 0.5f, 0);
+            newChampionObject.transform.position = tileTransform.position + new Vector3(0, 0.5f, 0);
+
+            newChampionObject.transform.SetParent(hextile.transform);
+            hextile.isOccupied = true;
+            hextile.itemOnTile = newChampionObject;
 
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
@@ -65,7 +84,6 @@ public class UIShopPanel : UIBase
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
 
-            currentChampionIndex++;
             Manager.Game.AddBattleChampion(newChampionObject, cBlueprint);
             Manager.User.AddChampion(newChampionObject);
 
@@ -73,6 +91,7 @@ public class UIShopPanel : UIBase
         }
         else
         {
+            // 빈 타일이 없을 경우 경고 메시지를 출력합니다.
             Debug.LogWarning("모든 챔피언 위치가 사용되었습니다.");
         }
     }
