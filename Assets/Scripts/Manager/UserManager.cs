@@ -12,18 +12,26 @@ public class UserManager
     {
         User1_Data = new UserData();
 
-
         User1_Data.InitUserData(10, "박태영");
     }
 
-    public void AddChampion(GameObject chamipon, ChampionBlueprint cBlueprint)
+    public void AddChampion(GameObject chamipon)
     {
-        User1_Data.AddBattleChampion(chamipon, cBlueprint);
+        Manager.Champion.AddBattleChampion(User1_Data, chamipon);
     }
 
-    public bool CheckChamipon(UserData user, ChampionBlueprint cBlueprint)
+    public bool CheckChamipon(UserData user, string championName)
     {
-        return user.BattleChampion.Any(champion => champion.ChampionName == cBlueprint.ChampionName);
+        return user.BattleChampionObject.Any(championObject =>
+        {
+            ChampionBase championBase = championObject.GetComponent<ChampionBase>();
+            return championBase != null && championBase.ChampionName == championName;
+        });
+    }
+
+    public UserData GetUserData()
+    {
+        return User1_Data;
     }
 }
 
@@ -38,9 +46,12 @@ public class UserData
     [SerializeField] private List<ChampionBlueprint> battleChampion;
     [SerializeField] private List<ChampionBlueprint> nonBattleChampion;
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
-    
+    [SerializeField] private List<UserSynergyData> userSynergyData;
+
+
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
+    private Dictionary<string, int> totalSynergies;
     private Dictionary<string, HashSet<string>> championSynergies_Line;
     private Dictionary<string, HashSet<string>> championSynergies_Job;
 
@@ -88,11 +99,44 @@ public class UserData
         get { return totalItemBlueprint; }
         set { totalItemBlueprint = value; } 
     }
+    public List<UserSynergyData> UserSynergyData
+    {
+        get { return userSynergyData; }
+        set { userSynergyData = value; }
+    }
 
-    public Dictionary<string, int> TotalSynergies
+    public Dictionary<string, int> Synergies_Line
     {
         get { return synergies_Line; }
         set { synergies_Line = value; }
+    }
+    public Dictionary<string, int> Synergies_Job
+    {
+        get { return synergies_Job; }
+        set { synergies_Job = value; }
+    }
+
+    public Dictionary<string, int> TotalSynergies
+    {
+        get { return totalSynergies; }
+        set { totalSynergies = value; }
+    }
+    public Dictionary<string, HashSet<string>> ChampionSynergies_Line
+    {
+        get { return championSynergies_Line; }
+        set { championSynergies_Line = value; }
+    }
+
+    public Dictionary<string, HashSet<string>> ChampionSynergies_Job
+    {
+        get { return championSynergies_Job; }
+        set { championSynergies_Job = value; }
+    }
+
+    public Dictionary<string, SynergyData> ChampionSynergies
+    {
+        get { return championSynergies; }
+        set {  championSynergies = value;}
     }
     #endregion
 
@@ -120,167 +164,6 @@ public class UserData
     }
 
     #endregion
-
-    #region Champion
-    public void AddBattleChampion(GameObject champion, ChampionBlueprint cBlueprint)
-    {
-        // 임시
-        battleChampionObject.Add(champion);
-        battleChampion.Add(cBlueprint);
-
-        AddSynergyLine(cBlueprint.ChampionName, Utilities.GetLineName(cBlueprint.ChampionLine_First));
-        AddSynergyLine(cBlueprint.ChampionName, Utilities.GetLineName(cBlueprint.ChampionLine_Second));
-        AddSynergyJob(cBlueprint.ChampionName, Utilities.GetJobName(cBlueprint.ChampionJob_First));
-        AddSynergyJob(cBlueprint.ChampionName, Utilities.GetJobName(cBlueprint.ChampionJob_Second));
-    }
-
-    public void RemoveBattleChampion(GameObject champion)
-    {
-
-    }
-    #endregion
-
-    #region Item
-
-    #endregion
-
-    #region Synergy
-    private void AddSynergyLine(string championName, string synergyName)
-    {
-        if (ReferenceEquals(synergyName, "None"))
-        {
-            return;
-        }
-
-        if (!championSynergies.ContainsKey(championName))
-        {
-            championSynergies[championName] = new SynergyData();
-        }
-
-        var synergyData = championSynergies[championName];
-        if (!synergyData.Lines.Contains(synergyName))
-        {
-            synergyData.Lines.Add(synergyName);
-
-            if (synergies_Line.ContainsKey(synergyName))
-            {
-                synergies_Line[synergyName]++;
-            }
-            else
-            {
-                synergies_Line[synergyName] = 1; 
-            }
-        }
-    }
-
-    private void AddSynergyJob(string championName, string synergyName)
-    {
-        if (ReferenceEquals(synergyName, "None"))
-        {
-            return;
-        }
-
-        if (!championSynergies.ContainsKey(championName))
-        {
-            championSynergies[championName] = new SynergyData();
-        }
-
-        var synergyData = championSynergies[championName];
-        if (!synergyData.Jobs.Contains(synergyName))
-        {
-            synergyData.Jobs.Add(synergyName);
-        }
-
-        if (synergies_Job.ContainsKey(synergyName))
-        {
-            synergies_Job[synergyName]++;
-        }
-        else
-        {
-            synergies_Job[synergyName] = 1;
-        }
-    }
-
-    public void DeleteSynergy(string synergyName)
-    {
-        if (synergies_Line.ContainsKey(synergyName))
-        {
-            synergies_Line[synergyName]--;
-        }
-        else
-        {
-            synergies_Line[synergyName] = 0;
-        }
-    }
-
-    public void PrintSortedChampionSynergiesWithCount()
-    {
-        var sortedSynergies = GetSortedChampionSynergiesWithCount();
-
-        foreach (var synergy in sortedSynergies)
-        {
-            Debug.Log($"Synergy: {synergy.Key}, Count: {synergy.Value}");
-        }
-    }
-
-    
-    public List<KeyValuePair<string, int>> GetSortedChampionSynergiesWithCount()
-    {
-        var synergyCounts = new Dictionary<string, int>();
-
-        foreach (var champion in championSynergies)
-        {
-            var synergyData = champion.Value;
-
-            foreach (var line in synergyData.Lines)
-            {
-                if (synergyCounts.ContainsKey(line))
-                {
-                    synergyCounts[line]++;
-                }
-                else
-                {
-                    synergyCounts[line] = 1;
-                }
-            }
-
-            foreach (var job in synergyData.Jobs)
-            {
-                if (synergyCounts.ContainsKey(job))
-                {
-                    synergyCounts[job]++;
-                }
-                else
-                {
-                    synergyCounts[job] = 1;
-                }
-            }
-        }
-        return synergyCounts.OrderByDescending(s => s.Value).ToList();
-    }
-
-
-    public int GetSynergyCount(string synergyName)
-    {
-        foreach(var line in synergies_Line)
-        {
-            if(line.Key.Contains(synergyName))
-            {
-                return line.Value;
-            }
-        }
-
-        foreach(var job in synergies_Job)
-        {
-            if(job.Key.Contains(synergyName))
-            {
-                return job.Value; 
-            }
-        }
-        
-        return 0;
-    }
-    #endregion
 }
 
 [System.Serializable]
@@ -293,5 +176,25 @@ public class SynergyData
     {
         Lines = new List<string>();
         Jobs = new List<string>();
+    }
+}
+
+[System.Serializable]
+public class UserSynergyData
+{
+    [SerializeField] string synergyName;
+    [SerializeField] int synergyCount;
+
+
+    public string SynergyName
+    {
+        get { return synergyName; }
+        set { synergyName = value; }
+    }
+
+    public int SynergyCount
+    {
+        get { return synergyCount; }
+        set { synergyCount = value; }
     }
 }

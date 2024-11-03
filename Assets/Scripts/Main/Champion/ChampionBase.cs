@@ -290,6 +290,12 @@ public class ChampionBase : MonoBehaviour
         total_Defense = blueprint.Total_Defense;
         healHpValue = 1.0f;
 
+
+        maxHp = blueprint.GetLevelHp(championLevel);
+        curHp = maxHp;
+        ad_Power = blueprint.GetLevelAdPower(championLevel);
+
+
         SetTotalDamage(GetDamage());
 
         // Champion Logic
@@ -519,50 +525,6 @@ public class ChampionBase : MonoBehaviour
     #endregion
 
     #region Stat
-    
-    /// <summary>
-    /// SetChampion 에서 호출하고 보유 아이템도 체크
-    /// </summary>
-    public void UpdateChampmionStat()
-    {
-        champion_MaxHp = maxHp + item_MaxHP;
-        champion_MaxMana = maxMana + item_MaxMana;
-        champion_Speed =  speed + item_Speed;
-        champion_AD_Power = ad_Power + item_AD_Power;
-        champion_AP_Power = ap_Power + item_AP_Power;
-        champion_AD_Def = ad_Defense + item_AD_Def;
-        champion_AP_Def = ap_Defense + item_AP_Def;
-        champion_Atk_Spd = attack_Speed + item_Atk_Spd;
-        champion_Critical_Percent = critical_Percent + item_Critical_Percent;
-        champion_Critical_Power = critical_Power + item_Cirtical_Power;
-        champion_Blood_Suck = blood_Suck + item_Blood_Suck;
-        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
-        champion_Total_Def = total_Defense + item_Total_Def;
-        champion_Shield = 0;
-
-        UpdateDisplayStat();
-    }
-
-    private void UpdateDisplayStat()
-    {
-        display_MaxHp = champion_MaxHp;
-        display_CurHp = champion_CurHp;
-        display_MaxMana = champion_MaxMana;
-        display_CurMana = champion_CurMana;
-        display_Speed = champion_Speed;
-        display_AD_Power = champion_AD_Power;
-        display_AP_Power = champion_AP_Power;
-        display_AD_Def = champion_AD_Def;
-        display_AP_Def = champion_AP_Def;
-        display_Atk_Spd = champion_Atk_Spd;
-        display_Critical_Percent = champion_Critical_Percent;
-        display_Critical_Power = champion_Critical_Power;
-        display_Blood_Suck = champion_Blood_Suck;
-        display_Power_Upgrade = champion_Power_Upgrade;
-        display_Total_Def = champion_Total_Def;
-        display_Shield = champion_Shield;
-    }
-
     public void UpdateStat(List<ItemBlueprint> equipItem)
     {
 
@@ -577,6 +539,7 @@ public class ChampionBase : MonoBehaviour
 
             foreach (ItemAttribute item in blueprint.Attribute)
             {
+                item.InitItemAttributeValue();
                 switch (item.ItemAttributeType)
                 {
                     case ItemAttributeType.HP:
@@ -620,10 +583,82 @@ public class ChampionBase : MonoBehaviour
         UpdateChampmionStat();
     }
 
+
+    /// <summary>
+    /// SetChampion 에서 호출하고 보유 아이템도 체크
+    /// </summary>
+    public void UpdateChampmionStat()
+    {
+        champion_MaxHp = maxHp + item_MaxHP;
+        champion_CurHp = curHp;
+        champion_MaxMana = maxMana + item_MaxMana;
+        champion_CurMana = curMana;
+        champion_Speed =  speed + item_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Cirtical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def;
+        champion_Shield = 0;
+
+        UpdateDisplayStat();
+    }
+
+    private void UpdateDisplayStat()
+    {
+        display_MaxHp = champion_MaxHp;
+        display_CurHp = champion_CurHp;
+        display_MaxMana = champion_MaxMana;
+        display_CurMana = champion_CurMana;
+        display_Speed = champion_Speed;
+        display_AD_Power = champion_AD_Power;
+        display_AP_Power = champion_AP_Power;
+        display_AD_Def = champion_AD_Def;
+        display_AP_Def = champion_AP_Def;
+        display_Atk_Spd = champion_Atk_Spd;
+        display_Critical_Percent = champion_Critical_Percent;
+        display_Critical_Power = champion_Critical_Power;
+        display_Blood_Suck = champion_Blood_Suck;
+        display_Power_Upgrade = champion_Power_Upgrade;
+        display_Total_Def = champion_Total_Def;
+        display_Shield = champion_Shield;
+    }
+
+
+
     public void ChampionLevelUp()
     {
-        championLevel++;
+        if (championLevel < levelData.Count)
+        {
+            championLevel++;
+        }
+        else
+        {
+            championLevel = levelData.Count;
+        }
+
+        ApplyLevelData();
     }
+
+    private void ApplyLevelData()
+    {
+        if (championLevel <= levelData.Count)
+        {
+            ChampionLevelData data = levelData[championLevel - 1];
+
+            maxHp = data.Hp;
+            curHp = maxHp;
+
+            ad_Power = data.Power;
+            UpdateStat(equipItem);
+        }
+    }
+
 
     #endregion
 }

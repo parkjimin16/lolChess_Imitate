@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Playables;
 
 public class UIPopupSynergyDetail : UIPopup
 {
@@ -116,7 +115,7 @@ public class UIPopupSynergyDetail : UIPopup
                 Color championColor = Color.black;
 
 
-                if (!Manager.User.CheckChamipon(user, champion))
+                if (!Manager.User.CheckChamipon(user, champion.ChampionName))
                 {
                     championColor = Color.gray;
                 }
@@ -164,7 +163,7 @@ public class UIPopupSynergyDetail : UIPopup
                 Color championColor = Color.black;
 
 
-                if (!Manager.User.CheckChamipon(user, champion))
+                if (!Manager.User.CheckChamipon(user, champion.ChampionName))
                 {
                     championColor = Color.gray;
                 }
@@ -189,7 +188,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Line(ChampionLineData lineData)
     {
-        int count = Manager.User.User1_Data.GetSynergyCount(lineData.ChampionLineName);
+        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetUserData(), lineData.ChampionLineName);
 
         string synergyDetailText = "";
 
@@ -214,7 +213,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Job(ChampionJobData jobData)
     {
-        int count = Manager.User.User1_Data.GetSynergyCount(jobData.ChampionJobName);
+        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetUserData(), jobData.ChampionJobName);
 
         string synergyDetailText = "";
 

@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static UnityEngine.UI.GridLayoutGroup;
-using UnityEngine.UIElements;
-using UnityEngine.WSA;
 
 public class MapGenerator : MonoBehaviour
 {

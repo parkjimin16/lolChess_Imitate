@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UIShopPanel : UIBase
 {
+    [SerializeField] private UISceneMain uiMain;
+
     [SerializeField] private List<GameObject> championSlotList;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private List<ItemBlueprint> itemBlueprint;
@@ -39,6 +41,7 @@ public class UIShopPanel : UIBase
             if (button != null)
             {
                 button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint, button));
+                button.onClick.AddListener(() => uiMain.UISynergyPanel.UpdateSynergy());
             }
         }
         
@@ -64,7 +67,7 @@ public class UIShopPanel : UIBase
 
             currentChampionIndex++;
             Manager.Game.AddBattleChampion(newChampionObject, cBlueprint);
-            Manager.User.AddChampion(newChampionObject, cBlueprint);
+            Manager.User.AddChampion(newChampionObject);
 
             button.interactable = false;
         }

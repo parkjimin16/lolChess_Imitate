@@ -24,6 +24,18 @@ public class UISceneMain : UIBase
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] private List<HealthUI> hpBarList = new List<HealthUI>();
 
+
+    public UISynergyPanel UISynergyPanel
+    {
+        get { return uiSynergyPanel; }
+        set { uiSynergyPanel = value;}
+    }
+
+    public UIShopPanel UIShopPanel
+    {
+        get { return uiShopPanel; }
+        set { uiShopPanel = value; }
+    }
     protected override void Init()
     {
         base.Init();
@@ -36,15 +48,8 @@ public class UISceneMain : UIBase
     {
         symbol = symbolData;
 
-        uiShopPanel.InitShopBtn(gameData);
         uiSynergyPanel.InitSynergyBtn(symbolData);
-    }
+        uiShopPanel.InitShopBtn(gameData);
 
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.U)) 
-        {
-            uiSynergyPanel.UpdateSynergy();
-        }
     }
 }

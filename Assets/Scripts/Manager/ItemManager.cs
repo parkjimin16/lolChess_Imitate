@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemManager
 {
@@ -111,6 +112,39 @@ public class ItemManager
 
         return itemObj;
     }
+
+
+    public void StartCreatingItems(List<ItemBlueprint> itemList, Vector3 startPosition)
+    {
+        List<ItemBlueprint> temp = itemList;
+        for (int i = 0; i < temp.Count; i++)
+        {
+            ItemBlueprint item = temp[i];
+
+            if (item != null)
+            {
+                item.InitBaseItem();
+
+                GameObject itemObj = Manager.Asset.InstantiatePrefab("ItemFrame");
+                itemObj.transform.position = startPosition;
+
+                ItemFrame iFrame = itemObj.GetComponent<ItemFrame>();
+
+                if (iFrame != null)
+                {
+                    iFrame.Init(item);
+                }
+
+                startPosition += new Vector3(0, 0, 1);
+
+            }
+            else
+            {
+                Debug.Log("Item is null");
+            }
+        }
+    }
+
 
     #endregion
 }

@@ -49,7 +49,7 @@ public class User : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("클릭");
+
             if (Manager.UI.CheckPopupStack())
             {
                 Manager.UI.CloseAllPopupUI();
@@ -62,7 +62,7 @@ public class User : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            //Debug.Log("클릭2");
+
             if (Input.mousePosition != _prePos)
             {
                 TouchMovedEvent();
@@ -310,7 +310,6 @@ public class User : MonoBehaviour
             hitTile.itemOnTile = _movableObj;
         }
     }
-
     private void HandleUnitDrop(HexTile hitTile, GameObject hitTileObj)
     {
         if (hitTile.isOccupied == false)
@@ -489,7 +488,6 @@ public class User : MonoBehaviour
         }
         return null;
     }
-
     private void ObjectReturn()
     {
         if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
