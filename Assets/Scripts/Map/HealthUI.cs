@@ -40,7 +40,7 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
         {
             playerNameText.text = $"{playerData.PlayerName}";
             currentHealth.text = $"{playerData.CurrentHealth}";
-            Debug.Log(player.GetComponent<Player>().PlayerName);
+            //Debug.Log(player.GetComponent<Player>().PlayerName);
         }
         UpdateHealthBar();
     }

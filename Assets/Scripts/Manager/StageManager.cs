@@ -208,7 +208,7 @@ public class StageManager
         Debug.Log("공동 선택 라운드가 시작됩니다!");
 
         // 카메라를 공동 선택 맵으로 이동
-        CameraManager.Instance.MoveCameraToSharedSelectionMap();
+        
 
         // 모든 플레이어의 움직임을 일시적으로 비활성화
         DisableAllPlayerMovement();
@@ -229,7 +229,7 @@ public class StageManager
         int intervalWaitTime = 6;   // 다음 그룹이 움직이기까지의 대기 시간
 
         // 플레이어들을 공동 선택 맵 위치로 이동
-        _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.sharedSelectionMapTransform);
+        
 
         for (int i = 0; i < sortedPlayers.Count; i += playersPerInterval)
         {
@@ -259,6 +259,9 @@ public class StageManager
         // 2스테이지부터 매 4라운드마다 공동 선택 라운드
         if (stage >= 2 && round % 4 == 0)
         {
+            DisableAllPlayerMovement();
+            _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.sharedSelectionMapTransform);
+            CameraManager.Instance.MoveCameraToSharedSelectionMap();
             return true;
         }
         return false;
@@ -327,9 +330,10 @@ public class StageManager
 
                 // 필요한 경우 추가적인 초기화 로직
                 playerMove.EndCarouselRound();
+                
             }
         }
-
+        CameraManager.Instance.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
         // 이후 라운드 진행 로직
         // 다음 라운드로 이동
         currentRound++;

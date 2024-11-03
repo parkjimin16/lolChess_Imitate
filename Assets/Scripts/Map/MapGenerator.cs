@@ -469,7 +469,7 @@ public class MapGenerator : MonoBehaviour
 
         // 회전 스크립트 추가
         CarouselRotation carouselRotation = carouselPivot.AddComponent<CarouselRotation>();
-        carouselRotation.rotationSpeed = 20f; // 원하는 회전 속도 설정
+        carouselRotation.rotationSpeed = -20f; // 원하는 회전 속도 설정
 
         // 챔피언 배치 (carouselPivot을 부모로 설정)
         PlaceChampionsInSharedMap(carouselPivot.transform);
