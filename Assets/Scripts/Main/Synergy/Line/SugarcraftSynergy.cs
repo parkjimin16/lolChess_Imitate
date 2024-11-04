@@ -81,7 +81,7 @@ public class SugarcraftSynergy : SynergyBase
         }
 
         sugarCake.SetActive(true);
-        Activate(user);
+        //Activate(user);
 
 
         Debug.Log($"[달콤술사] 레벨 {level} 적용: 설탕 {sugarCount}, 공격력 {attackPower}, 주문력 {spellPower}");

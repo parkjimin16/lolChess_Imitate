@@ -37,7 +37,7 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
+            //Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
@@ -59,9 +59,13 @@ public class MergeScene : MonoBehaviour
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
         }
-        else if(Input.GetKeyDown(KeyCode.V)) 
+        else if(Input.GetKeyDown(KeyCode.N)) //전투 시작 
         {
             Manager.Synerge.ApplySynergy(Manager.User.User1_Data);
+        }
+        else if(Input.GetKeyDown(KeyCode.M)) // 전투 종료
+        {
+            Manager.Synerge.UnApplySynergy(Manager.User.User1_Data);
         }
     }
 }

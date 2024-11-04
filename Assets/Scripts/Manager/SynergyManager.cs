@@ -218,8 +218,6 @@ public class SynergyManager
                 Debug.Log("아직 구현 안함");
             }
         }
-
-
     }
 
     private int CalculateSynergyLevel(int count, ChampionLineData lineData, ChampionJobData jobData)
@@ -253,6 +251,12 @@ public class SynergyManager
     {
         if (synergyBaseList.Count > 0)
             StartGame(user, SynergyBaseList);
+    }
+
+    public void UnApplySynergy(UserData user)
+    {
+        if (synergyBaseList.Count > 0)
+            OnChampionRemoved(user, SynergyBaseList);
     }
     #endregion
 
