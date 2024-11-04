@@ -5,13 +5,15 @@ using UnityEngine;
 public class WitchcraftSynergy : SynergyBase
 {
     public WitchcraftSynergy()
-    : base("마녀", ChampionLine.Witchcraft, ChampionJob.None) { }
+    : base("마녀", ChampionLine.Witchcraft, ChampionJob.None, 0) { }
 
-    protected override void ApplyEffects(int level)
+
+    protected override void ApplyEffects(UserData user, int level)
     {
         if(level >= 0 && level < 2)
         {
             level = 0;
+            Deactivate(user);
         }
         else if(level >= 2 && level < 4)
         {
@@ -48,21 +50,25 @@ public class WitchcraftSynergy : SynergyBase
                 break;
         }
 
-        
         Debug.Log($"[마녀] 레벨 {level} 저주 효과 적용");
     }
 
-    protected override void RemoveEffects()
+    protected override void RemoveEffects(UserData user)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void Activate()
+    public override void Activate(UserData user)
     {
         // 마녀 스킬을 통해 적에게 저주를 거는 로직
         CastCurseOnEnemy();
     }
 
+    public override void Deactivate(UserData user)
+    {
+        RemoveEffects(user);
+        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+    }
 
     private void ApplyCurseEffect(int healthReduction, bool decreaseHealth = false, bool applyGreenColor = false,
                                   float magicDamagePercent = 0, float additionalWitchDamage = 0,

@@ -63,12 +63,33 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private float item_AP_Def;
     [SerializeField] private float item_Atk_Spd;
     [SerializeField] private float item_Critical_Percent;
-    [SerializeField] private float item_Cirtical_Power;
+    [SerializeField] private float item_Critical_Power;
     [SerializeField] private float item_Blood_Suck;
     [SerializeField] private float item_Power_Upgrade;
     [SerializeField] private float item_Total_Def;
 
-    [Header("챔피언 전체 스탯 = 챔피언 기본 스탯 + 아이템 스탯")]
+
+    [Header("시너지 스탯")]
+    // Synergy Stats
+    public int Synergy_MaxHP;
+    public int Synergy_CurHP;
+    public int Synergy_MaxMana;
+    public int Synergy_CurMana;
+    public float Synergy_Speed;
+
+    public float Synergy_AD_Power;
+    public float Synergy_AP_Power;
+    public float Synergy_AD_Def;
+    public float Synergy_AP_Def;
+    public float Synergy_Atk_Spd;
+    public float Synergy_Critical_Percent;
+    public float Synergy_Critical_Power;
+    public float Synergy_Blood_Suck;
+    public float Synergy_Power_Upgrade;
+    public float Synergy_Total_Def;
+
+
+    [Header("챔피언 전체 스탯 = 챔피언 기본 스탯 + 아이템 스탯 + 시너지 스탯")]
     [SerializeField] private int champion_MaxHp;
     [SerializeField] private int champion_CurHp;
     [SerializeField] private int champion_MaxMana;
@@ -301,7 +322,7 @@ public class ChampionBase : MonoBehaviour
         // Champion Logic
         maxItemSlot = 3;
 
-        UpdateStat(EquipItem);
+        UpdateStatWithItem(EquipItem);
         UpdateChampmionStat();
     }
 
@@ -342,10 +363,32 @@ public class ChampionBase : MonoBehaviour
         item_AP_Def = 0;
         item_Atk_Spd = 0;
         item_Critical_Percent = 0;
-        item_Cirtical_Power = 0;
+        item_Critical_Power = 0;
         item_Blood_Suck = 0;
         item_Power_Upgrade = 0;
         item_Total_Def = 0;
+    }
+
+    /// <summary>
+    /// 시너지 스탯 초기화
+    /// </summary>
+    public void InitSynergyStat()
+    {
+        Synergy_MaxHP = 0;
+        Synergy_CurHP = 0;
+        Synergy_MaxMana = 0;
+        Synergy_CurMana = 0;
+        Synergy_Speed = 0;
+        Synergy_AD_Power = 0;
+        Synergy_AP_Power = 0;
+        Synergy_AD_Def = 0;
+        Synergy_AP_Def = 0;
+        Synergy_Atk_Spd = 0;
+        Synergy_Critical_Percent = 0;
+        Synergy_Critical_Power = 0;
+        Synergy_Blood_Suck = 0;
+        Synergy_Power_Upgrade = 0;
+        Synergy_Total_Def = 0;
     }
 
     public int GetDamage()
@@ -372,7 +415,7 @@ public class ChampionBase : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             championHpMpController.TakeDamage(100);
-            UpdateStat(equipItem);
+            UpdateStatWithItem(equipItem);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -444,7 +487,7 @@ public class ChampionBase : MonoBehaviour
         }
 
         EquipItemChampionSetting();
-        UpdateStat(equipItem);
+        UpdateStatWithItem(equipItem);
     }
 
     private void EquipItemChampionSetting()
@@ -462,7 +505,7 @@ public class ChampionBase : MonoBehaviour
 
     public void UpdateItemStats(List<ItemBlueprint> equip)
     {
-        UpdateStat(equip);
+        UpdateStatWithItem(equip);
     }
 
     public void CombineItem()
@@ -525,9 +568,8 @@ public class ChampionBase : MonoBehaviour
     #endregion
 
     #region Stat
-    public void UpdateStat(List<ItemBlueprint> equipItem)
+    public void UpdateStatWithItem(List<ItemBlueprint> equipItem)
     {
-
         InitItemStat();
 
         if (equipItem.Count <= 0)
@@ -583,27 +625,26 @@ public class ChampionBase : MonoBehaviour
         UpdateChampmionStat();
     }
 
-
     /// <summary>
     /// SetChampion 에서 호출하고 보유 아이템도 체크
     /// </summary>
     public void UpdateChampmionStat()
     {
-        champion_MaxHp = maxHp + item_MaxHP;
+        champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP;
         champion_CurHp = curHp;
-        champion_MaxMana = maxMana + item_MaxMana;
+        champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana;
         champion_CurMana = curMana;
-        champion_Speed =  speed + item_Speed;
-        champion_AD_Power = ad_Power + item_AD_Power;
-        champion_AP_Power = ap_Power + item_AP_Power;
-        champion_AD_Def = ad_Defense + item_AD_Def;
-        champion_AP_Def = ap_Defense + item_AP_Def;
-        champion_Atk_Spd = attack_Speed + item_Atk_Spd;
-        champion_Critical_Percent = critical_Percent + item_Critical_Percent;
-        champion_Critical_Power = critical_Power + item_Cirtical_Power;
-        champion_Blood_Suck = blood_Suck + item_Blood_Suck;
-        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade;
-        champion_Total_Def = total_Defense + item_Total_Def;
+        champion_Speed =  speed + item_Speed + Synergy_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def + Synergy_AD_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def + Synergy_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd + Synergy_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent + Synergy_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Critical_Power + Synergy_Critical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck + Synergy_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def;
         champion_Shield = 0;
 
         UpdateDisplayStat();
@@ -655,7 +696,7 @@ public class ChampionBase : MonoBehaviour
             curHp = maxHp;
 
             ad_Power = data.Power;
-            UpdateStat(equipItem);
+            UpdateStatWithItem(equipItem);
         }
     }
 

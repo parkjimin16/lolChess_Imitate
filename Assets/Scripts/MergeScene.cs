@@ -59,6 +59,9 @@ public class MergeScene : MonoBehaviour
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
         }
-    
+        else if(Input.GetKeyDown(KeyCode.V)) 
+        {
+            Manager.Synerge.ApplySynergy(Manager.User.User1_Data);
+        }
     }
 }

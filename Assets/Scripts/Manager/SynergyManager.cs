@@ -167,7 +167,6 @@ public class SynergyManager
 
 
     #region 시너지 적용 로직
-
     public void UpdateSynergies(UserData userData)
     {
         // 현재 배치된 챔피언의 시너지를 확인
@@ -195,7 +194,7 @@ public class SynergyManager
                     return;
 
                 synergyBaseList.Add(sBase);
-                sBase.UpdateLevel(level);
+                sBase.UpdateLevel(userData, level);
 
             }
             // 마녀 시너지 처리
@@ -212,7 +211,7 @@ public class SynergyManager
                     return;
 
                 synergyBaseList.Add(sBase); 
-                sBase.UpdateLevel(level);
+                sBase.UpdateLevel(userData, level);
             }
             else
             {
@@ -220,8 +219,7 @@ public class SynergyManager
             }
         }
 
-        if(synergyBaseList.Count >0)
-            StartGame(SynergyBaseList);
+
     }
 
     private int CalculateSynergyLevel(int count, ChampionLineData lineData, ChampionJobData jobData)
@@ -251,28 +249,32 @@ public class SynergyManager
         return synergyLevel;
     }
 
-
+    public void ApplySynergy(UserData user)
+    {
+        if (synergyBaseList.Count > 0)
+            StartGame(user, SynergyBaseList);
+    }
     #endregion
 
 
 
     #region 예시 나중에 옮기던가 해야됨, 시너지 시작과 종료
 
-    private void StartGame(List<SynergyBase> sBaseList)
+    private void StartGame(UserData user, List<SynergyBase> sBaseList)
     {
         // 게임 시작 시 시너지 활성화
         foreach (var synergy in sBaseList)
         {
-            synergy.Activate();
+            synergy.Activate(user);
         }
     }
 
-    private void OnChampionRemoved(List<SynergyBase> sBaseList)
+    private void OnChampionRemoved(UserData user, List<SynergyBase> sBaseList)
     {
         // 챔피언이 제거될 때 시너지 비활성화
         foreach (var synergy in sBaseList)
         {
-            synergy.Deactivate();
+            synergy.Deactivate(user);
         }
     }
     #endregion
