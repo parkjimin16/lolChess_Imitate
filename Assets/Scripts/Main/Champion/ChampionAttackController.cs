@@ -95,7 +95,7 @@ public class ChampionAttackController : MonoBehaviour
                 yield return null;
             }
 
-            cBase.UpdateStat(cBase.EquipItem);
+            cBase.UpdateStatWithItem(cBase.EquipItem);
 
 
             if (cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
