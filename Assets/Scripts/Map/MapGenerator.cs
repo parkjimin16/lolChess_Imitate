@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.WSA;
 using static MapGenerator;
 
 public class MapGenerator : MonoBehaviour
@@ -46,6 +47,9 @@ public class MapGenerator : MonoBehaviour
     public Transform sharedSelectionMapTransform; // 공동 선택 맵의 Transform 참조
     public MapInfo sharedMapInfo; // 공동 선택 맵의 MapInfo
 
+    private Vector3 storedLeftPosition;
+    private Vector3 storedRightPosition;
+
     public void InitMapGenerator(GameDataBlueprint gdb)
     {
         hexTilePrefab = gdb.HexTilePrefab;
@@ -66,6 +70,7 @@ public class MapGenerator : MonoBehaviour
         CreatUserMap();
         AdjustCamera();
         PositionMinimapCamera();
+
     }
 
     void CalculateTileSize()
@@ -111,6 +116,8 @@ public class MapGenerator : MonoBehaviour
 
         public Dictionary<(int, int), HexTile> HexDictionary = new Dictionary<(int, int), HexTile>();
         public Dictionary<(int, int), HexTile> RectDictionary = new Dictionary<(int, int), HexTile>();
+        public List<Transform> SugarcraftPosition = new List<Transform>();
+        public List<Transform> PortalPosition = new List<Transform>();
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -230,8 +237,8 @@ public class MapGenerator : MonoBehaviour
         }
 
         // 맨 위와 맨 아래에 직사각형 타일 생성 (위치 조정 포함)
-        CreateRectangularRow(-1, -hexHeight * 0.75f - zOffset, parent, mapInfo);
-        CreateRectangularRow(height, hexHeight * 0.75f * (height) - zOffset, parent, mapInfo);
+        CreateRectTile(-1, -hexHeight * 0.75f - zOffset, parent, mapInfo);
+        CreateRectTile(height, hexHeight * 0.75f * (height) - zOffset, parent, mapInfo);
         CreateItemTiles(parent);
         CreateGoldTiles(parent);
 
@@ -263,7 +270,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-    void CreateRectangularRow(int row, float zPos, Transform parent, MapInfo mapInfo)
+    void CreateRectTile(int row, float zPos, Transform parent, MapInfo mapInfo)
     {
         // zPos에 부모의 z 위치를 더합니다.
         zPos += parent.position.z;
@@ -299,6 +306,78 @@ public class MapGenerator : MonoBehaviour
             hexTile.isOccupied = false;
 
             mapInfo.RectDictionary.Add((x, row), hexTile);
+        }
+
+        // 빈 오브젝트 생성 함수 호출
+        CreatSynergyPosition(row, zPos, parent, xOffset, mapInfo);
+        
+    }
+
+    void CreatSynergyPosition(int row, float zPos, Transform parent, float xOffset, MapInfo mapInfo)
+    {
+        Vector3 leftPosition, rightPosition;
+
+        if (row == -1)
+        {
+            // row가 -1인 경우의 위치를 계산하고 저장합니다.
+            float leftXPos = (-1) * rectWidthSize - xOffset + parent.position.x - 2f;
+            leftPosition = new Vector3(leftXPos, 0, zPos + 6f);
+
+            float rightXPos = (rectWidth) * rectWidthSize - xOffset + parent.position.x + 0.5f;
+            rightPosition = new Vector3(rightXPos, 0, zPos + 4f);
+
+            // 위치를 저장합니다.
+            storedLeftPosition = leftPosition;
+            storedRightPosition = rightPosition;
+
+        }
+        else if (row == height)
+        {
+            // 저장된 위치를 사용하여 대칭 위치를 계산합니다.
+            leftPosition = new Vector3(
+                2 * parent.position.x - storedLeftPosition.x,
+                storedLeftPosition.y,
+                2 * parent.position.z - storedLeftPosition.z
+            );
+
+            rightPosition = new Vector3(
+                2 * parent.position.x - storedRightPosition.x,
+                storedRightPosition.y,
+                2 * parent.position.z - storedRightPosition.z
+            );
+        }
+        else
+        {
+            // 일반적인 경우의 위치 계산
+            float leftXPos = (-1) * rectWidthSize - xOffset + parent.position.x - 2f;
+            leftPosition = new Vector3(leftXPos, 0, zPos);
+
+            float rightXPos = (rectWidth) * rectWidthSize - xOffset + parent.position.x + 2f;
+            rightPosition = new Vector3(rightXPos, 0, zPos);
+        }
+
+        // 빈 오브젝트 생성
+        GameObject leftEmptyObject = new GameObject($"Empty_Left_{row}");
+        leftEmptyObject.transform.position = leftPosition;
+        leftEmptyObject.transform.SetParent(parent);
+        mapInfo.PortalPosition.Add(leftEmptyObject.transform);
+
+        GameObject rightEmptyObject = new GameObject($"Empty_Right_{row}");
+        rightEmptyObject.transform.position = rightPosition;
+        rightEmptyObject.transform.SetParent(parent);
+        mapInfo.SugarcraftPosition.Add(rightEmptyObject.transform);
+
+        if (row == -1)
+        {
+            // 플레이어의 오브젝트
+            leftEmptyObject.tag = "PlayerPortal";
+            rightEmptyObject.tag = "PlayerSugar";
+        }
+        else if (row == height)
+        {
+            // 적의 오브젝트
+            leftEmptyObject.tag = "EnemyPortal";
+            rightEmptyObject.tag = "EnemySugar";
         }
     }
 
@@ -351,7 +430,7 @@ public class MapGenerator : MonoBehaviour
                 tile1.name = $"ItemTile_{1}";
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 ItemTile itemTile = tile1.GetComponent<ItemTile>();
-                itemTile.TileType1 = ItemOwner.Another;
+                itemTile.TileType1 = ItemOwner.Another;    
             }
         }
     }

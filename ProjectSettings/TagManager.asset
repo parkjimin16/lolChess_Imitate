@@ -14,6 +14,10 @@ TagManager:
   - PlayerTile
   - ItemTile
   - EnemyTile
+  - PlayerSugar
+  - EnemySugar
+  - PlayerPortal
+  - EnemyPortal
   layers:
   - Default
   - TransparentFX

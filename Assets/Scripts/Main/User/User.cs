@@ -135,7 +135,7 @@ public class User : MonoBehaviour
                 else if (_movableObjectType == MovableObjectType.Champion)
                 {
                     tile.isOccupied = false;
-                    tile.itemOnTile = null;
+                    tile.championOnTile = null;
                 }
             }
 
@@ -181,7 +181,7 @@ public class User : MonoBehaviour
                     else if (_movableObjectType == MovableObjectType.Champion)
                     {
                         tile.isOccupied = false;
-                        tile.itemOnTile = null;
+                        tile.championOnTile = null;
                     }
                 }
             }
@@ -320,7 +320,7 @@ public class User : MonoBehaviour
 
             // 타일 상태 업데이트
             hitTile.isOccupied = true;
-            hitTile.itemOnTile = _movableObj;
+            hitTile.championOnTile = _movableObj;
             //GetChampionsWithinOneTile(_movableObj);
 
             // 이전 타일의 상태 업데이트 (현재 타일과 다를 때만)
@@ -328,7 +328,7 @@ public class User : MonoBehaviour
             {
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
                 previousTile.isOccupied = false;
-                previousTile.itemOnTile = null;
+                previousTile.championOnTile = null;
             }
         }
         else
@@ -409,7 +409,7 @@ public class User : MonoBehaviour
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
                 tile.isItemTile = false;
-                tile.itemOnTile = null;
+                tile.championOnTile = null;
             }
         }
         else
@@ -515,7 +515,7 @@ public class User : MonoBehaviour
                     else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
                     {
                         previousTile.isOccupied = true;
-                        previousTile.itemOnTile = _returningObjData.obj;
+                        previousTile.championOnTile = _returningObjData.obj;
                     }
                 }
 

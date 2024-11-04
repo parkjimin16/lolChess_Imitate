@@ -12,6 +12,7 @@ public class HexTile : MonoBehaviour
     public bool isOccupied = false;
     public bool isItemTile = false;
     public GameObject itemOnTile = null;
+    public GameObject championOnTile = null;
 
     // Start is called before the first frame update
     void Start()

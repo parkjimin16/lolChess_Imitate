@@ -15,7 +15,14 @@ public class ChampionManager
             return;
 
         // 임시
-        userData.NonBattleChampionObject.Add(champion);
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null)
+            {
+                userData.NonBattleChampionObject.Add(tile.championOnTile);
+            }
+        }
         
         //battleChampion.Add(cBlueprint);
 
@@ -75,8 +82,14 @@ public class ChampionManager
             return;
 
         // 임시
-
-        userData.BattleChampionObject.Add(champion);
+        foreach (var tileEntry in userData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null)
+            {
+                userData.BattleChampionObject.Add(tile.championOnTile);
+            }
+        }
 
         //battleChampion.Add(cBlueprint);
 

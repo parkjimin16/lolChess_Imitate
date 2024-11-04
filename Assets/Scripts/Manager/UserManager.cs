@@ -8,11 +8,11 @@ public class UserManager
     public UserData User1_Data;
 
 
-    public void Init()
+    public void Init(MapGenerator mapGenerator)
     {
         User1_Data = new UserData();
 
-        User1_Data.InitUserData(10, "박태영");
+        User1_Data.InitUserData(10, "박태영", 0, mapGenerator);
     }
 
     public void AddChampion(GameObject chamipon)
@@ -41,12 +41,16 @@ public class UserData
 {
     [SerializeField] private int gold;
     [SerializeField] private string userName;
+    [SerializeField] private int userId;
     [SerializeField] private List<GameObject> battleChampionObject;
     [SerializeField] private List<GameObject> nonBattleChamiponObject;
     [SerializeField] private List<ChampionBlueprint> battleChampion;
     [SerializeField] private List<ChampionBlueprint> nonBattleChampion;
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
     [SerializeField] private List<UserSynergyData> userSynergyData;
+    [SerializeField] private MapGenerator.MapInfo mapInfo;
+    [SerializeField] private List<Transform> sugarCraftPosition;
+    [SerializeField] private List<Transform> portalPosition;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -137,10 +141,24 @@ public class UserData
         get { return championSynergies; }
         set {  championSynergies = value;}
     }
+    public MapGenerator.MapInfo MapInfo
+    { 
+        get { return mapInfo; } 
+    }
+
+    public List<Transform> SugarCraftPosition
+    {
+        get { return sugarCraftPosition; }
+    }
+
+    public List<Transform> PortalPosition 
+    { 
+        get { return portalPosition; } 
+    }
     #endregion
 
     #region Init
-    public void InitUserData(int _gold, string _userName)
+    public void InitUserData(int _gold, string _userName, int _userId, MapGenerator _mapGenerator)
     {
         battleChampionObject = new List<GameObject>();
         nonBattleChamiponObject = new List<GameObject>();
@@ -152,17 +170,27 @@ public class UserData
         championSynergies_Line = new Dictionary<string, HashSet<string>>();
         championSynergies_Job = new Dictionary<string, HashSet<string>>();
         championSynergies = new Dictionary<string, SynergyData>();
+        sugarCraftPosition = new List<Transform>();
+        portalPosition = new List<Transform>();
 
+        mapInfo = _mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == userId);
+
+        sugarCraftPosition = mapInfo.SugarcraftPosition;
+        portalPosition = mapInfo.PortalPosition;
 
         gold = _gold;
         userName = _userName;
+        userId = _userId;
         battleChampion.Clear();
         nonBattleChampion.Clear();
         totalItemBlueprint.Clear();
         synergies_Line.Clear();
+        
     }
 
     #endregion
+    
+
 }
 
 [System.Serializable]
