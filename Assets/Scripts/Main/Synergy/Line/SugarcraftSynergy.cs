@@ -59,8 +59,7 @@ public class SugarcraftSynergy : SynergyBase
             Deactivate(user);
             return;
         }
-
-        if (level >= 2 && level < 4)
+        else if (level >= 2 && level < 4)
         {
             sugarCount = 3;
             attackPower = 22;
@@ -81,8 +80,6 @@ public class SugarcraftSynergy : SynergyBase
         }
 
         sugarCake.SetActive(true);
-        //Activate(user);
-
 
         Debug.Log($"[달콤술사] 레벨 {level} 적용: 설탕 {sugarCount}, 공격력 {attackPower}, 주문력 {spellPower}");
     }
@@ -119,14 +116,12 @@ public class SugarcraftSynergy : SynergyBase
 
     public override void Activate(UserData user)
     {
-        Debug.Log("Activate");
         GainSugarFromAlliedItems(user);
     }
 
     public override void Deactivate(UserData user)
     {
         RemoveEffects(user);
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
     #endregion
 

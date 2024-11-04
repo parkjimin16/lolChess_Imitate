@@ -37,7 +37,6 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
         }
         else if(Input.GetKeyDown(KeyCode.X)) 

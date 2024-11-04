@@ -4,50 +4,88 @@ using UnityEngine;
 
 public class WitchcraftSynergy : SynergyBase
 {
+
+    // 시너지 변수
+    private int level;
+
+    // 마녀 로직 변수
+    private int healthReduction;
+    private bool decreaseHealth;
+    private bool applyGreenColor;
+    private float magicDamagePercent;
+    private float additionalWitchDamage;
+    private bool applyFrogTransformation;
+    private float amplifyEffects;
+
+
     public WitchcraftSynergy()
     : base("마녀", ChampionLine.Witchcraft, ChampionJob.None, 0) { }
 
+    #region Unity Flow
 
+    private void Awake()
+    {
+        level = 0;
+        healthReduction = 0;
+        decreaseHealth = false;
+        applyGreenColor = false;
+        magicDamagePercent = 0;
+        additionalWitchDamage = 0;
+        applyFrogTransformation = false;
+        amplifyEffects = 0;
+    }
+
+    #endregion
+
+
+    #region 활성 & 비활성화
     protected override void ApplyEffects(UserData user, int level)
     {
+        this.level = level;
+
         if(level >= 0 && level < 2)
         {
-            level = 0;
             Deactivate(user);
         }
         else if(level >= 2 && level < 4)
         {
-            level = 2;
+            healthReduction = 120;
+            decreaseHealth = true;
+            applyGreenColor = false;
+            magicDamagePercent = 0;
+            additionalWitchDamage = 0;
+            applyFrogTransformation = false;
+            amplifyEffects = 0;
         }
         else if (level >= 4 && level < 6)
         {
-            level = 4;
+            healthReduction = 120;
+            decreaseHealth = true;
+            applyGreenColor = true;
+            magicDamagePercent = 0.06f;
+            additionalWitchDamage = 0;
+            applyFrogTransformation = false;
+            amplifyEffects = 0;
         }
         else if (level >= 6 && level < 8)
         {
-            level = 6;
+            healthReduction = 120;
+            decreaseHealth = true;
+            applyGreenColor = true;
+            magicDamagePercent = 0.06f;
+            additionalWitchDamage = 0.25f;
+            applyFrogTransformation = true;
+            amplifyEffects = 0;
         }
         else if (level >= 8)
         {
-            level = 8;
-        }
-
-
-
-        switch (level)
-        {
-            case 2:
-                ApplyCurseEffect(120, decreaseHealth: true);
-                break;
-            case 4:
-                ApplyCurseEffect(0, applyGreenColor: true, magicDamagePercent: 0.06f);
-                break;
-            case 6:
-                ApplyCurseEffect(0, additionalWitchDamage: 0.25f);
-                break;
-            case 8:
-                ApplyCurseEffect(0, applyFrogTransformation: true, amplifyEffects: 0.5f);
-                break;
+            healthReduction = 120;
+            decreaseHealth = true;
+            applyGreenColor = true;
+            magicDamagePercent = 0.06f;
+            additionalWitchDamage = 0.25f;
+            applyFrogTransformation = true;
+            amplifyEffects = 0.5f;
         }
 
         Debug.Log($"[마녀] 레벨 {level} 저주 효과 적용");
@@ -55,30 +93,107 @@ public class WitchcraftSynergy : SynergyBase
 
     protected override void RemoveEffects(UserData user)
     {
-        throw new System.NotImplementedException();
+        foreach (var champion in user.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            if (cBase == null)
+                continue;
+
+            cBase.UpdateChampmionStat();
+        }
+
+        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)
     {
-        // 마녀 스킬을 통해 적에게 저주를 거는 로직
-        CastCurseOnEnemy();
+        CastCurseOnEnemy(level, healthReduction, decreaseHealth, applyGreenColor, magicDamagePercent, additionalWitchDamage, applyFrogTransformation, amplifyEffects);
     }
 
     public override void Deactivate(UserData user)
     {
         RemoveEffects(user);
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
+    #endregion
+
+
+    #region 마녀 로직
     private void ApplyCurseEffect(int healthReduction, bool decreaseHealth = false, bool applyGreenColor = false,
                                   float magicDamagePercent = 0, float additionalWitchDamage = 0,
                                   bool applyFrogTransformation = false, float amplifyEffects = 0)
     {
-        // 저주 효과 적용 구현
+        List<GameObject> enemies = Manager.User.User1_Data.BattleChampionObject;
+
+        foreach (var enemy in enemies)
+        {
+            ChampionBase cBase = enemy.GetComponent<ChampionBase>();
+            if (cBase != null)
+            {
+                // 2레벨: 체력 120 감소
+                if (healthReduction > 0)
+                {
+                    cBase.Synergy_MaxHP -= healthReduction;
+                    cBase.Synergy_CurHP -= healthReduction;
+
+                    Debug.Log($"{cBase.ChampionName}의 체력이 {healthReduction}만큼 감소했습니다.");
+                }
+
+                // 4레벨: 최대 체력의 6%만큼 마법 피해
+                if (magicDamagePercent > 0)
+                {
+                    float damage = cBase.Synergy_MaxHP * magicDamagePercent;
+                    cBase.Synergy_CurHP -= (int)damage;
+                    Debug.Log($"{cBase.name}에게 {damage}의 마법 피해를 입혔습니다.");
+                }
+
+                // 6레벨: 마녀로부터 25%의 추가 고정 피해
+                if (additionalWitchDamage > 0)
+                {
+                    float fixedDamage = additionalWitchDamage * cBase.Champion_TotalDamage; 
+                }
+
+                // 8레벨: 기절 효과 적용
+                if (applyFrogTransformation)
+                {
+                    //cBase.Stun(2f); // 2초간 기절
+                    Debug.Log($"{cBase.ChampionName}이(가) 기절했습니다.");
+                }
+
+                if (amplifyEffects > 0)
+                {
+                    float amplifiedDamage = (healthReduction + (cBase.Synergy_MaxHP * magicDamagePercent)) * amplifyEffects;
+                    cBase.Synergy_CurHP -= (int)amplifiedDamage;
+                    Debug.Log($"{cBase.ChampionName}에게 증폭된 {amplifiedDamage}의 피해를 입혔습니다.");
+                }
+            }
+
+            cBase.UpdateChampmionStat();
+        }
     }
 
-    private void CastCurseOnEnemy()
-    {
-        // 저주 발동 로직 구현
+    private void CastCurseOnEnemy(int level, int healthReduction, bool decreaseHealth, bool applyGreenColor,
+                                  float magicDamagePercent, float additionalWitchDamage,
+                                  bool applyFrogTransformation, float amplifyEffects)
+    { 
+        if (level >= 2 && level < 4)
+        {
+            ApplyCurseEffect(healthReduction, decreaseHealth, applyGreenColor, magicDamagePercent, additionalWitchDamage, applyFrogTransformation, amplifyEffects);
+        }
+        else if (level >= 4 && level < 6)
+        {
+            ApplyCurseEffect(healthReduction, decreaseHealth, applyGreenColor, magicDamagePercent, additionalWitchDamage, applyFrogTransformation, amplifyEffects);
+        }
+        else if (level >= 6 && level < 8)
+        {
+            ApplyCurseEffect(healthReduction, decreaseHealth, applyGreenColor, magicDamagePercent, additionalWitchDamage, applyFrogTransformation, amplifyEffects);
+        }
+        else if (level >= 8)
+        {
+            ApplyCurseEffect(healthReduction, decreaseHealth, applyGreenColor, magicDamagePercent, additionalWitchDamage, applyFrogTransformation, amplifyEffects);
+
+        }
     }
+    #endregion
 }

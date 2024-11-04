@@ -81,7 +81,7 @@ public class StageManager
         // 대기시간 설정
         int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
-        Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+      //  Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
 
         // 대기시간 타이머 시작
         UIManager.Instance.StartTimer(waitTime);
@@ -101,17 +101,17 @@ public class StageManager
             int opponentIndex = (currentRound - 1) % opponents.Count;
             currentOpponent = opponents[opponentIndex];
 
-            Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
+          //  Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
 
             // 매칭 후 대기시간
-            Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
+           // Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
 
             // 매칭 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
 
             yield return new WaitForSeconds(postMatchWaitTime);
 
-            Debug.Log("라운드가 시작됩니다!");
+            //Debug.Log("라운드가 시작됩니다!");
 
             // 전투 시작
             Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
@@ -140,7 +140,7 @@ public class StageManager
             if (currentStage > 8)
             {
                 // 게임 종료
-                Debug.Log("게임 클리어!");
+               // Debug.Log("게임 클리어!");
                 return;
             }
             StartStage(currentStage);
@@ -163,7 +163,7 @@ public class StageManager
         int Hp = selfPlayer.GetComponent<Player>().CurrentHealth;
         Hp -= totalDamage;
         selfPlayer.GetComponent<Player>().setCurrentHealth = Hp;
-        Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.GetComponent<Player>().CurrentHealth}");
+        //Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.GetComponent<Player>().CurrentHealth}");
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();
@@ -172,14 +172,14 @@ public class StageManager
         // 게임 오버 체크
         if (selfPlayer.GetComponent<Player>().CurrentHealth <= 0)
         {
-            Debug.Log("게임 오버!");
+           // Debug.Log("게임 오버!");
             // 게임 오버 로직 처리
         }
     }
 
     void DisplayCurrentStageAndRound()
     {
-        Debug.Log($"현재 스테이지: {currentStage}, 현재 라운드: {currentRound}");
+       // Debug.Log($"현재 스테이지: {currentStage}, 현재 라운드: {currentRound}");
     }
 
     void ShuffleOpponents()
@@ -205,7 +205,7 @@ public class StageManager
 
     IEnumerator StartCarouselRound()
     {
-        Debug.Log("공동 선택 라운드가 시작됩니다!");
+        //Debug.Log("공동 선택 라운드가 시작됩니다!");
 
         // 카메라를 공동 선택 맵으로 이동
         
@@ -314,7 +314,7 @@ public class StageManager
     }
     void EndCarouselRound()
     {
-        Debug.Log("공동 선택 라운드가 종료되었습니다.");
+       // Debug.Log("공동 선택 라운드가 종료되었습니다.");
 
         // 모든 플레이어들에게 공동 선택 라운드 종료를 알리고 원래 위치로 복귀
         foreach (GameObject playerObj in AllPlayers)
@@ -347,7 +347,7 @@ public class StageManager
             if (currentStage > 8)
             {
                 // 게임 종료
-                Debug.Log("게임 클리어!");
+               // Debug.Log("게임 클리어!");
                 return;
             }
             StartStage(currentStage);
@@ -384,7 +384,7 @@ public class StageManager
 
         if (nearestTile == null)
         {
-            Debug.LogWarning("근처에 타일이 없습니다.");
+            //Debug.LogWarning("근처에 타일이 없습니다.");
             return champions;
         }
 
@@ -443,20 +443,20 @@ public class StageManager
     {
         if (champions == null || champions.Count == 0)
         {
-            Debug.Log("주변에 챔피언이 없습니다.");
+         //   Debug.Log("주변에 챔피언이 없습니다.");
             return;
         }
 
-        Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
+       // Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
         foreach (var champion in champions)
         {
             if (champion != null)
             {
-                Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
+              //  Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
             }
             else
             {
-                Debug.Log("챔피언이 null입니다.");
+               // Debug.Log("챔피언이 null입니다.");
             }
         }
     }

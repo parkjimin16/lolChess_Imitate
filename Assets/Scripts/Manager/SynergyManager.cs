@@ -95,18 +95,6 @@ public class SynergyManager
         }
     }
 
-    
-    // 시너지 반환 및 디버깅 용
-    public void PrintSortedChampionSynergiesWithCount(UserData userData)
-    {
-        var sortedSynergies = GetSortedChampionSynergiesWithCount(userData);
-
-        foreach (var synergy in sortedSynergies)
-        {
-            Debug.Log($"Synergy: {synergy.Key}, Count: {synergy.Value}");
-        }
-    }
-
     public List<KeyValuePair<string, int>> GetSortedChampionSynergiesWithCount(UserData userData)
     {
         var synergyCounts = new Dictionary<string, int>();
@@ -163,6 +151,22 @@ public class SynergyManager
         return 0;
     }
 
+
+
+
+
+
+    //  디버깅 
+    public void PrintSortedChampionSynergiesWithCount(UserData userData)
+    {
+        var sortedSynergies = GetSortedChampionSynergiesWithCount(userData);
+
+        foreach (var synergy in sortedSynergies)
+        {
+            Debug.Log($"Synergy: {synergy.Key}, Count: {synergy.Value}");
+        }
+    }
+
     #endregion
 
 
@@ -173,14 +177,12 @@ public class SynergyManager
         activeSynergy = GetSortedChampionSynergiesWithCount(userData);
         synergyBaseList.Clear();
 
-        // ** 여기에 현재 켜져 있는 시너지를 확인하는 로직을 추가하세요. **
         foreach (var synergy in activeSynergy)
         {
             string synergyName = synergy.Key;
             int synergyCount = synergy.Value;
 
 
-            // 달콤술사 시너지 처리
             if (synergyName == "달콤술사")
             {
                 ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Sugarcraft);
@@ -197,7 +199,6 @@ public class SynergyManager
                 sBase.UpdateLevel(userData, level);
 
             }
-            // 마녀 시너지 처리
             else if (synergyName == "마녀")
             {
                 ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Witchcraft);
@@ -230,7 +231,7 @@ public class SynergyManager
             {
                 if (count >= symbolData.Level)
                 {
-                    synergyLevel = symbolData.Level; // count가 해당 level 이상일 경우 업데이트
+                    synergyLevel = symbolData.Level; 
                 }
             }
         }
@@ -240,7 +241,7 @@ public class SynergyManager
             {
                 if (count >= symbolData.Level)
                 {
-                    synergyLevel = symbolData.Level; // count가 해당 level 이상일 경우 업데이트
+                    synergyLevel = symbolData.Level; 
                 }
             }
         }
@@ -259,8 +260,6 @@ public class SynergyManager
             OnChampionRemoved(user, SynergyBaseList);
     }
     #endregion
-
-
 
     #region 예시 나중에 옮기던가 해야됨, 시너지 시작과 종료
 
