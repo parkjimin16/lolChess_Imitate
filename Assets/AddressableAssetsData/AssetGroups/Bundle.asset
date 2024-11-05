@@ -1709,6 +1709,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39fb205d7e9032145a0560ef45dcb2a8
+    m_Address: Assets/@Resources/Prefab/Crip/Crip.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:
