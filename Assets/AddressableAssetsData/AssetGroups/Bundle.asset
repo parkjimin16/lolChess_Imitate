@@ -1667,6 +1667,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e71293a270295749900e8fcb1038ce1
+    m_Address: Assets/@Resources/Prefab/Synergy/LineObject/Bee.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 190268ad71cfd6e45b7d0d455cf17693
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Meadist.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03c109215e540e64388c2c12be629cdd
+    m_Address: Assets/@Resources/Prefab/Synergy/LineObject/FrostWarrior.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4bd783fdd01570479bc0ebfafae4dc9
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Frost.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

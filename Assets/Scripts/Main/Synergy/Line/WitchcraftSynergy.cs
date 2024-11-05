@@ -39,9 +39,9 @@ public class WitchcraftSynergy : SynergyBase
 
 
     #region 활성 & 비활성화
-    protected override void ApplyEffects(UserData user, int level)
+    protected override void ApplyEffects(UserData user, int _level)
     {
-        this.level = level;
+        level = _level;
 
         if(level >= 0 && level < 2)
         {
