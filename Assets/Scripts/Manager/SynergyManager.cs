@@ -193,7 +193,7 @@ public class SynergyManager
                 SynergyBase sBase = obj.GetComponent<SynergyBase>();
 
                 if (sBase == null)
-                    return;
+                    continue;
 
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
@@ -209,9 +209,69 @@ public class SynergyManager
                 SynergyBase sBase = obj.GetComponent<SynergyBase>();
 
                 if (sBase == null)
-                    return;
+                    continue;
 
                 synergyBaseList.Add(sBase); 
+                sBase.UpdateLevel(userData, level);
+            }
+            else if(synergyName == "¹ú²Ü¼ú»ç")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Meadist);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Meadist);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "¼­¸®")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Frost);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Frost);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "¼¶¶àÇÑ Èû")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Eldritch);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Eldritch);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "½Ã°ø°£")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.SpaceAndTime);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.SpaceAndTime);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
             else
@@ -250,6 +310,8 @@ public class SynergyManager
 
     public void ApplySynergy(UserData user)
     {
+        Manager.Synerge.UpdateSynergies(user);
+
         if (synergyBaseList.Count > 0)
             StartGame(user, SynergyBaseList);
     }
@@ -265,6 +327,8 @@ public class SynergyManager
 
     private void StartGame(UserData user, List<SynergyBase> sBaseList)
     {
+        
+
         // °ÔÀÓ ½ÃÀÛ ½Ã ½Ã³ÊÁö È°¼ºÈ­
         foreach (var synergy in sBaseList)
         {

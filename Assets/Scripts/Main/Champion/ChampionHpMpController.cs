@@ -57,6 +57,8 @@ public class ChampionHpMpController : MonoBehaviour
         {
             it.BaseItem.CheckHp(cBase.Champion_CurHp, cBase.Champion_MaxHp);
         }
+
+        cBase.UpdateChampmionStat();
     }
 
     
