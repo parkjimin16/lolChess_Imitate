@@ -130,6 +130,8 @@ public class FrostSynergy : SynergyBase
 
             cBase.Synergy_AD_Power += ad_Power;
             cBase.Synergy_AP_Power += ad_Power;
+
+            cBase.UpdateChampmionStat();
         }
 
         enemyChampion = GetEnemyChampion(user);

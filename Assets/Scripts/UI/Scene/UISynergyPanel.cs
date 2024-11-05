@@ -62,10 +62,6 @@ public class UISynergyPanel : UIBase
             synergySlots[i].SetActive(false);
         }
 
-
-
-
-
         Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
     }
 

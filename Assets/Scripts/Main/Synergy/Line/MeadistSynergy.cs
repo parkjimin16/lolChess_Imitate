@@ -12,24 +12,10 @@ public class MeadistSynergy : SynergyBase
     private float totalPower;
     private float totalDefense;
 
-    private List<GameObject> beeObjects;
+    private List<GameObject> beeObjects = new List<GameObject>();
 
     public MeadistSynergy()
         : base("¹ú²Ü¼ú»ç", ChampionLine.Meadist, ChampionJob.None, 0) { }
-
-    #region UnityFlow
-
-    private void Awake()
-    {
-        beeObjects = new List<GameObject>();
-
-        level = 0;
-        attackTimer = 3;
-        totalPower = 0;
-        totalDefense = 0;   
-    }
-
-    #endregion
 
     #region È°¼º & ºñÈ°¼ºÈ­
     protected override void ApplyEffects(UserData user, int _level)
@@ -131,7 +117,7 @@ public class MeadistSynergy : SynergyBase
             ChampionBase cBase = champion.GetComponent<ChampionBase>();
             cBase.Synergy_Power_Upgrade += totalPower;
             cBase.Synergy_Total_Def += totalDefense;
-
+            cBase.UpdateChampmionStat();
             beeObjects.Add(bee);
         }
     }

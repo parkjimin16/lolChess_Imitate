@@ -149,9 +149,9 @@ GameObject:
   - component: {fileID: 7011274958771730563}
   - component: {fileID: 254032169480830313}
   - component: {fileID: 1027505214777046503}
-  - component: {fileID: 322453252699876411}
+  - component: {fileID: 8055435416084951364}
   m_Layer: 0
-  m_Name: FrostWarrior
+  m_Name: EldritchWarrior
   m_TagString: Champion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 110
   m_CollisionDetection: 0
---- !u!114 &322453252699876411
+--- !u!114 &8055435416084951364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,13 +284,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5665606537432512241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d1c78179a3cc6489950e222c7aa3cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e82d5a49cf5d1a4ba6fcbd482668e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 0
-  CurHp: 0
-  Power: 0
-  MoveSpeed: 3
+  txt_WarriorName: {fileID: 5004282431700819608}
 --- !u!1 &7162528138292096961
 GameObject:
   m_ObjectHideFlags: 0

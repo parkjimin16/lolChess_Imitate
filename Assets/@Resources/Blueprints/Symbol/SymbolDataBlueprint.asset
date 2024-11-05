@@ -189,7 +189,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c1bb836a2567848418d5f1035a95e567, type: 2}
     - {fileID: 11400000, guid: a0c68e99b5104b840945802848f39f10, type: 2}
     - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 814319739529124831, guid: 7b87068010b58224f83ef13dd06d63e0, type: 3}
   - championLine: 7
     championLineSprite: {fileID: 21300000, guid: 2b1fc1557db492840a38d94015b81343, type: 3}
     championLineName: "\uC2DC\uACF5\uAC04"
@@ -220,7 +220,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 55254cab5b8d4ca4180ed689b365b8ca, type: 2}
     - {fileID: 11400000, guid: d862f6fb02e8c3241b4543b212281611, type: 2}
     - {fileID: 11400000, guid: a91fa52a5bd010c428faf7649fe2ee74, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 1455619834077150027, guid: 4af3f019d25fb1346804cb834d9045a6, type: 3}
   - championLine: 8
     championLineSprite: {fileID: 21300000, guid: 1e9123cbb04e45a4e88c5431b7530ba6, type: 3}
     championLineName: "\uC544\uB974\uCE74\uB098"

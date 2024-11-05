@@ -21,23 +21,6 @@ public class WitchcraftSynergy : SynergyBase
     public WitchcraftSynergy()
     : base("마녀", ChampionLine.Witchcraft, ChampionJob.None, 0) { }
 
-    #region Unity Flow
-
-    private void Awake()
-    {
-        level = 0;
-        healthReduction = 0;
-        decreaseHealth = false;
-        applyGreenColor = false;
-        magicDamagePercent = 0;
-        additionalWitchDamage = 0;
-        applyFrogTransformation = false;
-        amplifyEffects = 0;
-    }
-
-    #endregion
-
-
     #region 활성 & 비활성화
     protected override void ApplyEffects(UserData user, int _level)
     {
@@ -113,6 +96,15 @@ public class WitchcraftSynergy : SynergyBase
 
     public override void Deactivate(UserData user)
     {
+        level = 0;
+        healthReduction = 0;
+        decreaseHealth = false;
+        applyGreenColor = false;
+        magicDamagePercent = 0;
+        additionalWitchDamage = 0;
+        applyFrogTransformation = false;
+        amplifyEffects = 0;
+
         RemoveEffects(user);
     }
 
@@ -135,7 +127,7 @@ public class WitchcraftSynergy : SynergyBase
                 if (healthReduction > 0)
                 {
                     cBase.Synergy_MaxHP -= healthReduction;
-                    cBase.Synergy_CurHP -= healthReduction;
+                    cBase.ChampionHpMpController.TakeDamage(healthReduction);
 
                     Debug.Log($"{cBase.ChampionName}의 체력이 {healthReduction}만큼 감소했습니다.");
                 }
@@ -144,7 +136,7 @@ public class WitchcraftSynergy : SynergyBase
                 if (magicDamagePercent > 0)
                 {
                     float damage = cBase.Synergy_MaxHP * magicDamagePercent;
-                    cBase.Synergy_CurHP -= (int)damage;
+                    cBase.ChampionHpMpController.TakeDamage(healthReduction);
                     Debug.Log($"{cBase.name}에게 {damage}의 마법 피해를 입혔습니다.");
                 }
 
@@ -164,7 +156,7 @@ public class WitchcraftSynergy : SynergyBase
                 if (amplifyEffects > 0)
                 {
                     float amplifiedDamage = (healthReduction + (cBase.Synergy_MaxHP * magicDamagePercent)) * amplifyEffects;
-                    cBase.Synergy_CurHP -= (int)amplifiedDamage;
+                    cBase.ChampionHpMpController.TakeDamage(healthReduction);
                     Debug.Log($"{cBase.ChampionName}에게 증폭된 {amplifiedDamage}의 피해를 입혔습니다.");
                 }
             }
