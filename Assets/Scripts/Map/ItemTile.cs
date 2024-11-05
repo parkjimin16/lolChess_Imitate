@@ -95,4 +95,47 @@ public class ItemTile : MonoBehaviour
 
         Destroy(item);
     }
+
+    public void GenerateItem()
+    {
+        if (TileType1 == ItemOwner.Player)
+        {
+            // 빈 타일 리스트 생성
+            List<GameObject> emptyTiles = new List<GameObject>();
+
+            // 모든 타일을 검사하여 빈 타일을 수집
+            foreach (GameObject tileObj in _items)
+            {
+                HexTile tile = tileObj.GetComponent<HexTile>();
+                if (tile != null && tile.isItemTile == false)
+                {
+                    emptyTiles.Add(tileObj);
+                }
+            }
+
+            if (emptyTiles.Count > 0)
+            {
+                // 빈 타일 중에서 무작위로 선택
+                GameObject selectedTile = emptyTiles[Random.Range(0, emptyTiles.Count)];
+
+                // 아이템 생성
+                string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+                GameObject newItem = Manager.Item.CreateItem(itemId, selectedTile.transform.position);
+
+                // 아이템을 타일의 자식으로 설정하고 위치 조정
+                newItem.transform.SetParent(selectedTile.transform);
+                newItem.transform.position = selectedTile.transform.position + new Vector3(0, 0.3f, 0);
+
+                // 타일의 상태 업데이트
+                HexTile tile = selectedTile.GetComponent<HexTile>();
+                tile.isItemTile = true;
+                tile.itemOnTile = newItem;
+            }
+            else
+            {
+                // 모든 타일이 가득 찼을 경우
+                Debug.Log("생성불가");
+            }
+        }
+    }
 }

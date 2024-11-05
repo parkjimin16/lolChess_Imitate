@@ -29,17 +29,17 @@ public class StageManager
 
     private Coroutine roundCoroutine;
 
-    public GameObject go;
+    private GameObject CripPrefab;
     #region Init
 
-    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameObject Go)
+    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameObject crip)
     {
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
-        go = Go;
+        CripPrefab = crip;
         InitializePlayers();
         StartStage(currentStage);
-
+        
     }
     #endregion
 
@@ -78,6 +78,9 @@ public class StageManager
         // **공동 선택 라운드 여부 확인**
         bool isCarouselRound = IsCarouselRound(currentStage, currentRound);
 
+        // 크립 라운드 여부 확인
+        bool isCripRound = IsCripRound(currentStage, currentRound);
+
         // 대기시간 설정
         int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
@@ -93,6 +96,11 @@ public class StageManager
             // **공동 선택 라운드 처리**
             CoroutineHelper.StartCoroutine(StartCarouselRound());
         }
+        /*else if (isCripRound)
+        {
+            // 크립 라운드 처리
+            CoroutineHelper.StartCoroutine(StartCripRound());
+        }*/
         else
         {
             // **일반 라운드 처리**
@@ -254,6 +262,7 @@ public class StageManager
         EndCarouselRound();
     }
 
+    #region 공동선택 라운드
     bool IsCarouselRound(int stage, int round)
     {
         // 2스테이지부터 매 4라운드마다 공동 선택 라운드
@@ -360,7 +369,9 @@ public class StageManager
             roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
     }
+    #endregion
 
+    #region 한칸이내 챔피언 찾기
     public List<GameObject> GetChampionsWithinOneTile(GameObject champion)
     {
         List<GameObject> champions = new List<GameObject>();
@@ -443,21 +454,111 @@ public class StageManager
     {
         if (champions == null || champions.Count == 0)
         {
-         //   Debug.Log("주변에 챔피언이 없습니다.");
+            //   Debug.Log("주변에 챔피언이 없습니다.");
             return;
         }
 
-       // Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
+        // Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
         foreach (var champion in champions)
         {
             if (champion != null)
             {
-              //  Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
+                //  Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
             }
             else
             {
-               // Debug.Log("챔피언이 null입니다.");
+                // Debug.Log("챔피언이 null입니다.");
             }
         }
     }
+    #endregion
+
+    #region 크립라운드
+    bool IsCripRound(int stage, int round)
+    {
+        // 스테이지 1의 1, 2, 3 라운드와 2스테이지부터 매 7라운드마다 크립 라운드
+        if (stage == 1 && (round == 1 || round == 2 || round == 3))
+            return true;
+        else if (stage >= 2 && round == 7)
+            return true;
+        else
+            return false;
+    }
+    IEnumerator StartCripRound()
+    {
+        // 크립 생성
+        SpawnCrips();
+
+        // 라운드 진행 시간 타이머 시작
+        UIManager.Instance.StartTimer(roundDuration);
+
+        // 전투 시작 (크립과의 전투 로직을 시작해야 합니다)
+        //Manager.Battle.StartCripBattle(selfPlayer, roundDuration);
+
+        // 라운드 진행 시간만큼 대기
+        yield return new WaitForSeconds(roundDuration);
+
+        // 라운드 종료 처리
+        //EndCripRound();
+    }
+    void SpawnCrips()
+    {
+        // "EnemyTile" 태그를 가진 모든 HexTile 찾기
+        GameObject[] enemyTiles = GameObject.FindGameObjectsWithTag("EnemyTile");
+
+        // 각 EnemyTile에 크립 생성
+        foreach (GameObject tileObj in enemyTiles)
+        {
+            HexTile tile = tileObj.GetComponent<HexTile>();
+            if (tile != null && tile.isOccupied == false)
+            {
+                CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
+
+                // 타일에 크립 설정
+                tile.itemOnTile = CripPrefab;
+                tile.isOccupied = true;
+
+                // 크립에 현재 타일 정보 설정
+                Crip cripComponent = CripPrefab.GetComponent<Crip>();
+
+                if (cripComponent != null)
+                {
+                    cripComponent.currentTile = tile;
+                }
+            }
+        }
+    }
+
+    int GetNumberOfCripsToSpawn(int stage, int round)
+    {
+        // 스테이지와 라운드에 따라 생성할 크립의 수를 설정합니다.
+
+        if (stage == 1)
+            return 3; // 예시로 스테이지 1에서는 3마리 생성
+        else if (stage == 2)
+            return 4; // 스테이지 2에서는 4마리 생성
+        else
+            return 5; // 그 외에는 5마리 생성
+    }
+
+    /*void EndCripRound()
+    {
+        // 남아있는 모든 크립 찾기
+        Crip[] remainingCrips = FindObjectsOfType<Crip>();
+        int survivingCrips = remainingCrips.Length;
+        
+        // 남아있는 크립 파괴
+        foreach (Crip crip in remainingCrips)
+        {
+            Destroy(crip.gameObject);
+        }
+
+        // 플레이어가 승리했는지 판단
+        bool playerWon = survivingCrips == 0;
+
+        // 라운드 종료 처리
+        OnRoundEnd(playerWon, survivingCrips);
+    }*/
+
+    #endregion
 }
