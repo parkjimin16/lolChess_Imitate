@@ -210,7 +210,11 @@ public class ChampionBase : MonoBehaviour
         set => champion_CurMana = value;
     }
 
-    public float Champion_Speed => champion_Speed;
+    public float Champion_Speed
+    {
+        get { return champion_Speed; }
+        set { champion_Speed = value; }
+    }
     public float Champion_AD_Power => champion_AD_Power;
     public float Champion_AP_Power => champion_AP_Power;
     public float Champion_AD_Def
@@ -324,11 +328,12 @@ public class ChampionBase : MonoBehaviour
 
         UpdateStatWithItem(EquipItem);
         UpdateChampmionStat();
+        ResetHealth();
     }
 
     public void ResetHealth()
     {
-        curHp = maxHp;
+        Champion_CurHp = champion_MaxHp;
     }
 
     public void SetChampionLogic()
@@ -631,9 +636,7 @@ public class ChampionBase : MonoBehaviour
     public void UpdateChampmionStat()
     {
         champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP;
-        champion_CurHp = curHp + item_CurHP + Synergy_CurHP;
         champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana;
-        champion_CurMana = curMana;
         champion_Speed =  speed + item_Speed + Synergy_Speed;
         champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power;
         champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power;

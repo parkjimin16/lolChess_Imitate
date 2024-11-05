@@ -165,7 +165,6 @@ public class UIManagerTemp
 
     public bool CheckPopupStack()
     {
-        Debug.Log($"ÆË¾÷ ¼ö : {popupStack.Count} ");
         return popupStack.Count != 0;
     }
 

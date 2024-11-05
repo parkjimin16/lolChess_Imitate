@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SugarcraftSynergy : SynergyBase
@@ -41,13 +38,9 @@ public class SugarcraftSynergy : SynergyBase
             if (obj == null)
                 Debug.Log("Craft Null");
 
-
             sugarCake = Manager.Asset.InstantiatePrefab("SugarCraftCake", obj.transform);
-
-            Debug.Log(sugarCake.transform.position);
-            sugarCraftCake = sugarCake.GetComponent<SugarCraftCake>();
-
             sugarCake.SetActive(true);
+            sugarCraftCake = sugarCake.GetComponent<SugarCraftCake>();
         }
 
 

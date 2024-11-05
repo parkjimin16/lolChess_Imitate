@@ -76,7 +76,7 @@ MonoBehaviour:
       desc: "\uD06C\uAE30\uAC00 \uC791\uC544\uC9C0\uACE0, \uCCB4\uB825 120 \uAC10\uC18C"
       color: 1
     - level: 4
-      desc: " \uB610\uD55C \uCD08\uB85D\uC0C9\uC774 \uB418\uACE0, \uB9E4\uCD08 \uCD5C\uB300
+      desc: "\uB610\uD55C \uCD08\uB85D\uC0C9\uC774 \uB418\uACE0, \uB9E4\uCD08 \uCD5C\uB300
         \uCCB4\uB825\uC758 6%\uB9CC\uD07C \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uC74C"
       color: 2
     - level: 6
@@ -127,7 +127,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4c506428b87ec8146af0c4b457282cb7, type: 2}
     - {fileID: 11400000, guid: fa5c596297a15be439df0a3268b96d43, type: 2}
     - {fileID: 11400000, guid: d9f1a07f7429f644abfbd6795ddc041d, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 543529351023865062, guid: 190268ad71cfd6e45b7d0d455cf17693, type: 3}
   - championLine: 5
     championLineSprite: {fileID: 21300000, guid: 1fc6269d445738c4b97f6dfe8bef3fec, type: 3}
     championLineName: "\uC11C\uB9AC"
@@ -160,7 +160,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ee50fcc18db54b84a9bc8412ef9e5bc3, type: 2}
     - {fileID: 11400000, guid: 3c06fa5b484fa43429b70ca6eb51bf7c, type: 2}
     - {fileID: 11400000, guid: 0d5fec849f4256643975c4d5d5d129dd, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 2083231817350014527, guid: a4bd783fdd01570479bc0ebfafae4dc9, type: 3}
   - championLine: 6
     championLineSprite: {fileID: 21300000, guid: d6d49d384b3d54d47902d43560726bf9, type: 3}
     championLineName: "\uC12C\uB729\uD55C \uD798"
@@ -189,7 +189,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c1bb836a2567848418d5f1035a95e567, type: 2}
     - {fileID: 11400000, guid: a0c68e99b5104b840945802848f39f10, type: 2}
     - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 814319739529124831, guid: 7b87068010b58224f83ef13dd06d63e0, type: 3}
   - championLine: 7
     championLineSprite: {fileID: 21300000, guid: 2b1fc1557db492840a38d94015b81343, type: 3}
     championLineName: "\uC2DC\uACF5\uAC04"
@@ -220,7 +220,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 55254cab5b8d4ca4180ed689b365b8ca, type: 2}
     - {fileID: 11400000, guid: d862f6fb02e8c3241b4543b212281611, type: 2}
     - {fileID: 11400000, guid: a91fa52a5bd010c428faf7649fe2ee74, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 1455619834077150027, guid: 4af3f019d25fb1346804cb834d9045a6, type: 3}
   - championLine: 8
     championLineSprite: {fileID: 21300000, guid: 1e9123cbb04e45a4e88c5431b7530ba6, type: 3}
     championLineName: "\uC544\uB974\uCE74\uB098"
