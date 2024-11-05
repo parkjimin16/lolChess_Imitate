@@ -58,7 +58,6 @@ public class UserData
     private Dictionary<string, HashSet<string>> championSynergies_Line;
     private Dictionary<string, HashSet<string>> championSynergies_Job;
 
-
     private Dictionary<string, SynergyData> championSynergies;
 
     #region Property
