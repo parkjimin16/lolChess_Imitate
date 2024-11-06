@@ -430,7 +430,7 @@ public class MapGenerator : MonoBehaviour
                 tile1.name = $"ItemTile_{1}";
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 ItemTile itemTile = tile1.GetComponent<ItemTile>();
-                itemTile.TileType1 = ItemOwner.Another;    
+                itemTile.TileType1 = ItemOwner.Another;
             }
         }
     }

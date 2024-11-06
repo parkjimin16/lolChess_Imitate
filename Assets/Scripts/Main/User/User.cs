@@ -24,6 +24,8 @@ public class User : MonoBehaviour
 
     private ItemFrame _hoveredItem;
     [SerializeField]private MapGenerator _mapGenerator;
+
+    [SerializeField] private GameObject test;
     private class ReturningObjectData
     {
         public GameObject obj;

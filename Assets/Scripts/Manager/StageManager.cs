@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static MapGenerator;
 
 public class StageManager
 {
@@ -96,11 +97,11 @@ public class StageManager
             // **공동 선택 라운드 처리**
             CoroutineHelper.StartCoroutine(StartCarouselRound());
         }
-        /*else if (isCripRound)
+        else if (isCripRound)
         {
             // 크립 라운드 처리
             CoroutineHelper.StartCoroutine(StartCripRound());
-        }*/
+        }
         else
         {
             // **일반 라운드 처리**
@@ -211,6 +212,7 @@ public class StageManager
         return false;
     }
 
+    #region 공동선택 라운드
     IEnumerator StartCarouselRound()
     {
         //Debug.Log("공동 선택 라운드가 시작됩니다!");
@@ -262,7 +264,6 @@ public class StageManager
         EndCarouselRound();
     }
 
-    #region 공동선택 라운드
     bool IsCarouselRound(int stage, int round)
     {
         // 2스테이지부터 매 4라운드마다 공동 선택 라운드
@@ -473,6 +474,23 @@ public class StageManager
     }
     #endregion
 
+    #region 플레이어 맵 정보 받아오기
+    private MapInfo GetPlayerMapInfo(Player playerComponent)
+    {
+        // MapGenerator에서 플레이어의 MapInfo를 찾습니다.
+        foreach (var mapInfo in _mapGenerator.mapInfos)
+        {
+            if (mapInfo.playerData == playerComponent)
+            {
+                return mapInfo;
+            }
+        }
+
+        // 찾지 못한 경우 null 반환
+        return null;
+    }
+    #endregion
+
     #region 크립라운드
     bool IsCripRound(int stage, int round)
     {
@@ -499,32 +517,77 @@ public class StageManager
         yield return new WaitForSeconds(roundDuration);
 
         // 라운드 종료 처리
-        //EndCripRound();
+        EndCripRound();
     }
     void SpawnCrips()
     {
-        // "EnemyTile" 태그를 가진 모든 HexTile 찾기
-        GameObject[] enemyTiles = GameObject.FindGameObjectsWithTag("EnemyTile");
-
-        // 각 EnemyTile에 크립 생성
-        foreach (GameObject tileObj in enemyTiles)
+        foreach (GameObject player in AllPlayers)
         {
-            HexTile tile = tileObj.GetComponent<HexTile>();
-            if (tile != null && tile.isOccupied == false)
-            {
-                CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
+            Player playerComponent = player.GetComponent<Player>();
+            MapInfo playerMapInfo = GetPlayerMapInfo(playerComponent);
 
-                // 타일에 크립 설정
+            if (playerMapInfo == null)
+            {
+                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 MapInfo를 찾을 수 없습니다.");
+                continue;
+            }
+
+            // 사용할 수 있는 타일 목록을 생성합니다.
+            List<HexTile> availableTiles = new List<HexTile>();
+
+            foreach (var tileEntry in playerMapInfo.HexDictionary)
+            {
+                HexTile tile = tileEntry.Value;
+                // 타일이 "EnemyTile" 태그를 가지고 있고, 비어있는 경우에만 추가
+                if (tile.CompareTag("EnemyTile") && !tile.isOccupied)
+                {
+                    availableTiles.Add(tile);
+                }
+            }
+
+            if (availableTiles.Count == 0)
+            {
+                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 맵에 크립을 생성할 수 있는 타일이 없습니다.");
+                continue;
+            }
+
+            // 생성할 크립의 수를 결정합니다.
+            int numCripsToSpawn = GetNumberOfCripsToSpawn(currentStage, currentRound);
+
+            // 생성할 수 있는 최대 크립 수를 계산합니다.
+            int cripsToSpawn = Mathf.Min(numCripsToSpawn, availableTiles.Count);
+
+            // 타일 목록을 섞습니다.
+            for (int i = 0; i < availableTiles.Count; i++)
+            {
+                HexTile temp = availableTiles[i];
+                int randomIndex = Random.Range(i, availableTiles.Count);
+                availableTiles[i] = availableTiles[randomIndex];
+                availableTiles[randomIndex] = temp;
+            }
+
+            // 필요한 수만큼의 타일에 크립을 생성합니다.
+            for (int i = 0; i < cripsToSpawn; i++)
+            {
+                HexTile tile = availableTiles[i];
+
+                CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
+                CripPrefab.transform.position = tile.transform.position;
+                
+
+                // 타일에 크립을 설정합니다.
                 tile.itemOnTile = CripPrefab;
                 tile.isOccupied = true;
 
-                // 크립에 현재 타일 정보 설정
+                // 크립에 현재 타일 정보를 설정합니다.
                 Crip cripComponent = CripPrefab.GetComponent<Crip>();
-
                 if (cripComponent != null)
                 {
                     cripComponent.currentTile = tile;
                 }
+
+                // 크립의 부모를 설정하여 맵 구조에 포함되도록 합니다.
+                CripPrefab.transform.SetParent(tile.transform);
             }
         }
     }
@@ -541,24 +604,79 @@ public class StageManager
             return 5; // 그 외에는 5마리 생성
     }
 
-    /*void EndCripRound()
+    void EndCripRound()
     {
-        // 남아있는 모든 크립 찾기
-        Crip[] remainingCrips = FindObjectsOfType<Crip>();
-        int survivingCrips = remainingCrips.Length;
-        
-        // 남아있는 크립 파괴
-        foreach (Crip crip in remainingCrips)
+        foreach (GameObject player in AllPlayers)
         {
-            Destroy(crip.gameObject);
+            Player playerComponent = player.GetComponent<Player>();
+            MapInfo playerMapInfo = GetPlayerMapInfo(playerComponent);
+
+            if (playerMapInfo == null)
+            {
+                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 MapInfo를 찾을 수 없습니다.");
+                continue;
+            }
+
+            // 해당 플레이어의 맵에 남아있는 크립을 찾습니다.
+            List<Crip> remainingCrips = new List<Crip>();
+
+            // 플레이어의 맵에 있는 모든 타일을 검사합니다.
+            foreach (var tileEntry in playerMapInfo.HexDictionary)
+            {
+                HexTile tile = tileEntry.Value;
+                if (tile.itemOnTile != null)
+                {
+                    Crip crip = tile.itemOnTile.GetComponent<Crip>();
+                    if (crip != null)
+                    {
+                        remainingCrips.Add(crip);
+                    }
+                }
+            }
+            int survivingCrips = remainingCrips.Count;
+
+            // 남아있는 크립 파괴 및 타일 상태 업데이트
+            foreach (Crip crip in remainingCrips)
+            {
+                if (crip.currentTile != null)
+                {
+                    crip.currentTile.isOccupied = false;
+                    crip.currentTile.itemOnTile = null;
+                }
+                crip.Death(); // OnDeath() 함수를 호출하여 아이템 생성 및 크립 파괴 처리
+            }
+
+            // 플레이어 승리 여부 판단
+            bool playerWon = survivingCrips == 0;
+
+            // 각 플레이어별로 라운드 종료 처리
+            //OnRoundEndForPlayer(playerComponent, playerWon, survivingCrips);
+        }
+        currentRound++;
+
+        int maxRounds = currentStage == 1 ? 3 : 7;
+
+        if (currentRound > maxRounds)
+        {
+            // 다음 스테이지로 이동
+            currentStage++;
+            if (currentStage > 8)
+            {
+                // 게임 종료
+                // Debug.Log("게임 클리어!");
+                return;
+            }
+            StartStage(currentStage);
+        }
+        else
+        {
+            // 다음 라운드 시작
+            if (roundCoroutine != null)
+                CoroutineHelper.StopCoroutine(roundCoroutine);
+            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
 
-        // 플레이어가 승리했는지 판단
-        bool playerWon = survivingCrips == 0;
-
-        // 라운드 종료 처리
-        OnRoundEnd(playerWon, survivingCrips);
-    }*/
+    }
 
     #endregion
 }
