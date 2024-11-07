@@ -111,12 +111,18 @@ public class MeadistSynergy : SynergyBase
 
         foreach(var champion in list)
         {
+            Debug.Log($"{champion}");
+
+
             GameObject bee = Manager.Asset.InstantiatePrefab("Bee", champion.transform);
             bee.SetActive(true);
 
             ChampionBase cBase = champion.GetComponent<ChampionBase>();
             cBase.Synergy_Power_Upgrade += totalPower;
             cBase.Synergy_Total_Def += totalDefense;
+
+            Debug.Log($"시너지 파워 : {cBase.Synergy_Power_Upgrade} + {totalPower}");
+
             cBase.UpdateChampmionStat();
             beeObjects.Add(bee);
         }
@@ -132,6 +138,8 @@ public class MeadistSynergy : SynergyBase
 
             if (cBase == null)
                 continue;
+
+            Debug.Log(cBase.ChampionName);
 
             if (cBase.ChampionLine_First != ChampionLine.Meadist && cBase.ChampionLine_Second != ChampionLine.Meadist)
                 continue;

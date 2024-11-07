@@ -7,13 +7,12 @@ using static MapGenerator;
 public class ChampionManager
 {
     #region 비전투챔피언
-    public void AddNonBattleChampion(UserData userData, GameObject champion)
+    /// <summary>
+    /// 구매했을 때 호출 + 밑에 놓을 때
+    /// </summary>
+    /// <param name="userData"></param>
+    public void SettingNonBattleChampion(UserData userData)
     {
-        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
-
-        if (addChampionBase == null || userData.NonBattleChampionObject == null)
-            return;
-
         // 임시
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
@@ -23,6 +22,15 @@ public class ChampionManager
                 userData.NonBattleChampionObject.Add(tile.championOnTile);
             }
         }
+    }
+
+    public void AddNonBattleChampion(UserData userData, GameObject champion)
+    {
+        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
+
+        if (addChampionBase == null || userData.NonBattleChampionObject == null)
+            return;
+
         
         //battleChampion.Add(cBlueprint);
 
@@ -74,13 +82,12 @@ public class ChampionManager
     #endregion
 
     #region 전투챔피언
-    public void AddBattleChampion(UserData userData, GameObject champion)
+
+    /// <summary>
+    /// 위에 놓았을 때 호출
+    /// </summary>
+    public void SettingBattleChampion(UserData userData)
     {
-        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
-
-        if (addChampionBase == null || userData.BattleChampionObject == null)
-            return;
-
         // 임시
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
@@ -90,8 +97,14 @@ public class ChampionManager
                 userData.BattleChampionObject.Add(tile.championOnTile);
             }
         }
+    }
 
-        //battleChampion.Add(cBlueprint);
+    public void AddBattleChampion(UserData userData, GameObject champion)
+    {
+        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
+
+        if (addChampionBase == null || userData.BattleChampionObject == null)
+            return;
 
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));

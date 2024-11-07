@@ -15,9 +15,9 @@ public class UserManager
         User1_Data.InitUserData(10, "¹ÚÅÂ¿µ", 0, mapGenerator);
     }
 
-    public void AddChampion(GameObject chamipon)
+    public void AddChampion(UserData user, GameObject chamipon)
     {
-        Manager.Champion.AddBattleChampion(User1_Data, chamipon);
+        Manager.Champion.AddBattleChampion(user, chamipon);
     }
 
     public bool CheckChamipon(UserData user, string championName)

@@ -182,7 +182,6 @@ public class SynergyManager
             string synergyName = synergy.Key;
             int synergyCount = synergy.Value;
 
-
             if (synergyName == "달콤술사")
             {
                 ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Sugarcraft);
@@ -274,6 +273,21 @@ public class SynergyManager
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
+            else if (synergyName == "요정")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Fairy);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Fairy);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
             else
             {
                 Debug.Log("아직 구현 안함");
@@ -327,8 +341,7 @@ public class SynergyManager
 
     private void StartGame(UserData user, List<SynergyBase> sBaseList)
     {
-        
-
+        Debug.Log("스타트");
         // 게임 시작 시 시너지 활성화
         foreach (var synergy in sBaseList)
         {
