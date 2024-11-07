@@ -118,6 +118,9 @@ public class MapGenerator : MonoBehaviour
         public Dictionary<(int, int), HexTile> RectDictionary = new Dictionary<(int, int), HexTile>();
         public List<Transform> SugarcraftPosition = new List<Transform>();
         public List<Transform> PortalPosition = new List<Transform>();
+
+        public List<ItemTile> ItemTile = new List<ItemTile>();
+
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -239,7 +242,7 @@ public class MapGenerator : MonoBehaviour
         // 맨 위와 맨 아래에 직사각형 타일 생성 (위치 조정 포함)
         CreateRectTile(-1, -hexHeight * 0.75f - zOffset, parent, mapInfo);
         CreateRectTile(height, hexHeight * 0.75f * (height) - zOffset, parent, mapInfo);
-        CreateItemTiles(parent);
+        CreateItemTiles(parent, mapInfo);
         CreateGoldTiles(parent);
 
         //gameObject.transform.SetParent(User.transform);
@@ -407,7 +410,7 @@ public class MapGenerator : MonoBehaviour
         Camera.main.farClipPlane = 100f;
     }
 
-    void CreateItemTiles(Transform parent)
+    void CreateItemTiles(Transform parent, MapInfo mapinfo)
     {
         float cornerTileOffset = rectWidthSize * 0.6f;
         float adjustedTileOffset = rectWidthSize;
@@ -423,6 +426,7 @@ public class MapGenerator : MonoBehaviour
                 tile.name = $"ItemTile_{0}";
                 ItemTile itemTile = tile.GetComponent<ItemTile>();
                 itemTile.TileType1 = ItemOwner.Player;
+                mapinfo.ItemTile.Add(itemTile);
             }
             else
             {
@@ -431,6 +435,7 @@ public class MapGenerator : MonoBehaviour
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 ItemTile itemTile = tile1.GetComponent<ItemTile>();
                 itemTile.TileType1 = ItemOwner.Another;
+                mapinfo.ItemTile.Add(itemTile);
             }
         }
     }

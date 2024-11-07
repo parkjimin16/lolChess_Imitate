@@ -5,9 +5,11 @@ using static MapGenerator;
 
 public class Crip : MonoBehaviour
 {
-    public CripObjectData cripData;
+    [SerializeField] private CripObjectData cripData;
     private int currentHP;
     public HexTile currentTile;
+    public MapGenerator.MapInfo playerMapInfo;
+
     //[SerializeField] private ItemTile itemtile;
 
     void Start()
@@ -44,7 +46,7 @@ public class Crip : MonoBehaviour
 
     public void Death()
     {
-        //GenerateItem();
+        GenerateItem();
 
         if (currentTile != null)
         {
@@ -70,13 +72,16 @@ public class Crip : MonoBehaviour
 
     ItemTile FindItemTileInMap()
     {
-        // 현재 타일의 부모들을 탐색하여 MapInfo를 찾습니다.
-        MapInfo playerMapInfo = currentTile.transform.GetComponentInParent<MapInfo>();
         if (playerMapInfo != null)
         {
-            // MapInfo 내에서 ItemTile 컴포넌트를 찾습니다.
-            ItemTile itemTile = playerMapInfo.mapTransform.GetComponentInChildren<ItemTile>();
-            return itemTile;
+            foreach (var itemTile in playerMapInfo.ItemTile)
+            {
+                if(itemTile.TileType1 == ItemOwner.Player)
+                {
+                    return itemTile;
+                }
+            }
+            
         }
         return null;
     }

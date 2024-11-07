@@ -584,6 +584,7 @@ public class StageManager
                 if (cripComponent != null)
                 {
                     cripComponent.currentTile = tile;
+                    cripComponent.playerMapInfo = playerMapInfo;
                 }
 
                 // 크립의 부모를 설정하여 맵 구조에 포함되도록 합니다.
