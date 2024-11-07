@@ -26,7 +26,7 @@ public class GameManager
         nonBattleChampionBase = new List<ChampionBase>();
     }
 
-    public void AddBattleChampion(GameObject champion, ChampionBlueprint cBlueprint)
+    public void AddBattleChampion(GameObject champion)
     {
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 

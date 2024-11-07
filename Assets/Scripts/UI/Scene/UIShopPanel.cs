@@ -41,7 +41,7 @@ public class UIShopPanel : UIBase
             if (button != null)
             {
                 button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint, button));
-                button.onClick.AddListener(() => uiMain.UISynergyPanel.UpdateSynergy());
+                //button.onClick.AddListener(() => uiMain.UISynergyPanel.UpdateSynergy());
             }
         }
         
@@ -84,8 +84,8 @@ public class UIShopPanel : UIBase
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
 
-            Manager.Game.AddBattleChampion(newChampionObject, cBlueprint);
-            Manager.User.AddChampion(Manager.User.User1_Data, newChampionObject);
+            Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
+            //Manager.User.AddChampion(Manager.User.User1_Data, newChampionObject);
 
             button.interactable = false;
         }

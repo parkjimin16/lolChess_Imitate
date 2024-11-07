@@ -324,7 +324,7 @@ public class SynergyManager
 
     public void ApplySynergy(UserData user)
     {
-        Manager.Synerge.UpdateSynergies(user);
+        UpdateSynergies(user);
 
         if (synergyBaseList.Count > 0)
             StartGame(user, SynergyBaseList);

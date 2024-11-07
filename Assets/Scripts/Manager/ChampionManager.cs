@@ -13,50 +13,42 @@ public class ChampionManager
     /// <param name="userData"></param>
     public void SettingNonBattleChampion(UserData userData)
     {
-        // 烙矫
+        userData.NonBattleChampionObject.Clear();
+
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
             if (tile.isOccupied && tile.championOnTile != null)
             {
-                userData.NonBattleChampionObject.Add(tile.championOnTile);
+                AddNonBattleChampion(userData, tile.championOnTile);
             }
         }
     }
 
     public void AddNonBattleChampion(UserData userData, GameObject champion)
     {
-        ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
-
-        if (addChampionBase == null || userData.NonBattleChampionObject == null)
+        if (userData.NonBattleChampionObject.Count <= 0)
             return;
 
-        
-        //battleChampion.Add(cBlueprint);
+        userData.TotalChampionObject.Add(champion);
+        userData.NonBattleChampionObject.Add(champion);
 
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
-        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
-        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
 
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
         // 2己
-        int sameChampionCount = userData.NonBattleChampionObject.Count(obj =>
+        int sameChampionCount = userData.TotalChampionObject.Count(obj =>
         {
             ChampionBase championBase = obj.GetComponent<ChampionBase>();
             return championBase != null && cBase != null && championBase.ChampionName == cBase.ChampionName && championBase.ChampionLevel == cBase.ChampionLevel;
         });
 
-
         GameObject championToEnhance = null;
-
 
         if (sameChampionCount >= 3)
         {
             championToEnhance = MergeChampion(userData, champion);
         }
-
 
         if (championToEnhance == null)
             return;
@@ -64,7 +56,7 @@ public class ChampionManager
         // 3己
         ChampionBase tempChampionBase = championToEnhance.GetComponent<ChampionBase>();
         string championName = tempChampionBase.ChampionName;
-        int sameChampionAfterMergeCount = userData.NonBattleChampionObject.Count(obj =>
+        int sameChampionAfterMergeCount = userData.TotalChampionObject.Count(obj =>
         {
             ChampionBase championBase = obj.GetComponent<ChampionBase>();
             return championBase != null && championBase.ChampionName == championName && championBase.ChampionLevel == 2;
@@ -88,64 +80,32 @@ public class ChampionManager
     /// </summary>
     public void SettingBattleChampion(UserData userData)
     {
-        // 烙矫
+        userData.BattleChampionObject.Clear();
+
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
             if (tile.isOccupied && tile.championOnTile != null)
             {
-                userData.BattleChampionObject.Add(tile.championOnTile);
+                AddBattleChampion(userData, tile.championOnTile);
             }
         }
     }
 
     public void AddBattleChampion(UserData userData, GameObject champion)
     {
+        userData.BattleChampionObject.Add(champion);
+
         ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
 
         if (addChampionBase == null || userData.BattleChampionObject == null)
             return;
 
+
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
         Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
         Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
         Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
-
-        ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-        // 2己
-        int sameChampionCount = userData.BattleChampionObject.Count(obj =>
-        {
-                ChampionBase championBase = obj.GetComponent<ChampionBase>();
-                return championBase != null && cBase != null && championBase.ChampionName == cBase.ChampionName &&championBase.ChampionLevel == cBase.ChampionLevel;
-        });
-      
-
-        GameObject championToEnhance = null;
-
-
-        if (sameChampionCount >= 3)
-        {
-            championToEnhance = MergeChampion(userData, champion);
-        }
-
-
-        if (championToEnhance == null)
-            return;
-
-        // 3己
-        ChampionBase tempChampionBase = championToEnhance.GetComponent<ChampionBase>();
-        string championName = tempChampionBase.ChampionName;
-        int sameChampionAfterMergeCount = userData.BattleChampionObject.Count(obj =>
-        {
-            ChampionBase championBase = obj.GetComponent<ChampionBase>();
-            return championBase != null && championBase.ChampionName == championName && championBase.ChampionLevel == 2;
-        });
-
-        if (sameChampionAfterMergeCount >= 3)
-        {
-            championToEnhance = MergeChampion(userData, championToEnhance);
-        }
     }
 
     public void RemoveBattleChampion(UserData userData, GameObject champion)

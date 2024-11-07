@@ -33,6 +33,13 @@ public class UserManager
     {
         return User1_Data;
     }
+
+    public void ClearSynergy(UserData user)
+    {
+        user.ChampionSynergies_Line.Clear();
+        user.ChampionSynergies_Job.Clear();
+        user.ChampionSynergies.Clear();
+    }
 }
 
 
@@ -42,10 +49,9 @@ public class UserData
     [SerializeField] private int gold;
     [SerializeField] private string userName;
     [SerializeField] private int userId;
+    [SerializeField] private List<GameObject> totalChampionObject;
     [SerializeField] private List<GameObject> battleChampionObject;
     [SerializeField] private List<GameObject> nonBattleChamiponObject;
-    [SerializeField] private List<ChampionBlueprint> battleChampion;
-    [SerializeField] private List<ChampionBlueprint> nonBattleChampion;
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
     [SerializeField] private List<UserSynergyData> userSynergyData;
     [SerializeField] private MapGenerator.MapInfo mapInfo;
@@ -71,6 +77,12 @@ public class UserData
 
     public string GetUserName() { return userName; }
 
+
+    public List<GameObject> TotalChampionObject
+    {
+        get { return totalChampionObject; }
+        set { totalChampionObject = value; }
+    }
     public List<GameObject> BattleChampionObject
     {
         get { return battleChampionObject; }
@@ -83,24 +95,6 @@ public class UserData
         set {  nonBattleChamiponObject = value; }
     }
 
-
-    public List<ChampionBlueprint> BattleChampion
-    {
-        get { return battleChampion; }
-        set { battleChampion = value; }
-    }
-
-    public List<ChampionBlueprint> NonBattleChampion
-    {
-        get { return nonBattleChampion; }
-        set { nonBattleChampion = value; }
-    }
-
-    public List<ItemBlueprint> TotalItemBlueprint 
-    {
-        get { return totalItemBlueprint; }
-        set { totalItemBlueprint = value; } 
-    }
     public List<UserSynergyData> UserSynergyData
     {
         get { return userSynergyData; }
@@ -161,8 +155,6 @@ public class UserData
     {
         battleChampionObject = new List<GameObject>();
         nonBattleChamiponObject = new List<GameObject>();
-        battleChampion = new List<ChampionBlueprint>();
-        nonBattleChampion = new List<ChampionBlueprint>();
         totalItemBlueprint = new List<ItemBlueprint>();
         synergies_Line = new Dictionary<string, int>();
         synergies_Job = new Dictionary<string, int>();
@@ -180,13 +172,10 @@ public class UserData
         gold = _gold;
         userName = _userName;
         userId = _userId;
-        battleChampion.Clear();
-        nonBattleChampion.Clear();
         totalItemBlueprint.Clear();
         synergies_Line.Clear();
         
     }
-
     #endregion
     
 

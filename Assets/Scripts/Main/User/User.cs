@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class User : MonoBehaviour
 {
+    // 변수 & 프로퍼티
+    [SerializeField] private UISceneMain uiMain;
+
+
+    // 클릭 로직
     private Vector2 _lastTouchPos = Vector2.zero;
     private Vector2 _currentTouchPos = Vector2.zero;
     private Vector3 _prePos = Vector3.zero;
@@ -336,6 +341,16 @@ public class User : MonoBehaviour
             // 타일에 이미 유닛이 있을 경우, 유닛을 원래 위치로 반환합니다.
             _isReturning = true;
         }
+
+
+        Manager.User.ClearSynergy(Manager.User.User1_Data);
+        Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
+        Manager.Champion.SettingBattleChampion(Manager.User.User1_Data);
+
+        if(uiMain == null) 
+            return;
+
+        uiMain.UISynergyPanel.UpdateSynergy();
     }
     private void HandleItemCombination(GameObject targetItemObj)
     {

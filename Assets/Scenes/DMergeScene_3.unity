@@ -684,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a1067619ef44240b7dce265f9bb784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiMain: {fileID: 1834633281}
   _movableObj: {fileID: 0}
   currentTile: {fileID: 0}
   _mapGenerator: {fileID: 1033666889}
