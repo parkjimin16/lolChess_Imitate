@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MapGenerator;
 
 public class CripMovement : MonoBehaviour
 {
     public float moveInterval = 2f; // 이동 간격
     private float moveTimer;
-    private MapGenerator mapGenerator;
+    private MapInfo playerMapInfo;
     public HexTile currentTile;
 
     void Start()
     {
         moveTimer = moveInterval;
-        mapGenerator = FindObjectOfType<MapGenerator>();
-        //currentTile = GetCurrentTile();
+
+        // 크립이 속한 맵 정보를 가져옵니다.
+        playerMapInfo = GetComponentInParent<HexTile>()?.transform.parent.GetComponentInParent<MapInfo>();
+
+        currentTile = GetCurrentTile();
     }
 
     void Update()
@@ -21,20 +25,21 @@ public class CripMovement : MonoBehaviour
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
-            //MoveRandomly();
+            MoveRandomly();
             moveTimer = moveInterval;
         }
     }
 
-    /*void MoveRandomly()
+    void MoveRandomly()
     {
-        // 모든 타일 가져오기
-        //List<HexTile> allTiles = mapGenerator.GetAllTiles();
+        if (playerMapInfo == null)
+            return;
 
-        // 비어있는 타일 목록 생성
+        // 모든 비어있는 타일 가져오기
         List<HexTile> unoccupiedTiles = new List<HexTile>();
-        foreach (HexTile tile in allTiles)
+        foreach (var tileEntry in playerMapInfo.HexDictionary)
         {
+            HexTile tile = tileEntry.Value;
             if (!tile.isOccupied)
             {
                 unoccupiedTiles.Add(tile);
@@ -60,16 +65,23 @@ public class CripMovement : MonoBehaviour
             nextTile.isOccupied = true;
             nextTile.itemOnTile = this.gameObject;
             currentTile = nextTile;
-        }
-    }*/
 
-    /*HexTile GetCurrentTile()
+            // 부모를 새로운 타일로 설정
+            transform.SetParent(nextTile.transform);
+        }
+    }
+
+    HexTile GetCurrentTile()
     {
+        if (playerMapInfo == null)
+            return null;
+
         // 현재 위치에서 가장 가까운 타일 찾기
         float minDistance = float.MaxValue;
         HexTile nearestTile = null;
-        foreach (HexTile tile in mapGenerator.GetAllTiles())
+        foreach (var tileEntry in playerMapInfo.HexDictionary)
         {
+            HexTile tile = tileEntry.Value;
             float dist = Vector3.Distance(transform.position, tile.transform.position);
             if (dist < minDistance)
             {
@@ -78,5 +90,5 @@ public class CripMovement : MonoBehaviour
             }
         }
         return nearestTile;
-    }*/
+    }
 }
