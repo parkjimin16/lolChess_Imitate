@@ -331,6 +331,36 @@ public class SynergyManager
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
+            else if (synergyName == "허기")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Hunger);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Hunger);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "화염")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Pyro);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Pyro);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
             else
             {
                 Debug.Log("아직 구현 안함");

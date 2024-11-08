@@ -272,6 +272,8 @@ public class ChampionBase : MonoBehaviour
     /// </summary>
     public void SetChampion(ChampionBlueprint blueprint)
     {
+        SetChampionLogic();
+
         blueprint.ChampionSet(blueprint.ChampionLevel);
 
         championBlueprint = blueprint;
@@ -338,9 +340,16 @@ public class ChampionBase : MonoBehaviour
 
     public void SetChampionLogic()
     {
+        championAttackController = GetComponent<ChampionAttackController>();
+        championAnimController = GetComponent<ChampionAnimController>();
+        championHpMpController = GetComponent<ChampionHpMpController>();
+        championStateController = GetComponent<ChampionStateController>();
+        championView = GetComponent<ChampionView>();    
+
         maxItemSlot = 3;
         isAttacking = false;
     }
+
 
     public void InitChampion(ChampionFrame frame)
     {

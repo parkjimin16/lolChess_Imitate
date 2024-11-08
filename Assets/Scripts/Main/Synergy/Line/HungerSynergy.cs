@@ -30,7 +30,7 @@ public class HungerSynergy : SynergyBase
         }
         else if (level == 1)
         {
-            totalDamage = 0.8f;
+            totalDamage = (100 - user.UserHealth) * 0.008f;
         }
 
         Debug.Log($"[허기] 레벨 {level} 적용");
@@ -45,7 +45,7 @@ public class HungerSynergy : SynergyBase
             if (cBase == null)
                 continue;
 
-            if (cBase.ChampionLine_First != ChampionLine.Dragon && cBase.ChampionLine_Second != ChampionLine.Dragon)
+            if (cBase.ChampionLine_First != ChampionLine.Hunger && cBase.ChampionLine_Second != ChampionLine.Hunger)
                 continue;
 
             cBase.Synergy_Power_Upgrade -= totalDamage;
@@ -59,10 +59,10 @@ public class HungerSynergy : SynergyBase
 
     public override void Activate(UserData user)
     {
-        if (level < 2)
+        if (level < 1)
             return;
 
-        SetDragonChampion(user);
+        SetHungerChampion(user);
     }
 
 
@@ -73,15 +73,18 @@ public class HungerSynergy : SynergyBase
 
     #endregion
 
-    #region 용 로직
+    #region 허기 로직
 
-    private void SetDragonChampion(UserData user)
+    private void SetHungerChampion(UserData user)
     {
         foreach (var champion in user.BattleChampionObject)
         {
             ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
-            if (cBase == null || cBase.ChampionLine_First != ChampionLine.Dragon && cBase.ChampionLine_Second != ChampionLine.Dragon)
+            if (cBase == null)
+                continue;
+
+            if (cBase.ChampionLine_First != ChampionLine.Hunger && cBase.ChampionLine_Second != ChampionLine.Hunger)
                 continue;
 
             cBase.Synergy_Power_Upgrade += totalDamage;

@@ -22,7 +22,7 @@ public class UserManager
             Player player = newPlayer.GetComponent<Player>();
             player.PlayerData = pData;
 
-            Manager.Game.PlayerList.Add(player);
+            Manager.Game.PlayerList[i] = player;
         }
         */
 
@@ -39,8 +39,6 @@ public class UserManager
 
         User1_Data = new UserData();
         User1_Data.InitUserData(10, "¹ÚÅÂ¿µ", 0, mapGenerator);
-
-        Debug.Log("User");
     }
 
     public void AddChampion(UserData user, GameObject chamipon)

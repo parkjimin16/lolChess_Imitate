@@ -1757,6 +1757,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ede77b240c644c84480f0c3cb18840fc
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Hunger.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd902bf680c6189498ab8713cbb01935
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Pyro.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

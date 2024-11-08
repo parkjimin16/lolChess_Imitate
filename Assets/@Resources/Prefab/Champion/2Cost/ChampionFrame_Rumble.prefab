@@ -295,9 +295,29 @@ MonoBehaviour:
   UICanvas: {fileID: 3825472009826961112}
   championAttackController: {fileID: 6252604476818844917}
   championAnimController: {fileID: 5138671916796917089}
-  championHpMpController: {fileID: 0}
+  championHpMpController: {fileID: 4551747180640086549}
   championStateController: {fileID: 1042186363350281454}
   championView: {fileID: 4803408484816773377}
+  levelData: []
+  championLevel: 0
+  maxHp: 0
+  curHp: 0
+  maxMana: 0
+  curMana: 0
+  speed: 0
+  attack_Range: 0
+  skillBlueprint: {fileID: 0}
+  ad_Power: 0
+  ap_Power: 0
+  ad_Defense: 0
+  ap_Defense: 0
+  attack_Speed: 0
+  critical_Percent: 0
+  critical_Power: 0
+  blood_Suck: 0
+  power_Upgrade: 0
+  total_Defense: 0
+  healHpValue: 0
   item_MaxHP: 0
   item_CurHP: 0
   item_MaxMana: 0
@@ -309,10 +329,42 @@ MonoBehaviour:
   item_AP_Def: 0
   item_Atk_Spd: 0
   item_Critical_Percent: 0
-  item_Cirtical_Power: 0
+  item_Critical_Power: 0
   item_Blood_Suck: 0
   item_Power_Upgrade: 0
   item_Total_Def: 0
+  Synergy_MaxHP: 0
+  Synergy_CurHP: 0
+  Synergy_MaxMana: 0
+  Synergy_CurMana: 0
+  Synergy_Speed: 0
+  Synergy_AD_Power: 0
+  Synergy_AP_Power: 0
+  Synergy_AD_Def: 0
+  Synergy_AP_Def: 0
+  Synergy_Atk_Spd: 0
+  Synergy_Critical_Percent: 0
+  Synergy_Critical_Power: 0
+  Synergy_Blood_Suck: 0
+  Synergy_Power_Upgrade: 0
+  Synergy_Total_Def: 0
+  champion_MaxHp: 0
+  champion_CurHp: 0
+  champion_MaxMana: 0
+  champion_CurMana: 0
+  champion_Speed: 0
+  champion_AD_Power: 0
+  champion_AP_Power: 0
+  champion_AD_Def: 0
+  champion_AP_Def: 0
+  champion_Atk_Spd: 0
+  champion_Critical_Percent: 0
+  champion_Critical_Power: 0
+  champion_Blood_Suck: 0
+  champion_Power_Upgrade: 0
+  champion_Total_Def: 0
+  champion_Shield: 0
+  champion_TotalDamage: 0
   equipItem: []
   newChampionLine: 
   newChampionJob: 
@@ -328,9 +380,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ba5da26b390d34a90d8be0471f6cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetChampion: {fileID: 0}
   projectilePrefab: {fileID: 2919007433744897484, guid: 910422ae88ff98b498ad9fdf20f63864, type: 3}
   shootPoint: {fileID: 7602927647226427858}
+  isUseSkill: 0
   IsAttack: 0
+  attackLogic: 0
 --- !u!114 &5138671916796917089
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -349,7 +349,7 @@ MonoBehaviour:
       color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: ede77b240c644c84480f0c3cb18840fc, type: 3}
   - championLine: 13
     championLineSprite: {fileID: 21300000, guid: 2ecd26f116046834580946533552a9f3, type: 3}
     championLineName: "\uD654\uC5FC"
@@ -380,7 +380,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 474abcec496489142ba0c18a9ec39092, type: 2}
     - {fileID: 11400000, guid: 6e17f50e985071340bb5b7c91a96525a, type: 2}
     - {fileID: 11400000, guid: 626a393c2cc51e54cb76265d5ed08e18, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: fd902bf680c6189498ab8713cbb01935, type: 3}
   championJobData:
   - championJob: 0
     championJobSprite: {fileID: 0}

@@ -84,8 +84,6 @@ public class UIShopPanel : UIBase
             cBase.SetChampion(cBlueprint);
             cBase.InitChampion(cFrame);
 
-            Debug.Log("À¯¾ÆÀÌ ¼¥");
-
             Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
             //Manager.User.AddChampion(Manager.User.User1_Data, newChampionObject);
 
