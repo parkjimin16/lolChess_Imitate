@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static MapGenerator;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class UserManager
 {
     public UserData User1_Data;
+    private List<UserData> userDatas; 
 
-    public void Init(MapGenerator mapGenerator)
+    public void Init()
     {
+        userDatas = new List<UserData>();
+
         GameObject obj = GameObject.Find("User");
 
         if (obj == null)
             return;
 
-        /*
+        
         for(int i = 1; i<= 8; i++)
         {
             GameObject newPlayer = Manager.Asset.InstantiatePrefab("Player", obj.transform);
@@ -22,23 +27,24 @@ public class UserManager
             Player player = newPlayer.GetComponent<Player>();
             player.PlayerData = pData;
 
-            Manager.Game.PlayerList[i] = player;
+            Manager.Game.PlayerListObject[i - 1] = newPlayer;
         }
-        */
+        
 
 
         for (int i = 0; i < obj.transform.childCount; i++)
         {
             UserData user = new UserData();
-            user.InitUserData(10, "박태영", 0, mapGenerator);
+            user.InitUserData(10, "박태영", 0);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
 
             player.InitPlayer(user);
+            userDatas.Add(user);
         }
 
         User1_Data = new UserData();
-        User1_Data.InitUserData(10, "박태영", 0, mapGenerator);
+        User1_Data.InitUserData(10, "박태영", 0);
     }
 
     public void AddChampion(UserData user, GameObject chamipon)
@@ -68,6 +74,20 @@ public class UserManager
         user.ChampionSynergies_Line.Clear();
         user.ChampionSynergies_Job.Clear();
         user.ChampionSynergies.Clear();
+    }
+
+    public void InitMap(MapGenerator mapGenerator)
+    {
+        foreach(var user in userDatas)
+        {
+            user.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == user.UserId);
+            user.SugarCraftPosition = user.MapInfo.SugarcraftPosition;
+            user.PortalPosition = user.MapInfo.PortalPosition;
+        }
+        User1_Data.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == User1_Data.UserId);
+        User1_Data.SugarCraftPosition = User1_Data.MapInfo.SugarcraftPosition;
+        User1_Data.PortalPosition = User1_Data.MapInfo.PortalPosition;
+
     }
 }
 
@@ -111,6 +131,12 @@ public class UserData
     {
         get { return userHealth; }
         set { userHealth = value; }
+    }
+
+    public int UserId
+    {
+        get { return userId; }
+        set { userId = value; } 
     }
 
     public string UserName
@@ -185,21 +211,25 @@ public class UserData
     public MapGenerator.MapInfo MapInfo
     { 
         get { return mapInfo; } 
+        set {  mapInfo = value; }
     }
 
     public List<Transform> SugarCraftPosition
     {
         get { return sugarCraftPosition; }
+        set {  sugarCraftPosition = value; }
     }
 
     public List<Transform> PortalPosition 
     { 
-        get { return portalPosition; } 
+        get { return portalPosition; }
+        set { portalPosition = value; }
     }
+
     #endregion
 
     #region Init
-    public void InitUserData(int _gold, string _userName, int _userId, MapGenerator _mapGenerator)
+    public void InitUserData(int _gold, string _userName, int _userId)
     {
         totalChampionObject = new List<GameObject>();
         battleChampionObject = new List<GameObject>();
@@ -213,11 +243,6 @@ public class UserData
         sugarCraftPosition = new List<Transform>();
         portalPosition = new List<Transform>();
 
-        mapInfo = _mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == userId);
-
-        sugarCraftPosition = mapInfo.SugarcraftPosition;
-        portalPosition = mapInfo.PortalPosition;
-
         gold = _gold;
         userName = _userName;
         userId = _userId;
@@ -225,6 +250,8 @@ public class UserData
         synergies_Line.Clear();
         
     }
+
+    
     #endregion
     
 

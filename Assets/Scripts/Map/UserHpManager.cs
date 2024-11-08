@@ -9,16 +9,14 @@ public class UserHpManager
     private GameObject healthBarPrefab;
     private List<HealthUI> healthBars = new List<HealthUI>();
 
-    public void InitUserHp(GameObject container, GameObject hpPrefab, List<HealthUI> hpList)
+    public void InitUserHp(List<HealthUI> hpList)
     {
-        healthBarContianer = container;
-        healthBarPrefab = hpPrefab;
         healthBars = hpList;
 
-        InitializeHealthBars();
+        //InitializeHealthBars();
     }
 
-    private void InitializeHealthBars()
+    public void InitializeHealthBars()
     {
         /*
         // 기존 체력바 삭제
@@ -33,7 +31,7 @@ public class UserHpManager
 
         int idx = 0;
 
-        if(healthBars.Count == Manager.Stage.AllPlayers.Length)
+        if(healthBars.Count == Manager.Game.PlayerListObject.Length)
         {
             Debug.Log("Same");
         }
@@ -44,7 +42,7 @@ public class UserHpManager
         }
 
         // 각 플레이어에 대한 체력바 생성
-        foreach (GameObject player in Manager.Stage.AllPlayers)
+        foreach (GameObject player in Manager.Game.PlayerListObject)
         {
             //GameObject hbObj = Instantiate(healthBarPrefab, transform);
             //HealthUI hbUI = hbObj.GetComponent<HealthUI>();

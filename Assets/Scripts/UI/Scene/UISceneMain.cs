@@ -17,7 +17,6 @@ public class UISceneMain : UIBase
     [Header("스테이지")]
     [SerializeField] private GameObject[] player;
     [SerializeField] private MapGenerator mapGenerator;
-    [SerializeField] private GameObject Crip;
 
     [Header("유저 체력")]
     [SerializeField] private GameObject healthBarContainer;
@@ -40,8 +39,8 @@ public class UISceneMain : UIBase
     protected override void Init()
     {
         base.Init();
-        Manager.Stage.InitStage(player, mapGenerator, Crip);
-        Manager.UserHp.InitUserHp(healthBarContainer, healthBarPrefab, hpBarList);
+        //Manager.Stage.InitStage(player, mapGenerator);
+        Manager.UserHp.InitUserHp(hpBarList);
     }
 
 

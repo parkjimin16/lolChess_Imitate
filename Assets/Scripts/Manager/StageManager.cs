@@ -24,7 +24,7 @@ public class StageManager
     private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 3; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 30; //일반 라운드 진행시간
+    private int roundDuration = 3; //일반 라운드 진행시간
 
     private bool isAugmentRound = false;
 
@@ -33,11 +33,10 @@ public class StageManager
     private GameObject CripPrefab;
     #region Init
 
-    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameObject crip)
+    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator)
     {
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
-        CripPrefab = crip;
         InitializePlayers();
         StartStage(currentStage);
         
@@ -624,9 +623,9 @@ public class StageManager
             foreach (var tileEntry in playerMapInfo.HexDictionary)
             {
                 HexTile tile = tileEntry.Value;
-                if (tile.itemOnTile != null)
+                if (tile.championOnTile != null)
                 {
-                    Crip crip = tile.itemOnTile.GetComponent<Crip>();
+                    Crip crip = tile.championOnTile.GetComponent<Crip>();
                     if (crip != null)
                     {
                         remainingCrips.Add(crip);
@@ -641,7 +640,7 @@ public class StageManager
                 if (crip.currentTile != null)
                 {
                     crip.currentTile.isOccupied = false;
-                    crip.currentTile.itemOnTile = null;
+                    crip.currentTile.championOnTile = null;
                 }
                 crip.Death(); // OnDeath() 함수를 호출하여 아이템 생성 및 크립 파괴 처리
             }

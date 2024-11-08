@@ -10,6 +10,7 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
+    [SerializeField] 
     public int Level = 1;
 
     private void Start()
@@ -24,11 +25,16 @@ public class MergeScene : MonoBehaviour
                 symbolDataBlueprint = Manager.Asset.GetBlueprint("SymbolDataBlueprint") as SymbolDataBlueprint;
                 GameStart = true;
 
+                Manager.Game.InitGameManager();
+                Manager.User.Init();
+
                 mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
 
-                Manager.Game.InitGameManager();
-                Manager.User.Init(mapGenerator);
+                Manager.User.InitMap(mapGenerator);
+                
+                Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator);
+                Manager.UserHp.InitializeHealthBars();
                 Manager.Item.Init();
                 Manager.Synerge.Init(symbolDataBlueprint);
 

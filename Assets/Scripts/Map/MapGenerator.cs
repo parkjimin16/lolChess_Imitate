@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -127,9 +128,9 @@ public class MapGenerator : MonoBehaviour
     void CreatUserMap()
     {
         //int totalUsers = 8; // 총 유저 수 (플레이어 포함)
-        allPlayers = Manager.Stage.AllPlayers;
+        allPlayers = Manager.Game.PlayerListObject;
 
-        if (allPlayers == null)
+        if (allPlayers.Length <= 0)
             Debug.Log("AllPlayers is Null");
 
         // 3x3 격자에서 (1,1)은 공동 선택 맵으로 사용하고, 나머지 8개의 칸에 맵을 배치
