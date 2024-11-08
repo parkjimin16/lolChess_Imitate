@@ -163,8 +163,11 @@ public class ChampionManager
 
                 itemList.AddRange(championBase.EquipItem);
 
+                userData.TotalChampionObject[i].GetComponentInParent<HexTile>().isOccupied = false;
+                userData.TotalChampionObject[i].GetComponentInParent<HexTile>().championOnTile = null;
                 Utilities.Destroy(userData.TotalChampionObject[i]);
                 userData.TotalChampionObject.RemoveAt(i);
+                
                 countToRemove--;
             }
         }

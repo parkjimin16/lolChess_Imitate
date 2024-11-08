@@ -576,7 +576,7 @@ public class StageManager
                 
 
                 // 타일에 크립을 설정합니다.
-                tile.itemOnTile = CripPrefab;
+                tile.championOnTile = CripPrefab;
                 tile.isOccupied = true;
 
                 // 크립에 현재 타일 정보를 설정합니다.
