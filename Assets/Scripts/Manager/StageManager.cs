@@ -24,7 +24,7 @@ public class StageManager
     private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 3; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 3; //일반 라운드 진행시간
+    private int roundDuration = 30; //일반 라운드 진행시간
 
     private bool isAugmentRound = false;
 
@@ -572,7 +572,7 @@ public class StageManager
                 HexTile tile = availableTiles[i];
 
                 CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
-                CripPrefab.transform.position = tile.transform.position;
+                CripPrefab.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
                 
 
                 // 타일에 크립을 설정합니다.

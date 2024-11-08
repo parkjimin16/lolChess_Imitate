@@ -76,7 +76,7 @@ public class UIShopPanel : UIBase
 
             newChampionObject.transform.SetParent(hextile.transform);
             hextile.isOccupied = true;
-            hextile.itemOnTile = newChampionObject;
+            hextile.championOnTile = newChampionObject;
 
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();

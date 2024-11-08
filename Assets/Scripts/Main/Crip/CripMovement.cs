@@ -7,7 +7,7 @@ public class CripMovement : MonoBehaviour
 {
     public float moveInterval = 2f; // 이동 간격
     private float moveTimer;
-    private MapInfo playerMapInfo;
+    private MapGenerator.MapInfo playerMapInfo;
     public HexTile currentTile;
 
     void Start()
@@ -15,8 +15,7 @@ public class CripMovement : MonoBehaviour
         moveTimer = moveInterval;
 
         // 크립이 속한 맵 정보를 가져옵니다.
-        playerMapInfo = GetComponentInParent<HexTile>()?.transform.parent.GetComponentInParent<MapInfo>();
-
+        playerMapInfo = gameObject.GetComponent<Crip>().playerMapInfo;
         currentTile = GetCurrentTile();
     }
 
@@ -25,7 +24,7 @@ public class CripMovement : MonoBehaviour
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
-            MoveRandomly();
+            //MoveRandomly();
             moveTimer = moveInterval;
         }
     }

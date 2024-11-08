@@ -382,6 +382,7 @@ public class MapGenerator : MonoBehaviour
             leftEmptyObject.tag = "EnemyPortal";
             rightEmptyObject.tag = "EnemySugar";
         }
+        
     }
 
     void AdjustCamera()
