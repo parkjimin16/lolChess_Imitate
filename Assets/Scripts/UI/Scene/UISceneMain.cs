@@ -36,6 +36,7 @@ public class UISceneMain : UIBase
         get { return uiShopPanel; }
         set { uiShopPanel = value; }
     }
+
     protected override void Init()
     {
         base.Init();

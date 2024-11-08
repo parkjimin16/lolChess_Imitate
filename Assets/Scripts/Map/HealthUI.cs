@@ -38,8 +38,8 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
 
         if (playerNameText != null)
         {
-            playerNameText.text = $"{playerData.PlayerName}";
-            currentHealth.text = $"{playerData.CurrentHealth}";
+            playerNameText.text = $"{playerData.UserData.UserName}";
+            currentHealth.text = $"{playerData.UserData.UserHealth}";
             //Debug.Log(player.GetComponent<Player>().PlayerName);
         }
         UpdateHealthBar();
@@ -49,12 +49,12 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
     {
         if (healthBarImage != null && playerData != null)
         {
-            healthPercent = (float)playerData.CurrentHealth / 100f;
+            healthPercent = (float)playerData.UserData.UserHealth / 100f;
             healthBarImage.fillAmount = healthPercent;
         }
         if (currentHealth != null && playerData != null)
         {
-            currentHealth.text = $"{playerData.CurrentHealth}";
+            currentHealth.text = $"{playerData.UserData.UserHealth}";
         }
     }
     public void SetDead()

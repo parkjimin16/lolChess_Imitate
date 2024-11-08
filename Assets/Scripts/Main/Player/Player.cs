@@ -5,34 +5,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
-    [SerializeField] private string playerName;
-    [SerializeField] private int currentHealth;
-    [SerializeField] private PlayerType playerType;
+    [SerializeField] private UserData userData;
 
-    private void Start()
+
+    public PlayerData PlayerData
     {
-        // PlayerData를 사용하여 플레이어 초기화
-        InitializePlayer();
+        get { return playerData; }
+        set { playerData = value; }
     }
 
-    private void InitializePlayer()
+    public UserData UserData
     {
-        playerName = playerData.PlayerName;
-        currentHealth = playerData.Health;
-        playerType = playerData.PlayerType;
+        get { return userData; }
+        set { userData = value; }
     }
-    public PlayerType PlayerType
+
+    public void InitPlayer(UserData user)
     {
-        get { return playerType; }
+        userData = user;
+
+        userData.UserName = playerData.PlayerName;
+        userData.UserHealth = playerData.Health;
+        userData.PlayerType = playerData.PlayerType;
     }
-    public string PlayerName
-    {
-        get { return playerName; }
-    }
-    public int CurrentHealth
-    {
-        get { return currentHealth; }
-    }
-    public int setCurrentHealth
-    { set { currentHealth = value; } }
 }

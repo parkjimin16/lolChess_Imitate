@@ -9,7 +9,6 @@ public class PortalSynergy : SynergyBase
 
     // 차원문 로직 변수
     private int portalChampionLevel;
-    private int portalGateLevel;
     private int maxHp;
     private Transform portalObjPosition;
     private GameObject portalObj;
@@ -47,29 +46,24 @@ public class PortalSynergy : SynergyBase
             enemyChampion = new List<GameObject>();
             enemyChampionBase = new List<ChampionBase>();
             maxHp = 0;
-            portalGateLevel = 0;
 
             Deactivate(user);
             return;
         }
         else if (level >= 3 && level < 6)
         {
-            portalGateLevel = 1;
             maxHp = 200;
         }
         else if (level >= 6 && level < 8)
         {
-            portalGateLevel = 2;
             maxHp = 450;
         }
         else if (level >= 8 && level < 10)
         {
-            portalGateLevel = 3;
             maxHp = 700;
         }
         else if (level >= 10)
         {
-            portalGateLevel = 4;
             maxHp = 1500;
         }
 

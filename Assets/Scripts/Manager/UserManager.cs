@@ -7,12 +7,40 @@ public class UserManager
 {
     public UserData User1_Data;
 
-
     public void Init(MapGenerator mapGenerator)
     {
-        User1_Data = new UserData();
+        GameObject obj = GameObject.Find("User");
 
+        if (obj == null)
+            return;
+
+        /*
+        for(int i = 1; i<= 8; i++)
+        {
+            GameObject newPlayer = Manager.Asset.InstantiatePrefab("Player", obj.transform);
+            PlayerData pData = Manager.Asset.GetBlueprint($"PlayerData_{i}") as PlayerData;
+            Player player = newPlayer.GetComponent<Player>();
+            player.PlayerData = pData;
+
+            Manager.Game.PlayerList.Add(player);
+        }
+        */
+
+
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+            UserData user = new UserData();
+            user.InitUserData(10, "박태영", 0, mapGenerator);
+            Transform child = obj.transform.GetChild(i);
+            Player player = child.GetComponent<Player>();
+
+            player.InitPlayer(user);
+        }
+
+        User1_Data = new UserData();
         User1_Data.InitUserData(10, "박태영", 0, mapGenerator);
+
+        Debug.Log("User");
     }
 
     public void AddChampion(UserData user, GameObject chamipon)
@@ -24,6 +52,9 @@ public class UserManager
     {
         return user.BattleChampionObject.Any(championObject =>
         {
+            if (championObject == null)
+                return false;
+
             ChampionBase championBase = championObject.GetComponent<ChampionBase>();
             return championBase != null && championBase.ChampionName == championName;
         });
@@ -48,6 +79,7 @@ public class UserData
 {
     [SerializeField] private int gold;
     [SerializeField] private string userName;
+    [SerializeField] private int userHealth;
     [SerializeField] private int userId;
     [SerializeField] private List<GameObject> totalChampionObject;
     [SerializeField] private List<GameObject> battleChampionObject;
@@ -57,6 +89,7 @@ public class UserData
     [SerializeField] private MapGenerator.MapInfo mapInfo;
     [SerializeField] private List<Transform> sugarCraftPosition;
     [SerializeField] private List<Transform> portalPosition;
+    [SerializeField] private PlayerType playerType;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -65,6 +98,7 @@ public class UserData
     private Dictionary<string, HashSet<string>> championSynergies_Job;
 
     private Dictionary<string, SynergyData> championSynergies;
+
 
     #region Property
 
@@ -75,7 +109,17 @@ public class UserData
 
     public int GetGold() { return gold; }
 
-    public string GetUserName() { return userName; }
+    public int UserHealth
+    {
+        get { return userHealth; }
+        set { userHealth = value; }
+    }
+
+    public string UserName
+    {
+        get { return userName; }
+        set { userName = value; }
+    }
 
 
     public List<GameObject> TotalChampionObject
@@ -99,6 +143,12 @@ public class UserData
     {
         get { return userSynergyData; }
         set { userSynergyData = value; }
+    }
+
+    public PlayerType PlayerType
+    {
+        get { return playerType; }
+        set { playerType = value; }
     }
 
     public Dictionary<string, int> Synergies_Line

@@ -63,7 +63,7 @@ public class PlayerMove : MonoBehaviour
 
     void HandleCarouselMovement()
     {
-        if (player.PlayerType == PlayerType.Player1)
+        if (player.UserData.PlayerType == PlayerType.Player1)
         {
             // 마우스 우클릭으로 이동
             if (Input.GetMouseButtonDown(1))
@@ -93,7 +93,7 @@ public class PlayerMove : MonoBehaviour
     }
     void HandleNormalMovement()
     {
-        if (player.PlayerType == PlayerType.Player1)
+        if (player.UserData.PlayerType == PlayerType.Player1)
         {
             // 마우스 우클릭으로 이동
             if (Input.GetMouseButtonDown(1))
@@ -146,7 +146,7 @@ public class PlayerMove : MonoBehaviour
                 isMoving = false;
 
                 // 공동 선택 라운드에서 챔피언에 도달했는지 확인
-                if (isInCarouselRound && player.PlayerType != PlayerType.Player1)
+                if (isInCarouselRound && player.UserData.PlayerType != PlayerType.Player1)
                 {
                     // 챔피언 선택 처리
                     SelectChampionAtPosition();
@@ -186,7 +186,7 @@ public class PlayerMove : MonoBehaviour
                 GameObject selectedChampion = collider.gameObject;
                 mapGenerator.RemoveChampion(selectedChampion);
 
-                Debug.Log($"{player.PlayerName}이(가) {selectedChampion.name}을(를) 선택했습니다.");
+                Debug.Log($"{player.UserData.UserName}이(가) {selectedChampion.name}을(를) 선택했습니다.");
 
                 // 추가적인 선택 처리 로직 (인벤토리에 추가 등)
 

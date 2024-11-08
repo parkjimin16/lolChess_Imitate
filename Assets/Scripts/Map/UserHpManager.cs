@@ -56,7 +56,7 @@ public class UserHpManager
         }
 
         // 플레이어들의 체력을 기준으로 체력바 정렬
-        healthBars.Sort((hb1, hb2) => hb2.PlayerData.CurrentHealth.CompareTo(hb1.PlayerData.CurrentHealth));
+        healthBars.Sort((hb1, hb2) => hb2.PlayerData.UserData.UserHealth.CompareTo(hb1.PlayerData.UserData.UserHealth));
 
         // 정렬된 순서대로 체력바의 형제 순서(Sibling Index) 재배치
         for (int i = 0; i < healthBars.Count; i++)
@@ -71,7 +71,7 @@ public class UserHpManager
         foreach (HealthUI hbUI in healthBars)
         {
             hbUI.UpdateHealthBar();
-            if (hbUI.PlayerData.CurrentHealth <= 0)
+            if (hbUI.PlayerData.UserData.UserHealth <= 0)
             {
                 // 체력바를 회색으로 표시하거나 반투명하게 만들기
                 hbUI.SetDead(); // SetDead() 메서드를 HealthBarUI에 구현
@@ -81,10 +81,10 @@ public class UserHpManager
         // 플레이어들의 체력을 기준으로 체력바 정렬
         healthBars.Sort((hb1, hb2) =>
         {
-            int healthComparison = hb2.PlayerData.CurrentHealth.CompareTo(hb1.PlayerData.CurrentHealth);
+            int healthComparison = hb2.PlayerData.UserData.UserHealth.CompareTo(hb1.PlayerData.UserData.UserHealth);
             if (healthComparison == 0)
             {
-                return hb1.PlayerData.PlayerName.CompareTo(hb2.PlayerData.PlayerName);
+                return hb1.PlayerData.UserData.UserName.CompareTo(hb2.PlayerData.UserData.UserName);
             }
             return healthComparison;
         });

@@ -46,7 +46,6 @@ public class StageManager
 
     private void InitializePlayers()
     {
-        
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
         
@@ -169,9 +168,9 @@ public class StageManager
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
 
         // 플레이어에게 데미지 적용
-        int Hp = selfPlayer.GetComponent<Player>().CurrentHealth;
+        int Hp = selfPlayer.GetComponent<Player>().UserData.UserHealth;
         Hp -= totalDamage;
-        selfPlayer.GetComponent<Player>().setCurrentHealth = Hp;
+        selfPlayer.GetComponent<Player>().UserData.UserHealth = Hp;
         //Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.GetComponent<Player>().CurrentHealth}");
 
         // 체력바 업데이트
@@ -179,7 +178,7 @@ public class StageManager
 
 
         // 게임 오버 체크
-        if (selfPlayer.GetComponent<Player>().CurrentHealth <= 0)
+        if (selfPlayer.GetComponent<Player>().UserData.UserHealth <= 0)
         {
            // Debug.Log("게임 오버!");
             // 게임 오버 로직 처리
@@ -300,7 +299,7 @@ public class StageManager
 
                 // AI 플레이어의 경우 자동으로 챔피언을 선택하도록 처리
                 Player playerComponent = playerObj.GetComponent<Player>();
-                if (playerComponent.PlayerType != PlayerType.Player1)
+                if (playerComponent.UserData.PlayerType != PlayerType.Player1)
                 {
                     playerMove.MoveToRandomChampion();
                 }
@@ -313,8 +312,8 @@ public class StageManager
 
         sortedPlayers.Sort((a, b) =>
         {
-            int healthA = a.GetComponent<Player>().CurrentHealth;
-            int healthB = b.GetComponent<Player>().CurrentHealth;
+            int healthA = a.GetComponent<Player>().UserData.UserHealth;
+            int healthB = b.GetComponent<Player>().UserData.UserHealth;
 
             // 체력이 낮은 순서대로 정렬
             return healthA.CompareTo(healthB);
@@ -528,7 +527,7 @@ public class StageManager
 
             if (playerMapInfo == null)
             {
-                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 MapInfo를 찾을 수 없습니다.");
+                Debug.LogWarning($"플레이어 {playerComponent.UserData.UserName}의 MapInfo를 찾을 수 없습니다.");
                 continue;
             }
 
@@ -547,7 +546,7 @@ public class StageManager
 
             if (availableTiles.Count == 0)
             {
-                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 맵에 크립을 생성할 수 있는 타일이 없습니다.");
+                Debug.LogWarning($"플레이어 {playerComponent.UserData.UserName}의 맵에 크립을 생성할 수 있는 타일이 없습니다.");
                 continue;
             }
 
@@ -614,7 +613,7 @@ public class StageManager
 
             if (playerMapInfo == null)
             {
-                Debug.LogWarning($"플레이어 {playerComponent.PlayerName}의 MapInfo를 찾을 수 없습니다.");
+                Debug.LogWarning($"플레이어 {playerComponent.UserData.UserName}의 MapInfo를 찾을 수 없습니다.");
                 continue;
             }
 

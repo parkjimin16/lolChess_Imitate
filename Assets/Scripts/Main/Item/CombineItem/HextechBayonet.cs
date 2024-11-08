@@ -33,15 +33,19 @@ public class HextechBayonet : BaseItem
     {
         int max = 100000000;
 
-        foreach(ChampionBase champion in Manager.Game.BattleChampionBase)
+        UserData user = Manager.User.User1_Data;
+
+        foreach(GameObject champion in user.BattleChampionObject)
         {
             if (champion == null)
                 return;
 
-            if(champion.Champion_CurHp < max)
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            if(cBase.Champion_CurHp < max)
             {
-                max = champion.Champion_CurHp;
-                targetChampion = champion;
+                max = cBase.Champion_CurHp;
+                targetChampion = cBase;
             }
         }
     }
