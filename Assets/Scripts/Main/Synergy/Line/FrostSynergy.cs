@@ -78,7 +78,7 @@ public class FrostSynergy : SynergyBase
             if (cBase == null)
                 continue;
 
-            if (cBase.ChampionLine_First != ChampionLine.Meadist && cBase.ChampionLine_Second != ChampionLine.Meadist)
+            if (cBase.ChampionLine_First != ChampionLine.Frost && cBase.ChampionLine_Second != ChampionLine.Frost)
                 continue;
 
 
@@ -129,7 +129,7 @@ public class FrostSynergy : SynergyBase
                 continue;
 
             cBase.Synergy_AD_Power += ad_Power;
-            cBase.Synergy_AP_Power += ad_Power;
+            cBase.Synergy_AP_Power += ap_Power;
 
             cBase.UpdateChampmionStat();
         }
@@ -184,7 +184,6 @@ public class FrostSynergy : SynergyBase
                         if (index != -1)
                         {
                             fWarrior.Init(enemyChampionBase[i].Champion_MaxHp, enemyChampionBase[i].Champion_AD_Power, enemyChampion[index].gameObject);
-                            fWarrior.MoveAndAttack(enemyChampion[index].gameObject);
                         }
 
                         spawnedEnemies.Add(enemyChampionBase[i]);

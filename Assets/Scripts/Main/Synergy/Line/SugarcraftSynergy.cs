@@ -5,6 +5,9 @@ using UnityEngine;
 public class SugarcraftSynergy : SynergyBase
 {
     // 시너지 변수
+    private int level;
+
+    // 시너지 변수
     private int sugarCount;
     private float attackPower;
     private float spellPower;
@@ -14,6 +17,7 @@ public class SugarcraftSynergy : SynergyBase
 
     // 달콤술사 로직 변수
     private int cakeStack; // 케이크 층 수
+    private Transform sugarCakePosition;
     private GameObject sugarCake;
     private SugarCraftCake sugarCraftCake;
 
@@ -29,18 +33,22 @@ public class SugarcraftSynergy : SynergyBase
     #endregion
 
     #region 활성 & 비활성화
-    protected override void ApplyEffects(UserData user, int level)
+    protected override void ApplyEffects(UserData user, int _level)
     {
+        level = _level;
+
         if (sugarCake == null)
         {
-            GameObject obj = GameObject.Find("Craft");
+            foreach(var trans in user.SugarCraftPosition)
+            {
+                if (trans.CompareTag("PlayerSugar"))
+                    sugarCakePosition = trans;
+            }
 
-            if (obj == null)
-                Debug.Log("Craft Null");
-
-            sugarCake = Manager.Asset.InstantiatePrefab("SugarCraftCake", obj.transform);
-            sugarCake.SetActive(true);
+            sugarCake = Manager.Asset.InstantiatePrefab("SugarCraftCake");
+            sugarCake.transform.position = sugarCakePosition.position;
             sugarCraftCake = sugarCake.GetComponent<SugarCraftCake>();
+            sugarCake.SetActive(false);
         }
 
 

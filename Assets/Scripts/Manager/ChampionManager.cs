@@ -2,10 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static MapGenerator;
 
 public class ChampionManager
 {
+    #region 전체 챔피언
+
+    private void SettingTotalChampion(UserData userData)
+    {
+        userData.TotalChampionObject.Clear();
+
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null)
+            {
+                userData.TotalChampionObject.Add(tile.championOnTile);
+            }
+        }
+
+        foreach (var tileEntry in userData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null)
+            {
+                userData.TotalChampionObject.Add(tile.championOnTile);
+            }
+        }
+    }
+    #endregion
+
     #region 비전투챔피언
     /// <summary>
     /// 구매했을 때 호출 + 밑에 놓을 때
@@ -13,6 +38,7 @@ public class ChampionManager
     /// <param name="userData"></param>
     public void SettingNonBattleChampion(UserData userData)
     {
+        SettingTotalChampion(userData);
         userData.NonBattleChampionObject.Clear();
 
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
@@ -20,6 +46,7 @@ public class ChampionManager
             HexTile tile = tileEntry.Value;
             if (tile.isOccupied && tile.championOnTile != null)
             {
+                Debug.Log("체크");
                 AddNonBattleChampion(userData, tile.championOnTile);
             }
         }
@@ -27,12 +54,10 @@ public class ChampionManager
 
     public void AddNonBattleChampion(UserData userData, GameObject champion)
     {
-        if (userData.NonBattleChampionObject.Count <= 0)
-            return;
+        //if (userData.NonBattleChampionObject.Count <= 0)
+        //    return;
 
-        userData.TotalChampionObject.Add(champion);
         userData.NonBattleChampionObject.Add(champion);
-
 
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
@@ -80,6 +105,7 @@ public class ChampionManager
     /// </summary>
     public void SettingBattleChampion(UserData userData)
     {
+        SettingTotalChampion(userData);
         userData.BattleChampionObject.Clear();
 
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
@@ -124,9 +150,9 @@ public class ChampionManager
         GameObject championToEnhance = champion;
 
         // 리스트를 뒤에서부터 순회하며 중복 챔피언 제거, 인덱스 에러남
-        for (int i = userData.BattleChampionObject.Count - 1; i >= 0 && countToRemove > 0; i--)
+        for (int i = userData.TotalChampionObject.Count - 1; i >= 0 && countToRemove > 0; i--)
         {
-            ChampionBase championBase = userData.BattleChampionObject[i].GetComponent<ChampionBase>();
+            ChampionBase championBase = userData.TotalChampionObject[i].GetComponent<ChampionBase>();
             if (championBase != null && championBase.ChampionName == championToEnhance.GetComponent<ChampionBase>().ChampionName)
             {
                 if (championBase == championToEnhance.GetComponent<ChampionBase>())
@@ -137,8 +163,8 @@ public class ChampionManager
 
                 itemList.AddRange(championBase.EquipItem);
 
-                Utilities.Destroy(userData.BattleChampionObject[i]);
-                userData.BattleChampionObject.RemoveAt(i);
+                Utilities.Destroy(userData.TotalChampionObject[i]);
+                userData.TotalChampionObject.RemoveAt(i);
                 countToRemove--;
             }
         }

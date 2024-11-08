@@ -169,11 +169,9 @@ public class SynergyManager
 
     #endregion
 
-
     #region 시너지 적용 로직
     public void UpdateSynergies(UserData userData)
     {
-        // 현재 배치된 챔피언의 시너지를 확인
         activeSynergy = GetSortedChampionSynergiesWithCount(userData);
         synergyBaseList.Clear();
 
@@ -273,6 +271,21 @@ public class SynergyManager
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
+            else if (synergyName == "아르카나")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Arcana);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Arcana);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
             else if (synergyName == "요정")
             {
                 ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Fairy);
@@ -280,6 +293,36 @@ public class SynergyManager
 
                 int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
                 GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Fairy);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "용")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Dragon);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Dragon);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "차원문")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Portal);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.None);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetLineSynergyBase(ChampionLine.Portal);
                 SynergyBase sBase = obj.GetComponent<SynergyBase>();
 
                 if (sBase == null)
@@ -341,7 +384,6 @@ public class SynergyManager
 
     private void StartGame(UserData user, List<SynergyBase> sBaseList)
     {
-        Debug.Log("스타트");
         // 게임 시작 시 시너지 활성화
         foreach (var synergy in sBaseList)
         {
