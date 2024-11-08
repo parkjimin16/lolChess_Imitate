@@ -153,6 +153,7 @@ public class UserData
     #region Init
     public void InitUserData(int _gold, string _userName, int _userId, MapGenerator _mapGenerator)
     {
+        totalChampionObject = new List<GameObject>();
         battleChampionObject = new List<GameObject>();
         nonBattleChamiponObject = new List<GameObject>();
         totalItemBlueprint = new List<ItemBlueprint>();

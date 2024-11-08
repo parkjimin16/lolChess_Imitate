@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class FrostWarrior : MonoBehaviour
 {
-    public float MaxHp;
-    public float CurHp;
-    public float Power;
+    private float maxHp;
+    private float curHp;
+    private float power;
     public float MoveSpeed = 3f;
 
     private void Update()
     {
-        if(CurHp <= 0)
+        if(curHp <= 0)
             Destroy(this);
     }
 
-    public void Init(float maxHp, float power,GameObject target)
+    public void Init(float _maxHp, float _power,GameObject target)
     {
-        MaxHp = maxHp;
-        CurHp = MaxHp;
-        Power = power;
+        maxHp = _maxHp;
+        curHp = maxHp;
+        power = _power;
 
         MoveAndAttack(target);
     }
@@ -39,16 +39,16 @@ public class FrostWarrior : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.3f);
-        DealDamage(target);
+        SetDamage(target);
         Destroy(this.gameObject);
     }
 
-    private void DealDamage(GameObject target)
+    private void SetDamage(GameObject target)
     {
         var targetHp = target.GetComponent<ChampionBase>(); 
         if (targetHp != null)
         {
-            targetHp.ChampionHpMpController.TakeDamage(Power); 
+            targetHp.ChampionHpMpController.TakeDamage(power); 
         }
     }
 }

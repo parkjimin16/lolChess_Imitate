@@ -250,7 +250,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
     - {fileID: 11400000, guid: d8b1a4f3d7160864fb16b27e2a21c750, type: 2}
     - {fileID: 11400000, guid: 8fcaadaafbb875744bbad2a3187f6b09, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 069422c533cb98c42922b9cf416d8781, type: 3}
   - championLine: 9
     championLineSprite: {fileID: 21300000, guid: d441a6f685f7df4439c59d41fffe21bd, type: 3}
     championLineName: "\uC694\uC815"
@@ -302,7 +302,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 13dbb4f95f055b84fb05e2f41333c3f9, type: 2}
     - {fileID: 11400000, guid: c7dadf79c48912145b5e1751bee4023b, type: 2}
     - {fileID: 11400000, guid: 0923ccaf8317bdd4392431ea2bbf24ee, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 1af57fb433c79f84a8fdcf6d6beff18f, type: 3}
   - championLine: 11
     championLineSprite: {fileID: 21300000, guid: ca96993c5b250f647aaf0beb6b4ce662, type: 3}
     championLineName: "\uCC28\uC6D0\uBB38"
@@ -334,7 +334,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: adda9131ab7af224db9a10d371e4359c, type: 2}
     - {fileID: 11400000, guid: 944964323a2cc8848a01042d9a1213a8, type: 2}
     - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 47a884fec0fdcbc42adcaa99333ae8dd, type: 3}
   - championLine: 12
     championLineSprite: {fileID: 21300000, guid: 28384fd73fe68974c8f8aa60a4566159, type: 3}
     championLineName: "\uD5C8\uAE30"

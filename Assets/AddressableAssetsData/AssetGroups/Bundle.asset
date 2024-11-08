@@ -1721,6 +1721,36 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1af57fb433c79f84a8fdcf6d6beff18f
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Dragon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 069422c533cb98c42922b9cf416d8781
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Arcana.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47a884fec0fdcbc42adcaa99333ae8dd
+    m_Address: Assets/@Resources/Prefab/Synergy/Line/Synergy_Portal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b46b8675a13ea14f9c75fe4f0d1557a
+    m_Address: Assets/@Resources/Prefab/Synergy/LineObject/PortalGate.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 700d99cccc8345b4394dc82655c0c435
+    m_Address: Assets/@Resources/Prefab/Synergy/LineObject/PortalBomb.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:
