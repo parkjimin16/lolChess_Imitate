@@ -140,3 +140,14 @@ public enum InteractionState
     Dragging,
     Returning
 }
+
+[System.Flags]
+public enum AugmenterType
+{
+    None = 0,
+    Stats = 1 << 0,     // 1
+    Champion = 1 << 1,  // 2
+    Item = 1 << 2,      // 4
+    User = 1 << 3,      // 8
+    Another = 1 << 4    // 16
+}

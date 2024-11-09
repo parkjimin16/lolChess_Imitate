@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1c6e53e86afaf478fe29d97d8da312, type: 3}
+  m_Name: AugmenterBlueprint
+  m_EditorClassIdentifier: 
+  sliverAugmenter:
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: bf1c3f64042873b4fb58ee1053599017, type: 3}
+    augmenterName: "3\uC5D0 \uAE43\uB4E0 \uD798"
+    augmenterDescription: "\uC544\uAD70 3\uB2E8\uACC4 \uCC54\uD53C\uC5B8\uC758 \uCCB4\uB825\uC774
+      150, \uC2DC\uC791 \uB9C8\uB098\uAC00 10, \uACF5\uACA9 \uC18D\uB3C4\uAC00 10%
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: ac895e8dea0b18a438b9445b6673a91d, type: 3}
+    augmenterName: "\uACBD\uB7C9\uAE09 I"
+    augmenterDescription: "\uC544\uAD70 1\uB2E8\uACC4 \uBC0F 2\uB2E8\uACC4 \uCC54\uD53C\uC5B8\uC774
+      15%\uC758 \uACF5\uACA9 \uC18D\uB3C4 \uBC0F \uC774\uB3D9 \uC18D\uB3C4\uB97C
+      \uC5BB\uC2B5\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: f3111fa97fee4b341a2e9cdb2395c91a, type: 3}
+    augmenterName: "\uAF2C\uB9C8 \uAC70\uC778"
+    augmenterDescription: "\uD604\uC7AC \uBC0F \uCD5C\uB300 \uD50C\uB808\uC774\uC5B4
+      \uCCB4\uB825\uC774 30 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: e484b05f4cccdfb428a16cae09e09724, type: 3}
+    augmenterName: "\uB2E8\uACB0 I"
+    augmenterDescription: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uAC19\uC740 \uC5F4\uC5D0
+      \uCC54\uD53C\uC5B8\uC774 3\uBA85 \uC774\uC0C1 \uC788\uC73C\uBA74 \uBC29\uC5B4\uB825
+      \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825\uC774 15 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 4
+    augmenterIcon: {fileID: 21300000, guid: 73cc90cec569fb34ab1f0b58cea07bd8, type: 3}
+    augmenterName: "\uB3C4\uB451 \uBB34\uB9AC I"
+    augmenterDescription: "\uB3C4\uC801\uC758 \uC7A5\uAC11 1\uAC1C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: cc26c07aafb240e48b614aa24242f7ce, type: 3}
+    augmenterName: "\uBD88\uC644\uC804\uD55C \uCD08\uC6D4"
+    augmenterDescription: "\uC804\uD22C 15\uCD08 \uD6C4 \uC544\uAD70 \uC720\uB2DB\uC758
+      \uD53C\uD574\uB7C9\uC774 30% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: f8c1099013cb3a24f8c8beecfeedfced, type: 3}
+    augmenterName: "\uC0C8\uB85C\uACE0\uCE68\uC758 \uB0A0 I"
+    augmenterDescription: "\uBB34\uB8CC \uC0C1\uC810 \uC0C8\uB85C\uACE0\uCE68\uC744
+      11\uD68C \uC5BB\uC2B5\uB2C8\uB2E4."
+  - augmenterType: 10
+    augmenterIcon: {fileID: 21300000, guid: 090e671d1013e67448779c61e532ae1f, type: 3}
+    augmenterName: "\uC218\uD638\uC790\uC758 \uCE5C\uAD6C"
+    augmenterDescription: "\uC989\uC2DC \uBB34\uC791\uC704 2\uB2E8\uACC4 \uCC54\uD53C\uC5B8\uC744
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uB808\uBCA8\uC744 \uC62C\uB9B4 \uB54C\uB9C8\uB2E4
+      \uB3D9\uC77C\uD55C \uCC54\uD53C\uC5B8\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: f5ac036928a4fe84b8c031ecac2bf8bb, type: 3}
+    augmenterName: "\uC2E4\uBC84 \uD2F0\uCF13"
+    augmenterDescription: "\uC0C1\uC810\uC744 4\uBC88 \uC0C8\uB85C\uACE0\uCE60 \uB54C\uB9C8\uB2E4
+      \uBB34\uB8CC \uC0C1\uC810 \uC0C8\uB85C\uACE0\uCE68 \uAE30\uD68C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4.
+      3\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 4
+    augmenterIcon: {fileID: 21300000, guid: 52c14afdabbe4b246bf709cef43ee84e, type: 3}
+    augmenterName: "\uC544\uC774\uD15C \uAFB8\uB7EC\uBBF8 I"
+    augmenterDescription: "\uBB34\uC791\uC704 \uC644\uC131 \uC544\uC774\uD15C 1\uAC1C\uB97C
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 1c2e14db09b000e4a8b83aa302a8fc25, type: 3}
+    augmenterName: "\uC740\uC218\uC800"
+    augmenterDescription: "10\uC758 \uACBD\uD5D8\uCE58\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 47e3e87032416ac45b4e7ff2f4dcd039, type: 3}
+    augmenterName: "\uC900\uBE44 \uC6B4\uB3D9 I"
+    augmenterDescription: "\uC544\uAD70\uC758 \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC989\uC2DC
+      8% \uC99D\uAC00\uD569\uB2C8\uB2E4. \uB9E4 \uB77C\uC6B4\uB4DC \uC885\uB8CC \uD6C4\uC5D0
+      \uD6A8\uACFC\uAC00 0.5% \uCD94\uAC00\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 2
+    augmenterIcon: {fileID: 21300000, guid: de2288c3e0a21214792d9f4cdc742aab, type: 3}
+    augmenterName: "\uD558\uB098, \uB458, \uC14B"
+    augmenterDescription: "1\uB2E8\uACC4 \uCC54\uD53C\uC5B8 2\uBA85, 2\uB2E8\uACC4
+      \uCC54\uD53C\uC5B8 2\uBA85, 3\uB2E8\uACC4 \uCC54\uD53C\uC5B8 1\uBA85\uC744
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: c55201b169285164eb8604decd3a335e, type: 3}
+    augmenterName: "\uD6C4\uBC18 \uC804\uBB38\uAC00"
+    augmenterDescription: "9\uB808\uBCA8\uC5D0 \uB3C4\uB2EC\uD558\uBA74 33\uACE8\uB4DC\uB97C
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4"
+  goldAugmenter:
+  - augmenterType: 6
+    augmenterIcon: {fileID: 21300000, guid: 96e2db1c7eaf69b44ba3c53d2038e691, type: 3}
+    augmenterName: "2\uC778\uC870"
+    augmenterDescription: "\uBB34\uC791\uC704 5\uB2E8\uACC4 \uCC54\uD53C\uC5B8 2\uBA85\uACFC
+      \uBB34\uC791\uC704 \uC870\uD569 \uC544\uC774\uD15C 1\uAC1C\uC758 \uBCF5\uC0AC\uBCF8
+      2\uAC1C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 41eb276206d8a094491da6779b53687e, type: 3}
+    augmenterName: "\uAC80\uC758 \uC218\uD638\uC790"
+    augmenterDescription: "B.F. \uB300\uAC80\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4.
+      \uC544\uAD70 \uC720\uB2DB\uC758 \uACF5\uACA9\uB825\uC774 15% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 2d65447b1aa033444aadf302eec34d97, type: 3}
+    augmenterName: "\uAC74\uAC15 \uB610 \uAC74\uAC15"
+    augmenterDescription: "\uC804\uC7A5\uC5D0 \uBC30\uCE58\uD55C \uC544\uAD70 2\uB2E8\uACC4
+      \uCC54\uD53C\uC5B8 \uD55C \uC885\uB958\uB2F9 \uC544\uAD70\uC758 \uCCB4\uB825\uC774
+      80 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 396cbc0b2c89d1d40b415f8c1dab8453, type: 3}
+    augmenterName: "\uAD50\uD658\uC758 \uC7A5"
+    augmenterDescription: "\uB77C\uC6B4\uB4DC\uB9C8\uB2E4 \uBB34\uB8CC \uC0C1\uC810
+      \uC0C8\uB85C\uACE0\uCE68\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4. 1\uACE8\uB4DC\uB97C
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: d66f7d22d0d3118439ee3b29de080087, type: 3}
+    augmenterName: "\uADE0\uD615 \uC608\uC0B0"
+    augmenterDescription: "\uB2E4\uC74C 4\uBC88\uC758 \uB77C\uC6B4\uB4DC \uC2DC\uC791
+      \uC2DC 7\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: f17902d2d71d14d40a5690995d8eaf00, type: 3}
+    augmenterName: "\uB048\uC9C8\uAE34 \uC5F0\uAD6C"
+    augmenterDescription: "\uD50C\uB808\uC774\uC5B4 \uB300\uC0C1 \uC804\uD22C\uAC00
+      \uB05D\uB098\uACE0 \uC2B9\uB9AC \uC2DC 2\uC758 \uACBD\uD5D8\uCE58, \uD328\uBC30
+      \uC2DC 3\uC758 \uACBD\uD5D8\uCE58\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 50141e61402d7aa44a8055184825209e, type: 3}
+    augmenterName: "\uB2E8\uACB0 II"
+    augmenterDescription: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uAC19\uC740 \uC5F4\uC5D0
+      \uCC54\uD53C\uC5B8\uC774 3\uBA85 \uC774\uC0C1 \uC788\uC73C\uBA74 \uBC29\uC5B4\uB825
+      \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825\uC774 25 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 813bdeaa05adc9948ab2ef77277933a4, type: 3}
+    augmenterName: "\uB3C8\uBCBC\uB77D"
+    augmenterDescription: "\uBC14\uB85C 8\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4.
+      \uC774\uD6C4 \uB9E4 \uB77C\uC6B4\uB4DC 1\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 5
+    augmenterIcon: {fileID: 21300000, guid: cb360f8609981484b93ff98d5339ad1a, type: 3}
+    augmenterName: "\uB9C8\uBC95 \uC9C0\uD321\uC774"
+    augmenterDescription: "\uC4F8\uB370\uC5C6\uC774 \uD070 \uC9C0\uD321\uC774\uB97C
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uC544\uAD70 \uC720\uB2DB\uC758 \uC8FC\uBB38\uB825\uC774
+      18 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: e184d631dd73daf42b7992ba39580fab, type: 3}
+    augmenterName: "\uB9D1\uC740 \uC815\uC2E0"
+    augmenterDescription: "\uD50C\uB808\uC774\uC5B4 \uB300\uC0C1 \uC804\uD22C \uC885\uB8CC
+      \uC2DC \uC544\uAD70 \uB300\uAE30\uC11D\uC5D0 \uCC54\uD53C\uC5B8\uC774 \uC5C6\uB2E4\uBA74
+      3\uC758 \uACBD\uD5D8\uCE58\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 2
+    augmenterIcon: {fileID: 21300000, guid: a6ba21fe50703f04a87f2be94c49c769, type: 3}
+    augmenterName: "\uC0BC\uCD1D\uC0AC"
+    augmenterDescription: "\uBB34\uC791\uC704 3\uB2E8\uACC4 \uCC54\uD53C\uC5B8 5\uBA85\uC744
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: a93ff183966084242a77fa6a16648464, type: 3}
+    augmenterName: "\uC900\uBE44 \uC6B4\uB3D9 II"
+    augmenterDescription: "\uC544\uAD70\uC758 \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC989\uC2DC
+      10% \uC99D\uAC00\uD569\uB2C8\uB2E4. \uB9E4 \uB77C\uC6B4\uB4DC \uC885\uB8CC
+      \uD6C4\uC5D0 \uD6A8\uACFC\uAC00 1% \uCD94\uAC00\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 3171c3c094395804686c5a56f92a26ca, type: 3}
+    augmenterName: "\uCD08\uC6D4 "
+    augmenterDescription: "\uC804\uD22C 15\uCD08 \uD6C4 \uC544\uAD70 \uC720\uB2DB\uC758
+      \uD53C\uD574\uB7C9\uC774 60% \uC99D\uAC00\uD569\uB2C8\uB2E4.\r"
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: c85f8168cdbc7ac4289b457ea282b9df, type: 3}
+    augmenterName: "\uD3ED\uBC1C\uC801\uC778 \uC131\uC7A5"
+    augmenterDescription: "\uB2E4\uC74C 4\uBC88\uC758 \uB77C\uC6B4\uB4DC \uC2DC\uC791
+      \uC2DC \uACBD\uD5D8\uCE58\uB97C 8 \uC5BB\uC2B5\uB2C8\uB2E4."
+  - augmenterType: 5
+    augmenterIcon: {fileID: 21300000, guid: 6ebc545b58cb7b549811e059bb7cd454, type: 3}
+    augmenterName: "\uD65C\uC758 \uC218\uD638\uC790"
+    augmenterDescription: "\uACE1\uAD81\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uC544\uAD70
+      \uC720\uB2DB\uC758 \uACF5\uACA9 \uC18D\uB3C4\uAC00 12% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  platinumAugmenter:
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 39bad7c3c099e7a4babe36d62ca58113, type: 3}
+    augmenterName: "\uAC70\uB300\uD558\uACE0 \uAC15\uB825\uD55C"
+    augmenterDescription: "\uC544\uAD70\uC758 \uD06C\uAE30\uAC00 \uCEE4\uC838 \uCCB4\uB825\uC744
+      300 \uC5BB\uACE0 \uCD5C\uB300 \uCCB4\uB825\uC744 +4% \uC5BB\uC2B5\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: bea69224f7663264089631d8640b5e9d, type: 3}
+    augmenterName: "\uAF2C\uAF2C\uB9C8 \uAC70\uC778"
+    augmenterDescription: "\uD50C\uB808\uC774\uC5B4 \uB300\uC0C1 \uC804\uD22C\uAC00
+      \uB05D\uB0A0 \uB54C\uB9C8\uB2E4 2\uC758 \uD50C\uB808\uC774\uC5B4 \uCCB4\uB825\uACFC
+      2\uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4. \uB610\uD55C \uC804\uB7B5\uAC00\uC758
+      \uC774\uB3D9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 4
+    augmenterIcon: {fileID: 21300000, guid: e56dfb8b957085f4699e3dab882f7f76, type: 3}
+    augmenterName: "\uB09C\uACF5\uBD88\uB77D"
+    augmenterDescription: "\uB364\uBD88 \uC870\uB07C, \uC6A9\uC758 \uBC1C\uD1B1,
+      \uAC70\uC778\uC758 \uD5C8\uB9AC\uB760, \uC790\uC11D \uC81C\uAC70\uAE30\uB97C
+      \uD68D\uB4DD\uD569\uB2C8\uB2E4.\uC8FC\uBB38\uB825 \uAE30\uBC18 \uD0F1\uCEE4
+      \uB610\uB294 \uACF5\uACA9\uB825 \uAE30\uBC18 \uD0F1\uCEE4\uC5D0\uAC8C \uC720\uC6A9\uD569\uB2C8\uB2E4!"
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 2bc7fa9786d3e874fa18e7884b45f8a7, type: 3}
+    augmenterName: "\uB808\uBCA8 \uC5C5!"
+    augmenterDescription: "\uACBD\uD5D8\uCE58\uB97C \uAD6C\uB9E4\uD558\uBA74 2\uC758
+      \uCD94\uAC00 \uACBD\uD5D8\uCE58\uB97C \uC5BB\uC2B5\uB2C8\uB2E4. \uC989\uC2DC
+      12\uC758 \uACBD\uD5D8\uCE58\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  - augmenterType: 4
+    augmenterIcon: {fileID: 21300000, guid: 3bc4c0f2cd4b933469dd7a7f56c3cd01, type: 3}
+    augmenterName: "\uBE5B\uC758 \uC18D\uB3C4"
+    augmenterDescription: "\uBD89\uC740 \uB369\uAD74\uC815\uB839, \uAD6C\uC778\uC218\uC758
+      \uACA9\uB178\uAC80, \uACE1\uAD81, \uC790\uC11D \uC81C\uAC70\uAE30\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4.\uACF5\uACA9\uB825
+      \uAE30\uBC18 \uC6D0\uAC70\uB9AC \uB51C\uB7EC\uC5D0\uAC8C \uC720\uC6A9\uD569\uB2C8\uB2E4!"
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: d2ca0869e98d1034b84289c9407671f8, type: 3}
+    augmenterName: "\uC2E0\uBCD1"
+    augmenterDescription: "\uCD5C\uB300 \uD300 \uADDC\uBAA8\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 13556c85c514dfe4a8cd0fcd40ec2402, type: 3}
+    augmenterName: "\uC751\uB2F9\uD55C \uB300\uAC00"
+    augmenterDescription: "\uC989\uC2DC 6\uB808\uBCA8\uC774 \uB429\uB2C8\uB2E4. \uCD94\uD6C4
+      \uC99D\uAC15\uC774 \uC790\uB3D9\uC73C\uB85C \uC120\uD0DD\uB429\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: c7630af57bb8af4448c5c759d69a4980, type: 3}
+    augmenterName: "\uC791\uC9C0\uB9CC \uCE58\uBA85\uC801\uC778"
+    augmenterDescription: "\uC544\uAD70\uC774 50% \uC791\uC544\uC9C0\uC9C0\uB9CC
+      \uC774\uB3D9 \uBC0F \uACF5\uACA9 \uC18D\uB3C4\uAC00 30% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 482eeb900df7cff4aa953248db7bca54, type: 3}
+    augmenterName: "\uC900\uBE44 \uC6B4\uB3D9 III"
+    augmenterDescription: "\uC544\uAD70\uC758 \uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC989\uC2DC
+      12% \uC99D\uAC00\uD569\uB2C8\uB2E4. \uB9E4 \uB77C\uC6B4\uB4DC \uC885\uB8CC
+      \uD6C4\uC5D0 \uD6A8\uACFC\uAC00 2% \uCD94\uAC00\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  - augmenterType: 1
+    augmenterIcon: {fileID: 21300000, guid: 25e4f1912b9b9104994b12e55c65bc62, type: 3}
+    augmenterName: "\uCD5C\uD6C4\uC758 \uCD08\uC6D4"
+    augmenterDescription: "\uC544\uAD70\uC758 \uD53C\uD574\uB7C9\uC774 20% \uC99D\uAC00\uD569\uB2C8\uB2E4.
+      15\uCD08 \uD6C4 50%\uC758 \uCD94\uAC00 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: 7e91b109baf10844f972920ed5f0cb75, type: 3}
+    augmenterName: "\uD504\uB9AC\uC998 \uD2F0\uCF13"
+    augmenterDescription: "\uC0C1\uC810\uC744 \uC0C8\uB85C\uACE0\uCE68\uD560 \uB54C\uB9C8\uB2E4
+      45% \uD655\uB960\uB85C \uBB34\uB8CC \uC0C8\uB85C\uACE0\uCE68\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  - augmenterType: 8
+    augmenterIcon: {fileID: 21300000, guid: fdd9295118f5cca46aa9f5df61d54584, type: 3}
+    augmenterName: "\uD5E4\uC9C0 \uD380\uB4DC"
+    augmenterDescription: "22\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uCD5C\uB300
+      \uC774\uC790\uAC00 10\uACE8\uB4DC\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4.\uC774\uC790\uB294
+      \uC800\uCD95\uD55C 10\uACE8\uB4DC\uB2F9 \uCD94\uAC00\uB85C \uD68D\uB4DD\uD558\uB294
+      \uACE8\uB4DC\uC785\uB2C8\uB2E4."

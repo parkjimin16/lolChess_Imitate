@@ -1853,6 +1853,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f6e7fe9d8bab89499f0ae6737f0fb31
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupAugmenter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c2e1226d4c523647a959acfd6679da3
+    m_Address: Assets/@Resources/Blueprints/Augmenter/AugmenterBlueprint.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:
