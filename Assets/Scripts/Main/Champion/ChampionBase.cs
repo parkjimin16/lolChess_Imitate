@@ -335,7 +335,8 @@ public class ChampionBase : MonoBehaviour
 
     public void ResetHealth()
     {
-        Champion_CurHp = champion_MaxHp;
+        Debug.Log($"현재 체력 : {champion_CurHp} , 최대 체력 : {champion_MaxHp} ");
+        champion_CurHp = champion_MaxHp;
     }
 
     public void SetChampionLogic()
@@ -360,6 +361,46 @@ public class ChampionBase : MonoBehaviour
         championStateController.Init(this);
         championView.Init(this); 
         championFrame.Init(this, championBlueprint);
+    }
+
+    /// <summary>
+    /// 전투 종료 시, 스탯 초기화
+    /// </summary>
+    public void ResetChampionStats()
+    {
+        SetChampionBaseStats();
+        InitItemStat();
+        InitSynergyStat();
+
+        UpdateChampmionStat();
+    }
+
+    /// <summary>
+    /// 챔피언 스탯 초기화
+    /// </summary>
+    public void SetChampionBaseStats()
+    {
+        maxHp = (int)championBlueprint.MaxHP;
+        curHp = maxHp;
+        maxMana = (int)championBlueprint.MaxMana;
+        curMana = (int)championBlueprint.CurMana;
+        speed = championBlueprint.Speed;
+        attack_Range = championBlueprint.Attack_Range;
+
+        ad_Power = championBlueprint.AD_Power;
+        ap_Power = championBlueprint.AP_Power;
+        ad_Defense = championBlueprint.AD_Defense;
+        ap_Defense = championBlueprint.AP_Defense;
+        attack_Speed = championBlueprint.AttackSpeed;
+        critical_Percent = championBlueprint.Critical_Percent;
+        critical_Power = championBlueprint.Critical_Power;
+        blood_Suck = championBlueprint.Blood_Suck;
+        power_Upgrade = championBlueprint.Power_Upgrade;
+        total_Defense = championBlueprint.Total_Defense;
+
+        maxHp = championBlueprint.GetLevelHp(championLevel);
+        curHp = maxHp;
+        ad_Power = championBlueprint.GetLevelAdPower(championLevel);
     }
     /// <summary>
     /// 아이템 스탯 초기화
@@ -645,6 +686,7 @@ public class ChampionBase : MonoBehaviour
     public void UpdateChampmionStat()
     {
         champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP;
+        champion_CurHp = curHp + item_CurHP + Synergy_CurHP;
         champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana;
         champion_Speed =  speed + item_Speed + Synergy_Speed;
         champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power;

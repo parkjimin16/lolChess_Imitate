@@ -61,9 +61,9 @@ public class SymbolDataBlueprint : ScriptableObject
     }
     public GameObject GetJobSynergyBase(ChampionJob targetJob)
     {
-        var lineData = championJobData.FirstOrDefault(data => data.ChampionJob == targetJob);
+        var jobData = championJobData.FirstOrDefault(data => data.ChampionJob == targetJob);
 
-        return lineData?.SynergyObject;
+        return jobData?.SynergyObject;
     }
 }
 

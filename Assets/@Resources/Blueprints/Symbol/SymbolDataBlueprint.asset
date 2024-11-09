@@ -404,7 +404,7 @@ MonoBehaviour:
       color: 4
     championBlueprint:
     - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 21089f45c8a83264ca2911b6f3a106ee, type: 3}
   - championJob: 2
     championJobSprite: {fileID: 21300000, guid: 3031e8827bd05994e89eef565048cae6, type: 3}
     championJobName: "\uB9C8\uB3C4\uC0AC"
@@ -428,7 +428,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 62dcb01ab8630f74b9bc1bf0e5a6993c, type: 2}
     - {fileID: 11400000, guid: 9e34fe8a669a7084c8b77236a9fe0ef3, type: 2}
     - {fileID: 11400000, guid: d862f6fb02e8c3241b4543b212281611, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 3deb8f2325dcc5c4cbb512c12ef070cc, type: 3}
   - championJob: 3
     championJobSprite: {fileID: 21300000, guid: c735b47ff2d9d5f49994372ce952f0bd, type: 3}
     championJobName: "\uBC15\uC950\uC5EC\uC655"

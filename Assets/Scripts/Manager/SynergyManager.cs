@@ -180,6 +180,7 @@ public class SynergyManager
             string synergyName = synergy.Key;
             int synergyCount = synergy.Value;
 
+            // 계열
             if (synergyName == "달콤술사")
             {
                 ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.Sugarcraft);
@@ -361,10 +362,46 @@ public class SynergyManager
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
+            // 직업
+            else if (synergyName == "단짝")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Pal);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Pal);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                Debug.Log($"{synergyName} : {level}");
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "마도사")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Mage);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Mage);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+
+                Debug.Log($"{synergyName} : {level}");
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
             else
             {
                 Debug.Log("아직 구현 안함");
             }
+
+
         }
     }
 
@@ -382,7 +419,8 @@ public class SynergyManager
                 }
             }
         }
-        else if(jobData != null)
+       
+        if(jobData != null)
         {
             foreach (var symbolData in jobData.SymbolData)
             {

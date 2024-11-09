@@ -6,7 +6,36 @@ using UnityEngine;
 public class ChampionManager
 {
     #region 전체 챔피언
+    private void SettingAllChampion(UserData userData)
+    {
+        userData.TotalChampionObject.Clear();
+        userData.NonBattleChampionObject.Clear();
+        userData.BattleChampionObject.Clear();
 
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            {
+                userData.TotalChampionObject.Add(tile.championOnTile);
+                userData.NonBattleChampionObject.Add(tile.championOnTile);
+            }
+        }
+
+        foreach (var tileEntry in userData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied && tile.championOnTile != null)
+            {
+                userData.TotalChampionObject.Add(tile.championOnTile);
+                userData.BattleChampionObject.Add(tile.championOnTile);
+            }
+        }
+
+        Debug.Log($"전체 챔피언 수 : {userData.TotalChampionObject.Count}");
+        Debug.Log($"배틀 챔피언 수 : {userData.NonBattleChampionObject.Count}");
+        Debug.Log($"논배틀 챔피언 수 : {userData.BattleChampionObject.Count}");
+    }
     private void SettingTotalChampion(UserData userData)
     {
         userData.TotalChampionObject.Clear();
@@ -14,7 +43,7 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null)
+            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
             {
                 userData.TotalChampionObject.Add(tile.championOnTile);
             }
@@ -23,7 +52,7 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null)
+            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
             {
                 userData.TotalChampionObject.Add(tile.championOnTile);
             }
@@ -44,9 +73,8 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null)
+            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
             {
-                Debug.Log("체크");
                 AddNonBattleChampion(userData, tile.championOnTile);
             }
         }
@@ -73,6 +101,7 @@ public class ChampionManager
         if (sameChampionCount >= 3)
         {
             championToEnhance = MergeChampion(userData, champion);
+            SettingAllChampion(userData);
         }
 
         if (championToEnhance == null)
@@ -90,6 +119,7 @@ public class ChampionManager
         if (sameChampionAfterMergeCount >= 3)
         {
             championToEnhance = MergeChampion(userData, championToEnhance);
+            SettingAllChampion(userData);
         }
     }
     public void RemoveNonBattleChampion(UserData userData, GameObject champion)
@@ -111,7 +141,7 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null)
+            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
             {
                 AddBattleChampion(userData, tile.championOnTile);
             }

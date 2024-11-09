@@ -48,6 +48,7 @@ public class ChampionHpMpController : MonoBehaviour
         Debug.Log($"가할 데미지 : {totalDamage}");
 
         cBase.Champion_CurHp -= totalDamage;
+
         DamageMana();
 
         if (cBase.EquipItem == null)
@@ -56,6 +57,11 @@ public class ChampionHpMpController : MonoBehaviour
         foreach(ItemBlueprint it in cBase.EquipItem)
         {
             it.BaseItem.CheckHp(cBase.Champion_CurHp, cBase.Champion_MaxHp);
+        }
+
+        if (cBase.Champion_CurHp > cBase.Champion_MaxHp)
+        {
+            cBase.Champion_CurHp = cBase.Champion_MaxHp;
         }
 
         cBase.UpdateChampmionStat();

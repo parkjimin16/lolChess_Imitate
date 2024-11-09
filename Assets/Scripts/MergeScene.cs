@@ -74,6 +74,16 @@ public class MergeScene : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.M)) // 전투 종료
         {
             Manager.Synerge.UnApplySynergy(Manager.User.User1_Data);
+
+            foreach(var champion in Manager.User.User1_Data.BattleChampionObject)
+            {
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+                if(cBase != null)
+                {
+                    cBase.ResetChampionStats();
+                }
+            }
         }
     }
 }

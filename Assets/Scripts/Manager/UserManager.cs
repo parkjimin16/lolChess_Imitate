@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static MapGenerator;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class UserManager
 {
@@ -45,11 +43,6 @@ public class UserManager
 
         User1_Data = new UserData();
         User1_Data.InitUserData(10, "¹ÚÅÂ¿µ", 0);
-    }
-
-    public void AddChampion(UserData user, GameObject chamipon)
-    {
-        Manager.Champion.AddBattleChampion(user, chamipon);
     }
 
     public bool CheckChamipon(UserData user, string championName)

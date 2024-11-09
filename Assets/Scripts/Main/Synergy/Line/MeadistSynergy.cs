@@ -111,9 +111,6 @@ public class MeadistSynergy : SynergyBase
 
         foreach(var champion in list)
         {
-            Debug.Log($"{champion}");
-
-
             GameObject bee = Manager.Asset.InstantiatePrefab("Bee", champion.transform);
             bee.SetActive(true);
 
