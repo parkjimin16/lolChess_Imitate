@@ -27,6 +27,8 @@ public class ChampionHpMpController : MonoBehaviour
         {
             Debug.Log($"최대 체력입니다 => CurHP : {cBase.Champion_CurHp} = MaxHP : {cBase.Champion_MaxHp} ");
             cBase.Champion_CurHp = cBase.Champion_MaxHp;
+
+            Debug.Log("최종 체력 : " + cBase.Champion_CurHp);
         }
         else
         {

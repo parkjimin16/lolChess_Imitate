@@ -375,7 +375,6 @@ public class SynergyManager
                 if (sBase == null)
                     continue;
 
-                Debug.Log($"{synergyName} : {level}");
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }
@@ -391,8 +390,186 @@ public class SynergyManager
                 if (sBase == null)
                     continue;
 
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "박쥐 여왕")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Batqueen);
 
-                Debug.Log($"{synergyName} : {level}");
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Batqueen);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "보호술사")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Shelter);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Shelter);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "사냥꾼")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Hunter);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Hunter);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "선봉대")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Vanguard);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Vanguard);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "쇄도자")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Rusher);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Rusher);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "요새")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Bastion);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Bastion);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "요술사")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Enchantress);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Enchantress);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "전사")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Warrior);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Warrior);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "초월체")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Overmind);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Overmind);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "폭파단")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Demolition);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Demolition);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "학자")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Scholar);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Scholar);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
+                synergyBaseList.Add(sBase);
+                sBase.UpdateLevel(userData, level);
+            }
+            else if (synergyName == "형상변환자")
+            {
+                ChampionLineData cLine = symbolDataBlueprint.GetChampionLineData(ChampionLine.None);
+                ChampionJobData cJob = symbolDataBlueprint.GetChampionJobData(ChampionJob.Transmogrifier);
+
+                int level = CalculateSynergyLevel(synergyCount, cLine, cJob);
+                GameObject obj = symbolDataBlueprint.GetJobSynergyBase(ChampionJob.Transmogrifier);
+                SynergyBase sBase = obj.GetComponent<SynergyBase>();
+
+                if (sBase == null)
+                    continue;
+
                 synergyBaseList.Add(sBase);
                 sBase.UpdateLevel(userData, level);
             }

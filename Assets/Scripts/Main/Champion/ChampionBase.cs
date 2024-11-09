@@ -686,7 +686,7 @@ public class ChampionBase : MonoBehaviour
     public void UpdateChampmionStat()
     {
         champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP;
-        champion_CurHp = curHp + item_CurHP + Synergy_CurHP;
+        //champion_CurHp = curHp + item_CurHP + Synergy_CurHP;
         champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana;
         champion_Speed =  speed + item_Speed + Synergy_Speed;
         champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power;

@@ -1781,6 +1781,78 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cd8eb91051411c4b8915a05ffe37793
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Batqueen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea7fcf96657af7842b89b7c9f6ae35f5
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Shelter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a936a633539b4f94083188193d7c17fe
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Hunter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9418699a57eeda342b6050426b8985d9
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Vanguard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f9a39942f89cea4db653413ff9cda03
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Rusher.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db2013aa36ba2764aa14f98b9c2f5d15
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Bastion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14b9327adc835094db3e4f3357943ca1
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Enchantress.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d866f811a55d2440a454be271eb32f1
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Warrior.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 281cd16ffbbe28240b658b800dbe1a8e
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Overmind.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66687dcfde330b340847af2e5da51b93
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Demolition.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a640b3075de112f4eb49883b99ea3d83
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Scholar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a2b7c493bfda1a4ebe056227128fbaf
+    m_Address: Assets/@Resources/Prefab/Synergy/Job/Synergy_Transmogrifier.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

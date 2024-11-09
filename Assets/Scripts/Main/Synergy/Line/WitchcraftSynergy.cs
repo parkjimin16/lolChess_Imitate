@@ -76,11 +76,6 @@ public class WitchcraftSynergy : SynergyBase
 
     protected override void RemoveEffects(UserData user)
     {
-        if(user.BattleChampionObject.Count < 0)
-        {
-            Debug.Log("에러났어요");
-        }
-
         foreach (var champion in user.BattleChampionObject)
         {
             ChampionBase cBase = champion.GetComponent<ChampionBase>();
@@ -133,8 +128,7 @@ public class WitchcraftSynergy : SynergyBase
                 // 2레벨: 체력 120 감소
                 if (healthReduction > 0)
                 {
-                    cBase.Synergy_CurHP -= healthReduction;
-                    //cBase.ChampionHpMpController.TakeDamage(healthReduction);
+                    cBase.ChampionHpMpController.TakeDamage(healthReduction);
 
                     Debug.Log($"{cBase.ChampionName}의 체력이 {healthReduction}만큼 감소했습니다.");
                     Debug.Log($"{cBase.ChampionName}의 현재 체력은 {cBase.Champion_CurHp} 입니다.");

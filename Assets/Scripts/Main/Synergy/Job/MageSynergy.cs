@@ -73,13 +73,16 @@ public class MageSynergy : SynergyBase
             }
 
 
-            ap_Power = curCount * ap_Power_Ratio;
-            cBase.Synergy_AP_Power -= ap_Power;
-
+            cBase.InitSynergyStat();
             cBase.UpdateChampmionStat();
         }
 
-        mageCoroutine = null;
+        if (mageCoroutine != null)
+        {
+            CoroutineHelper.StopCoroutine(mageCoroutine);
+            mageCoroutine = null;
+        }
+
         Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 

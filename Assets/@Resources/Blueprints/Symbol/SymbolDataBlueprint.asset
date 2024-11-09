@@ -441,7 +441,7 @@ MonoBehaviour:
       color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 9cd8eb91051411c4b8915a05ffe37793, type: 3}
   - championJob: 4
     championJobSprite: {fileID: 21300000, guid: 9fd75745d6e09074f9019a61d4701239, type: 3}
     championJobName: "\uBCF4\uD638\uC220\uC0AC"
@@ -468,7 +468,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: cc9f1020245a0a54c8ca045792592c9f, type: 2}
     - {fileID: 11400000, guid: 7949b1d34f173394e89cb65f8df4ffb4, type: 2}
     - {fileID: 11400000, guid: 05701e2529d5b264c878bc877aacdbdf, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: ea7fcf96657af7842b89b7c9f6ae35f5, type: 3}
   - championJob: 5
     championJobSprite: {fileID: 21300000, guid: 41fddf470f79bb5469ad74957cf78d3d, type: 3}
     championJobName: "\uC0AC\uB0E5\uAFBC"
@@ -493,7 +493,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fa5c596297a15be439df0a3268b96d43, type: 2}
     - {fileID: 11400000, guid: 66774a9c7f656de41b419de506d7b4a9, type: 2}
     - {fileID: 11400000, guid: 3c06fa5b484fa43429b70ca6eb51bf7c, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: a936a633539b4f94083188193d7c17fe, type: 3}
   - championJob: 6
     championJobSprite: {fileID: 21300000, guid: c8a67aa7baa1fea4a8ce438db0363e99, type: 3}
     championJobName: "\uC120\uBD09\uB300"
@@ -520,7 +520,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 550046aa28fc70649b05fa14edb63211, type: 2}
     - {fileID: 11400000, guid: c1bb836a2567848418d5f1035a95e567, type: 2}
     - {fileID: 11400000, guid: d8b1a4f3d7160864fb16b27e2a21c750, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 9418699a57eeda342b6050426b8985d9, type: 3}
   - championJob: 7
     championJobSprite: {fileID: 21300000, guid: 355e048a682ac804c9415b955968450b, type: 3}
     championJobName: "\uC1C4\uB3C4\uC790"
@@ -549,7 +549,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
     - {fileID: 11400000, guid: d50e60011845f19418e3064493383b25, type: 2}
     - {fileID: 11400000, guid: a91fa52a5bd010c428faf7649fe2ee74, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 1f9a39942f89cea4db653413ff9cda03, type: 3}
   - championJob: 8
     championJobSprite: {fileID: 21300000, guid: ee8ad7f8db1edbc4f8fca728eaf57e1c, type: 3}
     championJobName: "\uC694\uC0C8"
@@ -582,7 +582,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 27fe5e6a9633e5e49ab86376274c98fa, type: 2}
     - {fileID: 11400000, guid: 944964323a2cc8848a01042d9a1213a8, type: 2}
     - {fileID: 11400000, guid: 0d5fec849f4256643975c4d5d5d129dd, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: db2013aa36ba2764aa14f98b9c2f5d15, type: 3}
   - championJob: 9
     championJobSprite: {fileID: 21300000, guid: be35772a5b53d5b4a9cce38e638d545c, type: 3}
     championJobName: "\uC694\uC220\uC0AC"
@@ -610,7 +610,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 55254cab5b8d4ca4180ed689b365b8ca, type: 2}
     - {fileID: 11400000, guid: a0c68e99b5104b840945802848f39f10, type: 2}
     - {fileID: 11400000, guid: d02462d432072e4479de8a62b2d60f27, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 14b9327adc835094db3e4f3357943ca1, type: 3}
   - championJob: 10
     championJobSprite: {fileID: 21300000, guid: 6c083342b214e344bbc8bbfe5d424699, type: 3}
     championJobName: "\uC804\uC0AC"
@@ -637,7 +637,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a5db2ad698d7dea4892ea63492de2538, type: 2}
     - {fileID: 11400000, guid: 769c59dabe5fda14598a6eb1333981db, type: 2}
     - {fileID: 11400000, guid: 93347185257a1ae428c9474f198e2d19, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 0d866f811a55d2440a454be271eb32f1, type: 3}
   - championJob: 11
     championJobSprite: {fileID: 21300000, guid: 582be4b0f24eb6645a9cb0aee57d9a38, type: 3}
     championJobName: "\uCD08\uC6D4\uCCB4"
@@ -652,7 +652,7 @@ MonoBehaviour:
       color: 4
     championBlueprint:
     - {fileID: 11400000, guid: 8fcaadaafbb875744bbad2a3187f6b09, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 281cd16ffbbe28240b658b800dbe1a8e, type: 3}
   - championJob: 12
     championJobSprite: {fileID: 21300000, guid: 07fd66967705d08499a041077d1c6805, type: 3}
     championJobName: "\uD3ED\uD30C\uB2E8"
@@ -679,7 +679,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ee50fcc18db54b84a9bc8412ef9e5bc3, type: 2}
     - {fileID: 11400000, guid: 626a393c2cc51e54cb76265d5ed08e18, type: 2}
     - {fileID: 11400000, guid: 0923ccaf8317bdd4392431ea2bbf24ee, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 66687dcfde330b340847af2e5da51b93, type: 3}
   - championJob: 13
     championJobSprite: {fileID: 21300000, guid: 9fa117c66e7a63d4687fcb2b34553c38, type: 3}
     championJobName: "\uD559\uC790"
@@ -704,7 +704,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: cc9f1020245a0a54c8ca045792592c9f, type: 2}
     - {fileID: 11400000, guid: adda9131ab7af224db9a10d371e4359c, type: 2}
     - {fileID: 11400000, guid: faf2babdcf60f7c4daebdad6ad33f939, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: a640b3075de112f4eb49883b99ea3d83, type: 3}
   - championJob: 14
     championJobSprite: {fileID: 21300000, guid: 9f87cb3833e757c4a8e664922c2c860d, type: 3}
     championJobName: "\uD615\uC0C1\uBCC0\uD658\uC790"
@@ -732,4 +732,4 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d8b2f9526676eb546bd1c48d49929292, type: 2}
     - {fileID: 11400000, guid: 6e17f50e985071340bb5b7c91a96525a, type: 2}
     - {fileID: 11400000, guid: 9f7e23d46ef6e0c43a0249887a8cfeb0, type: 2}
-    synergyObject: {fileID: 0}
+    synergyObject: {fileID: 7186353349317367059, guid: 5a2b7c493bfda1a4ebe056227128fbaf, type: 3}
