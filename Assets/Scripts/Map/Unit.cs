@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     private Vector3 offset;
     //private bool isDragging = false;
 
-    public void PlaceOnTile(HexTile tile)
+    /*public void PlaceOnTile(HexTile tile)
     {
         if (currentTile != null)
         {
@@ -20,5 +20,5 @@ public class Unit : MonoBehaviour
         currentTile.isOccupied = true;
 
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0); // 유닛을 타일 위로 올림
-    }
+    }*/
 }

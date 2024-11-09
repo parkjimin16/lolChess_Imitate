@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitMove : MonoBehaviour
 {
-    private Vector2 _lastTouchPos = Vector2.zero;
+    /*private Vector2 _lastTouchPos = Vector2.zero;
     private Vector2 _currentTouchPos = Vector2.zero;
     private Vector3 _prePos = Vector3.zero;
 
@@ -141,5 +141,5 @@ public class UnitMove : MonoBehaviour
             Debug.Log(hit.collider.gameObject);
         }
         return null;
-    }
+    }*/
 }

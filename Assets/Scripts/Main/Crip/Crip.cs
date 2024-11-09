@@ -36,7 +36,7 @@ public class Crip : MonoBehaviour
         // 타일 상태 업데이트
         if (currentTile != null)
         {
-            currentTile.isOccupied = false;
+            //currentTile.isOccupied = false;
             currentTile.itemOnTile = null;
         }
 
@@ -50,8 +50,9 @@ public class Crip : MonoBehaviour
 
         if (currentTile != null)
         {
-            currentTile.isOccupied = false;
-            currentTile.itemOnTile = null;
+            currentTile = gameObject.GetComponent<CripMovement>().currentTile;
+            //currentTile.isOccupied = false;
+            currentTile.championOnTile.Remove(this.gameObject);
         }
         Destroy(this.gameObject);
     }

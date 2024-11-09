@@ -135,3 +135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveInterval: 2
   currentTile: {fileID: 0}
+  moveSpeed: 1

@@ -9,11 +9,29 @@ public class HexTile : MonoBehaviour
     public int s; // 헥사곤 큐브 좌표계의 s (q + r + s = 0)
 
     public bool isRectangularTile = false; // 직사각형 영역 여부
-    public bool isOccupied = false;
+    //public bool isOccupied = false;
     public bool isItemTile = false;
     public GameObject itemOnTile = null;
-    public GameObject championOnTile = null;
 
+    public List<GameObject> championOnTile = new List<GameObject>();
+    public bool isOccupied
+    {
+        get { return championOnTile.Count > 0; }
+    }
+    public bool HasChampion
+    {
+        get
+        {
+            foreach (var unit in championOnTile)
+            {
+                if (unit != null && unit.CompareTag("Champion"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

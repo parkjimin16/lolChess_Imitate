@@ -15,20 +15,33 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            if (tile.isOccupied)
             {
-                userData.TotalChampionObject.Add(tile.championOnTile);
-                userData.NonBattleChampionObject.Add(tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                        userData.NonBattleChampionObject.Add(champion);
+                    }
+                }
             }
         }
 
+        // HexDictionary의 타일 처리
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null)
+            if (tile.isOccupied)
             {
-                userData.TotalChampionObject.Add(tile.championOnTile);
-                userData.BattleChampionObject.Add(tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                        userData.BattleChampionObject.Add(champion);
+                    }
+                }
             }
         }
 
@@ -43,18 +56,31 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            if (tile.isOccupied)
             {
-                userData.TotalChampionObject.Add(tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                    }
+                }
             }
         }
 
+        // HexDictionary의 타일 처리
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            if (tile.isOccupied)
             {
-                userData.TotalChampionObject.Add(tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                    }
+                }
             }
         }
     }
@@ -73,9 +99,15 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            if (tile.isOccupied)
             {
-                AddNonBattleChampion(userData, tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        AddNonBattleChampion(userData, champion);
+                    }
+                }
             }
         }
     }
@@ -141,9 +173,15 @@ public class ChampionManager
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (tile.isOccupied && tile.championOnTile != null && tile.championOnTile.CompareTag("Champion"))
+            if (tile.isOccupied)
             {
-                AddBattleChampion(userData, tile.championOnTile);
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion.CompareTag("Champion"))
+                    {
+                        AddBattleChampion(userData, champion);
+                    }
+                }
             }
         }
     }
@@ -182,6 +220,7 @@ public class ChampionManager
         // 리스트를 뒤에서부터 순회하며 중복 챔피언 제거, 인덱스 에러남
         for (int i = userData.TotalChampionObject.Count - 1; i >= 0 && countToRemove > 0; i--)
         {
+            GameObject currentChampionObj = userData.TotalChampionObject[i];
             ChampionBase championBase = userData.TotalChampionObject[i].GetComponent<ChampionBase>();
             if (championBase != null && championBase.ChampionName == championToEnhance.GetComponent<ChampionBase>().ChampionName)
             {
@@ -193,8 +232,14 @@ public class ChampionManager
 
                 itemList.AddRange(championBase.EquipItem);
 
-                userData.TotalChampionObject[i].GetComponentInParent<HexTile>().isOccupied = false;
-                userData.TotalChampionObject[i].GetComponentInParent<HexTile>().championOnTile = null;
+                HexTile parentTile = currentChampionObj.GetComponentInParent<HexTile>();
+                if (parentTile != null)
+                {
+                    parentTile.championOnTile.Remove(currentChampionObj);
+
+                    // 타일의 점유 상태 업데이트 (필요 시)
+                    // parentTile.isOccupied = parentTile.championsOnTile.Count > 0;
+                }
                 Utilities.Destroy(userData.TotalChampionObject[i]);
                 userData.TotalChampionObject.RemoveAt(i);
                 
