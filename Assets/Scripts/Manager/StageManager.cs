@@ -24,7 +24,7 @@ public class StageManager
     private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 3; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 3; //일반 라운드 진행시간
+    private int roundDuration = 30; //일반 라운드 진행시간
 
     private bool isAugmentRound = false;
 
@@ -571,11 +571,10 @@ public class StageManager
 
                 CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
                 CripPrefab.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-                
+
 
                 // 타일에 크립을 설정합니다.
-                tile.championOnTile = CripPrefab;
-                tile.isOccupied = true;
+                tile.championOnTile.Add(CripPrefab);
 
                 // 크립에 현재 타일 정보를 설정합니다.
                 Crip cripComponent = CripPrefab.GetComponent<Crip>();
@@ -623,12 +622,18 @@ public class StageManager
             foreach (var tileEntry in playerMapInfo.HexDictionary)
             {
                 HexTile tile = tileEntry.Value;
-                if (tile.championOnTile != null)
+                if (tile.championOnTile != null && tile.isOccupied)
                 {
-                    Crip crip = tile.championOnTile.GetComponent<Crip>();
-                    if (crip != null)
+                    foreach (GameObject unit in tile.championOnTile)
                     {
-                        remainingCrips.Add(crip);
+                        if (unit != null)
+                        {
+                            Crip crip = unit.GetComponent<Crip>();
+                            if (crip != null)
+                            {
+                                remainingCrips.Add(crip);
+                            }
+                        }
                     }
                 }
             }
@@ -639,8 +644,13 @@ public class StageManager
             {
                 if (crip.currentTile != null)
                 {
-                    crip.currentTile.isOccupied = false;
-                    crip.currentTile.championOnTile = null;
+                    HexTile currentTile = crip.currentTile;
+
+                    // 타일의 championsOnTile 리스트에서 크립 제거
+                    currentTile.championOnTile.Remove(crip.gameObject);
+
+                    // 필요에 따라 타일의 점유 상태 업데이트 (IsOccupied 프로퍼티 사용 시 생략 가능)
+                    // currentTile.isOccupied = currentTile.championsOnTile.Count > 0;
                 }
                 crip.Death(); // OnDeath() 함수를 호출하여 아이템 생성 및 크립 파괴 처리
             }

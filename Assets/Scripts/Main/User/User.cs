@@ -141,8 +141,8 @@ public class User : MonoBehaviour
                 }
                 else if (_movableObjectType == MovableObjectType.Champion)
                 {
-                    tile.isOccupied = false;
-                    tile.championOnTile = null;
+                    //tile.isOccupied = false;
+                    tile.championOnTile.Remove(_movableObj);
                 }
             }
 
@@ -187,8 +187,8 @@ public class User : MonoBehaviour
                     }
                     else if (_movableObjectType == MovableObjectType.Champion)
                     {
-                        tile.isOccupied = false;
-                        tile.championOnTile = null;
+                        //tile.isOccupied = false;
+                        tile.championOnTile.Remove(_movableObj);
                     }
                 }
             }
@@ -319,24 +319,40 @@ public class User : MonoBehaviour
     }
     private void HandleUnitDrop(HexTile hitTile, GameObject hitTileObj)
     {
-        if (hitTile.isOccupied == false)
+        if (hitTile == null)
+        {
+            Debug.LogWarning("hitTile이 null입니다.");
+            _isReturning = true;
+            return;
+        }
+
+        if (!hitTile.HasChampion)
         {
             // 타일이 비어 있을 경우 유닛을 놓습니다.
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
             // 타일 상태 업데이트
-            hitTile.isOccupied = true;
-            hitTile.championOnTile = _movableObj;
-            //GetChampionsWithinOneTile(_movableObj);
+            hitTile.championOnTile.Add(_movableObj);
 
             // 이전 타일의 상태 업데이트 (현재 타일과 다를 때만)
             if (currentTile != null && currentTile != hitTileObj)
             {
+                
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
-                previousTile.isOccupied = false;
-                previousTile.championOnTile = null;
+                Debug.Log(previousTile.name);
+                if (previousTile != null)
+                {
+                    previousTile.championOnTile.Remove(_movableObj);
+                }
+                else
+                {
+                    Debug.LogWarning("이전 타일에 HexTile 컴포넌트가 없습니다.");
+                }
             }
+
+            // currentTile 업데이트
+            currentTile = hitTileObj;
         }
         else
         {
@@ -344,12 +360,11 @@ public class User : MonoBehaviour
             _isReturning = true;
         }
 
-
         Manager.User.ClearSynergy(Manager.User.User1_Data);
         Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
         Manager.Champion.SettingBattleChampion(Manager.User.User1_Data);
 
-        if(uiMain == null) 
+        if (uiMain == null)
             return;
 
         uiMain.UISynergyPanel.UpdateSynergy();
@@ -523,16 +538,24 @@ public class User : MonoBehaviour
                 {
                     _returningObjData.obj.transform.SetParent(_returningObjData.currentTile.transform);
                     HexTile previousTile = _returningObjData.currentTile.GetComponent<HexTile>();
-
-                    if (_returningObjData.movableObjectType == MovableObjectType.Item)
+                    if (previousTile != null)
                     {
-                        previousTile.isItemTile = true;
-                        previousTile.itemOnTile = _returningObjData.obj;
+                        if (_returningObjData.movableObjectType == MovableObjectType.Item)
+                        {
+                            previousTile.isItemTile = true;
+                            previousTile.itemOnTile = _returningObjData.obj;
+                        }
+                        else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
+                        {
+                            if (!previousTile.championOnTile.Contains(_returningObjData.obj))
+                            {
+                                previousTile.championOnTile.Add(_returningObjData.obj);
+                            }
+                        }
                     }
-                    else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
+                    else
                     {
-                        previousTile.isOccupied = true;
-                        previousTile.championOnTile = _returningObjData.obj;
+                        Debug.LogWarning("이전 타일에 HexTile 컴포넌트가 없습니다.");
                     }
                 }
 
@@ -568,6 +591,7 @@ public class User : MonoBehaviour
             if (hitObj.CompareTag("PlayerTile") || hitObj.CompareTag("ItemTile"))
             {
                 currentTile = hitObj;
+                return currentTile;
             }
         }
         return null;
