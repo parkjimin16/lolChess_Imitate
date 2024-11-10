@@ -31,12 +31,17 @@ public class StageManager
     private Coroutine roundCoroutine;
 
     private GameObject CripPrefab;
+
+    private List<AIPlayer> aiPlayers = new List<AIPlayer>(); // AIPlayer 인스턴스 리스트
+    private GameDataBlueprint gameDataBlueprint; // 게임 데이터 블루프린트
     #region Init
 
-    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator)
+    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData)
     {
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
+        gameDataBlueprint = gameData;
+
         InitializePlayers();
         StartStage(currentStage);
         
@@ -53,6 +58,16 @@ public class StageManager
         opponents = new List<GameObject>(AllPlayers);
         opponents.Remove(selfPlayer);
 
+        foreach (GameObject playerObj in opponents)
+        {
+            Player playerComponent = playerObj.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                AIPlayer aiPlayer = new AIPlayer();
+                aiPlayer.InitAIPlayer(playerComponent, gameDataBlueprint);
+                aiPlayers.Add(aiPlayer);
+            }
+        }
     }
 
     void StartStage(int stageNumber)
@@ -83,7 +98,10 @@ public class StageManager
         // 대기시간 설정
         int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
-      //  Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+        //  Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+
+        // **대기 시간 동안 AI 행동 실행**
+        PerformAIActions();
 
         // 대기시간 타이머 시작
         UIManager.Instance.StartTimer(waitTime);
@@ -678,7 +696,7 @@ public class StageManager
             StartStage(currentStage);
         }
         else
-        {
+        { 
             // 다음 라운드 시작
             if (roundCoroutine != null)
                 CoroutineHelper.StopCoroutine(roundCoroutine);
@@ -687,5 +705,15 @@ public class StageManager
 
     }
 
+    #endregion
+
+    #region AI실행
+    private void PerformAIActions()
+    {
+        foreach (AIPlayer aiPlayer in aiPlayers)
+        {
+            aiPlayer.PerformActions();
+        }
+    }
     #endregion
 }

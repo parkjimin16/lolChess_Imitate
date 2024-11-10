@@ -397,6 +397,7 @@ MonoBehaviour:
   mainScene: {fileID: 1834633281}
   gameDataBlueprint: {fileID: 0}
   symbolDataBlueprint: {fileID: 0}
+  augmenterBlueprint: {fileID: 0}
   mapGenerator: {fileID: 1033666889}
   Level: 1
 --- !u!1 &312038771
@@ -939,8 +940,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f619ed0e8f3689342a761c491e71a57b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movableObj: {fileID: 0}
-  currentTile: {fileID: 0}
 --- !u!114 &1033666892
 MonoBehaviour:
   m_ObjectHideFlags: 0

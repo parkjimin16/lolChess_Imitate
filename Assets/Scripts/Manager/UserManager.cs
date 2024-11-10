@@ -33,7 +33,7 @@ public class UserManager
         for (int i = 0; i < obj.transform.childCount; i++)
         {
             UserData user = new UserData();
-            user.InitUserData(10, "박태영", 0);
+            user.InitUserData(10, "박태영", i);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
 

@@ -66,5 +66,6 @@ public class Manager : MonoBehaviour
     public static StageManager Stage => Instance != null ? Instance.stage : null;
     public static BattleManager Battle => Instance != null ? Instance.battle : null;
     public static UserHpManager UserHp => Instance != null ? Instance.userHp : null;
+
     #endregion
 }

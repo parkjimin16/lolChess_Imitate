@@ -34,10 +34,11 @@ public class MergeScene : MonoBehaviour
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
 
                 Manager.User.InitMap(mapGenerator);
-                
-                Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator);
-                Manager.UserHp.InitializeHealthBars();
                 Manager.Champion.Init(gameDataBlueprint);
+
+                Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint);
+                Manager.UserHp.InitializeHealthBars();
+                
                 Manager.Item.Init();
                 Manager.Synerge.Init(symbolDataBlueprint);
 
