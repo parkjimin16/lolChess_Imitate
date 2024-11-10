@@ -572,8 +572,8 @@ public class MapGenerator : MonoBehaviour
         LineRenderer lineRenderer = boundaryObj.AddComponent<LineRenderer>();
 
         lineRenderer.positionCount = segments + 1;
-        lineRenderer.startWidth = 0.2f;
-        lineRenderer.endWidth = 0.2f;
+        lineRenderer.startWidth = 0.8f;
+        lineRenderer.endWidth = 0.8f;
         lineRenderer.useWorldSpace = true;
         lineRenderer.loop = true;
 
@@ -608,6 +608,13 @@ public class MapGenerator : MonoBehaviour
         mapInfo.maxX = maxX;
         mapInfo.minZ = minZ;
         mapInfo.maxZ = maxZ;
+
+        int minimapLayer = LayerMask.NameToLayer("Minimap");
+        boundaryObj.layer = minimapLayer;
+        foreach (Transform child in boundaryObj.transform)
+        {
+            child.gameObject.layer = minimapLayer;
+        }
     }
     void PlaceChampionsInSharedMap(Transform parent)
     {
