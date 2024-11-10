@@ -50,7 +50,7 @@ public class MergeScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
-            AugmenterData aData = augmenterBlueprint.GetAugmentByName("불완전한 초월");
+            AugmenterData aData = augmenterBlueprint.GetAugmentByName("삼총사");
             Manager.Augmenter.SetAugmenter(Manager.User.User1_Data, aData);
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
@@ -90,14 +90,12 @@ public class MergeScene : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.K)) // 증강 시작
+        else if (Input.GetKeyDown(KeyCode.J)) // 증강 시작
         {
-
-            
             Manager.Augmenter.ApplyFirstAugmenter(Manager.User.User1_Data);
             Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.User1_Data);
         }
-        else if (Input.GetKeyDown(KeyCode.L)) // 증강 종료
+        else if (Input.GetKeyDown(KeyCode.K)) // 증강 종료
         {
             Manager.Augmenter.ApplyEndRoundAugmenter(Manager.User.User1_Data);
 
@@ -106,6 +104,11 @@ public class MergeScene : MonoBehaviour
                 ChampionBase cBase = obj.GetComponent<ChampionBase>();
                 cBase.ResetChampionStats();
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.L)) // 증강 원할때
+        {
+            Manager.Augmenter.ApplyWheneverAugmenter(Manager.User.User1_Data);
+
         }
     }
 }

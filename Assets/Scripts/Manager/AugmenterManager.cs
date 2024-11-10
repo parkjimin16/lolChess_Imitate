@@ -66,5 +66,12 @@ public class AugmenterManager
             aug.BaseAugmenter.ApplyEndRound(user);
         }
     }
+    public void ApplyWheneverAugmenter(UserData user)
+    {
+        foreach (var aug in user.UserAugmenter)
+        {
+            aug.BaseAugmenter.ApplyWhenever(user);
+        }
+    }
     #endregion
 }

@@ -112,7 +112,6 @@ public class ItemManager
         return itemObj;
     }
 
-
     public void StartCreatingItems(List<ItemBlueprint> itemList, Vector3 startPosition)
     {
         List<ItemBlueprint> temp = itemList;
@@ -144,6 +143,16 @@ public class ItemManager
         }
     }
 
+    public ItemBlueprint GetItemBlueprint(List<ItemBlueprint> list)
+    {
+        if (list != null && list.Count > 0)
+        {
+            int randomIndex = Random.Range(0, list.Count);
+            return list[randomIndex];
+        }
+        else
+            return null; 
+    }
 
     #endregion
 }

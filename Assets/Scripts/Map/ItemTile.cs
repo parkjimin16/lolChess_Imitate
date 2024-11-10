@@ -9,16 +9,15 @@ public class ItemTile : MonoBehaviour
 
     public PlayerType TileType;
     public ItemOwner TileType1;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (itemTile != null)
         {
-            // 부모 오브젝트의 모든 자식 오브젝트 가져오기
             for (int i = 0; i < itemTile.transform.childCount; i++)
             {
                 GameObject child = itemTile.transform.GetChild(i).gameObject;
-                // 리스트 크기가 8보다 작을 때만 추가
+
                 if (_items.Count < 10)
                 {
                     _items.Add(child);
@@ -96,6 +95,38 @@ public class ItemTile : MonoBehaviour
             else
             {
                 // 모든 타일이 가득 찼을 경우
+                Debug.Log("생성불가");
+            }
+        }
+    }
+
+    public void GenerateItem(string itemId)
+    {
+        if (TileType1 == ItemOwner.Player)
+        {
+            List<GameObject> emptyTiles = new List<GameObject>();
+
+            foreach (GameObject tileObj in _items)
+            {
+                HexTile tile = tileObj.GetComponent<HexTile>();
+                if (tile != null && tile.isItemTile == false)
+                    emptyTiles.Add(tileObj);
+            }
+
+            if (emptyTiles.Count > 0)
+            {
+                GameObject selectedTile = emptyTiles[Random.Range(0, emptyTiles.Count)];
+                GameObject newItem = Manager.Item.CreateItem(itemId, selectedTile.transform.position);
+
+                newItem.transform.SetParent(selectedTile.transform);
+                newItem.transform.position = selectedTile.transform.position + new Vector3(0, 0.3f, 0);
+
+                HexTile tile = selectedTile.GetComponent<HexTile>();
+                tile.isItemTile = true;
+                tile.itemOnTile = newItem;
+            }
+            else
+            {
                 Debug.Log("생성불가");
             }
         }

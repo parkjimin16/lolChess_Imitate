@@ -26,7 +26,7 @@ public class Augmenter_InCompleteTranscendence : BaseAugmenter
     public override void ApplyStartRound(UserData user)
     {
         var list = GetUserChampions(user);
-        delayedApplyCoroutine = CoroutineHelper.StartCoroutine(DelayedApplyStartRound(user, list));
+        delayedApplyCoroutine = CoroutineHelper.StartCoroutine(DelayedApplyStartRound(list));
     }
 
     public override void ApplyEndRound(UserData user)
@@ -46,6 +46,7 @@ public class Augmenter_InCompleteTranscendence : BaseAugmenter
             cBase.UpdateChampmionStat();
         }
     }
+
     public override void ApplyWhenever(UserData user)
     {
 
@@ -53,7 +54,7 @@ public class Augmenter_InCompleteTranscendence : BaseAugmenter
     #endregion
 
     #region 불완전한 초월 로직
-    private IEnumerator DelayedApplyStartRound(UserData user, List<ChampionBase> list)
+    private IEnumerator DelayedApplyStartRound(List<ChampionBase> list)
     {
         yield return new WaitForSeconds(15f);
 

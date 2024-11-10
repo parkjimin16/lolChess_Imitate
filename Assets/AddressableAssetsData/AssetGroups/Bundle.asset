@@ -1907,6 +1907,204 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cedce1bced718b4458a42bc4ecdc0502
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_GuardiansFriend.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf98c49aae460c74cb03be8a421d00c3
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_SilverTicket.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4c325497aea2234c819bf6418db89cb
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_SilverSpoon.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62051679be1639f448fea4c2fab7729c
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_WarmUp_First.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55ff97812c6885e419930e0f8118c1b2
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_OneTwoThree.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6bfd67ced29992a4f82949f1723a843f
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_LateExpert.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 337e13941f5c5f04dba488c23ccf9033
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_TwoPerson.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ab3baa43f3adaa4fb820b2b42fa24c1
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_GuardianOfTheSword.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5af89a26d8b6ad84892085661a7ec88d
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_ExchangeMarket.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de487924e4c9200428303ab9370c5d38
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_HealthyHealth.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 388f53b0ee5b2dc4fad044349b70f828
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_BalacedBudget.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fda57cf6a64cac4184be57d01208287
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_PersistentResearch.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e406f130daec814689a4d336cef5a67
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_Unity_Second.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9d221315dec47b4da2d55417aa1925d
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_MoneyLightning.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96c9f4f1bf2e3c1418504f3aeedf7a9f
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_MagicStaff.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 445ffca56d30e5441a46159c5be67446
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_ClearMind.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66dc674bce800bf47a1447084b95d7cf
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_ThreeMusketeers.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 380bd1f398fc1784db65970dd218a7a4
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_WarmUp_Second.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38c7fa9615aa81c4dbc96851d15cab66
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_Transcendence.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d878611175b6f924e97adc5b8bf8a2b3
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_ExplosiveGrowth.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90dc3c6440ffa824fb38eac64bf392d4
+    m_Address: Assets/@Resources/Prefab/Augmenter/Gold/Augmenter_GuardianOfTheBow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 739c0cff2b24a6a4b88ab2464b6e8e28
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_GiantAndPowerful.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7062edbe49e0e7848b5ba383d482eb33
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_LittleGiant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cd90527ba5bca543951d84caefea2c0
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_Impenetrable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d43f405984ecc1441aecb18a19408acf
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_LevelUp.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83c662498b055e24db921f122cda667f
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_SpeedOfLight.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d228dd5d6d23bb41acaed546569feba
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_NewRecruit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e23a3c6122ad32448e3b65e458d6034
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_WortyPrice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91e6233d264a8b143af1689e5fdd4839
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_SmallButDeadly.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d398c3ef9d9e97b47b6616005ec3dff7
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_WarmUp_Third.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a247686a1e72384982d77670911dd75
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_FinalTranscendence.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67057c6ec9a1f9749bc285c7c90bd541
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_PrismTicket.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99ce7ef99b00ab14cafd00bc68523353
+    m_Address: Assets/@Resources/Prefab/Augmenter/Platinum/Augmenter_HedgeFund.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:
