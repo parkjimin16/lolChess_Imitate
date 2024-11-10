@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
     private readonly UIManagerTemp ui = new();
     private readonly UserManager user = new();
     private readonly SynergyManager synergy = new();
-
+    private readonly AugmenterManager augmenter = new(); 
 
     // Áö¹Î
     private readonly StageManager stage = new();
@@ -60,7 +60,7 @@ public class Manager : MonoBehaviour
     public static UIManagerTemp UI => Instance != null ? Instance.ui : null;
     public static UserManager User => Instance != null ? Instance.user : null;
     public static SynergyManager Synerge => Instance != null ? Instance.synergy : null;
-
+    public static AugmenterManager Augmenter => Instance != null ? Instance.augmenter : null;
     // Áö¹Î
 
     public static StageManager Stage => Instance != null ? Instance.stage : null;

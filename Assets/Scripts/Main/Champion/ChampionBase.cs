@@ -88,8 +88,26 @@ public class ChampionBase : MonoBehaviour
     public float Synergy_Power_Upgrade;
     public float Synergy_Total_Def;
 
+    [Header("¡ı∞≠√º Ω∫≈»")]
+    // Augmenter Stats
+    public int Augmenter_MaxHP;
+    public int Augmenter_CurHP;
+    public int Augmenter_MaxMana;
+    public int Augmenter_CurMana;
+    public float Augmenter_Speed;
 
-    [Header("√®««æ ¿¸√º Ω∫≈» = √®««æ ±‚∫ª Ω∫≈» + æ∆¿Ã≈€ Ω∫≈» + Ω√≥ ¡ˆ Ω∫≈»")]
+    public float Augmenter_AD_Power;
+    public float Augmenter_AP_Power;
+    public float Augmenter_AD_Def;
+    public float Augmenter_AP_Def;
+    public float Augmenter_Atk_Spd;
+    public float Augmenter_Critical_Percent;
+    public float Augmenter_Critical_Power;
+    public float Augmenter_Blood_Suck;
+    public float Augmenter_Power_Upgrade;
+    public float Augmenter_Total_Def;
+
+    [Header("√®««æ ¿¸√º Ω∫≈» = √®««æ ±‚∫ª Ω∫≈» + æ∆¿Ã≈€ Ω∫≈» + Ω√≥ ¡ˆ Ω∫≈» + ¡ı∞≠√º Ω∫≈»")]
     [SerializeField] private int champion_MaxHp;
     [SerializeField] private int champion_CurHp;
     [SerializeField] private int champion_MaxMana;
@@ -146,7 +164,6 @@ public class ChampionBase : MonoBehaviour
     private bool isAttacking;
     #endregion
 
-
     #region Property
 
     public ChampionAttackController ChampionAttackController => championAttackController;
@@ -163,7 +180,7 @@ public class ChampionBase : MonoBehaviour
     public ChampionLine ChampionLine_Second => line_Second;
     public ChampionJob ChampionJob_First => job_First;
     public ChampionJob ChampionJob_Second => job_Second;
-
+    public ChampionCost ChampionCost => cost;
 
 
     // Champion Stats_1
@@ -351,7 +368,6 @@ public class ChampionBase : MonoBehaviour
         isAttacking = false;
     }
 
-
     public void InitChampion(ChampionFrame frame)
     {
         championFrame = frame;
@@ -371,6 +387,8 @@ public class ChampionBase : MonoBehaviour
         SetChampionBaseStats();
         InitItemStat();
         InitSynergyStat();
+        InitAugmenterStat();
+        ResetHealth();
 
         UpdateChampmionStat();
     }
@@ -402,6 +420,7 @@ public class ChampionBase : MonoBehaviour
         curHp = maxHp;
         ad_Power = championBlueprint.GetLevelAdPower(championLevel);
     }
+
     /// <summary>
     /// æ∆¿Ã≈€ Ω∫≈» √ ±‚»≠
     /// </summary>
@@ -444,6 +463,29 @@ public class ChampionBase : MonoBehaviour
         Synergy_Blood_Suck = 0;
         Synergy_Power_Upgrade = 0;
         Synergy_Total_Def = 0;
+    }
+
+
+    /// <summary>
+    /// ¡ı∞≠√º Ω∫≈» √ ±‚»≠
+    /// </summary>
+    public void InitAugmenterStat()
+    {
+        Augmenter_MaxHP = 0;
+        Augmenter_CurHP = 0;
+        Augmenter_MaxMana = 0;
+        Augmenter_CurMana = 0;
+        Augmenter_Speed = 0;
+        Augmenter_AD_Power = 0;
+        Augmenter_AP_Power = 0;
+        Augmenter_AD_Def = 0;
+        Augmenter_AP_Def = 0;
+        Augmenter_Atk_Spd = 0;
+        Augmenter_Critical_Percent = 0;
+        Augmenter_Critical_Power = 0;
+        Augmenter_Blood_Suck = 0;
+        Augmenter_Power_Upgrade = 0;
+        Augmenter_Total_Def = 0;
     }
 
     public int GetDamage()
@@ -685,20 +727,19 @@ public class ChampionBase : MonoBehaviour
     /// </summary>
     public void UpdateChampmionStat()
     {
-        champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP;
-        //champion_CurHp = curHp + item_CurHP + Synergy_CurHP;
-        champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana;
-        champion_Speed =  speed + item_Speed + Synergy_Speed;
-        champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power;
-        champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power;
-        champion_AD_Def = ad_Defense + item_AD_Def + Synergy_AD_Def;
-        champion_AP_Def = ap_Defense + item_AP_Def + Synergy_AP_Def;
-        champion_Atk_Spd = attack_Speed + item_Atk_Spd + Synergy_Atk_Spd;
-        champion_Critical_Percent = critical_Percent + item_Critical_Percent + Synergy_Critical_Percent;
-        champion_Critical_Power = critical_Power + item_Critical_Power + Synergy_Critical_Power;
-        champion_Blood_Suck = blood_Suck + item_Blood_Suck + Synergy_Blood_Suck;
-        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade;
-        champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def;
+        champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP + Augmenter_MaxHP;
+        champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana + Augmenter_MaxMana;
+        champion_Speed =  speed + item_Speed + Synergy_Speed + Augmenter_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power + Augmenter_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power + Augmenter_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def + Synergy_AD_Def + Augmenter_AP_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def + Synergy_AP_Def + Augmenter_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd + Synergy_Atk_Spd + Augmenter_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent + Synergy_Critical_Percent + Augmenter_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Critical_Power + Synergy_Critical_Power + Augmenter_Critical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck + Synergy_Blood_Suck + Augmenter_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade + Augmenter_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def + Augmenter_Total_Def;
         champion_Shield = 0;
 
         UpdateDisplayStat();

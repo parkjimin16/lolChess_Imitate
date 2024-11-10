@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class SynergyBase : MonoBehaviour
 {
-    public UserData userData { get; private set;}
+    public UserData UserData { get; private set;}
     public string Name { get; private set; }                // 시너지 이름
     public ChampionLine Line { get; private set; }          // 시너지 계열
     public ChampionJob Job { get; private set; }            // 시너지 직업
@@ -24,11 +24,18 @@ public abstract class SynergyBase : MonoBehaviour
         ApplyEffects(user, level);
     }
 
-    // 효과 적용을 위한 추상 메서드
+    /// <summary>
+    /// 레벨에 맞는 스탯 지정하는 메서드
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="level"></param>
     protected abstract void ApplyEffects(UserData user, int level);
     protected abstract void RemoveEffects(UserData user);
 
-    // 시너지 활성화
+    /// <summary>
+    /// 실제로 시너지 효과 활성하는 메서드
+    /// </summary>
+    /// <param name="user"></param>
     public abstract void Activate(UserData user);
 
     public abstract void Deactivate(UserData user);

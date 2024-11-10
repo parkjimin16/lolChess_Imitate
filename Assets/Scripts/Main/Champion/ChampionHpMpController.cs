@@ -22,19 +22,14 @@ public class ChampionHpMpController : MonoBehaviour
     public void AddHealth(int hp, float value)
     {
         int hpValue = (int)(hp * value);
-        Debug.Log("HP value" + hpValue);
         if(cBase.Champion_CurHp + hpValue >= cBase.Champion_MaxHp)
         {
             Debug.Log($"최대 체력입니다 => CurHP : {cBase.Champion_CurHp} = MaxHP : {cBase.Champion_MaxHp} ");
             cBase.Champion_CurHp = cBase.Champion_MaxHp;
-
-            Debug.Log("최종 체력 : " + cBase.Champion_CurHp);
         }
         else
         {
-            Debug.Log($"현재 체력 : {cBase.Champion_CurHp} , 추가될 체력 : {hpValue}");
             cBase.Champion_CurHp += hpValue;
-            Debug.Log($"추가된 체력 : {cBase.Champion_CurHp}");
         }
 
         cBase.UpdateChampmionStat();
@@ -42,12 +37,8 @@ public class ChampionHpMpController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log($"들어온 데미지 : {damage}");
-
         totalDamage = (int)(100 * (100 / (100 + cBase.Champion_AD_Def)));
         totalDamage = (int)(totalDamage / (1 - cBase.Champion_Total_Def));
-
-        Debug.Log($"가할 데미지 : {totalDamage}");
 
         cBase.Champion_CurHp -= totalDamage;
 

@@ -101,6 +101,8 @@ public class UserData
     [SerializeField] private List<Transform> sugarCraftPosition;
     [SerializeField] private List<Transform> portalPosition;
     [SerializeField] private PlayerType playerType;
+    [SerializeField] private List<AugmenterData> userAugmenter;
+
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -219,6 +221,14 @@ public class UserData
         set { portalPosition = value; }
     }
 
+
+    public List<AugmenterData> UserAugmenter
+    {
+        get { return userAugmenter; }
+        set { userAugmenter = value; }
+    }
+
+
     #endregion
 
     #region Init
@@ -235,6 +245,7 @@ public class UserData
         championSynergies = new Dictionary<string, SynergyData>();
         sugarCraftPosition = new List<Transform>();
         portalPosition = new List<Transform>();
+        userAugmenter = new List<AugmenterData>();
 
         gold = _gold;
         userName = _userName;

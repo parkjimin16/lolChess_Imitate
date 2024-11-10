@@ -9,6 +9,7 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private UISceneMain mainScene;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
+    [SerializeField] private AugmenterBlueprint augmenterBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] 
     public int Level = 1;
@@ -23,6 +24,7 @@ public class MergeScene : MonoBehaviour
             {
                 gameDataBlueprint = Manager.Asset.GetBlueprint("GameDataBlueprint") as GameDataBlueprint;
                 symbolDataBlueprint = Manager.Asset.GetBlueprint("SymbolDataBlueprint") as SymbolDataBlueprint;
+                augmenterBlueprint = Manager.Asset.GetBlueprint("AugmenterBlueprint") as AugmenterBlueprint;
                 GameStart = true;
 
                 Manager.Game.InitGameManager();
@@ -47,6 +49,12 @@ public class MergeScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
+            AugmenterData aData = augmenterBlueprint.GetAugmentByName("3ø° ±ÍµÁ »˚");
+            if (aData == null)
+                Debug.Log("3ø° ±ÍµÁ »˚ is Null");
+
+
+            Manager.Augmenter.SetAugmenter(Manager.User.User1_Data, aData);
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
         {
@@ -83,6 +91,23 @@ public class MergeScene : MonoBehaviour
                 {
                     cBase.ResetChampionStats();
                 }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.K)) // ¡ı∞≠ Ω√¿€
+        {
+
+
+            Manager.Augmenter.ApplySelectAugmenter(Manager.User.User1_Data);
+            Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.User1_Data);
+        }
+        else if (Input.GetKeyDown(KeyCode.L)) // ¡ı∞≠ ¡æ∑·
+        {
+            Manager.Augmenter.ApplyEndRoundAugmenter(Manager.User.User1_Data);
+
+            foreach(var obj in Manager.User.User1_Data.TotalChampionObject)
+            {
+                ChampionBase cBase = obj.GetComponent<ChampionBase>();
+                cBase.ResetChampionStats();
             }
         }
     }
