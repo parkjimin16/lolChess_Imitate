@@ -48,7 +48,7 @@ public class CripMovement : MonoBehaviour
             moveTimer -= Time.deltaTime;
             if (moveTimer <= 0f)
             {
-                MoveRandomly();
+                //MoveRandomly(); ¿òÁ÷ÀÓ
                 moveTimer = moveInterval;
             }
         }

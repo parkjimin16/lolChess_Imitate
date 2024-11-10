@@ -46,7 +46,7 @@ public class Crip : MonoBehaviour
 
     public void Death()
     {
-        GenerateItem();
+        //GenerateItem(); 아이템 생성
 
         if (currentTile != null)
         {
