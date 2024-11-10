@@ -37,6 +37,7 @@ public class MergeScene : MonoBehaviour
                 
                 Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator);
                 Manager.UserHp.InitializeHealthBars();
+                Manager.Champion.Init(gameDataBlueprint);
                 Manager.Item.Init();
                 Manager.Synerge.Init(symbolDataBlueprint);
 
@@ -49,11 +50,7 @@ public class MergeScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
-            AugmenterData aData = augmenterBlueprint.GetAugmentByName("3에 깃든 힘");
-            if (aData == null)
-                Debug.Log("3에 깃든 힘 is Null");
-
-
+            AugmenterData aData = augmenterBlueprint.GetAugmentByName("불완전한 초월");
             Manager.Augmenter.SetAugmenter(Manager.User.User1_Data, aData);
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
@@ -96,8 +93,8 @@ public class MergeScene : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.K)) // 증강 시작
         {
 
-
-            Manager.Augmenter.ApplySelectAugmenter(Manager.User.User1_Data);
+            
+            Manager.Augmenter.ApplyFirstAugmenter(Manager.User.User1_Data);
             Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.User1_Data);
         }
         else if (Input.GetKeyDown(KeyCode.L)) // 증강 종료

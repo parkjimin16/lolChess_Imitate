@@ -25,6 +25,12 @@ public abstract class BaseAugmenter : MonoBehaviour
     /// <param name="user"></param>
     public abstract void ApplyEndRound(UserData user);
 
+    /// <summary>
+    /// 특정 조건에 적용하는 메서드
+    /// </summary>
+    /// <param name="user"></param>
+    public abstract void ApplyWhenever(UserData user);
+
     public List<ChampionBase> GetUserChampions(UserData user)
     {
         var list = new List<ChampionBase>();

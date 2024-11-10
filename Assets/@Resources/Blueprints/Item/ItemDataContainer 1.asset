@@ -137,6 +137,8 @@ MonoBehaviour:
       AttributeValue: 0.1
     - ItemAttributeType: 4
       AttributeValue: 25
+    - ItemAttributeType: 10
+      AttributeValue: 0.25
     baseItem: {fileID: 6431738968859786991, guid: fc5bc199cbf6b034bac84b496e5b7875, type: 3}
     championLine: 0
     championJob: 0
@@ -154,6 +156,8 @@ MonoBehaviour:
       AttributeValue: 0.1
     - ItemAttributeType: 5
       AttributeValue: 20
+    - ItemAttributeType: 7
+      AttributeValue: 0
     baseItem: {fileID: 8093305227183146397, guid: b0bf00328e25e8144af4e2f3e5bb733a, type: 3}
     championLine: 0
     championJob: 0
@@ -267,14 +271,21 @@ MonoBehaviour:
     itemName: "\uAC70\uC778\uC758 \uACB0\uC758"
     description: "\uACF5\uACA9\uD558\uAC70\uB098 \uD53C\uD574\uB97C \uBC1B\uC73C\uBA74
       \uACF5\uACA9\uB825 2%, \uC8FC\uBB38\uB825 2\uC99D\uAC00 (\uCD5C\uB300 25\uD68C
-      \uC911\uCCA9)\n\n\uCD5C\uB300 \uC911\uCCA9 \uC2DC \uBC29\uC5B4\uB825 20 \uBC0F
-      \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
+      \uC911\uCCA9)\n\uCD5C\uB300 \uC911\uCCA9 \uC2DC \uBC29\uC5B4\uB825 20, \uB9C8\uBC95
+      \uC800\uD56D\uB825 20 \uD68D\uB4DD\n\n\uCD5C\uB300 \uC911\uCCA9 \uC2DC \uBC29\uC5B4\uB825
+      20 \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825 20 \uD68D\uB4DD"
     itemType: 2
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 0.1
     - ItemAttributeType: 5
       AttributeValue: 20
+    - ItemAttributeType: 3
+      AttributeValue: 0
+    - ItemAttributeType: 4
+      AttributeValue: 0
+    - ItemAttributeType: 6
+      AttributeValue: 0
     baseItem: {fileID: 724776634074703019, guid: d80237028204e2648b5f4098fbfd6983, type: 3}
     championLine: 0
     championJob: 0
@@ -375,6 +386,10 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 5
       AttributeValue: 65
+    - ItemAttributeType: 1
+      AttributeValue: 0
+    - ItemAttributeType: 11
+      AttributeValue: 0
     baseItem: {fileID: 7673507428030255622, guid: 64cf0ea04ff4d2b42849911066305e4c, type: 3}
     championLine: 0
     championJob: 0
@@ -402,7 +417,7 @@ MonoBehaviour:
     itemName: "\uD06C\uB77C\uC6B4\uAC00\uB4DC"
     description: "\uC804\uD22C \uC2DC\uC791 : 8\uCD08 \uB3D9\uC548 \uCD5C\uB300 \uCCB4\uB825\uC758
       25%\uC5D0 \uD574\uB2F9\uD558\uB294 \uBCF4\uD638\uB9C9 \uD68D\uB4DD\n\uBCF4\uD638\uB9C9\uC774
-      \uC0AC\uB77C\uC9C0\uBA74 \uC8FC\uBB38\uB825 35% \uC99D\uAC00"
+      \uC0AC\uB77C\uC9C0\uBA74 \uC8FC\uBB38\uB825 25 \uC99D\uAC00"
     itemType: 2
     itemAttribute:
     - ItemAttributeType: 5
@@ -428,6 +443,8 @@ MonoBehaviour:
       AttributeValue: 30
     - ItemAttributeType: 5
       AttributeValue: 20
+    - ItemAttributeType: 6
+      AttributeValue: 0
     baseItem: {fileID: 8551477110298497880, guid: 98d2ec84546d939498f9bd868830da44, type: 3}
     championLine: 0
     championJob: 0
@@ -463,6 +480,8 @@ MonoBehaviour:
       AttributeValue: 20
     - ItemAttributeType: 8
       AttributeValue: 0.2
+    - ItemAttributeType: 11
+      AttributeValue: 0.15
     baseItem: {fileID: 5767172804401513297, guid: 695905dd7f799384394b213bc90d02e1, type: 3}
     championLine: 0
     championJob: 0
@@ -476,6 +495,8 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 75
+    - ItemAttributeType: 1
+      AttributeValue: 0
     baseItem: {fileID: 6706582153909045984, guid: 29f6a2040d82d1c4a8d150594ee9643b, type: 3}
     championLine: 0
     championJob: 0
@@ -633,6 +654,8 @@ MonoBehaviour:
       AttributeValue: 0.15
     - ItemAttributeType: 4
       AttributeValue: 15
+    - ItemAttributeType: 10
+      AttributeValue: 0.05
     baseItem: {fileID: 3104196364060358435, guid: 944a489d08ad2fb43a07a2f1805f5f9c, type: 3}
     championLine: 0
     championJob: 0
@@ -650,6 +673,8 @@ MonoBehaviour:
       AttributeValue: 150
     - ItemAttributeType: 2
       AttributeValue: 15
+    - ItemAttributeType: 11
+      AttributeValue: 0
     baseItem: {fileID: 3901433479150990222, guid: 544d406e85181d14bbe5089edc3c5d39, type: 3}
     championLine: 0
     championJob: 0
@@ -666,6 +691,12 @@ MonoBehaviour:
       AttributeValue: 15
     - ItemAttributeType: 8
       AttributeValue: 0.2
+    - ItemAttributeType: 3
+      AttributeValue: 0.15
+    - ItemAttributeType: 4
+      AttributeValue: 15
+    - ItemAttributeType: 8
+      AttributeValue: 0.15
     baseItem: {fileID: 3406255202771142675, guid: 8c92b2a86c4909e40b4f8dd52ae6a476, type: 3}
     championLine: 0
     championJob: 0

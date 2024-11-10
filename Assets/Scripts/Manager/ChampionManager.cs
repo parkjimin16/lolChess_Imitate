@@ -5,6 +5,92 @@ using UnityEngine;
 
 public class ChampionManager
 {
+    private GameDataBlueprint gameDataBlueprint;
+
+    #region 초기화
+    public void Init(GameDataBlueprint gameDataBlueprint)
+    {
+        this.gameDataBlueprint = gameDataBlueprint;
+    }
+    #endregion
+
+    #region 챔피언 로직
+
+    /// <summary>
+    /// 상점 챔피언 갱신
+    /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    public List<string> GetRandomChampions(int level)
+    {
+        List<string> selectedChampions = new List<string>();
+
+        ChampionRandomData currentData = gameDataBlueprint.ChampionRandomDataList[level - 1];
+
+        for (int i = 0; i < 5; i++)
+        {
+            int costIndex = GetCostIndex(currentData.Probability);
+            ChampionData costChampionData = GetChampionDataByCost(costIndex + 1);
+            if (costChampionData != null && costChampionData.Names.Length > 0)
+            {
+                string selectedChampion = costChampionData.Names[Random.Range(0, costChampionData.Names.Length)];
+                selectedChampions.Add(selectedChampion);
+            }
+        }
+
+        return selectedChampions;
+    }
+
+    private int GetCostIndex(float[] probabilities)
+    {
+        float[] cumulativeProbabilities = new float[probabilities.Length];
+        cumulativeProbabilities[0] = probabilities[0];
+
+        for (int i = 1; i < probabilities.Length; i++)
+        {
+            cumulativeProbabilities[i] = cumulativeProbabilities[i - 1] + probabilities[i];
+        }
+
+        float randomValue = Random.Range(0f, 1f);
+
+        for (int i = 0; i < cumulativeProbabilities.Length; i++)
+        {
+            if (randomValue < cumulativeProbabilities[i])
+            {
+                return i;
+            }
+        }
+
+        return probabilities.Length - 1;
+    }
+
+    private ChampionData GetChampionDataByCost(int cost)
+    {
+        foreach (ChampionData data in gameDataBlueprint.ChampionDataList)
+        {
+            if (data.Cost == cost)
+            {
+                return data;
+            }
+        }
+        return null;
+    }
+
+
+    public string GetRandomChapmion(int cost)
+    {
+        string newChampion = string.Empty;
+
+        int count =  gameDataBlueprint.ChampionDataList[cost - 1].Names.Length;
+        int randomIndex = Random.Range(0, count);
+        newChampion = gameDataBlueprint.ChampionDataList[cost - 1].Names[randomIndex];
+
+        return newChampion;
+    }
+    #endregion
+
+
+    #region 유저 챔피언
     #region 전체 챔피언
     private void SettingAllChampion(UserData userData)
     {
@@ -265,6 +351,7 @@ public class ChampionManager
             cBase.ChampionLevelUp();
         }
     }
+    #endregion
     #endregion
 }
 

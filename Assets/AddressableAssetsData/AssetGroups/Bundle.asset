@@ -1871,6 +1871,42 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29f01bdc6e8fdfe4f8e78a88b27a7d7a
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_LightWeight_First.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6593d3da707537b40ad0e4d4a4231690
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_LittleGiant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fffd4ff37fac2ea4e8b8ea8560fdc7f2
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_Unity_First.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb6024263f082b4448b09d3eb8babdff
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_BandOFThieves_First.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48500eb3d7a0fce47b65cb08316854bd
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_InCompleteTranscendence.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73ab6dc0aace6984096740baecf44bd6
+    m_Address: Assets/@Resources/Prefab/Augmenter/Silver/Augmenter_DayOfRefresh.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

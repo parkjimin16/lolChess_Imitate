@@ -41,7 +41,6 @@ public class UIShopPanel : UIBase
             if (button != null)
             {
                 button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint, button));
-                //button.onClick.AddListener(() => uiMain.UISynergyPanel.UpdateSynergy());
             }
         }
         
@@ -84,20 +83,17 @@ public class UIShopPanel : UIBase
             cBase.InitChampion(cFrame);
 
             Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
-            //Manager.User.AddChampion(Manager.User.User1_Data, newChampionObject);
-
             button.interactable = false;
         }
         else
         {
-            // 빈 타일이 없을 경우 경고 메시지를 출력합니다.
             Debug.LogWarning("모든 챔피언 위치가 사용되었습니다.");
         }
     }
 
     private void UpdateChampionSlot(PointerEventData enterEvent)
     {
-        shopChampionList = GetRandomChampions(Level);
+        shopChampionList = Manager.Champion.GetRandomChampions(Level);
 
         int idx = 0;
 
@@ -111,61 +107,6 @@ public class UIShopPanel : UIBase
             championSlotSciprt.ChampionSlotInit(championBlueprint, Utilities.SetSlotColor(championBlueprint.ChampionCost));
             idx++;
         }
-    }
-
-    private List<string> GetRandomChampions(int level)
-    {
-        List<string> selectedChampions = new List<string>();
-
-        ChampionRandomData currentData = gameDataBlueprint.ChampionRandomDataList[level - 1];
-
-        for (int i = 0; i < 5; i++)
-        {
-            int costIndex = GetCostIndex(currentData.Probability);
-            ChampionData costChampionData = GetChampionDataByCost(costIndex + 1);
-            if (costChampionData != null && costChampionData.Names.Length > 0)
-            {
-                string selectedChampion = costChampionData.Names[Random.Range(0, costChampionData.Names.Length)];
-                selectedChampions.Add(selectedChampion);
-            }
-        }
-
-        return selectedChampions;
-    }
-
-    private int GetCostIndex(float[] probabilities)
-    {
-        float[] cumulativeProbabilities = new float[probabilities.Length];
-        cumulativeProbabilities[0] = probabilities[0];
-
-        for (int i = 1; i < probabilities.Length; i++)
-        {
-            cumulativeProbabilities[i] = cumulativeProbabilities[i - 1] + probabilities[i];
-        }
-
-        float randomValue = Random.Range(0f, 1f);
-
-        for (int i = 0; i < cumulativeProbabilities.Length; i++)
-        {
-            if (randomValue < cumulativeProbabilities[i])
-            {
-                return i;
-            }
-        }
-
-        return probabilities.Length - 1; // 마지막 인덱스 반환 (이론적으로는 여기에 도달하지 않아야 함)
-    }
-
-    private ChampionData GetChampionDataByCost(int cost)
-    {
-        foreach (ChampionData data in gameDataBlueprint.ChampionDataList)
-        {
-            if (data.Cost == cost)
-            {
-                return data;
-            }
-        }
-        return null;
     }
 
     private void UpdateExpBtn(PointerEventData enterEvent)

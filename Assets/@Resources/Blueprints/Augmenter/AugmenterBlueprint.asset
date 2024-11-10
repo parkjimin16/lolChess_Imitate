@@ -26,37 +26,37 @@ MonoBehaviour:
     augmenterDescription: "\uC544\uAD70 1\uB2E8\uACC4 \uBC0F 2\uB2E8\uACC4 \uCC54\uD53C\uC5B8\uC774
       15%\uC758 \uACF5\uACA9 \uC18D\uB3C4 \uBC0F \uC774\uB3D9 \uC18D\uB3C4\uB97C
       \uC5BB\uC2B5\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: 6464722161153021339, guid: 29f01bdc6e8fdfe4f8e78a88b27a7d7a, type: 3}
   - augmenterType: 8
     augmenterIcon: {fileID: 21300000, guid: f3111fa97fee4b341a2e9cdb2395c91a, type: 3}
     augmenterName: "\uAF2C\uB9C8 \uAC70\uC778"
     augmenterDescription: "\uD604\uC7AC \uBC0F \uCD5C\uB300 \uD50C\uB808\uC774\uC5B4
       \uCCB4\uB825\uC774 30 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: 7603051540137025938, guid: 6593d3da707537b40ad0e4d4a4231690, type: 3}
   - augmenterType: 1
     augmenterIcon: {fileID: 21300000, guid: e484b05f4cccdfb428a16cae09e09724, type: 3}
     augmenterName: "\uB2E8\uACB0 I"
     augmenterDescription: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uAC19\uC740 \uC5F4\uC5D0
       \uCC54\uD53C\uC5B8\uC774 3\uBA85 \uC774\uC0C1 \uC788\uC73C\uBA74 \uBC29\uC5B4\uB825
       \uBC0F \uB9C8\uBC95 \uC800\uD56D\uB825\uC774 15 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: 1960606831102291015, guid: fffd4ff37fac2ea4e8b8ea8560fdc7f2, type: 3}
   - augmenterType: 4
     augmenterIcon: {fileID: 21300000, guid: 73cc90cec569fb34ab1f0b58cea07bd8, type: 3}
     augmenterName: "\uB3C4\uB451 \uBB34\uB9AC I"
     augmenterDescription: "\uB3C4\uC801\uC758 \uC7A5\uAC11 1\uAC1C\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: 75662420698797172, guid: bb6024263f082b4448b09d3eb8babdff, type: 3}
   - augmenterType: 1
     augmenterIcon: {fileID: 21300000, guid: cc26c07aafb240e48b614aa24242f7ce, type: 3}
     augmenterName: "\uBD88\uC644\uC804\uD55C \uCD08\uC6D4"
     augmenterDescription: "\uC804\uD22C 15\uCD08 \uD6C4 \uC544\uAD70 \uC720\uB2DB\uC758
       \uD53C\uD574\uB7C9\uC774 30% \uC99D\uAC00\uD569\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: -7502826864073164332, guid: 48500eb3d7a0fce47b65cb08316854bd, type: 3}
   - augmenterType: 8
     augmenterIcon: {fileID: 21300000, guid: f8c1099013cb3a24f8c8beecfeedfced, type: 3}
     augmenterName: "\uC0C8\uB85C\uACE0\uCE68\uC758 \uB0A0 I"
     augmenterDescription: "\uBB34\uB8CC \uC0C1\uC810 \uC0C8\uB85C\uACE0\uCE68\uC744
       11\uD68C \uC5BB\uC2B5\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 0}
+    baseAugmenter: {fileID: 8932860632809444146, guid: 73ab6dc0aace6984096740baecf44bd6, type: 3}
   - augmenterType: 10
     augmenterIcon: {fileID: 21300000, guid: 090e671d1013e67448779c61e532ae1f, type: 3}
     augmenterName: "\uC218\uD638\uC790\uC758 \uCE5C\uAD6C"

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class AugmenterManager
 {
@@ -44,11 +42,10 @@ public class AugmenterManager
 
     #region 증강 적용 로직
 
-    public void ApplySelectAugmenter(UserData user)
+    public void ApplyFirstAugmenter(UserData user)
     {
         foreach(var aug in user.UserAugmenter)
         {
-            Debug.Log($"UserAugmenter Count : {user.UserAugmenter.Count}");
             aug.BaseAugmenter.ApplyNow(user);
         }
     }

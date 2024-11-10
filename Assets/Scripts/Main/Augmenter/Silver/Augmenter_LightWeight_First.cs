@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Augmenter_PowerOfThree : BaseAugmenter
+public class Augmenter_LightWeight_First : BaseAugmenter
 {
     // 로직 변수
 
-    private ChampionCost cost = ChampionCost.ThreeCost;
+    private ChampionCost cost1 = ChampionCost.OneCost;
+    private ChampionCost cost2 = ChampionCost.TwoCost;
 
-    private int plusHp;
-    private int plusMana;
+    private float speed;
     private float atk_Speed;
 
     #region 초기화
 
     private void InitValue()
     {
-        plusHp = 150;
-        plusMana = 10;
-        atk_Speed = 0.1f;
+        speed = 0.15f;
+        atk_Speed = 0.15f;
     }
 
     #endregion
@@ -35,15 +34,10 @@ public class Augmenter_PowerOfThree : BaseAugmenter
 
         foreach (var cBase in list)
         {
-            if (cBase.ChampionCost == cost)
+            if (cBase.ChampionCost == cost1 || cBase.ChampionCost == cost2)
             {
-                cBase.Augmenter_MaxHP += plusHp;
-                cBase.UpdateChampmionStat();
-                
-                cBase.ChampionHpMpController.AddHealth(plusHp, 1.0f);
-                cBase.ChampionHpMpController.ManaPlus(plusMana);
                 cBase.Augmenter_Atk_Spd += atk_Speed;
-
+                cBase.Augmenter_Speed += speed;
                 cBase.UpdateChampmionStat();
             }
         }
@@ -57,11 +51,10 @@ public class Augmenter_PowerOfThree : BaseAugmenter
 
         foreach (var cBase in list)
         {
-            if (cBase.ChampionCost == cost)
+            if (cBase.ChampionCost == cost1 || cBase.ChampionCost == cost2)
             {
                 cBase.InitAugmenterStat();
                 cBase.UpdateChampmionStat();
-                cBase.ResetHealth();
             }
         }
     }
