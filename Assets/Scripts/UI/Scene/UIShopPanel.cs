@@ -63,32 +63,10 @@ public class UIShopPanel : UIBase
             }
         }
 
-        if (hextile != null)
-        {
-            // 빈 타일을 찾았을 경우 챔피언을 생성합니다.
-            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-            newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        if (hextile == null)
+            return;
 
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
-            frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = tileTransform.position + new Vector3(0, 0.5f, 0);
-
-            newChampionObject.transform.SetParent(hextile.transform);
-            hextile.championOnTile.Add(newChampionObject);
-
-            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
-            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
-
-            cBase.SetChampion(cBlueprint);
-            cBase.InitChampion(cFrame);
-
-            Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
-            button.interactable = false;
-        }
-        else
-        {
-            Debug.LogWarning("모든 챔피언 위치가 사용되었습니다.");
-        }
+        Manager.Champion.InstantiateChampion(Manager.User.User1_Data, cBlueprint, hextile, tileTransform);
     }
 
     private void UpdateChampionSlot(PointerEventData enterEvent)

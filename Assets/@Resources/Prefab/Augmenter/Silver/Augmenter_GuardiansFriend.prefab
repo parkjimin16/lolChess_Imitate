@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3868528458651205130}
-  - component: {fileID: 1960606831102291015}
+  - component: {fileID: 498374324610453434}
   m_Layer: 0
   m_Name: Augmenter_GuardiansFriend
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1960606831102291015
+--- !u!114 &498374324610453434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4789897501852063948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54fddd05221a6834f8804116b66258cc, type: 3}
+  m_Script: {fileID: 11500000, guid: ae53c41a415e5964f951793feb28a494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

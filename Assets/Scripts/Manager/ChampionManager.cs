@@ -87,10 +87,32 @@ public class ChampionManager
 
         return newChampion;
     }
+
+    public void InstantiateChampion(UserData user, ChampionBlueprint cBlueprint, HexTile hextile, Transform tileTransform)
+    {
+        GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+        newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+        GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+        frame.transform.SetParent(newChampionObject.transform, false);
+        newChampionObject.transform.position = tileTransform.position + new Vector3(0, 0.5f, 0);
+
+        newChampionObject.transform.SetParent(hextile.transform);
+        hextile.championOnTile.Add(newChampionObject);
+
+        ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+        ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
+
+        cBase.SetChampion(cBlueprint);
+        cBase.InitChampion(cFrame);
+
+        Manager.Champion.SettingNonBattleChampion(user);
+    }
     #endregion
 
 
     #region À¯Àú Ã¨ÇÇ¾ð
+
     #region ÀüÃ¼ Ã¨ÇÇ¾ð
     private void SettingAllChampion(UserData userData)
     {
@@ -352,6 +374,7 @@ public class ChampionManager
         }
     }
     #endregion
+
     #endregion
 }
 
