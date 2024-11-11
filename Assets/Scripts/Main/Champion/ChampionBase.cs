@@ -352,7 +352,7 @@ public class ChampionBase : MonoBehaviour
 
     public void ResetHealth()
     {
-        Debug.Log($"현재 체력 : {champion_CurHp} , 최대 체력 : {champion_MaxHp} ");
+        //Debug.Log($"현재 체력 : {champion_CurHp} , 최대 체력 : {champion_MaxHp} ");
         champion_CurHp = champion_MaxHp;
     }
 

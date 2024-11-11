@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static MapGenerator;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class StageManager
 {
     public GameObject[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
-    private List<GameObject> opponents; // 상대 플레이어 목록 (자기 자신 제외)
-    private GameObject selfPlayer; // 자기 자신
-    private GameObject currentOpponent; // 현재 상대
+    private List<GameObject> players; // 모든 플레이어 목록
+    private List<(GameObject, GameObject)> matchups; // 매칭된 플레이어 페어 목록
+    private int ongoingBattles = 0; // 진행 중인 전투 수를 추적하는 변수 추가
 
     private MapGenerator _mapGenerator;
 
@@ -22,9 +23,9 @@ public class StageManager
 
     // 라운드 대기시간 설정
     private int normalWaitTime = 3; //라운드 전 대기시간
-    private int augmentWaitTime = 3; //증강 선택 라운드 시간
+    private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 30; //일반 라운드 진행시간
+    private int roundDuration = 3; //일반 라운드 진행시간
 
     private bool isAugmentRound = false;
 
@@ -52,16 +53,14 @@ public class StageManager
     {
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
-        
-        selfPlayer = AllPlayers[0];
-        
-        opponents = new List<GameObject>(AllPlayers);
-        opponents.Remove(selfPlayer);
 
-        foreach (GameObject playerObj in opponents)
+        players = new List<GameObject>(AllPlayers);
+
+        // AI 플레이어 초기화
+        foreach (GameObject playerObj in players)
         {
             Player playerComponent = playerObj.GetComponent<Player>();
-            if (playerComponent != null)
+            if (playerComponent != null && playerComponent.UserData.PlayerType != PlayerType.Player1)
             {
                 AIPlayer aiPlayer = new AIPlayer();
                 aiPlayer.InitAIPlayer(playerComponent, gameDataBlueprint);
@@ -73,7 +72,6 @@ public class StageManager
     void StartStage(int stageNumber)
     {
         currentRound = 1;
-        ShuffleOpponents(); // 상대 리스트를 섞음
 
         if (roundCoroutine != null)
             CoroutineHelper.StopCoroutine(roundCoroutine);
@@ -115,21 +113,30 @@ public class StageManager
         }
         else if (isCripRound)
         {
-            // 크립 라운드 처리
+            // **매치 후 대기시간 동안 크립 생성 및 준비**
+
+            // 매치 후 대기시간 타이머 시작
+            UIManager.Instance.StartTimer(postMatchWaitTime);
+
+            // 크립 생성
+            SpawnCrips();
+
+            yield return new WaitForSeconds(postMatchWaitTime);
+
+            // 크립 라운드 시작
             CoroutineHelper.StartCoroutine(StartCripRound());
         }
         else
         {
             // **일반 라운드 처리**
 
-            // 상대 매칭
-            int opponentIndex = (currentRound - 1) % opponents.Count;
-            currentOpponent = opponents[opponentIndex];
+            // 모든 플레이어들을 매칭
+            GenerateMatchups();
 
-          //  Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
+            //Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
 
-            // 매칭 후 대기시간
-           // Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
+            //매칭 후 대기시간
+            //Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
 
             // 매칭 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
@@ -139,21 +146,113 @@ public class StageManager
             //Debug.Log("라운드가 시작됩니다!");
 
             // 전투 시작
-            Manager.Battle.StartBattle(selfPlayer, currentOpponent, roundDuration);
+            StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
             UIManager.Instance.StartTimer(roundDuration);
         }
     }
 
-    public void OnRoundEnd(bool playerWon, int survivingEnemyUnits)
+    private void GenerateMatchups()
     {
-        if (!playerWon)
+        // 플레이어 리스트를 섞습니다.
+        ShufflePlayers();
+
+        matchups = new List<(GameObject, GameObject)>();
+
+        // 플레이어 수에 따라 매칭을 생성합니다.
+        int playerCount = players.Count;
+
+        // 플레이어 수가 홀수인 경우 유령 플레이어 또는 바이(bye)를 처리해야 합니다.
+        for (int i = 0; i < playerCount - 1; i += 2)
         {
-            ApplyDamage(survivingEnemyUnits);
+            GameObject player1 = players[i];
+            GameObject player2 = players[i + 1];
+            matchups.Add((player1, player2));
         }
 
-        // 라운드 증가
+        // 플레이어 수가 홀수인 경우 마지막 플레이어 처리
+        if (playerCount % 2 != 0)
+        {
+            GameObject lastPlayer = players[playerCount - 1];
+            // 유령 플레이어와 매칭하거나, 랜덤으로 다른 플레이어와 매칭
+            // 여기서는 간단히 랜덤 플레이어와 다시 매칭
+            int randomIndex = Random.Range(0, playerCount - 1);
+            GameObject randomPlayer = players[randomIndex];
+            matchups.Add((lastPlayer, randomPlayer));
+        }
+    }
+
+    private void ShufflePlayers()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            GameObject temp = players[i];
+            int randomIndex = Random.Range(i, players.Count);
+            players[i] = players[randomIndex];
+            players[randomIndex] = temp;
+        }
+    }
+
+    private void StartAllBattles()
+    {
+        ongoingBattles = 0; // 전투 시작 전에 초기화
+
+        foreach (var matchup in matchups)
+        {
+            GameObject player1 = matchup.Item1;
+            GameObject player2 = matchup.Item2;
+
+            // 각 플레이어의 전투를 시작
+            Manager.Battle.StartBattle(player1, player2, roundDuration);
+
+            // 진행 중인 전투 수 증가
+            ongoingBattles++;
+            Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
+        }
+    }
+
+    public void OnBattleEnd(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
+    {
+        // 패배한 플레이어 결정
+        GameObject losingPlayer = player1Won ? player2 : player1;
+        GameObject winningPlayer = player1Won ? player1 : player2;
+
+        // 패배한 플레이어에게 데미지 적용
+        ApplyDamage(losingPlayer, survivingEnemyUnits);
+        // 플레이어의 체력이 0 이하인지 확인하고 탈락 처리
+        CheckPlayerElimination(losingPlayer);
+
+        // 진행 중인 전투 수 감소 (전투당 한 번만 감소)
+        ongoingBattles--;
+        //Debug.Log($"전투 종료: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
+
+        // 모든 전투가 종료되었는지 확인
+        if (AllBattlesFinished())
+        {
+            // 라운드 증가 및 다음 라운드 진행
+            ProceedToNextRound();
+        }
+    }
+
+    private void CheckPlayerElimination(GameObject player)
+    {
+        int playerHealth = player.GetComponent<Player>().UserData.UserHealth;
+        if (playerHealth <= 0)
+        {
+            // 플레이어 탈락 처리
+            // 탈락한 플레이어를 리스트에서 제거
+            players.Remove(player);
+        }
+    }
+
+    private bool AllBattlesFinished()
+    {
+        // 진행 중인 전투 수가 0이면 모든 전투가 종료된 것
+        return ongoingBattles <= 0;
+    }
+    private void ProceedToNextRound()
+    {
         currentRound++;
 
         int maxRounds = currentStage == 1 ? 3 : 7;
@@ -165,7 +264,7 @@ public class StageManager
             if (currentStage > 8)
             {
                 // 게임 종료
-               // Debug.Log("게임 클리어!");
+                // Debug.Log("게임 클리어!");
                 return;
             }
             StartStage(currentStage);
@@ -179,26 +278,24 @@ public class StageManager
         }
     }
 
-    void ApplyDamage(int survivingEnemyUnits)
+    void ApplyDamage(GameObject player, int survivingEnemyUnits)
     {
         int index = currentStage - 1;
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
 
         // 플레이어에게 데미지 적용
-        int Hp = selfPlayer.GetComponent<Player>().UserData.UserHealth;
-        Hp -= totalDamage;
-        selfPlayer.GetComponent<Player>().UserData.UserHealth = Hp;
-        //Debug.Log($"플레이어가 {totalDamage}의 피해를 입었습니다. 남은 체력: {selfPlayer.GetComponent<Player>().CurrentHealth}");
+        int hp = player.GetComponent<Player>().UserData.UserHealth;
+        hp -= totalDamage;
+        player.GetComponent<Player>().UserData.UserHealth = hp;
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();
 
-
         // 게임 오버 체크
-        if (selfPlayer.GetComponent<Player>().UserData.UserHealth <= 0)
+        if (hp <= 0)
         {
-           // Debug.Log("게임 오버!");
-            // 게임 오버 로직 처리
+            // Debug.Log($"{player.GetComponent<Player>().PlayerName} 탈락!");
+            // 플레이어 탈락 처리
         }
     }
 
@@ -207,16 +304,6 @@ public class StageManager
        // Debug.Log($"현재 스테이지: {currentStage}, 현재 라운드: {currentRound}");
     }
 
-    void ShuffleOpponents()
-    {
-        for (int i = 0; i < opponents.Count; i++)
-        {
-            GameObject temp = opponents[i];
-            int randomIndex = Random.Range(i, opponents.Count);
-            opponents[i] = opponents[randomIndex];
-            opponents[randomIndex] = temp;
-        }
-    }
 
     bool IsAugmentRound(int stage, int round)
     {
@@ -520,9 +607,6 @@ public class StageManager
     }
     IEnumerator StartCripRound()
     {
-        // 크립 생성
-        SpawnCrips();
-
         // 라운드 진행 시간 타이머 시작
         UIManager.Instance.StartTimer(roundDuration);
 

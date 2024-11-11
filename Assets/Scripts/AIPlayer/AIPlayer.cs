@@ -19,8 +19,9 @@ public class AIPlayer
 
     public void PerformActions()
     {
-        BuyChampions();
+        BuyChampions(); //챔피언 구매
         // 필요에 따라 추가 행동 (레벨업, 리롤 등)
+        DecideAndPlaceChampions(); // 챔피언 배치
     }
 
     #region 챔피언구매로직
@@ -37,8 +38,8 @@ public class AIPlayer
 
         InstantiateAIChampion(championBlueprint);
 
-        // 골드 체크 후 구매
-        /*int championCost = championBlueprint.ChampionCost;
+        /* 골드 체크 후 구매
+        int championCost = championBlueprint.ChampionCost;
         if (aiUserData.GetGold() >= championCost)
         {
             aiUserData.SetGold(aiUserData.GetGold() - championCost);
@@ -60,7 +61,7 @@ public class AIPlayer
         }
 
         // 빈 타일 찾기
-        HexTile emptyTile = FindEmptyTile(aiMapInfo);
+        HexTile emptyTile = FindEmptyRectTile(aiMapInfo);
 
         if (emptyTile != null)
         {
@@ -91,7 +92,7 @@ public class AIPlayer
         }
     }
 
-    private HexTile FindEmptyTile(MapGenerator.MapInfo mapInfo)
+    private HexTile FindEmptyRectTile(MapGenerator.MapInfo mapInfo)
     {
         foreach (var tileEntry in mapInfo.RectDictionary)
         {
@@ -161,5 +162,103 @@ public class AIPlayer
     }
     #endregion
 
+    #region 챔피언 배치 로직
+    private void DecideAndPlaceChampions()
+    {
+        // 현재 배틀필드에 배치된 챔피언 수 확인
+        int currentBattleChampions = aiUserData.BattleChampionObject.Count;
+
+        // AI 플레이어의 레벨에 따른 최대 배치 가능 챔피언 수
+        int maxBattleChampions = 1; //aiUserData.Level; // 임시로 6레벨 줌
+
+        // 배치 가능한 슬롯 수 계산
+        int availableSlots = maxBattleChampions - currentBattleChampions;
+
+        if (availableSlots <= 0)
+        {
+            // 배치 가능한 슬롯이 없으면 반환
+            return;
+        }
+
+        // RectTile에 있는 챔피언들 중에서 배치할 챔피언 선택
+        List<GameObject> championsOnBench = new List<GameObject>(aiUserData.NonBattleChampionObject);
+
+        // 배치 가능한 수만큼 챔피언 선택
+        for (int i = 0; i < availableSlots && championsOnBench.Count > 0; i++)
+        {
+            // 랜덤 챔피언 선택
+            int randomIndex = Random.Range(0, championsOnBench.Count);
+            GameObject championToPlace = championsOnBench[randomIndex];
+
+            PlaceChampionOnHexTile(championToPlace);
+            championsOnBench.RemoveAt(randomIndex);
+        }
+    }
+
+    private void PlaceChampionOnHexTile(GameObject champion)
+    {
+        // AI 플레이어의 맵 정보를 가져옵니다.
+        MapGenerator.MapInfo aiMapInfo = aiUserData.MapInfo;
+
+        if (aiMapInfo == null)
+        {
+            Debug.LogWarning($"AI 플레이어 {aiUserData.UserName}의 MapInfo를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 빈 HexTile 찾기
+        HexTile emptyTile = FindEmptyHexTile(aiMapInfo);
+
+        if (emptyTile != null)
+        {
+            // 챔피언의 현재 타일 정보 가져오기
+            HexTile currentTile = champion.transform.parent.GetComponent<HexTile>();
+            if (currentTile != null)
+            {
+                currentTile.championOnTile.Remove(champion);
+            }
+
+            // 챔피언의 위치와 부모를 업데이트
+            champion.transform.position = emptyTile.transform.position + new Vector3(0, 0.5f, 0);
+            champion.transform.SetParent(emptyTile.transform);
+
+            // 타일 상태 업데이트
+            emptyTile.championOnTile.Add(champion);
+
+            // AI 플레이어의 리스트 업데이트
+            aiUserData.NonBattleChampionObject.Remove(champion);
+            aiUserData.BattleChampionObject.Add(champion);
+        }
+        else
+        {
+            Debug.LogWarning($"AI 플레이어 {aiUserData.UserName}의 HexTile에 빈 타일이 없습니다.");
+        }
+    }
+
+    private HexTile FindEmptyHexTile(MapGenerator.MapInfo mapInfo)
+    {
+        List<HexTile> availableTiles = new List<HexTile>();
+
+        // 조건에 맞는 타일들을 리스트에 추가합니다.
+        foreach (var tileEntry in mapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied && tile.CompareTag("PlayerTile"))
+            {
+                availableTiles.Add(tile);
+            }
+        }
+
+        // 리스트가 비어있지 않으면 랜덤한 타일을 반환합니다.
+        if (availableTiles.Count > 0)
+        {
+            int randomIndex = Random.Range(0, availableTiles.Count);
+            return availableTiles[randomIndex];
+        }
+
+        // 조건에 맞는 타일이 없으면 null을 반환합니다.
+        return null;
+    }
+    #endregion
 
 }
