@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9012139295300509901, guid: 7fcb431ed690dca4cb63bab2c8ddfe58, type: 3}
       propertyPath: m_Name
-      value: "\uB9C8\uBC95_\uAC15\uD654_\uAC08\uB9AC\uC6242"
+      value: "\uAC08\uB9AC\uC624"
       objectReference: {fileID: 0}
     - target: {fileID: -4567641534534157628, guid: 7fcb431ed690dca4cb63bab2c8ddfe58, type: 3}
       propertyPath: m_DirtyAABB
@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 125.69441
       objectReference: {fileID: 0}
+    - target: {fileID: -4567641534534157628, guid: 7fcb431ed690dca4cb63bab2c8ddfe58, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 914c0f737a8e67541b28e2d1e44f67df, type: 2}
     - target: {fileID: -762766746106186588, guid: 7fcb431ed690dca4cb63bab2c8ddfe58, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -108,6 +112,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 62.075226
       objectReference: {fileID: 0}
+    - target: {fileID: 3195792352467663959, guid: 7fcb431ed690dca4cb63bab2c8ddfe58, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d93cfe61cb44a7479b5faf64ba65264, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
