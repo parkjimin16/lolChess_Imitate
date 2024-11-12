@@ -112,6 +112,7 @@ public class UserData
 
     private Dictionary<string, SynergyData> championSynergies;
 
+    private Dictionary<GameObject, ChampionOriginalState> championOriginalStates;
 
     #region Property
 
@@ -228,6 +229,11 @@ public class UserData
         set { userAugmenter = value; }
     }
 
+    public Dictionary<GameObject, ChampionOriginalState> ChampionOriginState
+    {
+        get { return championOriginalStates; }
+        set { championOriginalStates = value; }
+    }
 
     #endregion
 
@@ -246,6 +252,7 @@ public class UserData
         sugarCraftPosition = new List<Transform>();
         portalPosition = new List<Transform>();
         userAugmenter = new List<AugmenterData>();
+        championOriginalStates = new Dictionary<GameObject, ChampionOriginalState> { };
 
         gold = _gold;
         userName = _userName;

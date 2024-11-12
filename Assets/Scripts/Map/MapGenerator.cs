@@ -305,6 +305,8 @@ public class MapGenerator : MonoBehaviour
             
             HexTile hexTile = tile.GetComponent<HexTile>();
             hexTile.isRectangularTile = true;
+            hexTile.x = x;
+            hexTile.y = row;
             //hexTile.isOccupied = false;
 
             mapInfo.RectDictionary.Add((x, row), hexTile);

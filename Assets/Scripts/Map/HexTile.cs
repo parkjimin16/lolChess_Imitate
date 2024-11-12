@@ -8,6 +8,9 @@ public class HexTile : MonoBehaviour
     public int r; // Çí»ç°ï Å¥ºê ÁÂÇ¥°èÀÇ r
     public int s; // Çí»ç°ï Å¥ºê ÁÂÇ¥°èÀÇ s (q + r + s = 0)
 
+    public int x; // Rect Tile ÁÂÇ¥°è x
+    public int y; // Rect Tile ÁÂÇ¥°è y
+
     public bool isRectangularTile = false; // Á÷»ç°¢Çü ¿µ¿ª ¿©ºÎ
     //public bool isOccupied = false;
     public bool isItemTile = false;

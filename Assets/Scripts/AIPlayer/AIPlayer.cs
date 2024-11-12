@@ -85,6 +85,7 @@ public class AIPlayer
 
             // AI 플레이어의 챔피언 리스트에 추가
             aiUserData.NonBattleChampionObject.Add(newChampionObject);
+            
         }
         else
         {

@@ -191,6 +191,7 @@ public class ChampionManager
                 }
             }
         }
+        Debug.Log(userData.TotalChampionObject[0].GetComponentInParent<HexTile>().name);
     }
     #endregion
 
@@ -405,4 +406,12 @@ public class ChampionMaxCount
 {
     public int Cost;
     public int MaxCount;
+}
+[System.Serializable]
+public class ChampionOriginalState
+{
+    public Vector3 originalPosition;
+    public Transform originalParent;
+    public HexTile originalTile;
+    public bool wasActive;
 }
