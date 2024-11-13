@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static MapGenerator;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class StageManager
 {
@@ -34,7 +33,8 @@ public class StageManager
     private GameObject CripPrefab;
 
     private List<AIPlayer> aiPlayers = new List<AIPlayer>(); // AIPlayer 인스턴스 리스트
-    private GameDataBlueprint gameDataBlueprint; // 게임 데이터 블루프린트
+    private GameDataBlueprint gameDataBlueprint;
+
     #region Init
 
     public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData)
@@ -47,7 +47,7 @@ public class StageManager
         StartStage(currentStage);
         
     }
-    #endregion
+
 
     private void InitializePlayers()
     {
@@ -68,8 +68,10 @@ public class StageManager
             }
         }
     }
+    #endregion
 
-    void StartStage(int stageNumber)
+    #region 스테이지 로직
+    private void StartStage(int stageNumber)
     {
         currentRound = 1;
 
@@ -196,6 +198,45 @@ public class StageManager
         }
     }
 
+    private void ProceedToNextRound()
+    {
+        currentRound++;
+
+        int maxRounds = currentStage == 1 ? 3 : 7;
+
+        if (currentRound > maxRounds)
+        {
+            // 다음 스테이지로 이동
+            currentStage++;
+            if (currentStage > 8)
+            {
+                // 게임 종료
+                // Debug.Log("게임 클리어!");
+                return;
+            }
+            StartStage(currentStage);
+        }
+        else
+        {
+            // 다음 라운드 시작
+            if (roundCoroutine != null)
+                CoroutineHelper.StopCoroutine(roundCoroutine);
+            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
+        }
+    }
+
+    bool IsAugmentRound(int stage, int round)
+    {
+        // 증강 선택 라운드: 2-1, 3-2, 4-2
+        if ((stage == 2 && round == 1) || (stage == 3 && round == 2) || (stage == 4 && round == 2))
+        {
+            return true;
+        }
+        return false;
+    }
+    #endregion
+
+    #region 매칭 로직
     private void GenerateMatchups()
     {
         // 플레이어 리스트를 섞습니다.
@@ -225,7 +266,11 @@ public class StageManager
             GameObject randomPlayer = players[randomIndex];
             matchups.Add((lastPlayer, randomPlayer));
         }
-        
+
+
+
+
+        AllPlayerStartBattle();
     }
 
     private void ShufflePlayers()
@@ -239,24 +284,20 @@ public class StageManager
         }
     }
 
-    private void StartAllBattles()
+    private void AllPlayerStartBattle()
     {
-        ongoingBattles = 0; // 전투 시작 전에 초기화
-
-        foreach (var matchup in matchups)
+        foreach (var player in Manager.Game.PlayerListObject)
         {
-            GameObject player1 = matchup.Item1;
-            GameObject player2 = matchup.Item2;
+            Player playerScript = player.GetComponent<Player>();
 
-            // 각 플레이어의 전투를 시작
-            Manager.Battle.StartBattle(player1, player2, roundDuration);
-
-            // 진행 중인 전투 수 증가
-            ongoingBattles++;
-            Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
+            if (playerScript != null)
+                playerScript.SetBattleUser();
         }
     }
 
+    #endregion
+
+    #region 전투 스테이지 로직
     public void OnBattleEnd(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
     {
         // 패배한 플레이어 결정
@@ -280,6 +321,31 @@ public class StageManager
         }
     }
 
+    private void StartAllBattles()
+    {
+        ongoingBattles = 0; // 전투 시작 전에 초기화
+
+        foreach (var matchup in matchups)
+        {
+            GameObject player1 = matchup.Item1;
+            GameObject player2 = matchup.Item2;
+
+            // 각 플레이어의 전투를 시작
+            Manager.Battle.StartBattle(player1, player2, roundDuration);
+
+            // 진행 중인 전투 수 증가
+            ongoingBattles++;
+            //Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
+            Debug.Log($"전투 시작: {player1.name} vs {player2.name} , 진행 중인 전투 수: {ongoingBattles}");
+        }
+    }
+    private bool AllBattlesFinished()
+    {
+        return ongoingBattles <= 0;
+    }
+    #endregion
+
+    #region 유저 로직
     private void CheckPlayerElimination(GameObject player)
     {
         int playerHealth = player.GetComponent<Player>().UserData.UserHealth;
@@ -288,38 +354,6 @@ public class StageManager
             // 플레이어 탈락 처리
             // 탈락한 플레이어를 리스트에서 제거
             players.Remove(player);
-        }
-    }
-
-    private bool AllBattlesFinished()
-    {
-        // 진행 중인 전투 수가 0이면 모든 전투가 종료된 것
-        return ongoingBattles <= 0;
-    }
-    private void ProceedToNextRound()
-    {
-        currentRound++;
-
-        int maxRounds = currentStage == 1 ? 3 : 7;
-
-        if (currentRound > maxRounds)
-        {
-            // 다음 스테이지로 이동
-            currentStage++;
-            if (currentStage > 8)
-            {
-                // 게임 종료
-                // Debug.Log("게임 클리어!");
-                return;
-            }
-            StartStage(currentStage);
-        }
-        else
-        {
-            // 다음 라운드 시작
-            if (roundCoroutine != null)
-                CoroutineHelper.StopCoroutine(roundCoroutine);
-            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
     }
 
@@ -344,21 +378,42 @@ public class StageManager
         }
     }
 
+
+
     void DisplayCurrentStageAndRound()
     {
        // Debug.Log($"현재 스테이지: {currentStage}, 현재 라운드: {currentRound}");
     }
 
 
-    bool IsAugmentRound(int stage, int round)
+    public GameObject FindMatchup(GameObject player)
     {
-        // 증강 선택 라운드: 2-1, 3-2, 4-2
-        if ((stage == 2 && round == 1) || (stage == 3 && round == 2) || (stage == 4 && round == 2))
+        foreach (var (player1, player2) in matchups)
         {
-            return true;
+            if (player1 == player)
+                return player2;
+
+            if (player2 == player)
+                return player1;
+
         }
-        return false;
+        return null;
     }
+
+
+    public Player GetOpponentData(GameObject player)
+    {
+        GameObject opponent = FindMatchup(player);
+        if (opponent != null)
+        {
+            Player playerScript = opponent.GetComponent<Player>();
+            return playerScript;
+        }
+        return null;
+    }
+
+
+    #endregion
 
     #region 공동선택 라운드
     IEnumerator StartCarouselRound()

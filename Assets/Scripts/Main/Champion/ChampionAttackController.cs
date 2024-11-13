@@ -20,6 +20,7 @@ public class ChampionAttackController : MonoBehaviour
 
 
     public bool IsAttack; // 전체 체크 용
+
     [SerializeField] private bool attackLogic;
 
     public bool IsUseSkill()
@@ -36,6 +37,11 @@ public class ChampionAttackController : MonoBehaviour
     #region Unity Flow
     private void Update()
     {
+        if (!Manager.Game.IsBattle)
+            return;
+
+
+        
         if(FindTargetInRange() == null)
         {
             IsAttack = false;
@@ -47,7 +53,6 @@ public class ChampionAttackController : MonoBehaviour
     }
 
     #endregion
-
 
     #region 초기화
     public void Init(ChampionBase championBase, float _atk_Speed, float _atk_Range, float _curMana, float _maxMana)
@@ -63,6 +68,8 @@ public class ChampionAttackController : MonoBehaviour
 
     #endregion
 
+    #region 공격 로직
+
     public void AttackLogic()
     {
         if(!attackLogic)
@@ -70,7 +77,6 @@ public class ChampionAttackController : MonoBehaviour
             attackCoroutine = AttackRoutine();
             StartCoroutine(attackCoroutine);
         }
-
     }
 
     public void AttackLogicStop()
@@ -185,12 +191,10 @@ public class ChampionAttackController : MonoBehaviour
         // 근접 공격 애니메이션 재생 로직 (예: animator.SetTrigger("MeleeAttack"))
     }
 
-
     private int ChampionDamageSet()
     {
         return cBase.Champion_TotalDamage;
     }
-
 
     private IEnumerator UseSkillCoroutine()
     {
@@ -203,4 +207,5 @@ public class ChampionAttackController : MonoBehaviour
         Debug.Log(" 스킬 끝 ");
         isUseSkill = false;
     }
+    #endregion
 }

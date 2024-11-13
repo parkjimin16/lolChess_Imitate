@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerData playerData;
     [SerializeField] private UserData userData;
     [SerializeField] private TextMeshPro text_ChampionName;
+    [SerializeField] private Player enemyUser;
+
 
     public PlayerData PlayerData
     {
@@ -20,6 +22,13 @@ public class Player : MonoBehaviour
         get { return userData; }
         set { userData = value; }
     }
+    
+    public Player EnemyUser
+    {
+        get { return enemyUser; }
+        set { enemyUser = value; }
+    }
+   
 
     public void InitPlayer(UserData user)
     {
@@ -32,9 +41,46 @@ public class Player : MonoBehaviour
         text_ChampionName.text = userData.UserName;
     }
 
-    public void SetUserName()
+    public void SetBattleUser()
     {
-        
+        enemyUser = Manager.Stage.GetOpponentData(this.gameObject);
+    }
+
+
+    public List<ChampionBase> GetBattleChampion()
+    {
+        if (enemyUser == null)
+            return null;
+
+        var list = new List<ChampionBase>();
+
+        foreach (var champion in enemyUser.UserData.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            if (cBase != null)
+                list.Add(cBase);
+        }
+
+        return list;
+    }
+
+    public List<ChampionBase> GetEnemyUserBattleChampion()
+    {
+        if (userData == null)
+            return null;
+
+        var list = new List<ChampionBase>();
+
+        foreach (var champion in userData.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            if (cBase != null)
+                list.Add(cBase);
+        }
+
+        return list;
 
     }
 }

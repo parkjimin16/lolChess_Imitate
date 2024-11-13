@@ -7,8 +7,12 @@ using static ItemAttribute;
 public class UserManager
 {
     public UserData User1_Data;
+    
+
+
     private List<UserData> userDatas; 
 
+    public List<UserData> UserDatas => userDatas;
     public void Init()
     {
         userDatas = new List<UserData>();
@@ -21,7 +25,8 @@ public class UserManager
         
         for(int i = 1; i<= 8; i++)
         {
-            GameObject newPlayer = Manager.Asset.InstantiatePrefab("Player", obj.transform);
+            GameObject newPlayer = Manager.Asset.InstantiatePrefab($"Player", obj.transform);
+            newPlayer.name = $"Player{i}";
             PlayerData pData = Manager.Asset.GetBlueprint($"PlayerData_{i}") as PlayerData;
             Player player = newPlayer.GetComponent<Player>();
             player.PlayerData = pData;
