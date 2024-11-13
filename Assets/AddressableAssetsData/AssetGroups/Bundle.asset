@@ -737,12 +737,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 17f11e912c1d97246b70fcad1a434f7f
-    m_Address: Assets/@Resources/Prefab/Champion/ChampionFrame.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Bundle
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7238857c72dd2494285a331008941f94
     m_Address: Assets/@Resources/Prefab/Skill/1Cost/Skill_Ashe.prefab
     m_ReadOnly: 0

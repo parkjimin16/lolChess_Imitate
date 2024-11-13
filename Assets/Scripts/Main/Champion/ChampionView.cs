@@ -11,13 +11,5 @@ public class ChampionView : MonoBehaviour
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
-
-        SetChampionName();
     }
-
-    public void SetChampionName()
-    {
-        text_ChampionName.text = cBase.ChampionName;
-    }
-
 }

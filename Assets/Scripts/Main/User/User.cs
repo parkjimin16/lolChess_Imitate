@@ -576,7 +576,7 @@ public class User : MonoBehaviour
         else if (type == MovableObjectType.Champion)
         {
             _movableTag = "Champion";
-            _offset = new Vector3(0.0f, 0.5f, 0.0f);
+            _offset = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
     private GameObject FindcurrentTile()
