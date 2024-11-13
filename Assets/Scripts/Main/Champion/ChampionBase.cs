@@ -182,6 +182,8 @@ public class ChampionBase : MonoBehaviour
     public ChampionJob ChampionJob_Second => job_Second;
     public ChampionCost ChampionCost => cost;
 
+    public int Attack_Range => attack_Range;
+
 
     // Champion Stats_1
     public int ChampionLevel

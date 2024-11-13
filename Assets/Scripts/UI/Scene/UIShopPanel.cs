@@ -66,6 +66,7 @@ public class UIShopPanel : UIBase
         if (hextile == null)
             return;
 
+        button.interactable = false;
         Manager.Champion.InstantiateChampion(Manager.User.User1_Data, cBlueprint, hextile, tileTransform);
     }
 

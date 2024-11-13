@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChampionAttackController : MonoBehaviour
 {
+    #region 변수 & 프로퍼티
     private ChampionBase cBase;
     private IEnumerator attackCoroutine;
 
@@ -15,7 +16,7 @@ public class ChampionAttackController : MonoBehaviour
     private float attack_Speed;
     private float attack_Range;
 
-    
+    public float attackRange;
 
 
     public bool IsAttack; // 전체 체크 용
@@ -29,6 +30,10 @@ public class ChampionAttackController : MonoBehaviour
     
 
     public GameObject TargetChampion => targetChampion;
+
+    #endregion
+
+    #region Unity Flow
     private void Update()
     {
         if(FindTargetInRange() == null)
@@ -41,7 +46,10 @@ public class ChampionAttackController : MonoBehaviour
         }        
     }
 
+    #endregion
 
+
+    #region 초기화
     public void Init(ChampionBase championBase, float _atk_Speed, float _atk_Range, float _curMana, float _maxMana)
     {
         cBase = championBase;
@@ -52,6 +60,8 @@ public class ChampionAttackController : MonoBehaviour
         attackLogic = false;
         isUseSkill = false;
     }
+
+    #endregion
 
     public void AttackLogic()
     {
@@ -111,8 +121,10 @@ public class ChampionAttackController : MonoBehaviour
 
 
 
-            //yield return new WaitForSeconds(cBase.Attack_Speed);
-            yield return new WaitForSeconds(0.5f);
+            Debug.Log($"{cBase.ChampionName} : 공격 {cBase.Champion_Atk_Spd}");
+
+            yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
+            //yield return new WaitForSeconds(0.5f);
 
            
         }
@@ -122,7 +134,8 @@ public class ChampionAttackController : MonoBehaviour
 
     private GameObject FindTargetInRange()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);  //cBase.Attack_Range);
+        attackRange = cBase.Attack_Range * 2.75f;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
 
         foreach (Collider collider in hitColliders)
         {
@@ -137,15 +150,41 @@ public class ChampionAttackController : MonoBehaviour
 
     public void CreateNormalAttack(GameObject target)
     {
-        GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
-        NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
+        if (target == null)
+            return;
 
-        if (projectile != null)
+        if (cBase.Attack_Range > 1)
         {
-            
-            projectile.SetTarget(target, ChampionDamageSet()); 
+            // 원거리 공격 - 발사체 생성
+            GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+            NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
+
+            if (projectile != null)
+            {
+                projectile.SetTarget(target, ChampionDamageSet());
+            }
+        }
+        else 
+        {
+            // 근접 공격
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+            if (distanceToTarget <= 1.5f)
+            {
+                ChampionBase targetHealth = target.GetComponent<ChampionBase>();
+                if (targetHealth != null)
+                {
+                    PlayMeleeAttackAnimation();
+                    targetHealth.ChampionHpMpController.TakeDamage(ChampionDamageSet()); 
+                }
+            }
         }
     }
+    private void PlayMeleeAttackAnimation()
+    {
+        // 근접 공격 애니메이션 재생 로직 (예: animator.SetTrigger("MeleeAttack"))
+    }
+
 
     private int ChampionDamageSet()
     {
