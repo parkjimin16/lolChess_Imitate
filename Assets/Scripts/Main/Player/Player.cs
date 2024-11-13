@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
     [SerializeField] private UserData userData;
-
+    [SerializeField] private TextMeshPro text_ChampionName;
 
     public PlayerData PlayerData
     {
@@ -27,5 +28,13 @@ public class Player : MonoBehaviour
         userData.UserName = playerData.PlayerName;
         userData.UserHealth = playerData.Health;
         userData.PlayerType = playerData.PlayerType;
+
+        text_ChampionName.text = userData.UserName;
+    }
+
+    public void SetUserName()
+    {
+        
+
     }
 }

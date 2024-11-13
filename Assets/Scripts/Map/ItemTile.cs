@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemTile : MonoBehaviour
@@ -7,8 +8,9 @@ public class ItemTile : MonoBehaviour
     [SerializeField] private GameObject itemTile;
     [SerializeField] private List<GameObject> _items = new List<GameObject>(10);
 
-    public PlayerType TileType;
     public ItemOwner TileType1;
+    public MapGenerator.MapInfo MapInfo;
+
 
     void Start()
     {
@@ -32,6 +34,8 @@ public class ItemTile : MonoBehaviour
 
     }
 
+    public List<GameObject> _Items { get { return _items; } }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,6 +44,8 @@ public class ItemTile : MonoBehaviour
             GenerateItem();
         }
     }
+
+
     public void RemoveItem(GameObject item)
     {
         // 아이템이 위치한 타일을 찾습니다.
@@ -91,6 +97,13 @@ public class ItemTile : MonoBehaviour
                 HexTile tile = selectedTile.GetComponent<HexTile>();
                 tile.isItemTile = true;
                 tile.itemOnTile = newItem;
+
+                // MapInfo를 통해 UserData에 접근하여 아이템 추가
+                if (MapInfo != null && MapInfo.playerData != null && MapInfo.playerData.UserData != null)
+                {
+                    UserData userData = MapInfo.playerData.UserData;
+                    userData.UserItemObject.Add(newItem);
+                }
             }
             else
             {

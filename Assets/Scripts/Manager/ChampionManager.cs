@@ -191,7 +191,6 @@ public class ChampionManager
                 }
             }
         }
-        Debug.Log(userData.TotalChampionObject[0].GetComponentInParent<HexTile>().name);
     }
     #endregion
 

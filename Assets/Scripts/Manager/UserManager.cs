@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static ItemAttribute;
 
 public class UserManager
 {
@@ -102,7 +103,7 @@ public class UserData
     [SerializeField] private List<Transform> portalPosition;
     [SerializeField] private PlayerType playerType;
     [SerializeField] private List<AugmenterData> userAugmenter;
-
+    [SerializeField] private List<GameObject> userItemObject;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -113,6 +114,7 @@ public class UserData
     private Dictionary<string, SynergyData> championSynergies;
 
     private Dictionary<GameObject, ChampionOriginalState> championOriginalStates;
+    private Dictionary<GameObject, ItemOriginalState> itemOriginalStates;
 
     #region Property
 
@@ -235,6 +237,17 @@ public class UserData
         set { championOriginalStates = value; }
     }
 
+    public List<GameObject> UserItemObject
+    {
+        get { return userItemObject; }
+        set { userItemObject = value; }
+    }
+
+    public Dictionary<GameObject, ItemOriginalState> ItemOriginState
+    {
+        get { return itemOriginalStates; }
+        set { itemOriginalStates = value; }
+    }
     #endregion
 
     #region Init
@@ -253,6 +266,8 @@ public class UserData
         portalPosition = new List<Transform>();
         userAugmenter = new List<AugmenterData>();
         championOriginalStates = new Dictionary<GameObject, ChampionOriginalState> { };
+        userItemObject = new List<GameObject>();
+        itemOriginalStates = new Dictionary<GameObject, ItemOriginalState>();
 
         gold = _gold;
         userName = _userName;

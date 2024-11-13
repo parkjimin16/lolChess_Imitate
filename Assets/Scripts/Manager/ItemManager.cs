@@ -180,4 +180,14 @@ public class ItemAttribute
     {
         tempValue = AttributeValue;
     }
+
+    [System.Serializable]
+    public class ItemOriginalState
+    {
+        public Vector3 originalPosition;
+        public Transform originalParent;
+        public ItemTile originalItemTile;
+        public int originalTileIndex; // 아이템이 위치한 타일의 인덱스
+        public bool wasActive;
+    }
 }

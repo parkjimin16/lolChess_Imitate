@@ -164,6 +164,7 @@ public class MapGenerator : MonoBehaviour
                     userMap.transform.SetParent(this.transform);
                     userMap.AddComponent<GoldDisplay>();
                     userMap.AddComponent<RectTile>();
+
                     Vector3 PlayerPosition = userMap.transform.position + new Vector3(-13.5f, 0.8f, -5f);
                     allPlayers[userIndex].transform.position = PlayerPosition;
 
@@ -428,6 +429,7 @@ public class MapGenerator : MonoBehaviour
                 tile.name = $"ItemTile_{0}";
                 ItemTile itemTile = tile.GetComponent<ItemTile>();
                 itemTile.TileType1 = ItemOwner.Player;
+                itemTile.MapInfo = mapinfo;
                 mapinfo.ItemTile.Add(itemTile);
             }
             else
@@ -437,6 +439,7 @@ public class MapGenerator : MonoBehaviour
                 tile1.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                 ItemTile itemTile = tile1.GetComponent<ItemTile>();
                 itemTile.TileType1 = ItemOwner.Another;
+                itemTile.MapInfo = mapinfo;
                 mapinfo.ItemTile.Add(itemTile);
             }
         }

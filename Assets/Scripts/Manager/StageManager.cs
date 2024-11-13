@@ -87,69 +87,112 @@ public class StageManager
         // 증강 선택 라운드 여부 확인
         isAugmentRound = IsAugmentRound(currentStage, currentRound);
 
-        // **공동 선택 라운드 여부 확인**
+        // 공동 선택 라운드 여부 확인
         bool isCarouselRound = IsCarouselRound(currentStage, currentRound);
 
         // 크립 라운드 여부 확인
         bool isCripRound = IsCripRound(currentStage, currentRound);
 
-        // 대기시간 설정
-        int waitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
+        // 라운드 전 대기시간 설정
+        int preWaitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
 
-        //  Debug.Log($"라운드 시작 전 대기시간: {waitTime}초");
+        // **1. 라운드 전 대기시간**
 
-        // **대기 시간 동안 AI 행동 실행**
+        // 대기 시간 동안 AI 행동 실행
         PerformAIActions();
 
-        // 대기시간 타이머 시작
-        UIManager.Instance.StartTimer(waitTime);
+        // 라운드 전 대기시간 타이머 시작
+        UIManager.Instance.StartTimer(preWaitTime);
 
-        yield return new WaitForSeconds(waitTime);
+        // 라운드 전 대기시간 동안 대기
+        yield return new WaitForSeconds(preWaitTime);
+
+        // **2. 매치 후 대기시간 및 라운드 진행**
 
         if (isCarouselRound)
         {
-            // **공동 선택 라운드 처리**
-            CoroutineHelper.StartCoroutine(StartCarouselRound());
+            // 공동 선택 라운드 처리
+            yield return CoroutineHelper.StartCoroutine(StartCarouselRound());
+            yield break; // 공동 선택 라운드는 별도의 흐름이므로 여기서 종료
         }
         else if (isCripRound)
         {
-            // **매치 후 대기시간 동안 크립 생성 및 준비**
-
-            // 매치 후 대기시간 타이머 시작
-            UIManager.Instance.StartTimer(postMatchWaitTime);
+            // 크립 라운드의 경우
 
             // 크립 생성
             SpawnCrips();
 
-            yield return new WaitForSeconds(postMatchWaitTime);
-
-            // 크립 라운드 시작
-            CoroutineHelper.StartCoroutine(StartCripRound());
-        }
-        else
-        {
-            // **일반 라운드 처리**
-
-            // 모든 플레이어들을 매칭
-            GenerateMatchups();
-
-            //Debug.Log($"{currentOpponent.GetComponent<Player>().PlayerName}와 매칭되었습니다.");
-
-            //매칭 후 대기시간
-            //Debug.Log($"매칭 후 대기시간: {postMatchWaitTime}초");
-
-            // 매칭 후 대기시간 타이머 시작
+            // 매치 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
 
+            // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
 
-            //Debug.Log("라운드가 시작됩니다!");
+            // **3. 일반 라운드 진행시간**
+
+            // 크립 라운드 진행
+            //StartAllCripBattles();
+
+            // 라운드 진행 시간 타이머 시작
+            UIManager.Instance.StartTimer(roundDuration);
+
+            // 라운드 진행 시간 동안 대기
+            yield return new WaitForSeconds(roundDuration);
+
+            // 라운드 종료 처리
+            EndCripRound();
+        }
+        else if (isAugmentRound)
+        {
+            // 증강 선택 라운드의 경우
+
+            // 매칭 및 유닛 이동 수행
+            GenerateMatchups();
+
+            // 매치 후 대기시간 타이머 시작
+            UIManager.Instance.StartTimer(postMatchWaitTime);
+
+            // 매치 후 대기시간 동안 대기
+            yield return new WaitForSeconds(postMatchWaitTime);
+
+            // **3. 일반 라운드 진행시간**
 
             // 전투 시작
             StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
             UIManager.Instance.StartTimer(roundDuration);
+
+            // 라운드 진행 시간 동안 대기
+            yield return new WaitForSeconds(roundDuration);
+
+            // 전투 종료는 각 플레이어의 전투가 종료될 때마다 `OnBattleEnd`에서 처리됩니다.
+        }
+        else
+        {
+            // 일반 라운드의 경우
+
+            // 매칭 및 유닛 이동 수행
+            GenerateMatchups();
+
+            // 매치 후 대기시간 타이머 시작
+            UIManager.Instance.StartTimer(postMatchWaitTime);
+
+            // 매치 후 대기시간 동안 대기
+            yield return new WaitForSeconds(postMatchWaitTime);
+
+            // **3. 일반 라운드 진행시간**
+
+            // 전투 시작
+            StartAllBattles();
+
+            // 라운드 진행 시간 타이머 시작
+            UIManager.Instance.StartTimer(roundDuration);
+
+            // 라운드 진행 시간 동안 대기
+            yield return new WaitForSeconds(roundDuration);
+
+            // 전투 종료는 각 플레이어의 전투가 종료될 때마다 `OnBattleEnd`에서 처리됩니다.
         }
     }
 
@@ -169,6 +212,7 @@ public class StageManager
             GameObject player1 = players[i];
             GameObject player2 = players[i + 1];
             matchups.Add((player1, player2));
+            Manager.Battle.MovePlayer(player1, player2);
         }
 
         // 플레이어 수가 홀수인 경우 마지막 플레이어 처리
@@ -181,6 +225,7 @@ public class StageManager
             GameObject randomPlayer = players[randomIndex];
             matchups.Add((lastPlayer, randomPlayer));
         }
+        
     }
 
     private void ShufflePlayers()

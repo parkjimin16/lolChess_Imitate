@@ -84,8 +84,8 @@ public class AIPlayer
             //Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
 
             // AI 플레이어의 챔피언 리스트에 추가
-            aiUserData.NonBattleChampionObject.Add(newChampionObject);
-            
+            //aiUserData.NonBattleChampionObject.Add(newChampionObject);
+            Manager.Champion.SettingNonBattleChampion(aiUserData);
         }
         else
         {
@@ -227,8 +227,9 @@ public class AIPlayer
             emptyTile.championOnTile.Add(champion);
 
             // AI 플레이어의 리스트 업데이트
-            aiUserData.NonBattleChampionObject.Remove(champion);
-            aiUserData.BattleChampionObject.Add(champion);
+            //aiUserData.NonBattleChampionObject.Remove(champion);
+            //aiUserData.BattleChampionObject.Add(champion);
+            Manager.Champion.SettingBattleChampion(aiUserData);
         }
         else
         {

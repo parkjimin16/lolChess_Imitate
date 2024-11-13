@@ -281,8 +281,7 @@ public class User : MonoBehaviour
             // 타일 상태 업데이트
             hitTile.isItemTile = true;
             hitTile.itemOnTile = _movableObj;
-
-
+            
         }
         else
         {
