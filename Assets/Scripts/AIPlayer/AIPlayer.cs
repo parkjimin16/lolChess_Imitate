@@ -266,4 +266,100 @@ public class AIPlayer
     }
     #endregion
 
+    #region 챔피언 슬롯 리롤 로직
+    private void ReRollChampions(Player aiPlayer)
+    {
+        // 챔피언 슬롯 리롤 비용: 2골드
+        int rerollCost = 2;
+
+        if (aiUserData.UserGold >= rerollCost)
+        {
+            // 골드 소모
+            aiUserData.UserGold -= rerollCost;
+            //UIManager.Instance.UpdateUserGoldUI(aiUserData); // UI 업데이트 (필요 시)
+
+            // 현재 챔피언 슬롯 비우기
+            foreach (var champion in aiUserData.BattleChampionObject)
+            {
+                HexTile currentTile = champion.transform.parent.GetComponent<HexTile>();
+                if (currentTile != null)
+                {
+                    currentTile.championOnTile.Remove(champion);
+                    // 챔피언을 벤치로 이동
+                    aiUserData.NonBattleChampionObject.Add(champion);
+                    champion.transform.SetParent(null);
+                }
+            }
+            aiUserData.BattleChampionObject.Clear();
+
+            // 새로운 챔피언 리스트 생성
+            List<string> newShopChampionList = GetRandomChampions(aiUserData.UserLevel);
+
+            // 새로운 챔피언들을 슬롯에 배치
+            foreach (var championName in newShopChampionList)
+            {
+                ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(championName) as ChampionBlueprint;
+                BuyChampions(aiPlayer); // 새로운 챔피언 구매 및 배치
+            }
+
+            Debug.Log($"AI {aiUserData.UserName}가 2 골드를 사용하여 챔피언 슬롯을 리롤했습니다. 남은 골드: {aiUserData.UserGold}");
+        }
+        else
+        {
+            Debug.Log($"AI {aiUserData.UserName}에게는 챔피언 슬롯을 리롤할 충분한 골드가 없습니다.");
+        }
+    }
+    #endregion
+
+    #region 경험치 구매 로직
+    private void BuyExperience(Player aiPlayer)
+    {
+        // 경험치 구매 비용: 4골드당 4 EXP
+        int experienceCost = 4;
+        int experienceAmount = 4;
+
+        if (aiUserData.UserGold >= experienceCost)
+        {
+            // 골드 소모
+            aiUserData.UserGold -= experienceCost;
+            //UIManager.Instance.UpdateUserGoldUI(aiUserData); // UI 업데이트 (필요 시)
+
+            // 경험치 추가
+            Manager.Level.AddExperience(aiUserData, experienceAmount);
+            // 또는 LevelManager.Instance.AddExperience(aiUserData, experienceAmount);
+
+            Debug.Log($"AI {aiUserData.UserName}가 {experienceCost} 골드를 사용하여 {experienceAmount} EXP를 구매했습니다. 남은 골드: {aiUserData.UserGold}");
+        }
+        else
+        {
+            Debug.Log($"AI {aiUserData.UserName}에게는 경험치를 구매할 충분한 골드가 없습니다.");
+        }
+    }
+    #endregion
+
+    #region AI 행동 우선순위 및 조건 설정
+    /*private bool ShouldBuyExperience()
+    {
+        // 다음 레벨로의 경험치가 일정 이하일 때 구매
+        int nextLevelExp = Manager.Level.GetNextLevelExp(aiUserData);
+        return aiUserData.UserExp + 4 >= nextLevelExp; // 4 EXP를 추가할 때 레벨업이 될 경우
+    }*/
+
+    private bool ShouldReRollChampions()
+    {
+        // 현재 보유한 시너지의 개수가 원하는 수준보다 낮을 때
+        int currentSynergyCount = GetCurrentSynergyCount();
+        return currentSynergyCount < desiredSynergyThreshold && aiUserData.UserGold >= 2;
+    }
+
+    private int GetCurrentSynergyCount()
+    {
+        // 현재 AI의 챔피언 슬롯에 있는 시너지의 개수를 반환
+        // 예시로 단순히 현재 시너지 수를 반환하도록 구현
+        return aiUserData.ChampionSynergies_Line.Count + aiUserData.ChampionSynergies_Job.Count;
+    }
+
+    private int desiredSynergyThreshold = 3; // 원하는 시너지 수 설정
+    #endregion
+
 }

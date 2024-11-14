@@ -14,6 +14,9 @@ public class BattleManager
         if (battleCoroutines.ContainsKey(player1))
             return;
 
+        SaveOriginalChampions(player1);
+        SaveOriginalChampions(player2);
+
         Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, player2));
         battleCoroutines.Add(player1, battleCoroutine);
         battleCoroutines.Add(player2, battleCoroutine);
@@ -112,13 +115,18 @@ public class BattleManager
         Player playerComponent1 = player1.GetComponent<Player>();
         Player playerComponent2 = player2.GetComponent<Player>();
 
-
         playerComponent1.SetBattleStageIndex(playerComponent1.UserData.UserId);
         playerComponent2.SetBattleStageIndex(playerComponent1.UserData.UserId);
 
         // 플레이어2를 플레이어1의 맵으로 이동시킵니다.
         Transform player1MapTransform = playerComponent1.UserData.MapInfo.mapTransform;
         Vector3 opponentPlayerPosition = player1MapTransform.position + new Vector3(13.5f, 0.8f, 5f);
+
+        if(playerComponent2.UserData.PlayerType == PlayerType.Player1)
+        {
+            Debug.Log("왜안돼");
+            CameraManager.Instance.MoveCameraToPlayer(playerComponent1);
+        }
 
         player2.transform.position = opponentPlayerPosition;
 
@@ -138,6 +146,28 @@ public class BattleManager
     #endregion
 
     #region 챔피언 이동 로직
+    private void SaveOriginalChampions(GameObject player)
+    {
+        Player playerComponent = player.GetComponent<Player>();
+        UserData userData = playerComponent.UserData;
+
+        foreach (GameObject champion in userData.BattleChampionObject)
+        {
+            if (!userData.ChampionOriginState.ContainsKey(champion))
+            {
+                ChampionOriginalState originalState = new ChampionOriginalState
+                {
+                    originalPosition = champion.transform.position,
+                    originalParent = champion.transform.parent,
+                    originalTile = champion.GetComponentInParent<HexTile>(),
+                    wasActive = champion.activeSelf
+                };
+
+                userData.ChampionOriginState[champion] = originalState;
+            }
+        }
+    }
+
     private void MoveOpponentChampionsToPlayerMap(GameObject player1, GameObject player2)
     {
         Player playerComponent1 = player1.GetComponent<Player>();
@@ -153,84 +183,84 @@ public class BattleManager
         }
 
         // 상대 플레이어의 유닛 리스트를 가져옵니다.
-        List<GameObject> opponentUnits = playerComponent2.UserData.BattleChampionObject;
+        List<GameObject> opponentChampions = playerComponent2.UserData.BattleChampionObject;
 
-        foreach (GameObject opponentUnit in opponentUnits)
+        foreach (GameObject opponentChampion in opponentChampions)
         {
             // 유닛의 원래 상태를 저장합니다.
             ChampionOriginalState originalState = new ChampionOriginalState
             {
-                originalPosition = opponentUnit.transform.position,
-                originalParent = opponentUnit.transform.parent,
-                originalTile = opponentUnit.GetComponentInParent<HexTile>(),
-                wasActive = opponentUnit.activeSelf
+                originalPosition = opponentChampion.transform.position,
+                originalParent = opponentChampion.transform.parent,
+                originalTile = opponentChampion.GetComponentInParent<HexTile>(),
+                wasActive = opponentChampion.activeSelf
             };
 
 
             // UserData에 저장
-            playerComponent2.UserData.ChampionOriginState[opponentUnit] = originalState;
+            playerComponent2.UserData.ChampionOriginState[opponentChampion] = originalState;
 
             // 좌표 반전하여 현재 플레이어의 맵에서 대응되는 타일을 찾습니다.
-            HexTile opponentTile = opponentUnit.GetComponentInParent<HexTile>();
+            HexTile opponentTile = opponentChampion.GetComponentInParent<HexTile>();
             HexTile mirroredTile = GetMirroredTile(opponentTile, playerMapInfo1);
 
             if (mirroredTile != null)
             {
-                opponentTile.championOnTile.Remove(opponentUnit);
+                opponentTile.championOnTile.Remove(opponentChampion);
 
                 // 유닛을 이동시킵니다.
-                opponentUnit.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
-                opponentUnit.transform.SetParent(mirroredTile.transform);
+                opponentChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
+                opponentChampion.transform.SetParent(mirroredTile.transform);
 
                 // 타일 정보 업데이트
-                mirroredTile.championOnTile.Add(opponentUnit);
+                mirroredTile.championOnTile.Add(opponentChampion);
             }
 
             // 유닛이 비활성화되어 있다면 활성화
-            if (!opponentUnit.activeSelf)
+            if (!opponentChampion.activeSelf)
             {
-                opponentUnit.SetActive(true);
+                opponentChampion.SetActive(true);
             }
         }
 
-        List<GameObject> opponentNonBattleUnits = playerComponent2.UserData.NonBattleChampionObject;
+        List<GameObject> opponentNonBattleChampions = playerComponent2.UserData.NonBattleChampionObject;
 
-        foreach (GameObject opponentUnit in opponentNonBattleUnits)
+        foreach (GameObject opponentChampion in opponentNonBattleChampions)
         {
             // 유닛의 원래 상태를 저장합니다.
             ChampionOriginalState originalState = new ChampionOriginalState
             {
-                originalPosition = opponentUnit.transform.position,
-                originalParent = opponentUnit.transform.parent,
-                originalTile = opponentUnit.GetComponentInParent<HexTile>(),
-                wasActive = opponentUnit.activeSelf
+                originalPosition = opponentChampion.transform.position,
+                originalParent = opponentChampion.transform.parent,
+                originalTile = opponentChampion.GetComponentInParent<HexTile>(),
+                wasActive = opponentChampion.activeSelf
             };
 
             // UserData에 저장
-            playerComponent2.UserData.ChampionOriginState[opponentUnit] = originalState;
+            playerComponent2.UserData.ChampionOriginState[opponentChampion] = originalState;
 
             // 유닛이 위치한 타일 가져오기
-            HexTile opponentTile = opponentUnit.GetComponentInParent<HexTile>();
+            HexTile opponentTile = opponentChampion.GetComponentInParent<HexTile>();
             HexTile mirroredTile = GetMirroredRectTile(opponentTile, playerMapInfo1);
 
             // 현재 플레이어의 맵에서 반전된 좌표에 해당하는 타일을 찾습니다.
             if (mirroredTile != null)
             {
                 // 상대 타일에서 유닛 제거
-                opponentTile.championOnTile.Remove(opponentUnit);
+                opponentTile.championOnTile.Remove(opponentChampion);
 
                 // 유닛을 이동시킵니다.
-                opponentUnit.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
-                opponentUnit.transform.SetParent(mirroredTile.transform);
+                opponentChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
+                opponentChampion.transform.SetParent(mirroredTile.transform);
 
                 // 타일 정보 업데이트
-                mirroredTile.championOnTile.Add(opponentUnit);
+                mirroredTile.championOnTile.Add(opponentChampion);
             }
 
             // 유닛이 비활성화되어 있다면 활성화
-            if (!opponentUnit.activeSelf)
+            if (!opponentChampion.activeSelf)
             {
-                opponentUnit.SetActive(true);
+                opponentChampion.SetActive(true);
             }
         }
 
@@ -282,33 +312,33 @@ public class BattleManager
 
         foreach (var kvp in opponentData.ChampionOriginState)
         {
-            GameObject unit = kvp.Key;
+            GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;
 
             // 유닛이 사망하여 비활성화된 경우 활성화
-            if (!unit.activeSelf && originalState.wasActive)
+            if (!champion.activeSelf && originalState.wasActive)
             {
-                unit.SetActive(true);
+                champion.SetActive(true);
             }
 
             // 현재 타일에서 유닛 제거
-            HexTile currentTile = unit.GetComponentInParent<HexTile>();
+            HexTile currentTile = champion.GetComponentInParent<HexTile>();
 
             if (currentTile != null)
             {
-                currentTile.championOnTile.Remove(unit);
+                currentTile.championOnTile.Remove(champion);
             }
 
             // 원래 타일로 복귀
-            unit.transform.position = originalState.originalPosition;
-            unit.transform.SetParent(originalState.originalParent);
+            champion.transform.position = originalState.originalPosition;
+            champion.transform.SetParent(originalState.originalParent);
 
             // 타일 정보 업데이트
             currentTile = originalState.originalTile;
 
             if (originalState.originalTile != null)
             {
-                originalState.originalTile.championOnTile.Add(unit);
+                originalState.originalTile.championOnTile.Add(champion);
             }
         }
 

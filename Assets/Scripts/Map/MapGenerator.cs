@@ -672,7 +672,7 @@ public class MapGenerator : MonoBehaviour
             player.transform.position = position;
 
             // 플레이어의 부모를 공동 선택 맵으로 설정하여 위치를 맞춥니다.
-            player.transform.SetParent(parent);
+            //player.transform.SetParent(parent);
 
             // 필요에 따라 플레이어의 회전을 조정합니다.
             player.transform.LookAt(parent.position);

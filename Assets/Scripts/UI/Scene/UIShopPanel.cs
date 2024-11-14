@@ -72,7 +72,47 @@ public class UIShopPanel : UIBase
 
     private void UpdateChampionSlot(PointerEventData enterEvent)
     {
-        shopChampionList = Manager.Champion.GetRandomChampions(Level);
+        UserData user = Manager.User.GetHumanUserData();
+
+        // 골드가 2 이상인지 확인
+        if (user.UserGold >= 2)
+        {
+            // 골드 2 소모
+            user.UserGold -= 2;
+
+            // UI 업데이트 (골드 표시)
+            //UIManager.Instance.UpdateUserGoldUI(user);
+
+            // 챔피언 슬롯 업데이트
+            shopChampionList = Manager.Champion.GetRandomChampions(user.UserLevel);
+
+            int idx = 0;
+
+            foreach (var championName in shopChampionList)
+            {
+                // 슬롯 인덱스가 범위를 초과하지 않도록 확인
+                if (idx >= championSlotList.Count)
+                    break;
+
+                ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(championName) as ChampionBlueprint;
+                ChampionSlot championSlotScript = championSlotList[idx].GetComponent<ChampionSlot>();
+                Button btn = championSlotList[idx].GetComponent<Button>();
+
+                // 슬롯 초기화
+                btn.interactable = true;
+                championSlotScript.ChampionSlotInit(championBlueprint, Utilities.SetSlotColor(championBlueprint.ChampionCost));
+                idx++;
+            }
+
+            Debug.Log($"{user.UserName}님이 2 골드를 사용하여 챔피언 슬롯을 업데이트했습니다.");
+        }
+        else
+        {
+            // 골드 부족 시 메시지 출력
+            Debug.Log($"{user.UserName}님에게는 2 골드가 부족합니다.");
+        }
+
+        /*shopChampionList = Manager.Champion.GetRandomChampions(Level);
 
         int idx = 0;
 
@@ -85,16 +125,40 @@ public class UIShopPanel : UIBase
             btn.interactable = true;
             championSlotSciprt.ChampionSlotInit(championBlueprint, Utilities.SetSlotColor(championBlueprint.ChampionCost));
             idx++;
-        }
+        }*/
     }
 
     private void UpdateExpBtn(PointerEventData enterEvent)
     {
-        Debug.Log("경험치 증가");
+        /*Debug.Log("경험치 증가");
         Level++;
         if(Level >= 10)
         {
             Level = 10;
+        }*/
+        // 유저 데이터 가져오기 (예: 첫 번째 유저)
+        UserData user = Manager.User.GetHumanUserData();
+
+        // 골드가 4 이상인지 확인
+        if (user.UserGold >= 4)
+        {
+            // 골드 4 소모
+            user.UserGold -= 4;
+
+            // 경험치 4 추가
+            Manager.Level.AddExperience(user, 4);
+            //LevelManager.Instance.AddExperience(user, 4);
+
+            // UI 업데이트 (골드 및 경험치)
+            //UIManager.Instance.UpdateUserGoldUI(user);
+            //UIManager.Instance.UpdateUserExpUI(user);
+
+            Debug.Log($"{user.UserName}님이 4 골드를 사용하여 4 EXP를 얻었습니다.");
+        }
+        else
+        {
+            Debug.Log($"{user.UserName}님에게는 충분한 골드가 없습니다.");
+            // 필요 시, UI에 부족하다는 메시지를 표시할 수 있습니다.
         }
     }
     

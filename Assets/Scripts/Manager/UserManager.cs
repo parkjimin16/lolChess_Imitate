@@ -299,6 +299,7 @@ public class UserData
         userName = _userName;
         userId = _userId;
         userLevel = 1;
+        userExp = 0;
         totalItemBlueprint.Clear();
         synergies_Line.Clear();
         
