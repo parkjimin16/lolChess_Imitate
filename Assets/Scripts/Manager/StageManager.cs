@@ -269,9 +269,6 @@ public class StageManager
             matchups.Add((lastPlayer, randomPlayer));
         }
 
-
-
-
         AllPlayerStartBattle();
     }
 
@@ -360,6 +357,7 @@ public class StageManager
         // 모든 전투가 종료되었는지 확인
         if (AllBattlesFinished())
         {
+            DistributeGoldToPlayers();
             // 라운드 증가 및 다음 라운드 진행
             ProceedToNextRound();
         }
@@ -830,7 +828,7 @@ public class StageManager
                 CoroutineHelper.StopCoroutine(roundCoroutine);
             roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
-
+        DistributeGoldToPlayers();
     }
 
     #endregion
@@ -1067,6 +1065,72 @@ public class StageManager
                 // Debug.Log("챔피언이 null입니다.");
             }
         }
+    }
+    #endregion
+
+    #region 골드 분배 로직
+    public void DistributeGoldToPlayers()
+    {
+        foreach (GameObject playerObj in AllPlayers)
+        {
+            Player playerComponent = playerObj.GetComponent<Player>();
+            UserData userData = playerComponent.UserData;
+
+            int baseGold = GetBaseGold(currentStage, currentRound);
+            int interestGold = GetInterestGold(userData.UserGold);
+            int streakGold = GetStreakGold(userData);
+
+            int totalGold = baseGold + interestGold + streakGold;
+
+            // 플레이어의 골드 업데이트
+            userData.UserGold += totalGold;
+
+            // 필요하다면 골드 지급 내용을 로그로 출력
+            Debug.Log($"{userData.UserName} 님에게 총 {totalGold} 골드가 지급되었습니다. (기본: {baseGold}, 이자: {interestGold}, 연승/연패 보너스: {streakGold})");
+        }
+    }
+
+    int GetBaseGold(int stage, int round)
+    {
+        // 2-1 라운드까지는 3골드, 2-2 라운드부터는 5골드 지급
+        if (stage == 2 && round >= 2)
+            return 5;
+        else if (stage > 2)
+            return 5;
+        else
+            return 3;
+    }
+
+    int GetInterestGold(int currentGold)
+    {
+        if (currentGold >= 50)
+            return 5;
+        else if (currentGold >= 40)
+            return 4;
+        else if (currentGold >= 30)
+            return 3;
+        else if (currentGold >= 20)
+            return 2;
+        else if (currentGold >= 10)
+            return 1;
+        else
+            return 0;
+    }
+
+    int GetStreakGold(UserData userData)
+    {
+        int winStreak = userData.UserSuccessiveWin;
+        int loseStreak = userData.UserSuccessiveLose;
+        int streakCount = Mathf.Max(winStreak, loseStreak);
+
+        if (streakCount >= 6)
+            return 3;
+        else if (streakCount == 5)
+            return 2;
+        else if (streakCount >= 4)
+            return 1;
+        else
+            return 0;
     }
     #endregion
 }

@@ -53,10 +53,12 @@ public class BattleManager
         RestoreOpponentChampions(player2);
         RestoreOpponentItems(player2);
 
+        SuccessiveWinLose(player1, player2, player1Won);
+
         // StageManager에 전투 종료를 알림
         Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} 승리" : $"{player2.GetComponent<Player>().UserData.UserName} 승리");
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
-
+        //Manager.Stage.DistributeGoldToPlayers();
         MergeScene.BatteStart = false;
     }
 
@@ -68,6 +70,41 @@ public class BattleManager
         MoveOpponentItemsToPlayerMap(player1, player2);
     }
 
+    private void SuccessiveWinLose(GameObject player1, GameObject player2, bool player1Won)
+    {
+        Player playerComponent1 = player1.GetComponent<Player>();
+        Player playerComponent2 = player2.GetComponent<Player>();
+        if (player1Won)
+        {
+            // 플레이어1 승리
+            if (playerComponent1.UserData.UserSuccessiveWin > 0)
+                playerComponent1.UserData.UserSuccessiveWin++;
+            else
+                playerComponent1.UserData.UserSuccessiveWin = 1;
+            playerComponent1.UserData.UserSuccessiveLose = 0;
+
+            if (playerComponent2.UserData.UserSuccessiveLose > 0)
+                playerComponent2.UserData.UserSuccessiveLose++;
+            else
+                playerComponent2.UserData.UserSuccessiveLose = 1;
+            playerComponent2.UserData.UserSuccessiveWin = 0;
+        }
+        else
+        {
+            // 플레이어2 승리
+            if (playerComponent2.UserData.UserSuccessiveWin > 0)
+                playerComponent2.UserData.UserSuccessiveWin++;
+            else
+                playerComponent2.UserData.UserSuccessiveWin = 1;
+            playerComponent2.UserData.UserSuccessiveLose = 0;
+
+            if (playerComponent1.UserData.UserSuccessiveLose > 0)
+                playerComponent1.UserData.UserSuccessiveLose++;
+            else
+                playerComponent1.UserData.UserSuccessiveLose = 1;
+            playerComponent1.UserData.UserSuccessiveWin = 0;
+        }
+    }
 
     #region 플레이어 이동로직
     private void MoveOpponentPlayerToPlayerMap(GameObject player1, GameObject player2)
