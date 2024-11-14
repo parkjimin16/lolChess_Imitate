@@ -7,14 +7,13 @@ namespace ChampionOwnedStates
     {
         public IdleState(ChampionBase championBase) : base(championBase) { }
 
-
         public override void Enter(ChampionBase champion)
         {
- 
+            // 초기화
         }
         public override void Execute(ChampionBase champion)
         {
-            // 라운드 실행 X
+     
         }
         public override void Exit(ChampionBase champion)
         {
@@ -32,7 +31,10 @@ namespace ChampionOwnedStates
         }
         public override void Execute(ChampionBase champion)
         {
-
+            if (!MergeScene.BatteStart)
+            {
+                championBase.ChampionStateController.ChangeState(ChampionState.Idle, championBase);
+            }
         }
         public override void Exit(ChampionBase champion)
         {
@@ -49,7 +51,10 @@ namespace ChampionOwnedStates
         }
         public override void Execute(ChampionBase champion)
         {
-
+            if (!MergeScene.BatteStart)
+            {
+                championBase.ChampionStateController.ChangeState(ChampionState.Idle, championBase);
+            }
         }
         public override void Exit(ChampionBase champion)
         {

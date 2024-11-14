@@ -931,20 +931,6 @@ public class StageManager
         HexTile startTile = FindNearestTile(champion1, cBase1.BattleStageIndex);
         HexTile targetTile = FindNearestTile(champion2, cBase2.BattleStageIndex);
 
-        
-        Debug.Log($"StartTile : {startTile.name} , 챔피언 이름 : {champion1.name}");
-        Debug.Log($"TargetTile : {targetTile.name} , 챔피언 이름 : {champion2.name}");
-
-        /*
-        if (!startTile.championOnTile.Contains(champion1) || !targetTile.championOnTile.Contains(champion2))
-        {
-            Debug.LogWarning($"StartTile : {startTile.name} , 챔피언 이름 : {champion1.name}");
-            Debug.LogWarning($"TargetTile : {targetTile.name} , 챔피언 이름 : {champion2.name}");
-            Debug.LogWarning("챔피언이 타일에 없습니다.");
-            return path;
-        }
-        */
-
         // A* 알고리즘을 위한 우선순위 큐 및 거리 정보 초기화
         PriorityQueue<HexTile> priorityQueue = new PriorityQueue<HexTile>();
         Dictionary<HexTile, HexTile> cameFrom = new Dictionary<HexTile, HexTile>();
