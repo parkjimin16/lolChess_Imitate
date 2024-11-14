@@ -380,6 +380,7 @@ public class StageManager
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionAttackController.EnemyPlayer = null;
         }
+        CameraManager.Instance.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
     }
 
 
@@ -580,7 +581,7 @@ public class StageManager
             if (playerMove != null)
             {
                 // 부모를 다시 설정 (최상위 또는 원래 부모로)
-                playerObj.transform.SetParent(null);
+                //playerObj.transform.SetParent(null);
 
                 // 원래 위치로 복귀
                 playerMove.ReturnToOriginalPosition();
@@ -829,6 +830,7 @@ public class StageManager
             roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
         DistributeGoldToPlayers();
+        DistributeExp();
     }
 
     #endregion
@@ -1068,6 +1070,18 @@ public class StageManager
     }
     #endregion
 
+    #region
+    public void DistributeExp()
+    {
+        foreach (GameObject playerObj in AllPlayers)
+        {
+            Player playerComponent = playerObj.GetComponent<Player>();
+            UserData userData = playerComponent.UserData;
+            Manager.Level.AddExperience(userData, 2);
+        }
+    }
+    #endregion
+
     #region 골드 분배 로직
     public void DistributeGoldToPlayers()
     {
@@ -1084,6 +1098,7 @@ public class StageManager
 
             // 플레이어의 골드 업데이트
             userData.UserGold += totalGold;
+            
 
             // 필요하다면 골드 지급 내용을 로그로 출력
             Debug.Log($"{userData.UserName} 님에게 총 {totalGold} 골드가 지급되었습니다. (기본: {baseGold}, 이자: {interestGold}, 연승/연패 보너스: {streakGold})");

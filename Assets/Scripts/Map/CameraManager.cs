@@ -36,6 +36,7 @@ public class CameraManager : MonoBehaviour
 
     public void MoveCameraToPlayer(Player playerData)
     {
+        Debug.Log("카메라 이동");
         // 해당 플레이어의 맵 정보를 찾음
         MapInfo targetMap = mapGenerator.mapInfos.Find(mapInfo => mapInfo.playerData == playerData);
 
