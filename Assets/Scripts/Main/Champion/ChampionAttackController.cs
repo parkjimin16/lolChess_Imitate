@@ -104,8 +104,6 @@ public class ChampionAttackController : MonoBehaviour
 
         path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
-        HexTile prevTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
-        //StartCoroutine(MoveOneStepAlongPath(prevTile));
         StartCoroutine(StartMoveAndCheck());
     }
 
@@ -114,32 +112,56 @@ public class ChampionAttackController : MonoBehaviour
 
     #region 이동 로직
 
-
     private IEnumerator StartMoveAndCheck()
     {
+        if (targetChampion == null)
+            yield break;
+
         ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-        while (targetChampion != null && path.Count > 0 && !tcBase.ChampionHpMpController.IsDie() && MergeScene.BatteStart)
+        if (tcBase.ChampionHpMpController.IsDie())
         {
-            HexTile prevTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
-            yield return StartCoroutine(MoveOneStepAlongPath(prevTile));
-
-
-            // 만약 공격 범위 내에 있다면
-            if (CanAttack(targetChampion))
-            {
-                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                path.Clear();
-                yield break;
-            }
-
-
-            // 이동 후 최단 경로 다시 계산
-            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+            SetTargetEnemy();
+            yield break;
         }
+
+        if (CanAttack(targetChampion))
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+            yield break;
+        }
+
+        while (targetChampion != null && path.Count > 1 && MergeScene.BatteStart)
+        {
+            HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+            yield return StartCoroutine(MoveOneStepAlongPath(curTile));
+
+            HexTile nextTile = path[0];
+            Debug.Log($"NextTile : {nextTile.name}");
+
+
+            // 다음 길에 챔피언이 있으면 새로운 경로
+            if(nextTile.championOnTile.Count > 0)
+            {
+                path.Clear();
+                path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+            }
+            else if(nextTile.championOnTile.Contains(targetChampion) || CanAttack(targetChampion))
+            {
+                if(CanAttack(targetChampion))
+                {
+                    cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                    yield break;
+                }
+            }
+        }
+
+        if (!MergeScene.BatteStart)
+            yield break;
     }
 
-    private IEnumerator MoveOneStepAlongPath(HexTile prevTile)
+   
+    private IEnumerator MoveOneStepAlongPath(HexTile curTile)
     {
         if (path == null || path.Count == 0)
             yield break;
@@ -147,15 +169,17 @@ public class ChampionAttackController : MonoBehaviour
         HexTile nextTile = path[0];
 
         Vector3 targetPosition = nextTile.transform.position;
+
+        curTile.championOnTile.Remove(gameObject);
+        nextTile.championOnTile.Add(gameObject);
+        gameObject.transform.SetParent(nextTile.transform);
+
+
         yield return StartCoroutine(MoveTo(targetPosition));
 
         float stoppingDistance = 0.1f; 
         if (Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
         {
-            prevTile.championOnTile.Remove(gameObject);
-            nextTile.championOnTile.Add(gameObject);
-            gameObject.transform.SetParent(nextTile.transform);
-
             path.RemoveAt(0);
         }
     }
@@ -185,7 +209,11 @@ public class ChampionAttackController : MonoBehaviour
 
     public void AttackLogicStop()
     {
-        attackCoroutine = null;
+        if(attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
     }
 
     private IEnumerator AttackRoutine()
@@ -195,16 +223,18 @@ public class ChampionAttackController : MonoBehaviour
 
         attackLogic = true;
 
-        if (CanAttack(targetChampion))
-        {
-            Debug.Log("사거리 내에 없습니다.");
-            attackLogic = false;
-            SetTargetEnemy();
-            yield break;
-        }
+        ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
+
+
 
         while (targetChampion != null)
         {
+            if (tcBase.ChampionHpMpController.IsDie())
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                yield break;
+            }
+
             Vector3 directionToTarget = (targetChampion.transform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
 
@@ -221,7 +251,7 @@ public class ChampionAttackController : MonoBehaviour
             {
                 CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
-            else if(!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
+            else if (!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
             {
                 CreateNormalAttack(targetChampion);
                 cBase.ChampionHpMpController.NormalAttackMana();

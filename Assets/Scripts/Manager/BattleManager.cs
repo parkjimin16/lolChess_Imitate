@@ -46,6 +46,8 @@ public class BattleManager
             battleCoroutines.Remove(player2);
         }
 
+        RestoreOpponentChampions(player1);
+
         // 상대 챔피언, 아이템을 원래 위치로 복귀
         RestoreOpponentPlayer(player2);
         RestoreOpponentChampions(player2);
