@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class MergeScene : MonoBehaviour
 {
+    /// <summary>
+    /// 게임 시작 변수
+    /// </summary>
     public static bool GameStart;
+
+    /// <summary>
+    /// 전투 시작 변수
+    /// </summary>
+    public static bool BatteStart;
+
+
 
     [SerializeField] private UISceneMain mainScene;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
@@ -26,6 +36,7 @@ public class MergeScene : MonoBehaviour
                 symbolDataBlueprint = Manager.Asset.GetBlueprint("SymbolDataBlueprint") as SymbolDataBlueprint;
                 augmenterBlueprint = Manager.Asset.GetBlueprint("AugmenterBlueprint") as AugmenterBlueprint;
                 GameStart = true;
+                BatteStart = false;
 
                 Manager.Game.InitGameManager();
                 Manager.User.Init();
@@ -52,7 +63,7 @@ public class MergeScene : MonoBehaviour
         {
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
             AugmenterData aData = augmenterBlueprint.GetAugmentByName("삼총사");
-            Manager.Augmenter.SetAugmenter(Manager.User.User1_Data, aData);
+            Manager.Augmenter.SetAugmenter(Manager.User.GetHumanUserData(), aData);
         }
         else if(Input.GetKeyDown(KeyCode.X)) 
         {
@@ -70,18 +81,19 @@ public class MergeScene : MonoBehaviour
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
-            cBase.SetChampion(cBlueprint);
+            Player player = Manager.Game.PlayerListObject[0].GetComponent<Player>();
+            cBase.SetChampion(cBlueprint, player);
             cBase.InitChampion(cFrame);
         }
         else if(Input.GetKeyDown(KeyCode.N)) //전투 시작 
         {
-            Manager.Synerge.ApplySynergy(Manager.User.User1_Data);
+            Manager.Synerge.ApplySynergy(Manager.User.GetHumanUserData());
         }
         else if(Input.GetKeyDown(KeyCode.M)) // 전투 종료
         {
-            Manager.Synerge.UnApplySynergy(Manager.User.User1_Data);
+            Manager.Synerge.UnApplySynergy(Manager.User.GetHumanUserData());
 
-            foreach(var champion in Manager.User.User1_Data.BattleChampionObject)
+            foreach(var champion in Manager.User.GetHumanUserData().BattleChampionObject)
             {
                 ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
@@ -93,14 +105,14 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.J)) // 증강 시작
         {
-            Manager.Augmenter.ApplyFirstAugmenter(Manager.User.User1_Data);
-            Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.User1_Data);
+            Manager.Augmenter.ApplyFirstAugmenter(Manager.User.GetHumanUserData());
+            Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.GetHumanUserData());
         }
         else if (Input.GetKeyDown(KeyCode.K)) // 증강 종료
         {
-            Manager.Augmenter.ApplyEndRoundAugmenter(Manager.User.User1_Data);
+            Manager.Augmenter.ApplyEndRoundAugmenter(Manager.User.GetHumanUserData());
 
-            foreach(var obj in Manager.User.User1_Data.TotalChampionObject)
+            foreach(var obj in Manager.User.GetHumanUserData().TotalChampionObject)
             {
                 ChampionBase cBase = obj.GetComponent<ChampionBase>();
                 cBase.ResetChampionStats();
@@ -108,7 +120,7 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.L)) // 증강 원할때
         {
-            Manager.Augmenter.ApplyWheneverAugmenter(Manager.User.User1_Data);
+            Manager.Augmenter.ApplyWheneverAugmenter(Manager.User.GetHumanUserData());
 
         }
     }

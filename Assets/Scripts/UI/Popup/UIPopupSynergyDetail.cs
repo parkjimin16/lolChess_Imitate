@@ -109,7 +109,7 @@ public class UIPopupSynergyDetail : UIPopup
 
             if (slot != null)
             {
-                UserData user = Manager.User.User1_Data;
+                UserData user = Manager.User.GetHumanUserData();
                 Color outlineColor = Utilities.SetSlotColor(champion.ChampionCost);
                 List<string> name = GetChampionDetails(champion);
                 Color championColor = Color.black;
@@ -157,7 +157,7 @@ public class UIPopupSynergyDetail : UIPopup
 
             if (slot != null)
             {
-                UserData user = Manager.User.User1_Data;
+                UserData user = Manager.User.GetHumanUserData();
                 Color outlineColor = Utilities.SetSlotColor(champion.ChampionCost);
                 List<string> name = GetChampionDetails(champion);
                 Color championColor = Color.black;
@@ -188,7 +188,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Line(ChampionLineData lineData)
     {
-        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetUserData(), lineData.ChampionLineName);
+        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetHumanUserData(), lineData.ChampionLineName);
 
         string synergyDetailText = "";
 
@@ -213,7 +213,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Job(ChampionJobData jobData)
     {
-        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetUserData(), jobData.ChampionJobName);
+        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetHumanUserData(), jobData.ChampionJobName);
 
         string synergyDetailText = "";
 

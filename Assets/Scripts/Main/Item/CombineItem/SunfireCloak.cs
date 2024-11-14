@@ -21,7 +21,7 @@ public class SunfireCloak : BaseItem
         if (isCoroutineRunning || EquipChampion == null)
             return;
 
-        List<GameObject> target = Manager.Stage.GetChampionsWithinOneTile(EquipChampion);
+        List<GameObject> target = Manager.Stage.GetChampionsWithinOneTile(EquipChampion, Player.UserData);
         List<ChampionBase> targetChampionBase = new List<ChampionBase>();
 
         foreach(var obj in target)

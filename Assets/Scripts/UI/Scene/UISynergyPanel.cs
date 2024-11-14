@@ -22,7 +22,7 @@ public class UISynergyPanel : UIBase
     public void UpdateSynergy()
     {
         synergyData.Clear();
-        synergyData = Manager.Synerge.GetSortedChampionSynergiesWithCount(Manager.User.GetUserData());
+        synergyData = Manager.Synerge.GetSortedChampionSynergiesWithCount(Manager.User.GetHumanUserData());
         int totalSynergies = synergyData.Count;
 
         synergySlots.ForEach(slot => slot.SetActive(true));
@@ -62,7 +62,7 @@ public class UISynergyPanel : UIBase
             synergySlots[i].SetActive(false);
         }
 
-        Manager.Synerge.UpdateSynergies(Manager.User.User1_Data);
+        Manager.Synerge.UpdateSynergies(Manager.User.GetHumanUserData());
     }
 
     private int CalculateActiveLevels(string synergyName, int synergyCount)

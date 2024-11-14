@@ -118,7 +118,7 @@ public class WitchcraftSynergy : SynergyBase
                                   float magicDamagePercent = 0, float additionalWitchDamage = 0,
                                   bool applyFrogTransformation = false, float amplifyEffects = 0)
     {
-        List<GameObject> enemies = Manager.User.User1_Data.BattleChampionObject;
+        List<GameObject> enemies = Manager.User.GetHumanUserData().BattleChampionObject;
 
         foreach (var enemy in enemies)
         {

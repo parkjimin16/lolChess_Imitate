@@ -69,7 +69,6 @@ public class MapGenerator : MonoBehaviour
         CreatUserMap();
         AdjustCamera();
         PositionMinimapCamera();
-
     }
 
     void CalculateTileSize()

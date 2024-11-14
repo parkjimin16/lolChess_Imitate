@@ -67,7 +67,7 @@ public class UIShopPanel : UIBase
             return;
 
         button.interactable = false;
-        Manager.Champion.InstantiateChampion(Manager.User.User1_Data, cBlueprint, hextile, tileTransform);
+        Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
     }
 
     private void UpdateChampionSlot(PointerEventData enterEvent)

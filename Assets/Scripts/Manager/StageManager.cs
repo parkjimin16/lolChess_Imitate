@@ -35,6 +35,8 @@ public class StageManager
     private List<AIPlayer> aiPlayers = new List<AIPlayer>(); // AIPlayer 인스턴스 리스트
     private GameDataBlueprint gameDataBlueprint;
 
+    private MapInfo battleMap;
+
     #region Init
 
     public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData)
@@ -298,6 +300,48 @@ public class StageManager
     #endregion
 
     #region 전투 스테이지 로직
+    private void StartAllBattles()
+    {
+        ongoingBattles = 0; // 전투 시작 전에 초기화
+
+        foreach (var matchup in matchups)
+        {
+            GameObject player1 = matchup.Item1;
+            GameObject player2 = matchup.Item2;
+
+            // 각 플레이어의 전투를 시작
+            Manager.Battle.StartBattle(player1, player2, roundDuration);
+
+            // 진행 중인 전투 수 증가
+            ongoingBattles++;
+            //Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
+            Debug.Log($"전투 시작: {player1.name} vs {player2.name} , 진행 중인 전투 수: {ongoingBattles}");
+
+            Player p1 = player1.GetComponent<Player>();
+            Player p2 = player2.GetComponent<Player>();
+
+            foreach(var champion in p1.UserData.BattleChampionObject)
+            {
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+                cBase.ChampionAttackController.EnemyPlayer = p2;
+                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+            }
+
+            foreach (var champion in p2.UserData.BattleChampionObject)
+            {
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+                cBase.ChampionAttackController.EnemyPlayer = p1;
+                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+
+            }
+
+
+            MergeScene.BatteStart = true;
+        }
+    }
+
     public void OnBattleEnd(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
     {
         // 패배한 플레이어 결정
@@ -319,26 +363,28 @@ public class StageManager
             // 라운드 증가 및 다음 라운드 진행
             ProceedToNextRound();
         }
-    }
 
-    private void StartAllBattles()
-    {
-        ongoingBattles = 0; // 전투 시작 전에 초기화
+        Player p1 = player1.GetComponent<Player>();
+        Player p2 = player2.GetComponent<Player>();
 
-        foreach (var matchup in matchups)
+        foreach (var champion in p1.UserData.BattleChampionObject)
         {
-            GameObject player1 = matchup.Item1;
-            GameObject player2 = matchup.Item2;
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
-            // 각 플레이어의 전투를 시작
-            Manager.Battle.StartBattle(player1, player2, roundDuration);
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            cBase.ChampionAttackController.EnemyPlayer = null;
+        }
 
-            // 진행 중인 전투 수 증가
-            ongoingBattles++;
-            //Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
-            Debug.Log($"전투 시작: {player1.name} vs {player2.name} , 진행 중인 전투 수: {ongoingBattles}");
+        foreach (var champion in p2.UserData.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            cBase.ChampionAttackController.EnemyPlayer = null;
         }
     }
+
+
     private bool AllBattlesFinished()
     {
         return ongoingBattles <= 0;
@@ -575,108 +621,6 @@ public class StageManager
     }
     #endregion
 
-    #region 한칸이내 챔피언 찾기
-    public List<GameObject> GetChampionsWithinOneTile(GameObject champion)
-    {
-        List<GameObject> champions = new List<GameObject>();
-
-        // 챔피언의 위치 가져오기
-        Vector3 championPosition = champion.transform.position;
-
-        // 가장 가까운 타일 찾기
-        HexTile nearestTile = null;
-        float minDistance = float.MaxValue;
-
-        foreach (HexTile tile in _mapGenerator.mapInfos[0].HexDictionary.Values)
-        {
-            float distance = Vector3.Distance(championPosition, tile.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearestTile = tile;
-            }
-        }
-
-        if (nearestTile == null)
-        {
-            //Debug.LogWarning("근처에 타일이 없습니다.");
-            return champions;
-        }
-
-        int q = nearestTile.q;
-        int r = nearestTile.r;
-
-        // 짝수 행인지 여부 판단
-        bool isEvenRow = (r % 2) == 0;
-        (int dq, int dr)[] directions;
-
-        if (isEvenRow)
-        {
-            // 짝수 행의 방향
-            directions = new (int, int)[]
-            {
-            (1, 0),    // 동쪽
-            (1, -1),   // 남동쪽
-            (0, -1),   // 남서쪽
-            (-1, 0),   // 서쪽
-            (0, 1),    // 북서쪽
-            (1, 1)     // 북동쪽
-            };
-        }
-        else
-        {
-            // 홀수 행의 방향
-            directions = new (int, int)[]
-            {
-            (1, 0),    // 동쪽
-            (0, -1),   // 남동쪽
-            (-1, -1),  // 남서쪽
-            (-1, 0),   // 서쪽
-            (-1, 1),   // 북서쪽
-            (0, 1)     // 북동쪽
-            };
-        }
-
-        foreach (var dir in directions)
-        {
-            int neighborQ = q + dir.dq;
-            int neighborR = r + dir.dr;
-
-            // 인접 타일이 존재하는지 확인
-            if (_mapGenerator.mapInfos[0].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
-            {
-                if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
-                {
-                    champions.Add(neighborTile.itemOnTile);
-                }
-            }
-        }
-
-        return champions;
-    }
-    public void DebugChampionList(List<GameObject> champions)
-    {
-        if (champions == null || champions.Count == 0)
-        {
-            //   Debug.Log("주변에 챔피언이 없습니다.");
-            return;
-        }
-
-        // Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
-        foreach (var champion in champions)
-        {
-            if (champion != null)
-            {
-                //  Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
-            }
-            else
-            {
-                // Debug.Log("챔피언이 null입니다.");
-            }
-        }
-    }
-    #endregion
-
     #region 플레이어 맵 정보 받아오기
     private MapInfo GetPlayerMapInfo(Player playerComponent)
     {
@@ -896,7 +840,246 @@ public class StageManager
     {
         foreach (AIPlayer aiPlayer in aiPlayers)
         {
-            aiPlayer.PerformActions();
+            aiPlayer.PerformActions(aiPlayer.AiPlayerComponent);
+        }
+    }
+    #endregion
+
+    #region 그리드 로직
+    public List<GameObject> GetChampionsWithinOneTile(GameObject champion, UserData user)
+    {
+        List<GameObject> champions = new List<GameObject>();
+
+        Vector3 championPosition = champion.transform.position;
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+        HexTile nearestTile = null;
+        float minDistance = float.MaxValue;
+
+        foreach (HexTile tile in _mapGenerator.mapInfos[cBase.BattleStageIndex].HexDictionary.Values)
+        {
+            float distance = Vector3.Distance(championPosition, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        if (nearestTile == null)
+        {
+            return champions;
+        }
+
+        int q = nearestTile.q;
+        int r = nearestTile.r;
+
+        // 짝수 행
+        bool isEvenRow = (r % 2) == 0;
+        (int dq, int dr)[] directions;
+
+        if (isEvenRow)
+        {
+            // 짝수 행의 방향
+            directions = new (int, int)[]
+            {
+            (1, 0),    // 동쪽
+            (1, -1),   // 남동쪽
+            (0, -1),   // 남서쪽
+            (-1, 0),   // 서쪽
+            (0, 1),    // 북서쪽
+            (1, 1)     // 북동쪽
+            };
+        }
+        else
+        {
+            // 홀수 행의 방향
+            directions = new (int, int)[]
+            {
+            (1, 0),    // 동쪽
+            (0, -1),   // 남동쪽
+            (-1, -1),  // 남서쪽
+            (-1, 0),   // 서쪽
+            (-1, 1),   // 북서쪽
+            (0, 1)     // 북동쪽
+            };
+        }
+
+        foreach (var dir in directions)
+        {
+            int neighborQ = q + dir.dq;
+            int neighborR = r + dir.dr;
+
+            // 인접 타일이 존재하는지 확인
+            if (_mapGenerator.mapInfos[cBase.BattleStageIndex].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            {
+                if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
+                {
+                    champions.Add(neighborTile.itemOnTile);
+                }
+            }
+        }
+
+        return champions;
+    }
+
+    public List<HexTile> FindShortestPath(GameObject champion1, GameObject champion2)
+    {
+        List<HexTile> path = new List<HexTile>();
+
+        ChampionBase cBase1 = champion1.GetComponent<ChampionBase>();
+        ChampionBase cBase2 = champion2.GetComponent<ChampionBase>();
+
+        HexTile startTile = FindNearestTile(champion1, cBase1.BattleStageIndex);
+        HexTile targetTile = FindNearestTile(champion2, cBase2.BattleStageIndex);
+
+        
+        Debug.Log($"StartTile : {startTile.name} , 챔피언 이름 : {champion1.name}");
+        Debug.Log($"TargetTile : {targetTile.name} , 챔피언 이름 : {champion2.name}");
+
+        /*
+        if (!startTile.championOnTile.Contains(champion1) || !targetTile.championOnTile.Contains(champion2))
+        {
+            Debug.LogWarning($"StartTile : {startTile.name} , 챔피언 이름 : {champion1.name}");
+            Debug.LogWarning($"TargetTile : {targetTile.name} , 챔피언 이름 : {champion2.name}");
+            Debug.LogWarning("챔피언이 타일에 없습니다.");
+            return path;
+        }
+        */
+
+        // A* 알고리즘을 위한 우선순위 큐 및 거리 정보 초기화
+        PriorityQueue<HexTile> priorityQueue = new PriorityQueue<HexTile>();
+        Dictionary<HexTile, HexTile> cameFrom = new Dictionary<HexTile, HexTile>();
+        Dictionary<HexTile, float> costSoFar = new Dictionary<HexTile, float>();
+
+        priorityQueue.Enqueue(startTile, 0);
+        cameFrom[startTile] = null;
+        costSoFar[startTile] = 0;
+
+        while (priorityQueue.Count > 0)
+        {
+            HexTile currentTile = priorityQueue.Dequeue();
+
+            // 목표 타일에 도달한 경우 경로 추적
+            if (currentTile == targetTile)
+            {
+                while (currentTile != startTile)
+                {
+                    path.Add(currentTile);
+                    currentTile = cameFrom[currentTile];
+                }
+                path.Reverse();
+                return path;
+            }
+
+            // 인접 타일 검사
+            foreach (HexTile neighbor in GetNeighbors(currentTile, cBase1.BattleStageIndex))
+            {
+                float newCost = costSoFar[currentTile] + 1; // 기본 이동 비용은 1로 설정
+
+                if ((!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor]) &&
+                    (neighbor.championOnTile.Count == 0 || neighbor == targetTile))
+                {
+                    costSoFar[neighbor] = newCost;
+                    float priority = newCost + Vector3.Distance(neighbor.transform.position, targetTile.transform.position);
+                    priorityQueue.Enqueue(neighbor, priority);
+                    cameFrom[neighbor] = currentTile;
+                }
+            }
+        }
+
+        return path;
+    }
+
+    // 이웃 타일
+    private List<HexTile> GetNeighbors(HexTile tile, int index)
+    {
+        List<HexTile> neighbors = new List<HexTile>();
+        int q = tile.q;
+        int r = tile.r;
+
+        // 짝수, 홀수
+        bool isEvenRow = (r % 2) == 0;
+        (int dq, int dr)[] directions = isEvenRow
+            ? new (int, int)[] { (1, 0), (1, -1), (0, -1), (-1, 0), (0, 1), (1, 1) }
+            : new (int, int)[] { (1, 0), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1) };
+
+        foreach (var (dq, dr) in directions)
+        {
+            int neighborQ = q + dq;
+            int neighborR = r + dr;
+            if (_mapGenerator.mapInfos[index].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
+            {
+                neighbors.Add(neighborTile);
+            }
+        }
+
+        return neighbors;
+    }
+
+    // 챔피언 가장 가까운 타일
+    public HexTile FindNearestTile(GameObject champion, int index)
+    {
+        Vector3 championPosition = champion.transform.position;
+        HexTile nearestTile = null;
+        float minDistance = float.MaxValue;
+
+        foreach (HexTile tile in _mapGenerator.mapInfos[index].HexDictionary.Values)
+        {
+            float distance = Vector3.Distance(championPosition, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        return nearestTile;
+    }
+
+
+    public void SetNearestTile(GameObject champion)
+    {
+        Vector3 championPosition = champion.transform.position;
+        HexTile nearestTile = null;
+        float minDistance = float.MaxValue;
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+        foreach (HexTile tile in _mapGenerator.mapInfos[cBase.BattleStageIndex].HexDictionary.Values)
+        {
+            float distance = Vector3.Distance(championPosition, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        if(!nearestTile.championOnTile.Contains(champion))
+        {
+            nearestTile.championOnTile.Add(champion);
+        }
+    }
+
+    public void DebugChampionList(List<GameObject> champions)
+    {
+        if (champions == null || champions.Count == 0)
+        {
+            //   Debug.Log("주변에 챔피언이 없습니다.");
+            return;
+        }
+
+        // Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
+        foreach (var champion in champions)
+        {
+            if (champion != null)
+            {
+                //  Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
+            }
+            else
+            {
+                // Debug.Log("챔피언이 null입니다.");
+            }
         }
     }
     #endregion

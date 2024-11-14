@@ -6,10 +6,6 @@ using static ItemAttribute;
 
 public class UserManager
 {
-    public UserData User1_Data;
-    
-
-
     private List<UserData> userDatas; 
 
     public List<UserData> UserDatas => userDatas;
@@ -46,9 +42,6 @@ public class UserManager
             player.InitPlayer(user);
             userDatas.Add(user);
         }
-
-        User1_Data = new UserData();
-        User1_Data.InitUserData(10, "¹ÚÅÂ¿µ", 0);
     }
 
     public bool CheckChamipon(UserData user, string championName)
@@ -63,9 +56,9 @@ public class UserManager
         });
     }
 
-    public UserData GetUserData()
+    public UserData GetHumanUserData()
     {
-        return User1_Data;
+        return userDatas[0];
     }
 
     public void ClearSynergy(UserData user)
@@ -83,9 +76,11 @@ public class UserManager
             user.SugarCraftPosition = user.MapInfo.SugarcraftPosition;
             user.PortalPosition = user.MapInfo.PortalPosition;
         }
-        User1_Data.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == User1_Data.UserId);
-        User1_Data.SugarCraftPosition = User1_Data.MapInfo.SugarcraftPosition;
-        User1_Data.PortalPosition = User1_Data.MapInfo.PortalPosition;
+
+        UserData hUser = GetHumanUserData();
+        hUser.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == hUser.UserId);
+        hUser.SugarCraftPosition = hUser.MapInfo.SugarcraftPosition;
+        hUser.PortalPosition = hUser.MapInfo.PortalPosition;
 
     }
 }

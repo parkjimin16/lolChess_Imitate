@@ -89,7 +89,8 @@ public class TestScene : UIBase
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
-            cBase.SetChampion(cBlueprint);
+            Player player = Manager.Game.PlayerListObject[0].GetComponent<Player>();
+            cBase.SetChampion(cBlueprint, player);
             cBase.InitChampion(cFrame);
 
             currentChampionIndex++;

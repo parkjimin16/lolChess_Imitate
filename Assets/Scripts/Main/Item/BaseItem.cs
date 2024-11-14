@@ -16,6 +16,8 @@ public class BaseItem : MonoBehaviour
     [SerializeField] private GameObject equipChampion;
     [SerializeField] private ChampionBase equipChampionBase;
 
+    [SerializeField] private Player player;
+
 
     #endregion
 
@@ -31,6 +33,8 @@ public class BaseItem : MonoBehaviour
     public GameObject EquipChampion => equipChampion;
     public ChampionBase EquipChampionBase => equipChampionBase;
 
+    public Player Player => player;
+
     #endregion
 
     public void Initialize(ItemBlueprint blueprint)
@@ -43,9 +47,10 @@ public class BaseItem : MonoBehaviour
         itemAttributes = blueprint.Attribute;
     }
 
-    public void EquipChampionSetting(GameObject champion)
+    public void EquipChampionSetting(GameObject champion, Player player)
     {
         equipChampion = champion;
+        this.player = player;
 
         equipChampionBase = champion.GetComponent<ChampionBase>();
     }

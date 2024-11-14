@@ -359,9 +359,9 @@ public class User : MonoBehaviour
             _isReturning = true;
         }
 
-        Manager.User.ClearSynergy(Manager.User.User1_Data);
-        Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
-        Manager.Champion.SettingBattleChampion(Manager.User.User1_Data);
+        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
 
         if (uiMain == null)
             return;

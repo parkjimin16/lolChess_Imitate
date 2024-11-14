@@ -27,11 +27,12 @@ namespace ChampionOwnedStates
 
         public override void Enter(ChampionBase champion)
         {
-
+            // 전투 시작
+            champion.ChampionAttackController.FindPathToTarget();
         }
         public override void Execute(ChampionBase champion)
         {
-            // 전투 시작
+
         }
         public override void Exit(ChampionBase champion)
         {
@@ -44,18 +45,15 @@ namespace ChampionOwnedStates
 
         public override void Enter(ChampionBase champion)
         {
-
+            champion.ChampionAttackController.AttackLogic();
         }
         public override void Execute(ChampionBase champion)
         {
-            if (champion.ChampionAttackController.IsAttack)
-            {
-                champion.ChampionAttackController.AttackLogic();
-            }
+
         }
         public override void Exit(ChampionBase champion)
         {
-
+            champion.ChampionAttackController.AttackLogicStop();
         }
     }
 

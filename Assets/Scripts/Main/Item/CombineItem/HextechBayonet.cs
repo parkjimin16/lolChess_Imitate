@@ -33,7 +33,7 @@ public class HextechBayonet : BaseItem
     {
         int max = 100000000;
 
-        UserData user = Manager.User.User1_Data;
+        UserData user = Manager.User.GetHumanUserData();
 
         foreach(GameObject champion in user.BattleChampionObject)
         {

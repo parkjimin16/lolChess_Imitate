@@ -33,7 +33,7 @@ public class UserHpManager
 
         if(healthBars.Count == Manager.Game.PlayerListObject.Length)
         {
-            Debug.Log("Same");
+
         }
         else
         {

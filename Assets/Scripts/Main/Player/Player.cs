@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Player enemyUser;
 
 
+    [SerializeField] private int battleStageIndex;
+
+
     public PlayerData PlayerData
     {
         get { return playerData; }
@@ -28,6 +31,12 @@ public class Player : MonoBehaviour
         get { return enemyUser; }
         set { enemyUser = value; }
     }
+
+    public int BattleStageIndex
+    {
+        get { return battleStageIndex; }
+        set { battleStageIndex = value; }
+    }
    
 
     public void InitPlayer(UserData user)
@@ -44,6 +53,18 @@ public class Player : MonoBehaviour
     public void SetBattleUser()
     {
         enemyUser = Manager.Stage.GetOpponentData(this.gameObject);
+    }
+
+    public void SetBattleStageIndex(int index)
+    {
+        battleStageIndex = index;
+
+        foreach(var champion in userData.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            cBase.BattleStageIndex = index;
+        }
     }
 
 

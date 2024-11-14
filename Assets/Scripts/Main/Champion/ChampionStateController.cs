@@ -24,30 +24,41 @@ public class ChampionStateController : MonoBehaviour
         switch (curState)
         {
             case ChampionState.Idle:
-                if (MergeScene.GameStart)
-                {
-                    ChangeState(ChampionState.Move, cBase);
-                }
+                Debug.Log("Idle State");
+
                 break;
 
             case ChampionState.Move:
+                if (!MergeScene.BatteStart)
+                {
+                    Debug.Log("배틀 종료");
+                    return;
+                }
+
+                Debug.Log("Move State");
+
+
                 if (cBase.ChampionAttackController.IsAttack)
                 {
+                    Debug.Log("Move To Attack");
                     ChangeState(ChampionState.Attack, cBase);
                 }
 
                 break;
 
             case ChampionState.Attack:
-                if (!cBase.ChampionAttackController.IsAttack)
+                if (!MergeScene.BatteStart)
                 {
-                    ChangeState(ChampionState.Move, cBase);
+                    Debug.Log("배틀 종료");
+                    return;
                 }
 
+                Debug.Log("Attack State");
 
-                if(!MergeScene.GameStart) 
+                if (!cBase.ChampionAttackController.IsAttack)
                 {
-                    ChangeState(ChampionState.Idle, cBase);
+                    //Debug.Log("Attack To Move");
+                    //ChangeState(ChampionState.Move, cBase);
                 }
                 break;
         }

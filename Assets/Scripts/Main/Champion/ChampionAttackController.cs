@@ -6,6 +6,12 @@ public class ChampionAttackController : MonoBehaviour
 {
     #region 변수 & 프로퍼티
     private ChampionBase cBase;
+
+    // State : Move
+    private IEnumerator findCoroutine;
+    private IEnumerator moveCoroutine;
+
+    // State : Attack
     private IEnumerator attackCoroutine;
 
     [SerializeField] private GameObject targetChampion;
@@ -16,8 +22,15 @@ public class ChampionAttackController : MonoBehaviour
     private float attack_Speed;
     private float attack_Range;
 
-    public float attackRange;
+    public float realAttackRange;
+    public Player EnemyPlayer;
 
+
+
+
+
+
+    [SerializeField] List<HexTile> path = new List<HexTile>();
 
     public bool IsAttack; // 전체 체크 용
 
@@ -28,29 +41,14 @@ public class ChampionAttackController : MonoBehaviour
         return isUseSkill;
     }
 
-    
+    public bool CanAttack(GameObject target)
+    {
+        if(target == null) return false;
+
+        return Vector3.Distance(gameObject.transform.position, target.transform.position) <= realAttackRange;
+    }
 
     public GameObject TargetChampion => targetChampion;
-
-    #endregion
-
-    #region Unity Flow
-    private void Update()
-    {
-        if (!Manager.Game.IsBattle)
-            return;
-
-
-        
-        if(FindTargetInRange() == null)
-        {
-            IsAttack = false;
-        }
-        else if(FindTargetInRange() != null)
-        {
-            IsAttack = true;
-        }        
-    }
 
     #endregion
 
@@ -61,11 +59,117 @@ public class ChampionAttackController : MonoBehaviour
         attack_Speed = _atk_Speed;
         attack_Range = _atk_Range;
 
+        realAttackRange = cBase.Attack_Range * 2.75f;
+
         IsAttack = false;
         attackLogic = false;
         isUseSkill = false;
+
     }
 
+    #endregion
+
+    #region 탐색 로직
+
+    public void FindPathToTarget()
+    {
+        SetTargetEnemy();
+    }
+
+    private void SetTargetEnemy()
+    {
+        if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count == 0)
+            return;
+
+        GameObject closestChampion = null;
+        float minDistance = float.MaxValue;
+
+        Vector3 currentPosition = transform.position;
+
+        foreach (var champion in EnemyPlayer.UserData.BattleChampionObject)
+        {
+            if (champion == null)
+                continue;
+
+            float distance = Vector3.Distance(currentPosition, champion.transform.position);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestChampion = champion;
+            }
+        }
+        targetChampion = closestChampion;
+        Manager.Stage.SetNearestTile(gameObject);
+
+        path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+
+        HexTile prevTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+        //StartCoroutine(MoveOneStepAlongPath(prevTile));
+        StartCoroutine(StartMoveAndCheck());
+    }
+
+
+    #endregion
+
+    #region 이동 로직
+
+
+    private IEnumerator StartMoveAndCheck()
+    {
+        ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
+
+        while (targetChampion != null && path.Count > 0 && !tcBase.ChampionHpMpController.IsDie() && MergeScene.BatteStart)
+        {
+            HexTile prevTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+            yield return StartCoroutine(MoveOneStepAlongPath(prevTile));
+
+
+            // 만약 공격 범위 내에 있다면
+            if (CanAttack(targetChampion))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                path.Clear();
+                yield break;
+            }
+
+
+            // 이동 후 최단 경로 다시 계산
+            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+        }
+    }
+
+    private IEnumerator MoveOneStepAlongPath(HexTile prevTile)
+    {
+        if (path == null || path.Count == 0)
+            yield break;
+
+        HexTile nextTile = path[0];
+
+        Vector3 targetPosition = nextTile.transform.position;
+        yield return StartCoroutine(MoveTo(targetPosition));
+
+        float stoppingDistance = 0.1f; 
+        if (Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
+        {
+            prevTile.championOnTile.Remove(gameObject);
+            nextTile.championOnTile.Add(gameObject);
+            gameObject.transform.SetParent(nextTile.transform);
+
+            path.RemoveAt(0);
+        }
+    }
+
+    private IEnumerator MoveTo(Vector3 targetPosition)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, cBase.Champion_Speed  * 5f * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = targetPosition;
+        
+    }
     #endregion
 
     #region 공격 로직
@@ -91,12 +195,11 @@ public class ChampionAttackController : MonoBehaviour
 
         attackLogic = true;
 
-        targetChampion = FindTargetInRange();
-
-        if (targetChampion == null)
+        if (CanAttack(targetChampion))
         {
             Debug.Log("사거리 내에 없습니다.");
             attackLogic = false;
+            SetTargetEnemy();
             yield break;
         }
 
@@ -124,34 +227,10 @@ public class ChampionAttackController : MonoBehaviour
                 cBase.ChampionHpMpController.NormalAttackMana();
             }
 
-
-
-
-            Debug.Log($"{cBase.ChampionName} : 공격 {cBase.Champion_Atk_Spd}");
-
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
-            //yield return new WaitForSeconds(0.5f);
-
-           
         }
 
         attackLogic = false;
-    }
-
-    private GameObject FindTargetInRange()
-    {
-        attackRange = cBase.Attack_Range * 2.75f;
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
-
-        foreach (Collider collider in hitColliders)
-        {
-            if (collider.CompareTag("Enemy"))
-            {
-                return collider.gameObject;
-            }
-        }
-
-        return null;
     }
 
     public void CreateNormalAttack(GameObject target)
@@ -208,4 +287,5 @@ public class ChampionAttackController : MonoBehaviour
         isUseSkill = false;
     }
     #endregion
+
 }

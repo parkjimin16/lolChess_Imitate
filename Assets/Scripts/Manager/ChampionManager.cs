@@ -101,7 +101,8 @@ public class ChampionManager
         ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
         ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
-        cBase.SetChampion(cBlueprint);
+        Player player = Manager.Game.PlayerListObject[user.UserId].GetComponent<Player>();
+        cBase.SetChampion(cBlueprint, player);
         cBase.InitChampion(cFrame);
 
         Manager.Champion.SettingNonBattleChampion(user);

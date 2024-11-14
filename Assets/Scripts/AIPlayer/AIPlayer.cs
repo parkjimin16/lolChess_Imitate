@@ -9,6 +9,9 @@ public class AIPlayer
     private UserData aiUserData;      // AI 플레이어의 UserData
     private GameDataBlueprint gameDataBlueprint;
 
+
+    public Player AiPlayerComponent => aiPlayerComponent;
+
     public void InitAIPlayer(Player player, GameDataBlueprint gameData)
     {
         aiPlayerComponent = player;
@@ -17,15 +20,15 @@ public class AIPlayer
     }
 
 
-    public void PerformActions()
+    public void PerformActions(Player aiPlayer)
     {
-        BuyChampions(); //챔피언 구매
+        BuyChampions(aiPlayer); //챔피언 구매
         // 필요에 따라 추가 행동 (레벨업, 리롤 등)
         DecideAndPlaceChampions(); // 챔피언 배치
     }
 
     #region 챔피언구매로직
-    private void BuyChampions()
+    private void BuyChampions(Player aiPlayer)
     {
         //int level = aiUserData.Level;
 
@@ -36,7 +39,7 @@ public class AIPlayer
         // 챔피언 블루프린트 가져오기
         ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
 
-        InstantiateAIChampion(championBlueprint);
+        InstantiateAIChampion(championBlueprint, aiPlayer);
 
         /* 골드 체크 후 구매
         int championCost = championBlueprint.ChampionCost;
@@ -49,7 +52,7 @@ public class AIPlayer
         }*/
     }
 
-    private void InstantiateAIChampion(ChampionBlueprint cBlueprint)
+    private void InstantiateAIChampion(ChampionBlueprint cBlueprint, Player aiPlayer)
     {
         // AI 플레이어의 맵 정보를 가져옵니다.
         MapGenerator.MapInfo aiMapInfo = aiUserData.MapInfo;
@@ -78,7 +81,7 @@ public class AIPlayer
             ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
             ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
 
-            cBase.SetChampion(cBlueprint);
+            cBase.SetChampion(cBlueprint, aiPlayer);
             cBase.InitChampion(cFrame);
 
             //Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);

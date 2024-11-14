@@ -12,6 +12,9 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private ChampionStateController championStateController;
     [SerializeField] private ChampionView championView;
     private ChampionFrame championFrame;
+    [SerializeField] private Player player;
+    [SerializeField] private int battleStageIndex;
+
 
     #region Fields
     // Champion Info
@@ -174,6 +177,14 @@ public class ChampionBase : MonoBehaviour
     public ChampionFrame ChampionFrame => championFrame;
     public List<ItemBlueprint> EquipItem => equipItem;
 
+    public Player Player => player;
+
+    public int BattleStageIndex
+    {
+        get { return battleStageIndex; }
+        set { battleStageIndex = value; }
+    }
+
     // Champion Info
     public string ChampionName => championName;
     public ChampionLine ChampionLine_First => line_First;
@@ -289,8 +300,10 @@ public class ChampionBase : MonoBehaviour
     /// <summary>
     /// blueprint로 UI 생성하고 클릭해서 구매하면 SetChampion 호출
     /// </summary>
-    public void SetChampion(ChampionBlueprint blueprint)
+    public void SetChampion(ChampionBlueprint blueprint, Player player)
     {
+        this.player = player;
+
         SetChampionLogic();
 
         blueprint.ChampionSet(blueprint.ChampionLevel);
@@ -597,7 +610,7 @@ public class ChampionBase : MonoBehaviour
         for (int i = 0; i < equipItem.Count; i++)
         {
             var item = equipItem[i];
-            item.BaseItem.EquipChampionSetting(this.gameObject);
+            item.BaseItem.EquipChampionSetting(this.gameObject, player);
             item.BaseItem.InitItemSkill();
         }
     }
