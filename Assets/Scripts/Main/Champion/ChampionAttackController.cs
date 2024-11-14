@@ -49,6 +49,11 @@ public class ChampionAttackController : MonoBehaviour
     }
 
     public GameObject TargetChampion => targetChampion;
+    public List<HexTile> Path
+    {
+        get { return path; }
+        set { path = value; }
+    }
 
     #endregion
 
@@ -67,6 +72,24 @@ public class ChampionAttackController : MonoBehaviour
 
     }
 
+    public void EndBattle()
+    {
+        StopAllCoroutines();
+
+        findCoroutine = null;
+        moveCoroutine = null;
+        attackCoroutine = null;
+
+        EnemyPlayer = null;
+        targetChampion = null;
+        attackLogic = false;
+
+        path.Clear();
+
+        cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+
+
+    }
     #endregion
 
     #region 탐색 로직
@@ -249,7 +272,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
             {
-                CoroutineHelper.StartCoroutine(UseSkillCoroutine());
+                Debug.Log("스킬 사용");
+                //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
             {

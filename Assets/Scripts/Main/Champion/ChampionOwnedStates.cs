@@ -31,10 +31,7 @@ namespace ChampionOwnedStates
         }
         public override void Execute(ChampionBase champion)
         {
-            if (!MergeScene.BatteStart)
-            {
-                championBase.ChampionStateController.ChangeState(ChampionState.Idle, championBase);
-            }
+
         }
         public override void Exit(ChampionBase champion)
         {
@@ -51,10 +48,7 @@ namespace ChampionOwnedStates
         }
         public override void Execute(ChampionBase champion)
         {
-            if (!MergeScene.BatteStart)
-            {
-                championBase.ChampionStateController.ChangeState(ChampionState.Idle, championBase);
-            }
+
         }
         public override void Exit(ChampionBase champion)
         {
