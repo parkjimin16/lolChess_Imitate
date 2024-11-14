@@ -35,7 +35,7 @@ public class UserManager
         for (int i = 0; i < obj.transform.childCount; i++)
         {
             UserData user = new UserData();
-            user.InitUserData(10, "박태영", i);
+            user.InitUserData(0, "박태영", i);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
 
@@ -93,6 +93,10 @@ public class UserData
     [SerializeField] private string userName;
     [SerializeField] private int userHealth;
     [SerializeField] private int userId;
+    [SerializeField] private int userLevel;
+    [SerializeField] private int userExp;
+    [SerializeField] private int successiveWin;
+    [SerializeField] private int successiveLose;
     [SerializeField] private List<GameObject> totalChampionObject;
     [SerializeField] private List<GameObject> battleChampionObject;
     [SerializeField] private List<GameObject> nonBattleChamiponObject;
@@ -118,12 +122,11 @@ public class UserData
 
     #region Property
 
-    public void SetGold(int gold)
+    public int UserGold
     {
-        this.gold = gold;
+        get { return gold; }
+        set { gold = value; }
     }
-
-    public int GetGold() { return gold; }
 
     public int UserHealth
     {
@@ -143,6 +146,29 @@ public class UserData
         set { userName = value; }
     }
 
+    public int UserLevel
+    {
+        get { return userLevel; }
+        set { userLevel = value; }
+    }
+
+    public int UserExp
+    {
+        get { return userExp; }
+        set { userExp = value; }
+    }
+
+    public int UserSuccessiveWin
+    {
+        get { return successiveWin; }
+        set { successiveWin = value; }
+    }
+
+    public int UserSuccessiveLose
+    {
+        get { return successiveLose; }
+        set { successiveLose = value; }
+    }
 
     public List<GameObject> TotalChampionObject
     {
@@ -272,6 +298,7 @@ public class UserData
         gold = _gold;
         userName = _userName;
         userId = _userId;
+        userLevel = 1;
         totalItemBlueprint.Clear();
         synergies_Line.Clear();
         
