@@ -104,7 +104,7 @@ public class AIPlayer
         int currentBattleChampions = aiUserData.BattleChampionObject.Count;
 
         // AI 플레이어의 레벨에 따른 최대 배치 가능 챔피언 수
-        int maxBattleChampions = 1; //aiUserData.Level; // 임시로 6레벨 줌
+        int maxBattleChampions = 3; //aiUserData.Level; // 임시로 6레벨 줌
 
         // 배치 가능한 슬롯 수 계산
         int availableSlots = maxBattleChampions - currentBattleChampions;

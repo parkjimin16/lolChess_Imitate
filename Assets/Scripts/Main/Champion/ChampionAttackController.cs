@@ -107,23 +107,7 @@ public class ChampionAttackController : MonoBehaviour
             return;
         }
 
-        int count = 0;
-
-        foreach (var champion in EnemyPlayer.UserData.BattleChampionObject)
-        {
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
-            if (cBase.ChampionHpMpController.IsDie())
-                count++;
-        }
-
-        if(count == EnemyPlayer.UserData.BattleChampionObject.Count)
-        {
-            Debug.Log($"{EnemyPlayer.name} : 배틀 챔피언 모두 사망");
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
-            return;
-        }
-
-
+        int aliveCount = 0;
         GameObject closestChampion = null;
         float minDistance = float.MaxValue;
 
@@ -134,24 +118,43 @@ public class ChampionAttackController : MonoBehaviour
             if (champion == null)
                 continue;
 
-            float distance = Vector3.Distance(currentPosition, champion.transform.position);
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            if (cBase.ChampionHpMpController.IsDie())
+                continue; // 사망한 챔피언 무시
 
+            aliveCount++;
+
+            // 거리 계산
+            float distance = Vector3.Distance(currentPosition, champion.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
                 closestChampion = champion;
             }
         }
+
+        if (aliveCount == 0)
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase); 
+            return;
+        }
+
         targetChampion = closestChampion;
+
+        if (targetChampion == null)
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            return;
+        }
+
         Manager.Stage.SetNearestTile(gameObject);
         curTile = Manager.Stage.GetParentTile(gameObject);
 
         path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
+        StopAllCoroutines(); 
         StartCoroutine(StartMoveAndCheck());
     }
-
-
     #endregion
 
     #region 이동 로직
