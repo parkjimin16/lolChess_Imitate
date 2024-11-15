@@ -8,7 +8,7 @@ public class AIPlayer
     private Player aiPlayerComponent; // AI 플레이어의 Player 컴포넌트
     private UserData aiUserData;      // AI 플레이어의 UserData
     private GameDataBlueprint gameDataBlueprint;
-
+    private List<string> shopChampionList;
 
     public Player AiPlayerComponent => aiPlayerComponent;
 
@@ -31,7 +31,7 @@ public class AIPlayer
     private void BuyChampions(Player aiPlayer)
     {
         // 챔피언 구매 로직
-        List<string> shopChampionList = GetRandomChampions(1);
+        shopChampionList = Manager.Champion.GetRandomChampions(1);//GetRandomChampions(1);
         string selectedChampionName = shopChampionList[Random.Range(0, shopChampionList.Count)];
         
         // 챔피언 블루프린트 가져오기
@@ -91,62 +91,6 @@ public class AIPlayer
             if (!tile.isOccupied)
             {
                 return tile;
-            }
-        }
-        return null;
-    }
-
-    // 챔피언 선택 로직 (기존 UIShopPanel에서 가져온 메서드 활용)
-    private List<string> GetRandomChampions(int level)
-    {
-        List<string> selectedChampions = new List<string>();
-
-        ChampionRandomData currentData = gameDataBlueprint.ChampionRandomDataList[level - 1];
-
-        for (int i = 0; i < 5; i++)
-        {
-            int costIndex = GetCostIndex(currentData.Probability);
-            ChampionData costChampionData = GetChampionDataByCost(costIndex + 1);
-            if (costChampionData != null && costChampionData.Names.Length > 0)
-            {
-                string selectedChampion = costChampionData.Names[Random.Range(0, costChampionData.Names.Length)];
-                selectedChampions.Add(selectedChampion);
-            }
-        }
-
-        return selectedChampions;
-    }
-
-    private int GetCostIndex(float[] probabilities)
-    {
-        float[] cumulativeProbabilities = new float[probabilities.Length];
-        cumulativeProbabilities[0] = probabilities[0];
-
-        for (int i = 1; i < probabilities.Length; i++)
-        {
-            cumulativeProbabilities[i] = cumulativeProbabilities[i - 1] + probabilities[i];
-        }
-
-        float randomValue = Random.Range(0f, 1f);
-
-        for (int i = 0; i < cumulativeProbabilities.Length; i++)
-        {
-            if (randomValue < cumulativeProbabilities[i])
-            {
-                return i;
-            }
-        }
-
-        return probabilities.Length - 1;
-    }
-
-    private ChampionData GetChampionDataByCost(int cost)
-    {
-        foreach (ChampionData data in gameDataBlueprint.ChampionDataList)
-        {
-            if (data.Cost == cost)
-            {
-                return data;
             }
         }
         return null;
@@ -265,29 +209,8 @@ public class AIPlayer
             aiUserData.UserGold -= rerollCost;
             //UIManager.Instance.UpdateUserGoldUI(aiUserData); // UI 업데이트 (필요 시)
 
-            // 현재 챔피언 슬롯 비우기
-            foreach (var champion in aiUserData.BattleChampionObject)
-            {
-                HexTile currentTile = champion.transform.parent.GetComponent<HexTile>();
-                if (currentTile != null)
-                {
-                    currentTile.championOnTile.Remove(champion);
-                    // 챔피언을 벤치로 이동
-                    aiUserData.NonBattleChampionObject.Add(champion);
-                    champion.transform.SetParent(null);
-                }
-            }
-            aiUserData.BattleChampionObject.Clear();
-
             // 새로운 챔피언 리스트 생성
-            List<string> newShopChampionList = GetRandomChampions(aiUserData.UserLevel);
-
-            // 새로운 챔피언들을 슬롯에 배치
-            foreach (var championName in newShopChampionList)
-            {
-                ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(championName) as ChampionBlueprint;
-                BuyChampions(aiPlayer); // 새로운 챔피언 구매 및 배치
-            }
+            shopChampionList = Manager.Champion.GetRandomChampions(aiUserData.UserLevel);//GetRandomChampions(aiUserData.UserLevel);
 
             Debug.Log($"AI {aiUserData.UserName}가 2 골드를 사용하여 챔피언 슬롯을 리롤했습니다. 남은 골드: {aiUserData.UserGold}");
         }

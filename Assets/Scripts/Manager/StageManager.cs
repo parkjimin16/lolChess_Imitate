@@ -25,7 +25,7 @@ public class StageManager
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 20; //일반 라운드 진행시간
-    private int cripDuration = 3;
+    private int cripDuration = 3; //크립 라운드 진행시간
 
 
     private bool isAugmentRound = false;
@@ -314,6 +314,7 @@ public class StageManager
             Manager.Battle.StartBattle(player1, player2, roundDuration);
 
             //Debug.Log($"{player1.GetComponent<Player>().UserData.UserName} : {player2.GetComponent<Player>().UserData.UserName}");
+
             // 진행 중인 전투 수 증가
             ongoingBattles++;
             Debug.Log(ongoingBattles);
@@ -336,9 +337,6 @@ public class StageManager
                 cBase.ChampionAttackController.EnemyPlayer = p1;
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             }
-
-
-
         }
     }
 
