@@ -51,7 +51,7 @@ public class ShelterSynergy : SynergyBase
             mana_Plus = 0.11f;
         }
 
-        Debug.Log($"[보호술사] 레벨 {level} 효과 적용");
+        //Debug.Log($"[보호술사] 레벨 {level} 효과 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -74,7 +74,7 @@ public class ShelterSynergy : SynergyBase
             recoveryCoroutine = null;
         }
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)

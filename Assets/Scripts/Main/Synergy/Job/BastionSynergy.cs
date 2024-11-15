@@ -53,7 +53,7 @@ public class BastionSynergy : SynergyBase
         }
 
 
-        Debug.Log($"[요새] 레벨 {level} 효과 적용");
+        //Debug.Log($"[요새] 레벨 {level} 효과 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -75,7 +75,7 @@ public class BastionSynergy : SynergyBase
             adDefCoroutine = null;
         }
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)

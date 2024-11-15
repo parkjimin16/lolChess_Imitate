@@ -311,8 +311,6 @@ public class StageManager
 
             // 진행 중인 전투 수 증가
             ongoingBattles++;
-            //Debug.Log($"전투 시작: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
-            Debug.Log($"전투 시작: {player1.name} vs {player2.name} , 진행 중인 전투 수: {ongoingBattles}");
 
             Player p1 = player1.GetComponent<Player>();
             Player p2 = player2.GetComponent<Player>();

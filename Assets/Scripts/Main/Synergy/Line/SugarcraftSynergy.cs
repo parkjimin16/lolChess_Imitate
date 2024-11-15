@@ -112,7 +112,7 @@ public class SugarcraftSynergy : SynergyBase
         attackPower = 0;
         spellPower = 0;
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)
@@ -136,7 +136,7 @@ public class SugarcraftSynergy : SynergyBase
 
         UpdateCakeStack();
         UpdateSynergyDataForChampion(user);
-        Debug.Log($"아이템 {totalItemCount}개로 설탕 {gainedSugar}개 획득. 총 설탕: {totalSugarCount}");
+        //Debug.Log($"아이템 {totalItemCount}개로 설탕 {gainedSugar}개 획득. 총 설탕: {totalSugarCount}");
     }
 
     private int CountAlliedCombinationItems(UserData user)
@@ -160,32 +160,26 @@ public class SugarcraftSynergy : SynergyBase
         if(totalSugarCount >= 1 && totalSugarCount < 600)
         {
             sugarCraftCake.SetCake(0);
-            Debug.Log("달콤술사 스택");
         }
         else if(totalSugarCount >= 600 && totalSugarCount < 975)
         {
             sugarCraftCake.SetCake(1);
-            Debug.Log("달콤술사 스택 1");
         }
         else if (totalSugarCount >= 975 && totalSugarCount < 1375)
         {
             sugarCraftCake.SetCake(2);
-            Debug.Log("달콤술사 스택 2");
         }
         else if (totalSugarCount >= 1375 && totalSugarCount < 1800)
         {
             sugarCraftCake.SetCake(3);
-            Debug.Log("달콤술사 스택 3");
         }
         else if (totalSugarCount >= 1800 && totalSugarCount < 2300)
         {
             sugarCraftCake.SetCake(4);
-            Debug.Log("달콤술사 스택 4");
         }
         else if (totalSugarCount >= 2300)
         {
             sugarCraftCake.SetCake(5);
-            Debug.Log("달콤술사 스택 5");
         }
 
         float additionalStats = 0.01f * totalSugarCount;

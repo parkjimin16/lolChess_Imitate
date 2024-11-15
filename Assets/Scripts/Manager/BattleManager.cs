@@ -14,6 +14,16 @@ public class BattleManager
         if (battleCoroutines.ContainsKey(player1))
             return;
 
+
+        Player p1 = player1.GetComponent<Player>();
+        Player p2 = player2.GetComponent<Player>();
+
+        Manager.Synerge.ApplySynergy(p1.UserData);
+        Manager.Synerge.ApplySynergy(p2.UserData);
+
+        Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
+        Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
+
         SaveOriginalChampions(player1);
         SaveOriginalChampions(player2);
 
@@ -49,10 +59,18 @@ public class BattleManager
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
 
-        foreach(var champ in p1.UserData.BattleChampionObject)
+        Manager.Synerge.UnApplySynergy(p1.UserData);
+        Manager.Synerge.UnApplySynergy(p2.UserData);
+
+        Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
+        Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);
+
+        foreach (var champ in p1.UserData.BattleChampionObject)
         {
             ChampionBase cBase = champ.GetComponent<ChampionBase>();
 
+            cBase.ChampionRotationReset();
+            cBase.ResetChampionStats();
             cBase.ChampionAttackController.EndBattle();
         }
 
@@ -60,6 +78,8 @@ public class BattleManager
         {
             ChampionBase cBase = champ.GetComponent<ChampionBase>();
 
+            cBase.ChampionRotationReset();
+            cBase.ResetChampionStats();
             cBase.ChampionAttackController.EndBattle();
         }
 
@@ -75,7 +95,6 @@ public class BattleManager
 
         Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} 승리" : $"{player2.GetComponent<Player>().UserData.UserName} 승리");
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
-        //Manager.Stage.DistributeGoldToPlayers();
         MergeScene.BatteStart = false;
     }
 
@@ -264,7 +283,7 @@ public class BattleManager
                 opponentTile.championOnTile.Remove(opponentChampion);
 
                 // 유닛을 이동시킵니다.
-                opponentChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
+                opponentChampion.transform.position = mirroredTile.transform.position;
                 opponentChampion.transform.SetParent(mirroredTile.transform);
 
                 // 타일 정보 업데이트
@@ -323,6 +342,11 @@ public class BattleManager
     {
         Player opponentComponent = opponent.GetComponent<Player>();
         UserData opponentData = opponentComponent.UserData;
+
+        foreach(var champ in opponentData.TotalChampionObject)
+        {
+            champ.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
         foreach (var kvp in opponentData.ChampionOriginState)
         {

@@ -87,8 +87,6 @@ public class ChampionAttackController : MonoBehaviour
         path.Clear();
 
         cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
-
-
     }
     #endregion
 
@@ -248,8 +246,6 @@ public class ChampionAttackController : MonoBehaviour
 
         ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-
-
         while (targetChampion != null)
         {
             if (tcBase.ChampionHpMpController.IsDie())
@@ -270,12 +266,12 @@ public class ChampionAttackController : MonoBehaviour
             cBase.UpdateStatWithItem(cBase.EquipItem);
 
 
-            if (cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
+            if (cBase.ChampionHpMpController.IsManaFull())
             {
                 Debug.Log("스킬 사용");
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
-            else if (!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
+            else if (!cBase.ChampionHpMpController.IsManaFull())
             {
                 CreateNormalAttack(targetChampion);
                 cBase.ChampionHpMpController.NormalAttackMana();

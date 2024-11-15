@@ -71,7 +71,7 @@ public class WitchcraftSynergy : SynergyBase
             amplifyEffects = 0.5f;
         }
 
-        Debug.Log($"[마녀] 레벨 {level} 저주 효과 적용");
+        //Debug.Log($"[마녀] 레벨 {level} 저주 효과 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -88,7 +88,7 @@ public class WitchcraftSynergy : SynergyBase
             cBase.UpdateChampmionStat();
         }
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)
@@ -129,9 +129,6 @@ public class WitchcraftSynergy : SynergyBase
                 if (healthReduction > 0)
                 {
                     cBase.ChampionHpMpController.TakeDamage(healthReduction);
-
-                    Debug.Log($"{cBase.ChampionName}의 체력이 {healthReduction}만큼 감소했습니다.");
-                    Debug.Log($"{cBase.ChampionName}의 현재 체력은 {cBase.Champion_CurHp} 입니다.");
                 }
 
                 // 4레벨: 최대 체력의 6%만큼 마법 피해
@@ -139,7 +136,6 @@ public class WitchcraftSynergy : SynergyBase
                 {
                     float damage = cBase.Synergy_MaxHP * magicDamagePercent;
                     cBase.ChampionHpMpController.TakeDamage(healthReduction);
-                    Debug.Log($"{cBase.name}에게 {damage}의 마법 피해를 입혔습니다.");
                 }
 
                 // 6레벨: 마녀로부터 25%의 추가 고정 피해
@@ -153,14 +149,12 @@ public class WitchcraftSynergy : SynergyBase
                 if (applyFrogTransformation)
                 {
                     //cBase.Stun(2f); // 2초간 기절
-                    Debug.Log($"{cBase.ChampionName}이(가) 기절했습니다.");
                 }
 
                 if (amplifyEffects > 0)
                 {
                     float amplifiedDamage = (healthReduction + (cBase.Synergy_MaxHP * magicDamagePercent)) * amplifyEffects;
                     cBase.ChampionHpMpController.TakeDamage(healthReduction);
-                    Debug.Log($"{cBase.ChampionName}에게 증폭된 {amplifiedDamage}의 피해를 입혔습니다.");
                 }
 
 

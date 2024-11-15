@@ -33,7 +33,7 @@ public class HungerSynergy : SynergyBase
             totalDamage = (100 - user.UserHealth) * 0.008f;
         }
 
-        Debug.Log($"[허기] 레벨 {level} 적용");
+        //Debug.Log($"[허기] 레벨 {level} 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -54,7 +54,7 @@ public class HungerSynergy : SynergyBase
         }
 
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)

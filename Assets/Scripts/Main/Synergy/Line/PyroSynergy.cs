@@ -61,7 +61,7 @@ public class PyroSynergy : SynergyBase
             atk_Power = 0.25f;
         }
 
-        Debug.Log($"[화염] 레벨 {level} 적용");
+        //Debug.Log($"[화염] 레벨 {level} 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -83,7 +83,7 @@ public class PyroSynergy : SynergyBase
         }
 
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)

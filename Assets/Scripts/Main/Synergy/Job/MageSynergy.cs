@@ -53,7 +53,7 @@ public class MageSynergy : SynergyBase
             ap_Power = 0;
         }
 
-        Debug.Log($"[마도사] 레벨 {level} 효과 적용");
+        //Debug.Log($"[마도사] 레벨 {level} 효과 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -83,7 +83,7 @@ public class MageSynergy : SynergyBase
             mageCoroutine = null;
         }
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)
@@ -152,8 +152,6 @@ public class MageSynergy : SynergyBase
                 curCount++;
                 ap_Power = curCount * ap_Power_Ratio;
                 cBase.Synergy_AP_Power += ap_Power;
-
-                Debug.Log($"AP_Power : {ap_Power}");
 
                 cBase.UpdateChampmionStat();
             }
