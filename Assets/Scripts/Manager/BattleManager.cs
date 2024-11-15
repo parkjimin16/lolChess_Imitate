@@ -34,10 +34,7 @@ public class BattleManager
 
     IEnumerator BattleCoroutine(int duration, GameObject player1, GameObject player2)
     {
-        Debug.Log($"{player1.GetComponent<Player>().UserData.UserName} : {player2.GetComponent<Player>().UserData.UserName}");
         yield return new WaitForSeconds(duration);
-
-
 
         // 예시로 랜덤하게 승패를 결정
         bool player1Won = Random.value > 0.5f;
@@ -96,7 +93,7 @@ public class BattleManager
 
         SuccessiveWinLose(player1, player2, player1Won);
 
-        Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} 승리" : $"{player2.GetComponent<Player>().UserData.UserName} 승리");
+        //Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} 승리" : $"{player2.GetComponent<Player>().UserData.UserName} 승리");
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         MergeScene.BatteStart = false;
     }
@@ -356,13 +353,11 @@ public class BattleManager
             GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;
 
-            // 유닛이 사망하여 비활성화된 경우 활성화
             if (!champion.activeSelf && originalState.wasActive)
             {
                 champion.SetActive(true);
             }
 
-            // 현재 타일에서 유닛 제거
             HexTile currentTile = champion.GetComponentInParent<HexTile>();
 
             if (currentTile != null)

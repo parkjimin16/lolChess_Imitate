@@ -310,13 +310,9 @@ public class StageManager
 
             GameObject player1 = matchup.Item1;
             GameObject player2 = matchup.Item2;
-            // 각 플레이어의 전투를 시작
-            Manager.Battle.StartBattle(player1, player2, roundDuration);
 
-            //Debug.Log($"{player1.GetComponent<Player>().UserData.UserName} : {player2.GetComponent<Player>().UserData.UserName}");
-            // 진행 중인 전투 수 증가
+            Manager.Battle.StartBattle(player1, player2, roundDuration);
             ongoingBattles++;
-            Debug.Log(ongoingBattles);
 
             Player p1 = player1.GetComponent<Player>();
             Player p2 = player2.GetComponent<Player>();
@@ -336,9 +332,6 @@ public class StageManager
                 cBase.ChampionAttackController.EnemyPlayer = p1;
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             }
-
-
-
         }
     }
 
@@ -1025,6 +1018,24 @@ public class StageManager
         return nearestTile;
     }
 
+    public HexTile GetParentTile(GameObject champion)
+    {
+        if (champion == null)
+        {
+            Debug.LogWarning("Champion object is null.");
+            return null;
+        }
+
+        // 챔피언의 부모 오브젝트에서 HexTile 컴포넌트를 가져옴
+        HexTile parentTile = champion.transform.parent?.GetComponent<HexTile>();
+
+        if (parentTile == null)
+        {
+            Debug.LogWarning("The parent of the champion does not have a HexTile component.");
+        }
+
+        return parentTile;
+    }
 
     public void SetNearestTile(GameObject champion)
     {
