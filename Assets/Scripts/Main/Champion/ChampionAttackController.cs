@@ -338,4 +338,11 @@ public class ChampionAttackController : MonoBehaviour
     }
     #endregion
 
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, realAttackRange);
+    }
 }

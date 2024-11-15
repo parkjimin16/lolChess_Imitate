@@ -329,7 +329,6 @@ public class StageManager
 
                 cBase.ChampionAttackController.EnemyPlayer = p1;
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
-
             }
 
 
@@ -350,8 +349,7 @@ public class StageManager
 
         // 진행 중인 전투 수 감소 (전투당 한 번만 감소)
         ongoingBattles--;
-        //Debug.Log($"전투 종료: {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 진행 중인 전투 수: {ongoingBattles}");
-
+        
         // 모든 전투가 종료되었는지 확인
         if (AllBattlesFinished())
         {
@@ -1068,7 +1066,7 @@ public class StageManager
     }
     #endregion
 
-    #region
+    #region 경험치
     public void DistributeExp()
     {
         foreach (GameObject playerObj in AllPlayers)
