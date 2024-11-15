@@ -17,7 +17,7 @@ public class LevelManager
         }
 
         user.UserExp += amount;
-        Debug.Log($"{user.UserName}님에게 {amount} EXP가 추가되었습니다. 현재 EXP: {user.UserExp}");
+        //Debug.Log($"{user.UserName}님에게 {amount} EXP가 추가되었습니다. 현재 EXP: {user.UserExp}");
 
         CheckLevelUp(user);
     }
@@ -33,7 +33,7 @@ public class LevelManager
     private void OnLevelUp(UserData user)
     {
         // 레벨업 시 수행할 작업을 여기에 추가하세요 (예: 스탯 증가, UI 업데이트 등)
-        Debug.Log($"{user.UserName}님이 레벨 {user.UserLevel}로 레벨업 했습니다!");
+        //Debug.Log($"{user.UserName}님이 레벨 {user.UserLevel}로 레벨업 했습니다!");
     }
     public bool IsMaxLevel(UserData user)
     {

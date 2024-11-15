@@ -303,16 +303,20 @@ public class StageManager
     {
         ongoingBattles = 0; // 전투 시작 전에 초기화
 
+        MergeScene.BatteStart = true;
+
         foreach (var matchup in matchups)
         {
+
             GameObject player1 = matchup.Item1;
             GameObject player2 = matchup.Item2;
-
             // 각 플레이어의 전투를 시작
             Manager.Battle.StartBattle(player1, player2, roundDuration);
 
+            //Debug.Log($"{player1.GetComponent<Player>().UserData.UserName} : {player2.GetComponent<Player>().UserData.UserName}");
             // 진행 중인 전투 수 증가
             ongoingBattles++;
+            Debug.Log(ongoingBattles);
 
             Player p1 = player1.GetComponent<Player>();
             Player p2 = player2.GetComponent<Player>();
@@ -334,7 +338,7 @@ public class StageManager
             }
 
 
-            MergeScene.BatteStart = true;
+
         }
     }
 
@@ -1099,7 +1103,7 @@ public class StageManager
             
 
             // 필요하다면 골드 지급 내용을 로그로 출력
-            Debug.Log($"{userData.UserName} 님에게 총 {totalGold} 골드가 지급되었습니다. (기본: {baseGold}, 이자: {interestGold}, 연승/연패 보너스: {streakGold})");
+            //Debug.Log($"{userData.UserName} 님에게 총 {totalGold} 골드가 지급되었습니다. (기본: {baseGold}, 이자: {interestGold}, 연승/연패 보너스: {streakGold})");
         }
     }
 

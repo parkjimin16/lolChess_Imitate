@@ -34,7 +34,10 @@ public class BattleManager
 
     IEnumerator BattleCoroutine(int duration, GameObject player1, GameObject player2)
     {
+        Debug.Log($"{player1.GetComponent<Player>().UserData.UserName} : {player2.GetComponent<Player>().UserData.UserName}");
         yield return new WaitForSeconds(duration);
+
+
 
         // 예시로 랜덤하게 승패를 결정
         bool player1Won = Random.value > 0.5f;

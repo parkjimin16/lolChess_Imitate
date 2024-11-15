@@ -101,6 +101,7 @@ public class ChampionAttackController : MonoBehaviour
     {
         if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count <= 0)
         {
+            Debug.Log("SetTargetEnemy: EnemyPlayer가 null이거나 적 챔피언이 없습니다.");
             return;
         }
 
