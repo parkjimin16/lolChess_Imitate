@@ -1,4 +1,5 @@
 using ChampionOwnedStates;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class ChampionStateController : MonoBehaviour
     private ChampionBase cBase;
 
     [SerializeField] private ChampionState curState;
+
+    public event Action<ChampionState> OnStateChanged;
 
     public void Init(ChampionBase championBase)
     {
@@ -82,5 +85,7 @@ public class ChampionStateController : MonoBehaviour
                 fsm.ChangeState(new AttackState(cBase), cBase);
                 break;
         }
+
+        OnStateChanged?.Invoke(newState); 
     }
 }
