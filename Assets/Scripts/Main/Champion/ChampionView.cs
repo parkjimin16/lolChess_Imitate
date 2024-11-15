@@ -12,4 +12,9 @@ public class ChampionView : MonoBehaviour
     {
         cBase = championBase;
     }
+
+    #region UI
+
+    #endregion
+
 }

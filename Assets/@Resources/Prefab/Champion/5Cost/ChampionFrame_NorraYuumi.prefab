@@ -175,6 +175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8005486361578855871}
   - {fileID: 6589002489801604409}
   - {fileID: 2990813596415779854}
   - {fileID: 8334750368003494172}
@@ -298,6 +299,28 @@ MonoBehaviour:
   championHpMpController: {fileID: 0}
   championStateController: {fileID: 1042186363350281454}
   championView: {fileID: 4803408484816773377}
+  player: {fileID: 0}
+  battleStageIndex: 0
+  levelData: []
+  championLevel: 0
+  maxHp: 0
+  curHp: 0
+  maxMana: 0
+  curMana: 0
+  speed: 0
+  attack_Range: 0
+  skillBlueprint: {fileID: 0}
+  ad_Power: 0
+  ap_Power: 0
+  ad_Defense: 0
+  ap_Defense: 0
+  attack_Speed: 0
+  critical_Percent: 0
+  critical_Power: 0
+  blood_Suck: 0
+  power_Upgrade: 0
+  total_Defense: 0
+  healHpValue: 0
   item_MaxHP: 0
   item_CurHP: 0
   item_MaxMana: 0
@@ -309,10 +332,57 @@ MonoBehaviour:
   item_AP_Def: 0
   item_Atk_Spd: 0
   item_Critical_Percent: 0
-  item_Cirtical_Power: 0
+  item_Critical_Power: 0
   item_Blood_Suck: 0
   item_Power_Upgrade: 0
   item_Total_Def: 0
+  Synergy_MaxHP: 0
+  Synergy_CurHP: 0
+  Synergy_MaxMana: 0
+  Synergy_CurMana: 0
+  Synergy_Speed: 0
+  Synergy_AD_Power: 0
+  Synergy_AP_Power: 0
+  Synergy_AD_Def: 0
+  Synergy_AP_Def: 0
+  Synergy_Atk_Spd: 0
+  Synergy_Critical_Percent: 0
+  Synergy_Critical_Power: 0
+  Synergy_Blood_Suck: 0
+  Synergy_Power_Upgrade: 0
+  Synergy_Total_Def: 0
+  Augmenter_MaxHP: 0
+  Augmenter_CurHP: 0
+  Augmenter_MaxMana: 0
+  Augmenter_CurMana: 0
+  Augmenter_Speed: 0
+  Augmenter_AD_Power: 0
+  Augmenter_AP_Power: 0
+  Augmenter_AD_Def: 0
+  Augmenter_AP_Def: 0
+  Augmenter_Atk_Spd: 0
+  Augmenter_Critical_Percent: 0
+  Augmenter_Critical_Power: 0
+  Augmenter_Blood_Suck: 0
+  Augmenter_Power_Upgrade: 0
+  Augmenter_Total_Def: 0
+  champion_MaxHp: 0
+  champion_CurHp: 0
+  champion_MaxMana: 0
+  champion_CurMana: 0
+  champion_Speed: 0
+  champion_AD_Power: 0
+  champion_AP_Power: 0
+  champion_AD_Def: 0
+  champion_AP_Def: 0
+  champion_Atk_Spd: 0
+  champion_Critical_Percent: 0
+  champion_Critical_Power: 0
+  champion_Blood_Suck: 0
+  champion_Power_Upgrade: 0
+  champion_Total_Def: 0
+  champion_Shield: 0
+  champion_TotalDamage: 0
   equipItem: []
   newChampionLine: 
   newChampionJob: 
@@ -328,9 +398,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ba5da26b390d34a90d8be0471f6cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetChampion: {fileID: 0}
   projectilePrefab: {fileID: 2919007433744897484, guid: 910422ae88ff98b498ad9fdf20f63864, type: 3}
   shootPoint: {fileID: 7602927647226427858}
+  isUseSkill: 0
+  realAttackRange: 0
+  EnemyPlayer: {fileID: 0}
+  nextTile: {fileID: 0}
+  curTile: {fileID: 0}
+  path: []
   IsAttack: 0
+  attackLogic: 0
 --- !u!114 &5138671916796917089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea17c543f4baaf44b5c05d7da483ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!114 &4551747180640086549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,3 +797,65 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1001 &37507391899604289
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7334896842867623808}
+    m_Modifications:
+    - target: {fileID: 4803170104117725517, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_Name
+      value: "\uB178\uB77C\uC640\uC720\uBBF8"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+--- !u!4 &8005486361578855871 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8042430201688541438, guid: 3f551f23ee101c642bc6bf43e4fd0202, type: 3}
+  m_PrefabInstance: {fileID: 37507391899604289}
+  m_PrefabAsset: {fileID: 0}

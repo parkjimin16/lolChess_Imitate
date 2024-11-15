@@ -175,6 +175,7 @@ public class ChampionBase : MonoBehaviour
     public ChampionStateController ChampionStateController => championStateController;
     public ChampionView ChampionView => championView;
     public ChampionFrame ChampionFrame => championFrame;
+    public ChampionBlueprint ChampionBlueprint => championBlueprint;
     public List<ItemBlueprint> EquipItem => equipItem;
 
     public Player Player => player;

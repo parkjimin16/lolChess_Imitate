@@ -43,12 +43,6 @@ public class User : MonoBehaviour
     private ReturningObjectData _returningObjData;
 
     #region Unity Flow
-    private void Start()
-    {
-        
-        // 필요에 따라 초기화
-    }
-
     private void Update()
     {
         _lastTouchPos = _currentTouchPos;
@@ -90,7 +84,6 @@ public class User : MonoBehaviour
         ObjectReturn();
 
         HandleItemHover();
-        // Debugging rays (optional)
     }
     #endregion
 
