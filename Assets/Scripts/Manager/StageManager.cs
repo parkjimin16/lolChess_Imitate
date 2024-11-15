@@ -25,6 +25,8 @@ public class StageManager
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 20; //일반 라운드 진행시간
+    private int cripDuration = 3;
+
 
     private bool isAugmentRound = false;
 
@@ -119,7 +121,7 @@ public class StageManager
             yield return CoroutineHelper.StartCoroutine(StartCarouselRound());
             yield break; // 공동 선택 라운드는 별도의 흐름이므로 여기서 종료
         }
-        /*else if (isCripRound)
+        else if (isCripRound)
         {
             // 크립 라운드의 경우
 
@@ -138,14 +140,14 @@ public class StageManager
             //StartAllCripBattles();
 
             // 라운드 진행 시간 타이머 시작
-            UIManager.Instance.StartTimer(roundDuration);
+            UIManager.Instance.StartTimer(cripDuration);
 
             // 라운드 진행 시간 동안 대기
-            yield return new WaitForSeconds(roundDuration);
+            yield return new WaitForSeconds(cripDuration);
 
             // 라운드 종료 처리
             EndCripRound();
-        }*/
+        }
         else if (isAugmentRound)
         {
             // 증강 선택 라운드의 경우
