@@ -64,7 +64,7 @@ public class ChampionAttackController : MonoBehaviour
         attack_Speed = _atk_Speed;
         attack_Range = _atk_Range;
 
-        realAttackRange = cBase.Attack_Range * 2.75f;
+        realAttackRange = cBase.Attack_Range * 3f;
 
         IsAttack = false;
         attackLogic = false;
@@ -99,8 +99,25 @@ public class ChampionAttackController : MonoBehaviour
 
     private void SetTargetEnemy()
     {
-        if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count == 0)
+        if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count <= 0)
+        {
             return;
+        }
+
+        int count = 0;
+
+        foreach (var champion in EnemyPlayer.UserData.BattleChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            if (cBase.ChampionHpMpController.IsDie())
+                count++;
+        }
+
+        if(count == EnemyPlayer.UserData.BattleChampionObject.Count)
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+        }
+
 
         GameObject closestChampion = null;
         float minDistance = float.MaxValue;
@@ -142,7 +159,9 @@ public class ChampionAttackController : MonoBehaviour
 
         if (tcBase.ChampionHpMpController.IsDie())
         {
-            SetTargetEnemy();
+            StopAllCoroutines();
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             yield break;
         }
 
@@ -273,8 +292,9 @@ public class ChampionAttackController : MonoBehaviour
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())
             {
-                CreateNormalAttack(targetChampion);
-                cBase.ChampionHpMpController.NormalAttackMana();
+                Debug.Log("∆Ú≈∏");
+                //CreateNormalAttack(targetChampion);
+                //cBase.ChampionHpMpController.NormalAttackMana();
             }
 
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
