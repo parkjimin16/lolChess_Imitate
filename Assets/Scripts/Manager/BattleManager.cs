@@ -124,7 +124,7 @@ public class BattleManager
 
         if(playerComponent2.UserData.PlayerType == PlayerType.Player1)
         {
-            Debug.Log("¿Ö¾ÈµÅ");
+            //Debug.Log("¿Ö¾ÈµÅ");
             CameraManager.Instance.MoveCameraToPlayer(playerComponent1);
         }
 
