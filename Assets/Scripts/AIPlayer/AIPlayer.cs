@@ -154,15 +154,13 @@ public class AIPlayer
             }
 
             // 챔피언의 위치와 부모를 업데이트
-            champion.transform.position = emptyTile.transform.position + new Vector3(0, 0.5f, 0);
+            champion.transform.position = emptyTile.transform.position;
             champion.transform.SetParent(emptyTile.transform);
 
             // 타일 상태 업데이트
             emptyTile.championOnTile.Add(champion);
 
             // AI 플레이어의 리스트 업데이트
-            //aiUserData.NonBattleChampionObject.Remove(champion);
-            //aiUserData.BattleChampionObject.Add(champion);
             Manager.Champion.SettingBattleChampion(aiUserData);
         }
         else

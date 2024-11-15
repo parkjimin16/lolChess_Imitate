@@ -7,6 +7,15 @@ public class ChampionHpMpController : MonoBehaviour
     private ChampionBase cBase;
     private int totalDamage;
 
+
+    private void Update()
+    {
+        if (IsDie())
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     public bool IsDie()
     {
         return cBase.Champion_CurHp <= 0;

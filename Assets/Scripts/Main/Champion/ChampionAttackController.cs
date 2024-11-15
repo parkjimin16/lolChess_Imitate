@@ -26,6 +26,8 @@ public class ChampionAttackController : MonoBehaviour
     public Player EnemyPlayer;
 
 
+    [SerializeField] private HexTile nextTile = new HexTile();
+    [SerializeField] private HexTile curTile = new HexTile();
 
 
 
@@ -116,7 +118,9 @@ public class ChampionAttackController : MonoBehaviour
 
         if(count == EnemyPlayer.UserData.BattleChampionObject.Count)
         {
+            Debug.Log($"{EnemyPlayer.name} : 배틀 챔피언 모두 사망");
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            return;
         }
 
 
@@ -140,6 +144,7 @@ public class ChampionAttackController : MonoBehaviour
         }
         targetChampion = closestChampion;
         Manager.Stage.SetNearestTile(gameObject);
+        curTile = Manager.Stage.GetParentTile(gameObject);
 
         path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
@@ -166,39 +171,24 @@ public class ChampionAttackController : MonoBehaviour
             yield break;
         }
 
-        if (CanAttack(targetChampion))
-        {
-            cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-            yield break;
-        }
-
-        while (targetChampion != null && path.Count > 1 && MergeScene.BatteStart)
+        while (targetChampion != null && MergeScene.BatteStart && !tcBase.ChampionHpMpController.IsDie())
         {
             HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+
+            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+
+            if (path == null || path.Count == 0)
+                yield break;
+
+            nextTile = path[0];
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
 
-            HexTile nextTile = path[0];
-            Debug.Log($"NextTile : {nextTile.name}");
-
-
-            // 다음 길에 챔피언이 있으면 새로운 경로
-            if(nextTile.championOnTile.Count > 0)
+            if (CanAttack(targetChampion))
             {
-                path.Clear();
-                path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
-            }
-            else if(nextTile.championOnTile.Contains(targetChampion) || CanAttack(targetChampion))
-            {
-                if(CanAttack(targetChampion))
-                {
-                    cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                    yield break;
-                }
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield break;
             }
         }
-
-        if (!MergeScene.BatteStart)
-            yield break;
     }
 
    
@@ -207,7 +197,7 @@ public class ChampionAttackController : MonoBehaviour
         if (path == null || path.Count == 0)
             yield break;
 
-        HexTile nextTile = path[0];
+        nextTile = path[0];
 
         Vector3 targetPosition = nextTile.transform.position;
 
@@ -219,8 +209,10 @@ public class ChampionAttackController : MonoBehaviour
         yield return StartCoroutine(MoveTo(targetPosition));
 
         float stoppingDistance = 0.1f; 
+
         if (Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
         {
+ 
             path.RemoveAt(0);
         }
     }
@@ -264,10 +256,12 @@ public class ChampionAttackController : MonoBehaviour
 
         attackLogic = true;
 
-        ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
+
 
         while (targetChampion != null)
         {
+            ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
+
             if (tcBase.ChampionHpMpController.IsDie())
             {
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
@@ -289,13 +283,13 @@ public class ChampionAttackController : MonoBehaviour
             if (cBase.ChampionHpMpController.IsManaFull())
             {
                 Debug.Log("스킬 사용");
+                cBase.ChampionHpMpController.UseSkillMana();
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())
             {
-                Debug.Log("평타");
-                //CreateNormalAttack(targetChampion);
-                //cBase.ChampionHpMpController.NormalAttackMana();
+                CreateNormalAttack(targetChampion);
+                cBase.ChampionHpMpController.NormalAttackMana();
             }
 
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
