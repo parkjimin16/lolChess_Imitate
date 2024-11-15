@@ -70,7 +70,7 @@ public class PortalSynergy : SynergyBase
 
         portalObj.SetActive(true);
 
-        Debug.Log($"[차원문] 레벨 {level} 적용");
+        //Debug.Log($"[차원문] 레벨 {level} 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -93,7 +93,7 @@ public class PortalSynergy : SynergyBase
 
         portalObj.SetActive(false);
 
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)

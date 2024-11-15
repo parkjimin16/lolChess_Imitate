@@ -507,6 +507,13 @@ public class ChampionBase : MonoBehaviour
     {
         return (int)(champion_AD_Power * (1 + champion_Total_Def));
     }
+
+
+    public void ChampionRotationReset()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+
     #endregion
 
     #region Unity Flow

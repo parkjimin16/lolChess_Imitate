@@ -49,6 +49,11 @@ public class ChampionAttackController : MonoBehaviour
     }
 
     public GameObject TargetChampion => targetChampion;
+    public List<HexTile> Path
+    {
+        get { return path; }
+        set { path = value; }
+    }
 
     #endregion
 
@@ -67,6 +72,22 @@ public class ChampionAttackController : MonoBehaviour
 
     }
 
+    public void EndBattle()
+    {
+        StopAllCoroutines();
+
+        findCoroutine = null;
+        moveCoroutine = null;
+        attackCoroutine = null;
+
+        EnemyPlayer = null;
+        targetChampion = null;
+        attackLogic = false;
+
+        path.Clear();
+
+        cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+    }
     #endregion
 
     #region 탐색 로직
@@ -225,8 +246,6 @@ public class ChampionAttackController : MonoBehaviour
 
         ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-
-
         while (targetChampion != null)
         {
             if (tcBase.ChampionHpMpController.IsDie())
@@ -247,11 +266,12 @@ public class ChampionAttackController : MonoBehaviour
             cBase.UpdateStatWithItem(cBase.EquipItem);
 
 
-            if (cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
+            if (cBase.ChampionHpMpController.IsManaFull())
             {
-                CoroutineHelper.StartCoroutine(UseSkillCoroutine());
+                Debug.Log("스킬 사용");
+                //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
-            else if (!cBase.ChampionHpMpController.IsManaFull() && !isUseSkill)
+            else if (!cBase.ChampionHpMpController.IsManaFull())
             {
                 CreateNormalAttack(targetChampion);
                 cBase.ChampionHpMpController.NormalAttackMana();
@@ -318,4 +338,11 @@ public class ChampionAttackController : MonoBehaviour
     }
     #endregion
 
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, realAttackRange);
+    }
 }

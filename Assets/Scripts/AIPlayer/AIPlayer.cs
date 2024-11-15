@@ -30,8 +30,6 @@ public class AIPlayer
     #region 챔피언구매로직
     private void BuyChampions(Player aiPlayer)
     {
-        //int level = aiUserData.Level;
-
         // 챔피언 구매 로직
         List<string> shopChampionList = GetRandomChampions(1);
         string selectedChampionName = shopChampionList[Random.Range(0, shopChampionList.Count)];
@@ -40,16 +38,6 @@ public class AIPlayer
         ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
 
         InstantiateAIChampion(championBlueprint, aiPlayer);
-
-        /* 골드 체크 후 구매
-        int championCost = championBlueprint.ChampionCost;
-        if (aiUserData.GetGold() >= championCost)
-        {
-            aiUserData.SetGold(aiUserData.GetGold() - championCost);
-
-            // 챔피언 인스턴스 생성 및 배치
-            InstantiateAIChampion(championBlueprint);
-        }*/
     }
 
     private void InstantiateAIChampion(ChampionBlueprint cBlueprint, Player aiPlayer)
@@ -69,11 +57,10 @@ public class AIPlayer
         if (emptyTile != null)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-            newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
             frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = emptyTile.transform.position + new Vector3(0, 0.5f, 0);
+            newChampionObject.transform.position = emptyTile.transform.position;
 
             newChampionObject.transform.SetParent(emptyTile.transform);
             emptyTile.championOnTile.Add(newChampionObject);

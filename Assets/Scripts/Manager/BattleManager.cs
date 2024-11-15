@@ -14,6 +14,16 @@ public class BattleManager
         if (battleCoroutines.ContainsKey(player1))
             return;
 
+
+        Player p1 = player1.GetComponent<Player>();
+        Player p2 = player2.GetComponent<Player>();
+
+        Manager.Synerge.ApplySynergy(p1.UserData);
+        Manager.Synerge.ApplySynergy(p2.UserData);
+
+        Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
+        Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
+
         SaveOriginalChampions(player1);
         SaveOriginalChampions(player2);
 
@@ -24,21 +34,17 @@ public class BattleManager
 
     IEnumerator BattleCoroutine(int duration, GameObject player1, GameObject player2)
     {
-        //Debug.Log($"전투가 시작되었습니다. {player1.GetComponent<Player>().UserData.UserName} vs {player2.GetComponent<Player>().UserData.UserName}, 전투 시간: {duration}초");
-
         yield return new WaitForSeconds(duration);
 
         // 예시로 랜덤하게 승패를 결정
         bool player1Won = Random.value > 0.5f;
         int survivingEnemyUnits = player1Won ? 0 : Random.Range(1, 5);
 
-        //Debug.Log(player1Won ? $"{player1.name} 승리" : $"{player1.name} 패배");
-
         EndBattle(player1, player2, player1Won, survivingEnemyUnits);
     }
 
 
-    void EndBattle(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
+    private void EndBattle(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
     {
         if (battleCoroutines.ContainsKey(player1))
         {
@@ -49,19 +55,46 @@ public class BattleManager
             battleCoroutines.Remove(player2);
         }
 
+
+        Player p1 = player1.GetComponent<Player>();
+        Player p2 = player2.GetComponent<Player>();
+
+        Manager.Synerge.UnApplySynergy(p1.UserData);
+        Manager.Synerge.UnApplySynergy(p2.UserData);
+
+        Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
+        Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);
+
+        foreach (var champ in p1.UserData.BattleChampionObject)
+        {
+            ChampionBase cBase = champ.GetComponent<ChampionBase>();
+
+            cBase.ChampionRotationReset();
+            cBase.ResetChampionStats();
+            cBase.ChampionAttackController.EndBattle();
+        }
+
+        foreach (var champ in p2.UserData.BattleChampionObject)
+        {
+            ChampionBase cBase = champ.GetComponent<ChampionBase>();
+
+            cBase.ChampionRotationReset();
+            cBase.ResetChampionStats();
+            cBase.ChampionAttackController.EndBattle();
+        }
+
+        // Init player1
         RestoreOpponentChampions(player1);
 
-        // 상대 챔피언, 아이템을 원래 위치로 복귀
+        // Init player2
         RestoreOpponentPlayer(player2);
         RestoreOpponentChampions(player2);
         RestoreOpponentItems(player2);
 
         SuccessiveWinLose(player1, player2, player1Won);
 
-        // StageManager에 전투 종료를 알림
         Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} 승리" : $"{player2.GetComponent<Player>().UserData.UserName} 승리");
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
-        //Manager.Stage.DistributeGoldToPlayers();
         MergeScene.BatteStart = false;
     }
 
@@ -250,7 +283,7 @@ public class BattleManager
                 opponentTile.championOnTile.Remove(opponentChampion);
 
                 // 유닛을 이동시킵니다.
-                opponentChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
+                opponentChampion.transform.position = mirroredTile.transform.position;
                 opponentChampion.transform.SetParent(mirroredTile.transform);
 
                 // 타일 정보 업데이트
@@ -309,6 +342,11 @@ public class BattleManager
     {
         Player opponentComponent = opponent.GetComponent<Player>();
         UserData opponentData = opponentComponent.UserData;
+
+        foreach(var champ in opponentData.TotalChampionObject)
+        {
+            champ.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
         foreach (var kvp in opponentData.ChampionOriginState)
         {

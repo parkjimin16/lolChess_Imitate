@@ -67,7 +67,7 @@ public class EldritchSynergy : SynergyBase
             eldritchName = "폭풍을 부르는 자";
         }
 
-        Debug.Log($"[섬뜩한 힘] 레벨 {level} 적용");
+        //Debug.Log($"[섬뜩한 힘] 레벨 {level} 적용");
     }
 
     protected override void RemoveEffects(UserData user)
@@ -75,7 +75,7 @@ public class EldritchSynergy : SynergyBase
         hp = 0;
         ap_Power = 0;
         isActive = false;
-        Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
+        //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
 
     public override void Activate(UserData user)
@@ -106,12 +106,10 @@ public class EldritchSynergy : SynergyBase
     {
         while (true)
         {
-            Debug.Log("코루틴 시작");
             eldritchChampion = GetEldritchChampionBase(user);
 
             if (isActive && CheckEldritchWarriorActive(eldritchChampion))
             {
-                Debug.Log("고대신 생성");
                 float setHp = 0;
                 float setApPower = 0;
 
