@@ -25,6 +25,8 @@ public class UIChampionExplainPanel : UIBase
 
     [SerializeField] private Slider slider_Hp;
     [SerializeField] private Slider slider_Mana;
+    [SerializeField] private TextMeshProUGUI txt_Hp;
+    [SerializeField] private TextMeshProUGUI txt_Mana;
 
     [Header("Champion Skill")]
     [SerializeField] private Image image_Skill_Icon;
@@ -55,6 +57,11 @@ public class UIChampionExplainPanel : UIBase
 
     public void UpdateChampionExplainPanel(ChampionBase cBase)
     {
+        if(!this.gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+
         championBase = cBase;
         skillBlueprint = cBase.SkillBlueprint;
 
@@ -132,8 +139,7 @@ public class UIChampionExplainPanel : UIBase
 
     private void InitChampionSKill() 
     {
-        // Ω∫≈≥ ¿ÃπÃ¡ˆ ≥÷æÓ¡‡æﬂµ 
-        //image_Skill_Icon.sprite = skillBlueprint;
+        image_Skill_Icon.sprite = skillBlueprint.SkillSprite;
 
         image_NameTag.color = Utilities.SetSlotColor(championBase.ChampionCost);
         
@@ -189,6 +195,7 @@ public class UIChampionExplainPanel : UIBase
         {
             slider_Hp.maxValue = maxHp;
             slider_Hp.value = Mathf.Clamp(curHp, 0, maxHp);
+            txt_Hp.text = $"{curHp} / {maxHp}";
         }
         else
         {
@@ -202,6 +209,7 @@ public class UIChampionExplainPanel : UIBase
         {
             slider_Mana.maxValue = maxMana;
             slider_Mana.value = Mathf.Clamp(curMana, 0, maxMana);
+            txt_Mana.text = $"{curMana} / {maxMana}";
         }
         else
         {

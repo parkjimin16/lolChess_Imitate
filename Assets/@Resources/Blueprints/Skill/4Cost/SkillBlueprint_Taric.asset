@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Taric
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 9da92250046a51f4c8f8268f75e20166, type: 3}
   skillName: "\uB2E4\uB4E4 \uB0A0 \uBC14\uB77C\uBD10"
   skillType: 1
   description: "4\uCD08 \uB3D9\uC548 \uB0B4\uAD6C\uB825\uC744 \uC5BB\uACE0 \uC8FC\uBCC0

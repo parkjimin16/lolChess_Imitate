@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Poppy
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: f8024fd45950d194286c0e1190844580, type: 3}
   skillName: "\uCCAD\uC18C \uB2F9\uBC88"
   skillType: 1
   description: "3\uCD08 \uB3D9\uC548 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.

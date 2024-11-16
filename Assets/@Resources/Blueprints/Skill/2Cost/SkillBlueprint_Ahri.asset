@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Ahri
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: dc3959ed41ead9f46826aed658e29e2a, type: 3}
   skillName: "\uD1B5\uCC30\uC758 \uAD6C\uC2AC"
   skillType: 1
   description: "\uD604\uC7AC \uB300\uC0C1\uC5D0\uAC8C \uAD6C\uC2AC\uC744 \uB358\uC838

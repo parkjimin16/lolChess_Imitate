@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Bard
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: b47ff96980de9304b90a50cd6a1f3137, type: 3}
   skillName: "\uBC29\uB791\uD558\uB294 \uBCC0\uB355\uC7C1\uC774"
   skillType: 1
   description: "\uC801 \uC0AC\uC774\uC5D0\uC11C 4\uD68C \uD295\uAE30\uB294 \uB9C8\uBC95

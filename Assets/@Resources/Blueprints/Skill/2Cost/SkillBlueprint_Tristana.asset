@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Tristana
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 3013d44550c581d4286b1cc9df5896a8, type: 3}
   skillName: "\uD3ED\uBC1C \uD654\uC57D"
   skillType: 1
   description: "\uB300\uC0C1\uC5D0\uAC8C \uB300\uD3EC\uC54C\uC744 \uBC1C\uC0AC\uD574

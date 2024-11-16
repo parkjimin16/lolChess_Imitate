@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Vex
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 6e1be6c0f89832e4695fae6183dfb2e9, type: 3}
   skillName: "\uAC70\uB9AC \uB450\uAE30"
   skillType: 1
   description: "4\uCD08 \uB3D9\uC548 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.

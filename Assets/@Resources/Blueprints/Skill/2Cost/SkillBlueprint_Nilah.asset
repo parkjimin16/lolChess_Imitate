@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Nilah
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 734cfe135036a8044a63355fdb64baad, type: 3}
   skillName: "\uBB34\uD615\uC758 \uAC80"
   skillType: 1
   description: "\uC0AC\uC6A9 \uC2DC: \uCD5C\uB300 2\uCE78 \uB5A8\uC5B4\uC9C4 \uACF3\uC73C\uB85C

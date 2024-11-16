@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Briar
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: bd8cdeed43a49dd47b7dbf0c4ec69db1, type: 3}
   skillName: "\uBD88\uAC00\uD56D\uB825\uC801 \uC8FD\uC74C"
   skillType: 1
   description: "\uAC00\uC7A5 \uD070 \uC801 \uBB34\uB9AC\uB85C \uB3C4\uC57D\uD574

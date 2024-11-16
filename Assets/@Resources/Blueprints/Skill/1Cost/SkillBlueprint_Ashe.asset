@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Ashe
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 3920ed83df64d67438f7b7558853270e, type: 3}
   skillName: "\uC554\uD751\uC758 \uC9D5\uC870"
   skillType: 1
   description: "\uC804\uD22C\uAC00 \uB05D\uB0A0 \uB54C\uAE4C\uC9C0, \uC8FC\uBCC0

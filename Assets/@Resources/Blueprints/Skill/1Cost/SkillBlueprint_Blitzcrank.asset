@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Blitzcrank
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 5baa0fe0338bb374b8111a6642dff3a8, type: 3}
   skillName: "\uBC8C\uAFC0 \uBC29\uC5B4\uB9C9"
   skillType: 1
   description: "6\uCD08 \uB3D9\uC548 \uBCF4\uD638\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4.  "

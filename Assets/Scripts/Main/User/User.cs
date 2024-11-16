@@ -48,6 +48,18 @@ public class User : MonoBehaviour
         _lastTouchPos = _currentTouchPos;
         _currentTouchPos = Input.mousePosition;
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameObject clickedObject = OnClickObjUsingTag("Champion");
+
+            if (clickedObject != null)
+            {
+                Debug.Log("챔피언 클릭");
+                HandleChampionRightClick(clickedObject);
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
 
@@ -95,7 +107,7 @@ public class User : MonoBehaviour
             return;
         }
 
-        _objectMoved = false; // 추가
+        _objectMoved = false;
 
         _movableObj = OnClickObjUsingTag("Item");
         if (_movableObj != null)
@@ -104,7 +116,6 @@ public class User : MonoBehaviour
         }
         else
         {
-            // "Champion" 태그로 시도
             _movableObj = OnClickObjUsingTag("Champion");
             if (_movableObj != null)
             {
@@ -114,7 +125,6 @@ public class User : MonoBehaviour
 
         if (_movableObj != null)
         {
-            // 오브젝트 타입에 따라 현재 타일을 가져옵니다.
             if (_movableObj.transform.parent != null)
             {
                 currentTile = _movableObj.transform.parent.gameObject;
@@ -122,7 +132,6 @@ public class User : MonoBehaviour
 
             _beforePosition = _movableObj.transform.position;
 
-            // 타일의 상태를 업데이트합니다.
             if (currentTile != null)
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
@@ -134,12 +143,10 @@ public class User : MonoBehaviour
                 }
                 else if (_movableObjectType == MovableObjectType.Champion)
                 {
-                    //tile.isOccupied = false;
                     tile.championOnTile.Remove(_movableObj);
                 }
             }
 
-            // 오브젝트를 월드 루트로 이동
             _movableObj.transform.SetParent(null);
         }
     }
@@ -148,7 +155,7 @@ public class User : MonoBehaviour
     {
         if (_movableObj != null)
         {
-            _objectMoved = true; // 추가
+            _objectMoved = true; 
 
             Vector3 touchPos = Input.mousePosition;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 10));
@@ -168,7 +175,6 @@ public class User : MonoBehaviour
         {
             if (_objectMoved)
             {
-                // 타일의 상태를 업데이트합니다.
                 if (currentTile != null)
                 {
                     HexTile tile = currentTile.GetComponent<HexTile>();
@@ -180,7 +186,6 @@ public class User : MonoBehaviour
                     }
                     else if (_movableObjectType == MovableObjectType.Champion)
                     {
-                        //tile.isOccupied = false;
                         tile.championOnTile.Remove(_movableObj);
                     }
                 }
@@ -189,21 +194,17 @@ public class User : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);
 
-            // 히트한 오브젝트들을 순회합니다.
             foreach (RaycastHit hit in hits)
             {
                 GameObject hitObj = hit.collider.gameObject;
 
-                // 드래그 중인 오브젝트는 무시합니다.
                 if (hitObj == _movableObj)
                 {
                     continue;
                 }
 
-                // 기대하는 타일 태그를 확인합니다.
                 string expectedTileTag = (_movableObjectType == MovableObjectType.Item) ? "ItemTile" : "PlayerTile";
 
-                // 부모 오브젝트의 태그도 확인합니다.
                 GameObject hitParentObj = hitObj.transform.root.gameObject;
 
                 if (hitObj.CompareTag(expectedTileTag) || hitParentObj.CompareTag(expectedTileTag))
@@ -219,33 +220,28 @@ public class User : MonoBehaviour
                         else if (_movableObjectType == MovableObjectType.Champion)
                         {
                             HandleUnitDrop(hitTile, hitTile.gameObject);
-                            //var nearbyChampions = GetChampionsWithinOneTile(_movableObj);
-                            //DebugChampionList(nearbyChampions); // 디버깅 코드 호출
                         }
 
-                        return; // 타일을 찾았으므로 메서드를 종료합니다.
+                        return; 
                     }
                 }
 
-                // 추가된 부분: 아이템 결합 및 챔피언에게 아이템 전달 처리
                 if (_movableObjectType == MovableObjectType.Item)
                 {
                     if (hitObj.CompareTag("Item") && hitObj.transform != _movableObj.transform)
                     {
-                        // 아이템 결합 처리
                         HandleItemCombination(hitObj);
                         return;
                     }
                     else if (hitObj.CompareTag("Champion"))
                     {
-                        // 챔피언에게 아이템 전달 처리
                         HandleGiveItemToChampion(hitObj);
                         return;
                     }
                 }
             }
 
-            // 타일이나 아이템, 챔피언을 찾지 못한 경우
+
             _isReturning = true;
             _returningObjData = new ReturningObjectData
             {
@@ -255,7 +251,6 @@ public class User : MonoBehaviour
                 movableObjectType = _movableObjectType
             };
 
-            // 현재 상호작용 오브젝트 초기화
             _movableObj = null;
             currentTile = null;
         }
@@ -263,32 +258,35 @@ public class User : MonoBehaviour
     #endregion
 
     #region Item Champion Move, Combine Logic
+    private void HandleChampionRightClick(GameObject championObj)
+    {
+        ChampionBase cBase = championObj.GetComponent<ChampionBase>();
+        if (cBase != null)
+        {
+            uiMain.UIChampionExplainPanel.UpdateChampionExplainPanel(cBase);
+        }
+    }
+
     private void HandleItemDrop(HexTile hitTile, GameObject hitTileObj)
     {
         if (hitTile.isItemTile == false)
         {
-            // 타일이 비어 있을 경우 아이템을 놓습니다.
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // 타일 상태 업데이트
             hitTile.isItemTile = true;
             hitTile.itemOnTile = _movableObj;
             
         }
         else
         {
-            // 타일에 이미 아이템이 있을 경우, 아이템을 교환합니다.
             GameObject otherItem = hitTile.itemOnTile;
 
-            // 현재 오브젝트의 이전 타일이 있는지 확인합니다.
             if (currentTile != null)
             {
-                // 다른 아이템을 이전 타일로 이동
                 otherItem.transform.position = currentTile.transform.position + _offset;
                 otherItem.transform.SetParent(currentTile.transform);
 
-                // 타일 상태 업데이트
                 HexTile previousTile = currentTile.GetComponent<HexTile>();
                 previousTile.isItemTile = true;
                 previousTile.itemOnTile = otherItem;
@@ -300,11 +298,9 @@ public class User : MonoBehaviour
                 otherItem.transform.SetParent(null);
             }
 
-            // 드래그한 아이템을 대상 타일로 이동
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // 타일 상태 업데이트
             hitTile.isItemTile = true;
             hitTile.itemOnTile = _movableObj;
         }
@@ -320,14 +316,11 @@ public class User : MonoBehaviour
 
         if (!hitTile.HasChampion)
         {
-            // 타일이 비어 있을 경우 유닛을 놓습니다.
             _movableObj.transform.position = hitTileObj.transform.position + _offset;
             _movableObj.transform.SetParent(hitTileObj.transform);
 
-            // 타일 상태 업데이트
             hitTile.championOnTile.Add(_movableObj);
 
-            // 이전 타일의 상태 업데이트 (현재 타일과 다를 때만)
             if (currentTile != null && currentTile != hitTileObj)
             {
                 
@@ -343,12 +336,11 @@ public class User : MonoBehaviour
                 }
             }
 
-            // currentTile 업데이트
             currentTile = hitTileObj;
         }
+        // 타일에 유닛 있으면 원래 자리로
         else
         {
-            // 타일에 이미 유닛이 있을 경우, 유닛을 원래 위치로 반환합니다.
             _isReturning = true;
         }
 
@@ -444,7 +436,6 @@ public class User : MonoBehaviour
     }
     private void HandleItemHover()
     {
-        // 드래그 중이면 호버 처리를 하지 않습니다.
         if (_movableObj != null)
         {
             if (_hoveredItem != null)
@@ -494,6 +485,7 @@ public class User : MonoBehaviour
             }
         }
     }
+
     private GameObject OnClickObjUsingTag(string tag)
     {
         Vector3 touchPos = Input.mousePosition;
@@ -525,7 +517,6 @@ public class User : MonoBehaviour
             {
                 _isReturning = false;
 
-                // 오브젝트를 이전 타일의 자식으로 설정
                 if (_returningObjData.currentTile != null)
                 {
                     _returningObjData.obj.transform.SetParent(_returningObjData.currentTile.transform);
@@ -551,11 +542,11 @@ public class User : MonoBehaviour
                     }
                 }
 
-                // 반환 오브젝트 데이터 초기화
                 _returningObjData = null;
             }
         }
     }
+
     // 설정 메서드 추가
     public void SetMovableObjectType(MovableObjectType type)
     {
@@ -572,6 +563,7 @@ public class User : MonoBehaviour
             _offset = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
+
     private GameObject FindcurrentTile()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -579,7 +571,6 @@ public class User : MonoBehaviour
         {
             GameObject hitObj = hit.collider.gameObject;
 
-            // 타일의 태그를 확인하여 현재 타일을 설정
             if (hitObj.CompareTag("PlayerTile") || hitObj.CompareTag("ItemTile"))
             {
                 currentTile = hitObj;
@@ -588,92 +579,5 @@ public class User : MonoBehaviour
         }
         return null;
     }
-    public List<GameObject> GetChampionsWithinOneTile(GameObject champion)
-    {
-        List<GameObject> champions = new List<GameObject>();
-
-        // Champion의 부모에서 HexTile을 가져옵니다.
-        HexTile currentTile = champion.transform.parent?.GetComponent<HexTile>();
-        if (currentTile == null)
-        {
-            Debug.LogWarning("챔피언이 어떤 타일에도 놓여있지 않습니다.");
-            return champions;
-        }
-
-        int q = currentTile.q;
-        int r = currentTile.r;
-
-        // 짝수 행인지 여부
-        bool isEvenRow = (r % 2) == 0;
-        (int dq, int dr)[] directions;
-
-        if (isEvenRow)
-        {
-            // Directions for even rows
-            directions = new (int, int)[]
-            {
-            (1, 0),    // East
-            (1, -1),   // Southeast
-            (0, -1),   // Southwest
-            (-1, 0),   // West
-            (0, 1),    // Northwest
-            (1, 1)     // Northeast
-            };
-        }
-        else
-        {
-            // Directions for odd rows
-            directions = new (int, int)[]
-            {
-            (1, 0),    // East
-            (0, -1),   // Southeast
-            (-1, -1),  // Southwest
-            (-1, 0),   // West
-            (-1, 1),   // Northwest
-            (0, 1)     // Northeast
-            };
-        }
-
-        foreach (var dir in directions)
-        {
-            int neighborQ = q + dir.dq;
-            int neighborR = r + dir.dr;
-
-            // 디버그 로그 추가
-            //Debug.Log($"Checking neighbor at q: {neighborQ}, r: {neighborR}");
-
-            // 인접 타일이 존재하는지 확인
-            if (_mapGenerator.mapInfos[0].HexDictionary.TryGetValue((neighborQ, neighborR), out HexTile neighborTile))
-            {
-                if (neighborTile.itemOnTile != null && neighborTile.itemOnTile != champion)
-                {
-                    champions.Add(neighborTile.itemOnTile);
-                }
-            }
-        }
-
-        return champions;
-    }
-    public void DebugChampionList(List<GameObject> champions)
-    {
-        if (champions == null || champions.Count == 0)
-        {
-            Debug.Log("주변에 챔피언이 없습니다.");
-            return;
-        }
-
-        Debug.Log($"주변에 있는 챔피언 수: {champions.Count}");
-        foreach (var champion in champions)
-        {
-            if (champion != null)
-            {
-                Debug.Log($"챔피언 이름: {champion.name}, 위치: {champion.transform.position}");
-            }
-            else
-            {
-                Debug.Log("챔피언이 null입니다.");
-            }
-        }
-    }
-    #endregion
+     #endregion
 }

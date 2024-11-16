@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Soraka
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: f79dd1795ffc5e742b4ba2e44e33c4a9, type: 3}
   skillName: "\uC720\uC131"
   skillType: 1
   description: "\uB300\uC0C1\uC5D0\uAC8C \uBCC4\uC744 \uB5A8\uC5B4\uB728\uB824 \uC8FC\uBCC0

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Ziggs
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 8baa0007f5be74a41a2c5d27dd11ecc4, type: 3}
   skillName: "\uD1B5\uD1B5 \uD280\uB294 \uAFC0\uBC8C"
   skillType: 1
   description: "\uAC00\uC7A5 \uBA3C \uC801\uC5D0\uAC8C \uBC18\uB3D9 \uD3ED\uD0C4\uC744

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Veigar
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 079487956875ee5449764770945ec2f1, type: 3}
   skillName: "\uAFC0\uBC8C\uC655\uC758 \uC2EC\uD310"
   skillType: 1
   description: "\uC0AC\uC6A9 \uC2DC: \uB300\uC0C1\uC5D0\uAC8C \uB9C8\uBC95 \uD53C\uD574\uB97C

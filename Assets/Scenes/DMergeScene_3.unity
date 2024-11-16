@@ -3221,7 +3221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5853409121813299916, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_Name
-      value: "\u3134"
+      value: UISceneMain
       objectReference: {fileID: 0}
     - target: {fileID: 6059701403850508059, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchorMax.y

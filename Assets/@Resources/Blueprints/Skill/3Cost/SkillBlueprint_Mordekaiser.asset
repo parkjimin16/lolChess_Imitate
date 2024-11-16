@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Mordekaiser
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 9bd12dc271fec7a4abb47be0713baad9, type: 3}
   skillName: "\uB9D0\uC0B4"
   skillType: 1
   description: "2\uCD08\uC5D0 \uAC78\uCCD0 \uC810\uCC28 \uC0AC\uB77C\uC9C0\uB294

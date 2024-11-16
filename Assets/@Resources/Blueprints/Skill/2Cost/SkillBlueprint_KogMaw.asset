@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_KogMaw
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: b2d2f61c309247040a757b5ca0c74610, type: 3}
   skillName: "\uBC8C\uC9D1\uC758 \uBD84\uBE44\uBB3C"
   skillType: 1
   description: "\uD604\uC7AC \uB300\uC0C1\uC5D0\uAC8C \uBC00\uB78D\uC744 \uBC49\uC5B4

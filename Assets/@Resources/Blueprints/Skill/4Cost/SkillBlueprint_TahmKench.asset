@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_TahmKench
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: d4b989d3e7b31574e830cb270cf83033, type: 3}
   skillName: "\uC810\uC220 \uC7A0\uC218"
   skillType: 1
   description: "\uB545 \uC544\uB798\uB85C \uC7A0\uC218\uD55C \uD6C4 \uAC00\uC7A5

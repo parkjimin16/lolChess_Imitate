@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Olaf
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 8e3f907cbbdc5214699b00a722b603c9, type: 3}
   skillName: "\uB77C\uADF8\uB098\uB85C\uD06C"
   skillType: 1
   description: "\uB2E4\uC74C 5\uCD08 \uB3D9\uC548 \uACF5\uACA9 \uC18D\uB3C4, \uBAA8\uB4E0

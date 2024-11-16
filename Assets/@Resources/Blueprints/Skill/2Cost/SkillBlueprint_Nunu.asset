@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Nunu
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 69e900f051c65d2499aed3966641faeb, type: 3}
   skillName: "\uCC10\uB4DD\uD55C \uBB3C\uC5B4\uB72F\uAE30"
   skillType: 1
   description: "\uB300\uC0C1\uC744 \uBB3C\uC5B4\uB72F\uC5B4 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD558\uACE0

@@ -23,6 +23,14 @@ public class UISceneMain : UIBase
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] private List<HealthUI> hpBarList = new List<HealthUI>();
 
+    [Header("Ã¨ÇÇ¾ð Á¤º¸")]
+    [SerializeField] private UIChampionExplainPanel uiChampionExplainPanel;
+
+    public UIChampionExplainPanel UIChampionExplainPanel
+    {
+        get { return uiChampionExplainPanel; }
+        set { uiChampionExplainPanel = value; }
+    }
 
     public UISynergyPanel UISynergyPanel
     {
@@ -50,6 +58,7 @@ public class UISceneMain : UIBase
 
         uiSynergyPanel.InitSynergyBtn(symbolData);
         uiShopPanel.InitShopBtn(gameData);
+        uiChampionExplainPanel.InitChampionExplainPanel(symbolData);
 
     }
 }

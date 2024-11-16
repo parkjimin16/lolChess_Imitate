@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Hecarim
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 6073bcf7513dfb443932d74c99a3765a, type: 3}
   skillName: "\uD68C\uC624\uB9AC \uBCA0\uAE30"
   skillType: 1
   description: "\uC0AC\uC6A9 \uC2DC: \uB610\uD55C \uB2E4\uC74C 6\uCD08 \uB3D9\uC548

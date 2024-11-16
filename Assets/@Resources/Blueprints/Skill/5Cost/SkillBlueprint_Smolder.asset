@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Smolder
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: dfacd225616b7134f80d09a09fc420f6, type: 3}
   skillName: "\uBE44\uD589 \uD559\uC2B5"
   skillType: 1
   description: "\uC0AC\uC6A9 \uC2DC: \uACF5\uACA9 \uC18D\uB3C4\uB97C \uC5BB\uACE0

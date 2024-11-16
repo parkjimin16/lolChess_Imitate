@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Jinx
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 6d6f594697c7a8e4a938fcbe7c50ed2f, type: 3}
   skillName: "\uC2E0\uB09C\uB2E4!"
   skillType: 1
   description: "5\uCD08 \uB3D9\uC548 \uC810\uCC28 \uAC10\uC18C\uD558\uB294 \uACF5\uACA9

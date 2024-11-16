@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Ryze
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 865373e6b392074438f382dfa26f90e2, type: 3}
   skillName: "\uB8EC \uCC28\uC6D0\uBB38"
   skillType: 1
   description: "\uCC28\uC6D0\uBB38\uC744 \uC5F4\uC5B4 \uAC00\uC7A5 \uAC00\uAE4C\uC6B4

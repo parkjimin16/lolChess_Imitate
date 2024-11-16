@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Galio
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 54af4ace20c5bab40b80da81e6c8ba37, type: 3}
   skillName: "\uC735\uD569"
   skillType: 1
   description: "4\uCD08 \uB3D9\uC548 4\uCD08 \uB3D9\uC548 \uBC1B\uB294 \uD53C\uD574\uB7C9\uC774

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Hwei
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: c70d95dcb9f554c4f9ac5226636d5767, type: 3}
   skillName: "\uC8FC\uC81C: \uD3ED\uD48D"
   skillType: 1
   description: "\uB300\uC0C1 \uC704\uC5D0 \uBC88\uAC1C\uB97C \uADF8\uB9BD\uB2C8\uB2E4.

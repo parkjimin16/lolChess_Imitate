@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_NorraYuumi
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: 9ede633e8b74bdc41a43d29c6b2cea75, type: 3}
   skillName: "\uCC28\uC6D0\uBB38 \uB300\uC18C\uB3D9"
   skillType: 1
   description: "\uD604\uC7AC \uB300\uC0C1\uC5D0\uAC8C \uACF5\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4.

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3d466efa6231a4fbe9ec6abe93df1e, type: 3}
   m_Name: SkillBlueprint_Zilean
   m_EditorClassIdentifier: 
+  skillSprite: {fileID: 21300000, guid: ff5a9bb894334d64fa42e4ddbd738993, type: 3}
   skillName: "\uC2DC\uD55C \uD3ED\uD0C4"
   skillType: 1
   description: "\uB300\uC0C1\uC5D0\uAC8C \uD3ED\uD0C4\uC744 \uC124\uCE58\uD574 \uB9C8\uBC95

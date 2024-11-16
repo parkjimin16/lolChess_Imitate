@@ -18,15 +18,15 @@ public static class Utilities
         switch (championCost)
         {
             case ChampionCost.OneCost:
-                return "#C3C2C5"; // 회색
+                return "#A0A0A3"; // 회색
             case ChampionCost.TwoCost:
-                return "#93DCC3"; // 녹색
+                return "#66C59A"; // 녹색
             case ChampionCost.ThreeCost:
-                return "#56BAF8"; // 파란색
+                return "#1F7DC1"; // 파란색
             case ChampionCost.FourCost:
-                return "#D500FF"; // 보라색
+                return "#9C00B3"; // 보라색
             case ChampionCost.FiveCost:
-                return "#FFD150"; // 노란색
+                return "#FFAA00"; // 노란색
             default:
                 return "등록되지 않은 챔피언 단계";
         }
