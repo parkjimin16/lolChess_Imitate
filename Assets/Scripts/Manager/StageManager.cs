@@ -6,6 +6,8 @@ using static MapGenerator;
 
 public class StageManager
 {
+    public bool IsBattleOngoing { get; private set; } = false;
+
     public GameObject[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
     private List<GameObject> players; // 모든 플레이어 목록
     private List<(GameObject, GameObject)> matchups; // 매칭된 플레이어 페어 목록
@@ -243,6 +245,8 @@ public class StageManager
     #region 매칭 로직
     private void GenerateMatchups()
     {
+        IsBattleOngoing = true;
+
         // 플레이어 리스트를 섞습니다.
         ShufflePlayers();
 
@@ -357,6 +361,7 @@ public class StageManager
             DistributeGoldToPlayers();
             // 라운드 증가 및 다음 라운드 진행
             ProceedToNextRound();
+            IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
         }
 
         Player p1 = player1.GetComponent<Player>();
@@ -659,8 +664,10 @@ public class StageManager
         // 라운드 종료 처리
         EndCripRound();
     }
+
     void SpawnCrips()
     {
+        IsBattleOngoing = true;
         foreach (GameObject player in AllPlayers)
         {
             Player playerComponent = player.GetComponent<Player>();
@@ -828,6 +835,7 @@ public class StageManager
         }
         DistributeGoldToPlayers();
         DistributeExp();
+        IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
     }
 
     #endregion

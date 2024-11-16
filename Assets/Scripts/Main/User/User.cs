@@ -6,7 +6,7 @@ public class User : MonoBehaviour
 {
     // 변수 & 프로퍼티
     [SerializeField] private UISceneMain uiMain;
-
+    
 
     // 클릭 로직
     private Vector2 _lastTouchPos = Vector2.zero;
@@ -45,6 +45,32 @@ public class User : MonoBehaviour
     #region Unity Flow
     private void Update()
     {
+        if (Manager.Stage.IsBattleOngoing)
+        {
+            if (_movableObj != null)
+            {
+                if (!_isReturning)
+                {
+                    // 반환 과정을 초기화합니다.
+                    _isReturning = true;
+                    _returningObjData = new ReturningObjectData
+                    {
+                        obj = _movableObj,
+                        beforePosition = _beforePosition,
+                        currentTile = currentTile,
+                        movableObjectType = _movableObjectType
+                    };
+                    _movableObj = null;
+                    currentTile = null;
+                }
+
+                ObjectReturn(); // 드래그 중인 오브젝트 반환
+            }
+
+            // 전투 중이므로 다른 입력을 처리하지 않음
+            return;
+        }
+
         _lastTouchPos = _currentTouchPos;
         _currentTouchPos = Input.mousePosition;
 
@@ -143,11 +169,10 @@ public class User : MonoBehaviour
                 }
                 else if (_movableObjectType == MovableObjectType.Champion)
                 {
-                    tile.championOnTile.Remove(_movableObj);
+                    //tile.championOnTile.Remove(_movableObj);
                 }
             }
-
-            _movableObj.transform.SetParent(null);
+            //_movableObj.transform.SetParent(null);
         }
     }
 
@@ -186,7 +211,7 @@ public class User : MonoBehaviour
                     }
                     else if (_movableObjectType == MovableObjectType.Champion)
                     {
-                        tile.championOnTile.Remove(_movableObj);
+                        //tile.championOnTile.Remove(_movableObj);
                     }
                 }
             }
@@ -240,7 +265,6 @@ public class User : MonoBehaviour
                     }
                 }
             }
-
 
             _isReturning = true;
             _returningObjData = new ReturningObjectData
@@ -499,7 +523,33 @@ public class User : MonoBehaviour
             GameObject hitObject = hitInfo.collider.gameObject;
             if (hitObject != null && hitObject.gameObject.tag.Equals(tag))
             {
-                return hitObject;
+                if (tag == "Champion" && !Manager.Stage.IsBattleOngoing)
+                {
+                    UserData user1 = Manager.User.GetHumanUserData();
+                    if (user1.TotalChampionObject.Contains(hitObject))
+                    {
+                        return hitObject;
+                    }
+                    else
+                    {
+                        // 소유자가 아니면 선택 불가
+                        return null;
+                    }
+                }
+                else if (tag == "Item")
+                {
+                    UserData user1 = Manager.User.GetHumanUserData();
+                    if (user1.UserItemObject.Contains(hitObject))
+                    {
+                        return hitObject;
+                    }
+                    else
+                    {
+                        // 소유자가 아니면 선택 불가
+                        return null;
+                    }
+                }
+                //return hitObject;
             }
         }
         return null;
@@ -508,10 +558,17 @@ public class User : MonoBehaviour
     {
         if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
         {
-            _returningObjData.obj.transform.position = Vector3.MoveTowards(
+            if(_returningObjData.movableObjectType == MovableObjectType.Champion)
+            {
+                _returningObjData.obj.transform.position = _returningObjData.beforePosition;
+            }
+            if(_returningObjData.movableObjectType == MovableObjectType.Item)
+            {
+                _returningObjData.obj.transform.position = Vector3.MoveTowards(
                 _returningObjData.obj.transform.position,
                 _returningObjData.beforePosition,
                 Time.deltaTime * 30f);
+            }
 
             if (Vector3.Distance(_returningObjData.obj.transform.position, _returningObjData.beforePosition) < 0.01f)
             {
