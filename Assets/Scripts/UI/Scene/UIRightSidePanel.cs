@@ -8,7 +8,6 @@ public class UIRightSidePanel : UIBase
     [SerializeField] private GameObject ChampionExplainPanel;
     [SerializeField] private Button button;
 
-
     protected override void Init()
     {
         base.Init();

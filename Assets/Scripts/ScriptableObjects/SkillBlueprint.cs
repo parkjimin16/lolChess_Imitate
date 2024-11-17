@@ -10,7 +10,7 @@ public class SkillBlueprint : ScriptableObject
     [SerializeField] private Sprite skillSprite;
     [SerializeField] private string skillName;
     [SerializeField] private SkillType skillType;
-    [SerializeField] private string description;
+    [SerializeField, TextArea] private string description;
     [SerializeField] private List<SkillLevelData> skillLevelData;
     [SerializeField] private GameObject skillObject;
 

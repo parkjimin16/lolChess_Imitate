@@ -24,12 +24,6 @@ public class CameraManager
 
     public void MoveCameraToPlayer(Player playerData)
     {
-        if(mapGenerator == null)
-        {
-            GameObject obj = GameObject.Find("Map");
-            mapGenerator = obj.GetComponent<MapGenerator>();
-        }
-
         MapInfo targetMap = mapGenerator.mapInfos.Find(mapInfo => mapInfo.playerData == playerData);
 
         if (targetMap != null)
