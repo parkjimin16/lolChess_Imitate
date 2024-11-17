@@ -245,7 +245,7 @@ public class StageManager
     #region 매칭 로직
     private void GenerateMatchups()
     {
-        IsBattleOngoing = true;
+        
 
         // 플레이어 리스트를 섞습니다.
         ShufflePlayers();
@@ -274,7 +274,7 @@ public class StageManager
             GameObject randomPlayer = players[randomIndex];
             matchups.Add((lastPlayer, randomPlayer));
         }
-
+        IsBattleOngoing = true;
         AllPlayerStartBattle();
     }
 

@@ -26,6 +26,7 @@ public class User : MonoBehaviour
 
     private bool _isReturning = false;
     private bool _objectMoved = false;
+    private bool _isDragging = false;
 
     private ItemFrame _hoveredItem;
     [SerializeField]private MapGenerator _mapGenerator;
@@ -47,7 +48,7 @@ public class User : MonoBehaviour
     {
         if (Manager.Stage.IsBattleOngoing)
         {
-            if (_movableObj != null)
+            if (_isDragging && _movableObj != null)
             {
                 if (!_isReturning)
                 {
@@ -181,7 +182,8 @@ public class User : MonoBehaviour
     {
         if (_movableObj != null)
         {
-            _objectMoved = true; 
+            _objectMoved = true;
+            _isDragging = true; // 드래그 중임을 표시
 
             Vector3 touchPos = Input.mousePosition;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 10));
@@ -199,6 +201,7 @@ public class User : MonoBehaviour
     {
         if (_movableObj != null)
         {
+            _isDragging = false;
             if (_objectMoved)
             {
                 if (currentTile != null)
