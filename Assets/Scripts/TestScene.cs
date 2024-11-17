@@ -112,7 +112,7 @@ public class TestScene : UIBase
             ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(championName) as ChampionBlueprint;
             ChampionSlot championSlotSciprt = championSlotList[idx].GetComponent<ChampionSlot>();
 
-            championSlotSciprt.ChampionSlotInit(championBlueprint, Utilities.SetSlotColor(championBlueprint.ChampionCost));
+            //championSlotSciprt.ChampionSlotInit(championBlueprint, Utilities.SetSlotColor(championBlueprint.ChampionCost));
             idx++;
         }
     }

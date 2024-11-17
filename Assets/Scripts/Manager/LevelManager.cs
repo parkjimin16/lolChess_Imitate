@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager
 {
-    private readonly int[] ExperienceTable = {
+    public readonly int[] ExperienceTable = {
         0, 2, 2, 6, 10, 20, 36, 48, 76, 76 // Lv1 ~ Lv10
     };
 

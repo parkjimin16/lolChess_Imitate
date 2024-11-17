@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class UISceneMain : UIBase
 {
+    [SerializeField] private GameDataBlueprint gameDataBlueprint;
+    [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
+
     [Header("시너지")]
     [SerializeField] private UISynergyPanel uiSynergyPanel;
-    private SymbolDataBlueprint symbol;
 
 
     [Header("상점")]
@@ -25,6 +27,9 @@ public class UISceneMain : UIBase
 
     [Header("챔피언 정보")]
     [SerializeField] private UIChampionExplainPanel uiChampionExplainPanel;
+
+    public GameDataBlueprint GameDataBlueprint => gameDataBlueprint;
+    public SymbolDataBlueprint SymbolDataBlueprint => symbolDataBlueprint;
 
     public UIChampionExplainPanel UIChampionExplainPanel
     {
@@ -47,14 +52,14 @@ public class UISceneMain : UIBase
     protected override void Init()
     {
         base.Init();
-        //Manager.Stage.InitStage(player, mapGenerator);
         Manager.UserHp.InitUserHp(hpBarList);
     }
 
 
     public void InitPanel(GameDataBlueprint gameData, SymbolDataBlueprint symbolData)
     {
-        symbol = symbolData;
+        symbolDataBlueprint = symbolData;
+        gameDataBlueprint = gameData;
 
         uiSynergyPanel.InitSynergyBtn(symbolData);
         uiShopPanel.InitShopBtn(gameData);

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 public class UIChampionExplainPanel : UIBase
 {
     [SerializeField] private ChampionBase championBase;
     [SerializeField] private SymbolDataBlueprint symbolData;
     [SerializeField] private SkillBlueprint skillBlueprint;
+    [SerializeField] private Transform skillDetailTransform;
 
     [Header("Champion Info")]
     [SerializeField] private List<GameObject> level;
@@ -29,6 +30,7 @@ public class UIChampionExplainPanel : UIBase
     [SerializeField] private TextMeshProUGUI txt_Mana;
 
     [Header("Champion Skill")]
+    [SerializeField] private Button btn_Skill;
     [SerializeField] private Image image_Skill_Icon;
     [SerializeField] private TextMeshProUGUI txt_ChampionPos;
     [SerializeField] private TextMeshProUGUI txt_Champion_Attack_Range;
@@ -53,6 +55,8 @@ public class UIChampionExplainPanel : UIBase
     public void InitChampionExplainPanel(SymbolDataBlueprint symbol)
     {
         symbolData = symbol;
+
+        btn_Skill.onClick.AddListener(OnSkillButtonClick);
     }
 
     public void UpdateChampionExplainPanel(ChampionBase cBase)
@@ -188,7 +192,7 @@ public class UIChampionExplainPanel : UIBase
 
     #endregion
 
-
+    #region Slider
     private void SetHpSlider(float maxHp, float curHp)
     {
         if (slider_Hp != null)
@@ -216,6 +220,35 @@ public class UIChampionExplainPanel : UIBase
             Debug.LogError("slider_Mana가 연결되지 않았습니다.");
         }
     }
+    #endregion
 
+    #region Popup
 
+    private void OnSkillButtonClick()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            button = PointerEventData.InputButton.Right
+        };
+
+        OnPointerClick(eventData);
+    }
+    private void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            ShowPopupUI();
+        }
+    }
+
+    private void ShowPopupUI()
+    {
+        var skillDetailPopup = Manager.UI.ShowPopup<UIPopupSkillDetail>();
+
+        if (skillDetailPopup == null)
+            return;
+
+        skillDetailPopup.InitSkillDetailPopup(skillBlueprint, championBase);
+    }
+    #endregion
 }
