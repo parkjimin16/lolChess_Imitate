@@ -382,7 +382,7 @@ public class StageManager
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionAttackController.EnemyPlayer = null;
         }
-        CameraManager.Instance.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
+        Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
     }
 
 
@@ -521,7 +521,7 @@ public class StageManager
         {
             DisableAllPlayerMovement();
             _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.sharedSelectionMapTransform);
-            CameraManager.Instance.MoveCameraToSharedSelectionMap();
+            Manager.Cam.MoveCameraToSharedSelectionMap();
             return true;
         }
         return false;
@@ -574,26 +574,17 @@ public class StageManager
     }
     void EndCarouselRound()
     {
-       // Debug.Log("공동 선택 라운드가 종료되었습니다.");
-
         // 모든 플레이어들에게 공동 선택 라운드 종료를 알리고 원래 위치로 복귀
         foreach (GameObject playerObj in AllPlayers)
         {
             PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
             if (playerMove != null)
             {
-                // 부모를 다시 설정 (최상위 또는 원래 부모로)
-                //playerObj.transform.SetParent(null);
-
-                // 원래 위치로 복귀
                 playerMove.ReturnToOriginalPosition();
-
-                // 필요한 경우 추가적인 초기화 로직
                 playerMove.EndCarouselRound();
-                
             }
         }
-        CameraManager.Instance.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
+        Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
         // 이후 라운드 진행 로직
         // 다음 라운드로 이동
         currentRound++;
@@ -607,7 +598,6 @@ public class StageManager
             if (currentStage > 8)
             {
                 // 게임 종료
-               // Debug.Log("게임 클리어!");
                 return;
             }
             StartStage(currentStage);

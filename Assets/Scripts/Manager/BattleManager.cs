@@ -157,13 +157,10 @@ public class BattleManager
 
         if(playerComponent2.UserData.PlayerType == PlayerType.Player1)
         {
-            //Debug.Log("왜안돼");
-            CameraManager.Instance.MoveCameraToPlayer(playerComponent1);
+            Manager.Cam.MoveCameraToPlayer(playerComponent1);
         }
 
         player2.transform.position = opponentPlayerPosition;
-
-        // 필요에 따라 플레이어의 회전을 조정합니다.
         player2.transform.LookAt(player1.transform.position);
     }
     private void RestoreOpponentPlayer(GameObject opponent)

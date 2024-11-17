@@ -49,6 +49,7 @@ public class Manager : MonoBehaviour
     private readonly BattleManager battle = new();
     private readonly UserHpManager userHp = new();
     private readonly LevelManager level = new();
+    private readonly CameraManager cam = new();
 
     // ´ë¿¬
     public static AssetManager Asset => Instance != null ? Instance.asset : null;
@@ -68,6 +69,6 @@ public class Manager : MonoBehaviour
     public static BattleManager Battle => Instance != null ? Instance.battle : null;
     public static UserHpManager UserHp => Instance != null ? Instance.userHp : null;
     public static LevelManager Level => Instance != null ? Instance.level : null;
-
+    public static CameraManager Cam => Instance != null ? Instance.cam : null;  
     #endregion
 }

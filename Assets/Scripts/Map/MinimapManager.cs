@@ -56,7 +56,7 @@ public class MinimapManager : MonoBehaviour, IPointerClickHandler
                     if (playerData != null)
                     {
                         // 카메라를 해당 플레이어의 맵으로 이동
-                        CameraManager.Instance.MoveCameraToPlayer(playerData);
+                        Manager.Cam.MoveCameraToPlayer(playerData);
 
                         // 맵 경계선 색상 업데이트
                         UpdateBoundaryColors(mapInfo.mapId);

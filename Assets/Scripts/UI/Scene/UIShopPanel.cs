@@ -43,7 +43,6 @@ public class UIShopPanel : UIBase
                 button.onClick.AddListener(() => InstantiateChampion(cSlot.ChampionBlueprint, button));
             }
         }
-        
     }
 
     private void InstantiateChampion(ChampionBlueprint cBlueprint, Button button)
@@ -70,7 +69,7 @@ public class UIShopPanel : UIBase
         Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
     }
 
-    private void UpdateChampionSlot(PointerEventData enterEvent)
+    public void UpdateChampionSlot(PointerEventData enterEvent)
     {
         UserData user = Manager.User.GetHumanUserData();
 
