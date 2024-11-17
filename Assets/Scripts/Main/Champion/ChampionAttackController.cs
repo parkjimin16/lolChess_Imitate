@@ -225,6 +225,14 @@ public class ChampionAttackController : MonoBehaviour
     {
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
+            Vector3 direction = (targetPosition - transform.position).normalized;
+
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, cBase.Champion_Speed  * 5f * Time.deltaTime);
             yield return null;
         }

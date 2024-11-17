@@ -70,8 +70,8 @@ public class BattleManager
             ChampionBase cBase = champ.GetComponent<ChampionBase>();
 
             cBase.ChampionRotationReset();
-            cBase.ResetChampionStats();
             cBase.ChampionAttackController.EndBattle();
+            cBase.ResetChampionStats();
         }
 
         foreach (var champ in p2.UserData.BattleChampionObject)
@@ -79,8 +79,8 @@ public class BattleManager
             ChampionBase cBase = champ.GetComponent<ChampionBase>();
 
             cBase.ChampionRotationReset();
-            cBase.ResetChampionStats();
             cBase.ChampionAttackController.EndBattle();
+            cBase.ResetChampionStats();
         }
 
         // Init player1

@@ -8,11 +8,12 @@ public class NormalProjectile : MonoBehaviour
     public int damage;
     private GameObject target;
 
-    // 타겟을 설정하는 메서드
     public void SetTarget(GameObject target, int damage)
     {
         this.target = target;
         this.damage = damage;
+
+        StartCoroutine(DestroyAfterDelay(3f));
     }
 
     private void Update()
@@ -39,5 +40,11 @@ public class NormalProjectile : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }

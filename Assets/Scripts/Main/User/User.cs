@@ -82,6 +82,7 @@ public class User : MonoBehaviour
             {
                 Debug.Log("Ã¨ÇÇ¾ð Å¬¸¯");
                 HandleChampionRightClick(clickedObject);
+                return;
             }
         }
 
