@@ -68,29 +68,22 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+            obj.transform.position = new Vector3(0, 0, 0);
+            Capsule cap = obj.GetComponent<Capsule>();
+            List<string> item = new List<string>();
+            List<string> champion = new List<string>();
+
+            item.Add("A001");
+            item.Add("B012");
+            champion.Add("ChampionBlueprint_Ashe");
+            champion.Add("ChampionBlueprint_Olaf");
+
+            cap.InitCapsule(10, item, champion);
+
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
-            AugmenterData aData = augmenterBlueprint.GetAugmentByName("ªÔ√—ªÁ");
-            Manager.Augmenter.SetAugmenter(Manager.User.GetHumanUserData(), aData);
-        }
-        else if(Input.GetKeyDown(KeyCode.X)) 
-        {
-            ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Seraphine") as ChampionBlueprint;
-
-            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-            newChampionObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            newChampionObject.tag = "Enemy";
-
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
-
-            frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = new Vector3(0, 5, 0);
-
-            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
-            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
-
-            Player player = Manager.Game.PlayerListObject[0].GetComponent<Player>();
-            cBase.SetChampion(cBlueprint, player);
-            cBase.InitChampion(cFrame);
+            //AugmenterData aData = augmenterBlueprint.GetAugmentByName("ªÔ√—ªÁ");
+            //Manager.Augmenter.SetAugmenter(Manager.User.GetHumanUserData(), aData);
         }
         else if(Input.GetKeyDown(KeyCode.N)) //¿¸≈ı Ω√¿€ 
         {

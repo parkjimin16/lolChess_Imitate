@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3917552199815538342}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapGenerator: {fileID: 0}
+  canMove: 1
 --- !u!114 &-3917552199815538342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,8 +137,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 72c25bcd831a44c47be33af298ffd774, type: 2}
-  currentHealth: 0
-  playerType: 0
+  userData:
+    gold: 0
+    userName: 
+    userHealth: 0
+    userId: 0
+    userLevel: 0
+    userExp: 0
+    successiveWin: 0
+    successiveLose: 0
+    totalChampionObject: []
+    battleChampionObject: []
+    nonBattleChamiponObject: []
+    totalItemBlueprint: []
+    userSynergyData: []
+    sugarCraftPosition: []
+    portalPosition: []
+    playerType: 0
+    userAugmenter: []
+    userItemObject: []
+  text_ChampionName: {fileID: 0}
+  enemyUser: {fileID: 0}
+  battleStageIndex: 0
 --- !u!1 &7977469125116365601
 GameObject:
   m_ObjectHideFlags: 0

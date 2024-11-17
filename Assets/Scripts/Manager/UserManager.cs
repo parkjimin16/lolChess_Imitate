@@ -9,6 +9,8 @@ public class UserManager
     private List<UserData> userDatas; 
 
     public List<UserData> UserDatas => userDatas;
+
+    #region ÃÊ±âÈ­
     public void Init()
     {
         userDatas = new List<UserData>();
@@ -43,7 +45,40 @@ public class UserManager
             userDatas.Add(user);
         }
     }
+    #endregion
 
+    #region À¯Àú Ä¸½¶ È¹µæ
+
+    public void UserCrushWithCapsule(UserData user, int gold, List<string> itemList, List<string> championList)
+    {
+        // °ñµå
+        user.UserGold += gold;
+
+
+        // ¾ÆÀÌÅÛ
+        foreach (var itemId in itemList)
+        {
+            user.MapInfo.ItemTile[0].GenerateItem(itemId);
+        }
+
+        // Ã¨ÇÇ¾ð
+        foreach(var championId in championList)
+        {
+            HexTile tile = Manager.Champion.FindChampionPos(user);
+
+            if (tile == null)
+                return;
+
+            Transform transform = tile.transform;
+            ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint(championId) as ChampionBlueprint;
+            Manager.Champion.InstantiateChampion(user, cBlueprint, tile, transform);
+        }
+     
+
+    }
+    #endregion
+
+    #region À¯Àú ·ÎÁ÷
     public bool CheckChamipon(UserData user, string championName)
     {
         return user.BattleChampionObject.Any(championObject =>
@@ -83,6 +118,7 @@ public class UserManager
         hUser.PortalPosition = hUser.MapInfo.PortalPosition;
 
     }
+    #endregion
 }
 
 

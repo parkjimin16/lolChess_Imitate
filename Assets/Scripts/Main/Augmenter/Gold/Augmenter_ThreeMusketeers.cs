@@ -33,7 +33,7 @@ public class Augmenter_ThreeMusketeers : BaseAugmenter
 
     private void Champion(UserData user, string championName)
     {
-        HexTile tile = FindChampionPos(user);
+        HexTile tile = Manager.Champion.FindChampionPos(user);
 
         if (tile == null)
             return;
@@ -45,17 +45,7 @@ public class Augmenter_ThreeMusketeers : BaseAugmenter
         Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, tile, transform);
     }
 
-    private HexTile FindChampionPos(UserData user)
-    {
-        foreach (var tileEntry in user.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (!tile.isOccupied)
-                return tile;
-        }
 
-        return null;
-    }
 
     #endregion
 }

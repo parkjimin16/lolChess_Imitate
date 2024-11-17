@@ -18,6 +18,7 @@ TagManager:
   - EnemySugar
   - PlayerPortal
   - EnemyPortal
+  - Capsule
   layers:
   - Default
   - TransparentFX

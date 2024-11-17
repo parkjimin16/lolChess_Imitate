@@ -144,4 +144,19 @@ public class ItemTile : MonoBehaviour
             }
         }
     }
+
+    public int EmptyTileCount()
+    {
+        int count = 0;
+
+        foreach (GameObject tileObj in _items)
+        {
+            HexTile tile = tileObj.GetComponent<HexTile>();
+            if (tile != null && tile.isItemTile == false)
+                count++;
+        }
+
+        return count;
+        ;
+    }
 }

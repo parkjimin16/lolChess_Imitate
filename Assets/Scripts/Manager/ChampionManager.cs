@@ -107,8 +107,37 @@ public class ChampionManager
 
         Manager.Champion.SettingNonBattleChampion(user);
     }
-    #endregion
 
+    // 챔피언 생성 위치 반환
+    public HexTile FindChampionPos(UserData user)
+    {
+        foreach (var tileEntry in user.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied)
+                return tile;
+        }
+
+        return null;
+    }
+
+    // 챔피언 생성 가능한 위치의 수 반환
+    public int GetEmptyTileCount(UserData user)
+    {
+        int emptyTileCount = 0;
+
+        foreach (var tileEntry in user.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied)
+            {
+                emptyTileCount++;
+            }
+        }
+
+        return emptyTileCount;
+    }
+    #endregion
 
     #region 유저 챔피언
 
