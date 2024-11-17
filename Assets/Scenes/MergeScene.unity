@@ -399,6 +399,7 @@ MonoBehaviour:
   symbolDataBlueprint: {fileID: 0}
   augmenterBlueprint: {fileID: 0}
   mapGenerator: {fileID: 1033666889}
+  mainCam: {fileID: 989249099}
   Level: 1
 --- !u!1 &312038771
 GameObject:
@@ -4007,7 +4008,6 @@ GameObject:
   - component: {fileID: 2002037678}
   - component: {fileID: 2002037677}
   - component: {fileID: 2002037675}
-  - component: {fileID: 2002037674}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4015,20 +4015,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2002037674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002037672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be0377b02cd0844abdcb792fa6aacd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 989249099}
-  mapGenerator: {fileID: 1033666889}
 --- !u!114 &2002037675
 MonoBehaviour:
   m_ObjectHideFlags: 0
