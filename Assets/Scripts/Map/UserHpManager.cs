@@ -106,7 +106,7 @@ public class UserHpManager
     public void OnHealthBarClicked(HealthUI clickedHealthBar)
     {
         // 카메라 이동 로직 호출
-        CameraManager.Instance.MoveCameraToPlayer(clickedHealthBar.PlayerData);
+        Manager.Cam.MoveCameraToPlayer(clickedHealthBar.PlayerData);
     }
     public void HighlightHealthBar(Player playerData)
     {

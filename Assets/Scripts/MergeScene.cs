@@ -53,6 +53,9 @@ public class MergeScene : MonoBehaviour
                 Manager.Item.Init();
                 Manager.Synerge.Init(symbolDataBlueprint);
 
+
+                mainScene.UIShopPanel.UpdateChampionSlot(null);
+                mainScene.UISynergyPanel.UpdateSynergy();
             }
         });
     }

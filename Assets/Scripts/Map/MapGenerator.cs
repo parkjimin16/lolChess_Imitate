@@ -166,7 +166,7 @@ public class MapGenerator : MonoBehaviour
 
                     Vector3 PlayerPosition = userMap.transform.position + new Vector3(-13.5f, 0.8f, -5f);
                     allPlayers[userIndex].transform.position = PlayerPosition;
-                    CameraManager.Instance.MoveCameraToPlayer(allPlayers[0].GetComponent<Player>());
+                    Manager.Cam.MoveCameraToPlayer(allPlayers[0].GetComponent<Player>());
 
                     GameObject shop = GameObject.Find("ShopPanel");
                     UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
