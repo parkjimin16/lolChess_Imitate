@@ -19,10 +19,10 @@ public class UISynergyPanel : UIBase
         synergyData= new List<KeyValuePair<string, int>>();
     }
 
-    public void UpdateSynergy()
+    public void UpdateSynergy(UserData user)
     {
         synergyData.Clear();
-        synergyData = Manager.Synerge.GetSortedChampionSynergiesWithCount(Manager.User.GetHumanUserData());
+        synergyData = Manager.Synerge.GetSortedChampionSynergiesWithCount(user);
         int totalSynergies = synergyData.Count;
 
         synergySlots.ForEach(slot => slot.SetActive(true));
