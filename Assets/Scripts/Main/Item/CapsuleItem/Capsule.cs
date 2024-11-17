@@ -44,15 +44,17 @@ public class Capsule : MonoBehaviour
     #region 面倒 贸府
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("面倒 眉农 吝");
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("面倒");
             Player player = other.GetComponent<Player>();
             if (player != null && player.UserData.MapInfo.ItemTile[0].EmptyTileCount() >= ItemContainer.Count 
                 && Manager.Champion.GetEmptyTileCount(player.UserData) >= championContainer.Count)
             {
                 Manager.User.UserCrushWithCapsule(player.UserData, gold, ItemContainer, championContainer);
+                
+                UISceneMain main = GameObject.Find("UISceneMain").GetComponent<UISceneMain>();
+                main.UIShopPanel.UpdatePlayerGold(Manager.User.GetHumanUserData());
+
                 Destroy(gameObject);
             }
         }

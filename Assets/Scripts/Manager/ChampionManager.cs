@@ -139,6 +139,59 @@ public class ChampionManager
     }
     #endregion
 
+    #region 챔피언 제거
+
+    public void RemoveChampion(UserData user, GameObject targetChampion)
+    {
+        ChampionBase cBase = targetChampion.GetComponent<ChampionBase>();
+
+        if (cBase.EquipItem.Count > 0)
+        {
+            GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+            obj.transform.position = new Vector3(0, 1, 0);
+            Capsule cap = obj.GetComponent<Capsule>();
+            List<string> item = new List<string>();
+            List<string> champion = new List<string>();
+
+            for (int i = 0; i < cBase.EquipItem.Count; i++)
+            {
+                item.Add(cBase.EquipItem[i].ItemId);
+            }
+
+            cap.InitCapsule(cBase.ChampionSellCost(Utilities.SetSlotCost(cBase.ChampionCost), cBase.ChampionLevel), item, champion);
+        }
+        else
+        {
+            user.UserGold += Utilities.SetSlotCost(cBase.ChampionCost);
+        }
+
+
+        // totalChampionObject에서 제거
+        if (user.TotalChampionObject.Contains(targetChampion))
+        {
+            user.TotalChampionObject.Remove(targetChampion);
+        }
+
+        // battleChampionObject에서 제거
+        if (user.BattleChampionObject.Contains(targetChampion))
+        {
+            user.BattleChampionObject.Remove(targetChampion);
+        }
+
+        // nonBattleChampionObject에서 제거
+        if (user.NonBattleChampionObject.Contains(targetChampion))
+        {
+            user.NonBattleChampionObject.Remove(targetChampion);
+        }
+
+
+
+
+        Manager.Synergy.UpdateSynergies(user);
+    }
+
+    #endregion
+
     #region 유저 챔피언
 
     #region 전체 챔피언
@@ -164,7 +217,6 @@ public class ChampionManager
             }
         }
 
-        // HexDictionary의 타일 처리
         foreach (var tileEntry in userData.MapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
@@ -180,10 +232,6 @@ public class ChampionManager
                 }
             }
         }
-
-        Debug.Log($"전체 챔피언 수 : {userData.TotalChampionObject.Count}");
-        Debug.Log($"배틀 챔피언 수 : {userData.NonBattleChampionObject.Count}");
-        Debug.Log($"논배틀 챔피언 수 : {userData.BattleChampionObject.Count}");
     }
     private void SettingTotalChampion(UserData userData)
     {
@@ -250,9 +298,6 @@ public class ChampionManager
 
     public void AddNonBattleChampion(UserData userData, GameObject champion)
     {
-        //if (userData.NonBattleChampionObject.Count <= 0)
-        //    return;
-
         userData.NonBattleChampionObject.Add(champion);
 
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
@@ -269,6 +314,7 @@ public class ChampionManager
         if (sameChampionCount >= 3)
         {
             championToEnhance = MergeChampion(userData, champion);
+
             SettingAllChampion(userData);
         }
 
@@ -332,10 +378,10 @@ public class ChampionManager
             return;
 
 
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
-        Manager.Synerge.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
-        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
-        Manager.Synerge.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
+        Manager.Synergy.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_First));
+        Manager.Synergy.AddSynergyLine(userData, addChampionBase.ChampionName, Utilities.GetLineName(addChampionBase.ChampionLine_Second));
+        Manager.Synergy.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_First));
+        Manager.Synergy.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
     }
 
     public void RemoveBattleChampion(UserData userData, GameObject champion)
@@ -372,9 +418,6 @@ public class ChampionManager
                 if (parentTile != null)
                 {
                     parentTile.championOnTile.Remove(currentChampionObj);
-
-                    // 타일의 점유 상태 업데이트 (필요 시)
-                    // parentTile.isOccupied = parentTile.championsOnTile.Count > 0;
                 }
                 Utilities.Destroy(userData.TotalChampionObject[i]);
                 userData.TotalChampionObject.RemoveAt(i);
@@ -385,7 +428,7 @@ public class ChampionManager
 
         if (itemList.Count > 0)
         {
-            Manager.Item.StartCreatingItems(itemList, new Vector3(0, 10, 0));
+            Manager.Item.StartCreatingItems(itemList);
         }
 
         itemList.Clear();

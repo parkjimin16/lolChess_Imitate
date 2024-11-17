@@ -61,7 +61,7 @@ public class Manager : MonoBehaviour
     public static ClickManager Click => Instance != null ? Instance.click : null;
     public static UIManagerTemp UI => Instance != null ? Instance.ui : null;
     public static UserManager User => Instance != null ? Instance.user : null;
-    public static SynergyManager Synerge => Instance != null ? Instance.synergy : null;
+    public static SynergyManager Synergy => Instance != null ? Instance.synergy : null;
     public static AugmenterManager Augmenter => Instance != null ? Instance.augmenter : null;
     // Áö¹Î
 

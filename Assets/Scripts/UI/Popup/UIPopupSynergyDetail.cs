@@ -188,7 +188,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Line(ChampionLineData lineData)
     {
-        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetHumanUserData(), lineData.ChampionLineName);
+        int count = Manager.Synergy.GetSynergyCount(Manager.User.GetHumanUserData(), lineData.ChampionLineName);
 
         string synergyDetailText = "";
 
@@ -213,7 +213,7 @@ public class UIPopupSynergyDetail : UIPopup
 
     private string UpdateSynergyDetailText_Job(ChampionJobData jobData)
     {
-        int count = Manager.Synerge.GetSynergyCount(Manager.User.GetHumanUserData(), jobData.ChampionJobName);
+        int count = Manager.Synergy.GetSynergyCount(Manager.User.GetHumanUserData(), jobData.ChampionJobName);
 
         string synergyDetailText = "";
 

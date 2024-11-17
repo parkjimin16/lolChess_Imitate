@@ -53,26 +53,34 @@ public class UserManager
     {
         // °ñµå
         user.UserGold += gold;
+        
 
-
-        // ¾ÆÀÌÅÛ
-        foreach (var itemId in itemList)
+        if (itemList.Count > 0)
         {
-            user.MapInfo.ItemTile[0].GenerateItem(itemId);
+            // ¾ÆÀÌÅÛ
+            foreach (var itemId in itemList)
+            {
+                user.MapInfo.ItemTile[0].GenerateItem(itemId);
+            }
         }
+       
 
-        // Ã¨ÇÇ¾ð
-        foreach(var championId in championList)
+        if(championList.Count > 0)
         {
-            HexTile tile = Manager.Champion.FindChampionPos(user);
+            // Ã¨ÇÇ¾ð
+            foreach (var championId in championList)
+            {
+                HexTile tile = Manager.Champion.FindChampionPos(user);
 
-            if (tile == null)
-                return;
+                if (tile == null)
+                    return;
 
-            Transform transform = tile.transform;
-            ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint(championId) as ChampionBlueprint;
-            Manager.Champion.InstantiateChampion(user, cBlueprint, tile, transform);
+                Transform transform = tile.transform;
+                ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint(championId) as ChampionBlueprint;
+                Manager.Champion.InstantiateChampion(user, cBlueprint, tile, transform);
+            }
         }
+       
      
 
     }

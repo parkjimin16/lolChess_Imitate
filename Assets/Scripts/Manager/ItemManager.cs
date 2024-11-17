@@ -112,34 +112,22 @@ public class ItemManager
         return itemObj;
     }
 
-    public void StartCreatingItems(List<ItemBlueprint> itemList, Vector3 startPosition)
+    public void StartCreatingItems(List<ItemBlueprint> itemList)
     {
-        List<ItemBlueprint> temp = itemList;
-        for (int i = 0; i < temp.Count; i++)
+        List<string> itemId = new List<string>();
+        List<string> champ = new List<string>();
+        for (int i = 0; i < itemList.Count; i++)
         {
-            ItemBlueprint item = temp[i];
+            itemId.Add(itemList[i].ItemId);
+        }
 
-            if (item != null)
-            {
-                item.InitBaseItem();
+        GameObject itemObj = Manager.Asset.InstantiatePrefab("Capsule");
+        Capsule cap = itemObj.GetComponent<Capsule>();
+        itemObj.transform.position = new Vector3(0, 1, 0);
 
-                GameObject itemObj = Manager.Asset.InstantiatePrefab("ItemFrame");
-                itemObj.transform.position = startPosition;
-
-                ItemFrame iFrame = itemObj.GetComponent<ItemFrame>();
-
-                if (iFrame != null)
-                {
-                    iFrame.Init(item);
-                }
-
-                startPosition += new Vector3(0, 0, 1);
-
-            }
-            else
-            {
-                Debug.Log("Item is null");
-            }
+        if (cap != null)
+        {
+            cap.InitCapsule(0, itemId, champ);
         }
     }
 

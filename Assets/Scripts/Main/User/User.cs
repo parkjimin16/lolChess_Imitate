@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class User : MonoBehaviour
 {
@@ -33,6 +35,13 @@ public class User : MonoBehaviour
     [SerializeField]private MapGenerator _mapGenerator;
 
     [SerializeField] private GameObject test;
+
+
+    // 챔피언 판매 변수
+    private GraphicRaycaster raycaster;
+    private PointerEventData pointerEventData;
+    private EventSystem eventSystem;
+
     private class ReturningObjectData
     {
         public GameObject obj;
@@ -45,6 +54,12 @@ public class User : MonoBehaviour
     private ReturningObjectData _returningObjData;
 
     #region Unity Flow
+
+    private void Start()
+    {
+        raycaster = uiMain.GetComponent<GraphicRaycaster>();
+        eventSystem = EventSystem.current;
+    }
     private void Update()
     {
 
@@ -96,13 +111,13 @@ public class User : MonoBehaviour
         _lastTouchPos = _currentTouchPos;
         _currentTouchPos = Input.mousePosition;
 
+        // 챔피언 클릭 (마우스 오른쪽)
         if (Input.GetMouseButtonDown(1))
         {
             GameObject clickedObject = OnClickObjUsingTag("Champion");
 
             if (clickedObject != null)
             {
-                Debug.Log("챔피언 클릭");
                 HandleChampionRightClick(clickedObject);
                 return;
             }
@@ -111,7 +126,6 @@ public class User : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
             if (Manager.UI.CheckPopupStack())
             {
                 Manager.UI.CloseAllPopupUI();
@@ -141,10 +155,9 @@ public class User : MonoBehaviour
         }
 
  
-
         ObjectReturn();
-
         HandleItemHover();
+        CheckChampionDrag();
     }
     #endregion
 
@@ -269,11 +282,16 @@ public class User : MonoBehaviour
                         }
                         else if (_movableObjectType == MovableObjectType.Champion)
                         {
+
                             HandleUnitDrop(hitTile, hitTile.gameObject);
                         }
 
                         return; 
                     }
+                }
+                else
+                {
+                    HandleChampionDrop(_movableObj);
                 }
 
                 if (_movableObjectType == MovableObjectType.Item)
@@ -285,6 +303,7 @@ public class User : MonoBehaviour
                     }
                     else if (hitObj.CompareTag("Champion"))
                     {
+                        Debug.Log("챔피언 아이템 저장");
                         HandleGiveItemToChampion(hitObj);
                         return;
                     }
@@ -307,6 +326,26 @@ public class User : MonoBehaviour
     #endregion
 
     #region Item Champion Move, Combine Logic
+    private void CheckChampionDrag()
+    {
+        if (_movableObj != null && _movableObjectType == MovableObjectType.Champion)
+        {
+            if (IsMouseOverUI("ShopBG"))
+            {
+                uiMain.UIShopPanel.SellPanel.SetActive(true);
+                uiMain.UIShopPanel.InitSellPanel(_movableObj);
+            }
+            else
+            {
+                uiMain.UIShopPanel.SellPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            uiMain.UIShopPanel.SellPanel.SetActive(false);
+        }
+    }
+
     private void HandleChampionRightClick(GameObject championObj)
     {
         ChampionBase cBase = championObj.GetComponent<ChampionBase>();
@@ -315,7 +354,6 @@ public class User : MonoBehaviour
             uiMain.UIChampionExplainPanel.UpdateChampionExplainPanel(cBase);
         }
     }
-
     private void HandleItemDrop(HexTile hitTile, GameObject hitTileObj)
     {
         if (hitTile.isItemTile == false)
@@ -356,6 +394,7 @@ public class User : MonoBehaviour
     }
     private void HandleUnitDrop(HexTile hitTile, GameObject hitTileObj)
     {
+       
         if (hitTile == null)
         {
             Debug.LogWarning("hitTile이 null입니다.");
@@ -402,6 +441,15 @@ public class User : MonoBehaviour
 
         uiMain.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
     }
+    private void HandleChampionDrop(GameObject hitTileObj)
+    {
+        if (IsMouseOverUI("SellPanel"))
+        {
+            uiMain.UIShopPanel.SellChampion(_movableObj);
+            currentTile = null;
+        }
+    }
+
     private void HandleItemCombination(GameObject targetItemObj)
     {
         ItemFrame draggedItemFrame = _movableObj.GetComponent<ItemFrame>();
@@ -629,7 +677,9 @@ public class User : MonoBehaviour
         }
     }
 
-    // 설정 메서드 추가
+    #endregion
+
+    #region 설정 메서드
     public void SetMovableObjectType(MovableObjectType type)
     {
         _movableObjectType = type;
@@ -661,5 +711,24 @@ public class User : MonoBehaviour
         }
         return null;
     }
-     #endregion
+
+    private bool IsMouseOverUI(string name)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+
+        foreach (var result in results)
+        {
+            if (result.gameObject.name == name && result.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }

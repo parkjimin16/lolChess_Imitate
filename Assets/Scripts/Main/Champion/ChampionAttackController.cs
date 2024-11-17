@@ -149,7 +149,7 @@ public class ChampionAttackController : MonoBehaviour
         }
 
         Manager.Stage.SetNearestTile(gameObject);
-        curTile = Manager.Stage.GetParentTile(gameObject);
+        curTile = Manager.Stage.GetParentTileInHex(gameObject);
 
         path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 

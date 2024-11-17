@@ -1019,7 +1019,7 @@ public class StageManager
         return nearestTile;
     }
 
-    public HexTile GetParentTile(GameObject champion)
+    public HexTile GetParentTileInHex(GameObject champion)
     {
         if (champion == null)
         {
@@ -1029,6 +1029,26 @@ public class StageManager
 
         // 챔피언의 부모 오브젝트에서 HexTile 컴포넌트를 가져옴
         HexTile parentTile = champion.transform.parent?.GetComponent<HexTile>();
+
+        if (parentTile == null)
+        {
+            Debug.LogWarning("The parent of the champion does not have a HexTile component.");
+        }
+
+        return parentTile;
+    }
+
+
+    public RectTile GetParentTileInRect(GameObject champion)
+    {
+        if (champion == null)
+        {
+            Debug.LogWarning("Champion object is null.");
+            return null;
+        }
+
+        // 챔피언의 부모 오브젝트에서 HexTile 컴포넌트를 가져옴
+        RectTile parentTile = champion.transform.parent?.GetComponent<RectTile>();
 
         if (parentTile == null)
         {

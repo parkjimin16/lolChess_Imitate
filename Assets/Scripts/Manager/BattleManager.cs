@@ -18,8 +18,8 @@ public class BattleManager
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
 
-        Manager.Synerge.ApplySynergy(p1.UserData);
-        Manager.Synerge.ApplySynergy(p2.UserData);
+        Manager.Synergy.ApplySynergy(p1.UserData);
+        Manager.Synergy.ApplySynergy(p2.UserData);
 
         Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
         Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
@@ -59,8 +59,8 @@ public class BattleManager
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
 
-        Manager.Synerge.UnApplySynergy(p1.UserData);
-        Manager.Synerge.UnApplySynergy(p2.UserData);
+        Manager.Synergy.UnApplySynergy(p1.UserData);
+        Manager.Synergy.UnApplySynergy(p2.UserData);
 
         Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
         Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);

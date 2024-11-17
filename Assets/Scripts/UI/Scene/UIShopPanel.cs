@@ -1,8 +1,5 @@
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,32 +9,31 @@ public class UIShopPanel : UIBase
 {
     [SerializeField] private UISceneMain uiMain;
 
-    [SerializeField] private List<GameObject> championSlotList;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private List<ItemBlueprint> itemBlueprint;
+
+    [Header("상점")]
+    [SerializeField] private List<GameObject> championSlotList;
     [SerializeField] private List<string> shopChampionList;
     [SerializeField] private GameObject targetObject;
-
     [SerializeField] private List<Transform> championPos;
+    [SerializeField] private RectTile rtile;
 
-
+    [Header("레벨")]
     [SerializeField] private TextMeshProUGUI txt_User_Level;
     [SerializeField] private Slider slider_Xp;
     [SerializeField] private TextMeshProUGUI txt_User_Xp;
 
+    [Header("정보")]
     [SerializeField] private List<TextMeshProUGUI> txt_Champion_Percent;
     [SerializeField] private TextMeshProUGUI txt_Gold;
     [SerializeField] private GameObject continous_Box;
     [SerializeField] private Image contious_Image;
     [SerializeField] private TextMeshProUGUI continous_Count;
 
-
-    private int currentChampionIndex = 0;
-
-    private bool isLoadComplete = false;
-    public int Level = 1;
-
-    [SerializeField] private RectTile rtile;
+    [Header("판매")]
+    public GameObject SellPanel;
+    [SerializeField] private TextMeshProUGUI txt_SellAmount;
 
     #region Init
 
@@ -68,11 +64,12 @@ public class UIShopPanel : UIBase
 
         UpdatePlayerXP();
         UpdateChampionPercent();
+        UpdatePlayerGold(Manager.User.GetHumanUserData());
     }
 
     #endregion
 
-    #region 챔피언
+    #region 챔피언 구입
     private void InstantiateChampion(ChampionBlueprint cBlueprint, GameObject obj)
     {
         HexTile hextile = null;
@@ -160,12 +157,15 @@ public class UIShopPanel : UIBase
             Manager.Level.AddExperience(user, 4);
             UpdatePlayerXP();
             UpdateChampionPercent();
+            UpdatePlayerGold(user);
             Debug.Log($"{user.UserName}님이 4 골드를 사용하여 4 EXP를 얻었습니다.");
         }
         else
         {
             Debug.Log($"{user.UserName}님에게는 충분한 골드가 없습니다.");
         }
+
+
     }
 
 
@@ -180,6 +180,11 @@ public class UIShopPanel : UIBase
         txt_User_Xp.text = $"{curXp} / {maxXp}";
 
         SetSliderRange(curXp, maxXp);
+    }
+
+    public void UpdatePlayerGold(UserData user)
+    {
+        txt_Gold.text = user.UserGold.ToString();
     }
 
     #endregion
@@ -198,6 +203,30 @@ public class UIShopPanel : UIBase
     }
 
     #endregion
+
+    #region 챔피언 판매
+    
+    public void InitSellPanel(GameObject champion)
+    {
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+        txt_SellAmount.text = $"판매 가격 : {cBase.ChampionSellCost(Utilities.SetSlotCost(cBase.ChampionCost), cBase.ChampionLevel)} 원";
+    }
+
+    public void SellChampion(GameObject champion)
+    {
+        Manager.Champion.RemoveChampion(Manager.User.GetHumanUserData(), champion);
+
+        UpdatePlayerGold(Manager.User.GetHumanUserData());
+
+        HexTile hex = Manager.Stage.GetParentTileInHex(champion);
+        hex.championOnTile.Clear();
+
+        Destroy(champion);
+    }
+
+    #endregion
+
     #region 슬롯
     public void HideSlot(GameObject slot)
     {

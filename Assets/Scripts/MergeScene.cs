@@ -55,7 +55,7 @@ public class MergeScene : MonoBehaviour
                 Manager.UserHp.InitializeHealthBars();
                 
                 Manager.Item.Init();
-                Manager.Synerge.Init(symbolDataBlueprint);
+                Manager.Synergy.Init(symbolDataBlueprint);
 
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
@@ -87,11 +87,11 @@ public class MergeScene : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.N)) //전투 시작 
         {
-            Manager.Synerge.ApplySynergy(Manager.User.GetHumanUserData());
+            Manager.Synergy.ApplySynergy(Manager.User.GetHumanUserData());
         }
         else if(Input.GetKeyDown(KeyCode.M)) // 전투 종료
         {
-            Manager.Synerge.UnApplySynergy(Manager.User.GetHumanUserData());
+            Manager.Synergy.UnApplySynergy(Manager.User.GetHumanUserData());
 
             foreach(var champion in Manager.User.GetHumanUserData().BattleChampionObject)
             {
