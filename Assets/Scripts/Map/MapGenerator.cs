@@ -562,7 +562,7 @@ public class MapGenerator : MonoBehaviour
         carouselRotation.rotationSpeed = -20f; // 원하는 회전 속도 설정
 
         // 챔피언 배치 (carouselPivot을 부모로 설정)
-        PlaceChampionsInSharedMap(carouselPivot.transform);
+        //PlaceChampionsInSharedMap(carouselPivot.transform);
 
         // 플레이어 배치 함수는 수정하여 플레이어들을 이동시키도록 변경
         // PlacePlayersInSharedMap(sharedMap.transform);
@@ -621,30 +621,48 @@ public class MapGenerator : MonoBehaviour
             child.gameObject.layer = minimapLayer;
         }
     }
-    void PlaceChampionsInSharedMap(Transform parent)
+    public void PlaceChampionsInSharedMap()
     {
+        Transform carouselPivot = sharedSelectionMapTransform.Find("CarouselPivot");
+
         float circleRadius = 5f; // 챔피언들이 배치될 원의 반지름
         int championCount = 9;
+
+        foreach (GameObject champion in championsInCarousel)
+        {
+            Destroy(champion);
+        }
+        championsInCarousel.Clear();
 
         for (int i = 0; i < championCount; i++)
         {
             float angle = i * 2 * Mathf.PI / championCount;
             float x = circleRadius * Mathf.Cos(angle);
             float z = circleRadius * Mathf.Sin(angle);
-            Vector3 position = new Vector3(x, 0, z) + parent.position;
+            Vector3 position = new Vector3(x, 0, z) + carouselPivot.position;
+           
+            List<string> championNames = Manager.Champion.GetRandomChampions(1);
+            string selectedChampionName = championNames[Random.Range(0, championNames.Count)];
 
-            // 챔피언 프리팹을 해당 위치에 생성하고, 회전 축을 부모로 설정
-            GameObject champion = Instantiate(championPrefab, position, Quaternion.identity, parent);
-            champion.name = $"Champion_{i}";
-            champion.tag = "Champion";
+            ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
+            GameObject championPrefab = Manager.Asset.InstantiatePrefab(championBlueprint.ChampionInstantiateName);
+            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            frame.transform.SetParent(championPrefab.transform, false);
+            championPrefab.transform.position = position;
+            championPrefab.transform.SetParent(carouselPivot);
 
-            championsInCarousel.Add(champion);
+            ChampionBase cBase = championPrefab.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
+            cBase.SetChampion(championBlueprint);
+            cBase.InitChampion(cFrame);
+
+            championsInCarousel.Add(championPrefab);
 
             // 이동 방향(접선 방향) 계산
             Vector3 tangent = new Vector3(-Mathf.Sin(angle), 0, Mathf.Cos(angle));
 
             // 챔피언의 회전을 이동 방향으로 설정
-            champion.transform.localRotation = Quaternion.LookRotation(tangent);
+            championPrefab.transform.localRotation = Quaternion.LookRotation(tangent);
         }
     }
     public void PlacePlayersInSharedMap(Transform parent)
@@ -657,7 +675,7 @@ public class MapGenerator : MonoBehaviour
             float angle = i * 2 * Mathf.PI / totalPlayers;
             float x = spawnRadius * Mathf.Cos(angle);
             float z = spawnRadius * Mathf.Sin(angle);
-            Vector3 position = new Vector3(x, 0, z) + parent.position;
+            Vector3 position = new Vector3(x, 0.5f, z) + parent.position;
 
             // 기존 플레이어 오브젝트를 가져옵니다.
             GameObject player = allPlayers[i];
@@ -696,7 +714,7 @@ public class MapGenerator : MonoBehaviour
     public void RemoveChampion(GameObject champion)
     {
         championsInCarousel.Remove(champion);
-        Destroy(champion);
+        //Destroy(champion);
     }
 
 }

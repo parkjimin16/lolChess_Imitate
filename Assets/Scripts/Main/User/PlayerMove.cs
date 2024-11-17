@@ -19,6 +19,10 @@ public class PlayerMove : MonoBehaviour
     private MapInfo carouselMapInfo;        // 공동 선택 맵의 MapInfo
 
     private Vector3 originalPosition; // 플레이어의 원래 위치를 저장
+    private Vector3 startPosition;
+
+    private bool hasSelectedChampion = false;
+    private GameObject selectedChampion = null;
 
     private void Start()
     {
@@ -52,6 +56,7 @@ public class PlayerMove : MonoBehaviour
         isInCarouselRound = true;
         carouselMapTransform = carouselTransform;
         carouselMapInfo = carouselInfo;
+        startPosition = transform.position;
     }
 
     public void EndCarouselRound()
@@ -59,6 +64,9 @@ public class PlayerMove : MonoBehaviour
         isInCarouselRound = false;
         carouselMapTransform = null;
         carouselMapInfo = null;
+        //SetCanMove(true);
+        player.UserData.NonBattleChampionObject.Add(selectedChampion);
+        AddCarouselChampion();
     }
 
     void HandleCarouselMovement()
@@ -128,28 +136,33 @@ public class PlayerMove : MonoBehaviour
         {
             Vector3 direction = (targetPosition - transform.position).normalized;
 
-            // 방향이 존재하면 (0 벡터가 아니면)
+            // 이동 방향으로 회전
             if (direction != Vector3.zero)
             {
-                // 목표 방향으로 회전
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
 
-            // 플레이어를 목표 위치로 이동시킵니다.
+            // 플레이어를 목표 위치로 이동
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
-            // 목표 위치에 도달했는지 확인합니다.
+            // 목표 위치에 도달했는지 확인
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isMoving = false;
 
-                // 공동 선택 라운드에서 챔피언에 도달했는지 확인
-                if (isInCarouselRound && player.UserData.PlayerType != PlayerType.Player1)
+                // 챔피언을 선택한 후 원래 위치로 돌아왔을 경우
+                if (hasSelectedChampion && isInCarouselRound)
                 {
-                    // 챔피언 선택 처리
-                    SelectChampionAtPosition();
+                    // 챔피언의 부모를 해제
+                    //selectedChampion.transform.SetParent(null);
+
+                    // 추가 로직 (예: 인벤토리에 추가)
+                    // ...
+
+                    // 이 플레이어의 공동 선택 라운드 종료
+                    //canMove = false;
                 }
             }
         }
@@ -174,38 +187,92 @@ public class PlayerMove : MonoBehaviour
             Debug.Log("선택 가능한 챔피언이 없습니다.");
         }
     }
-    void SelectChampionAtPosition()
+
+    void OnTriggerEnter(Collider other)
     {
-        // 현재 위치에 챔피언이 있는지 확인
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f);
-        foreach (Collider collider in colliders)
+        if (!isInCarouselRound || hasSelectedChampion)
+            return;
+
+        if (other.CompareTag("Champion"))
         {
-            if (collider.CompareTag("Champion"))
-            {
-                // 챔피언 선택 처리
-                GameObject selectedChampion = collider.gameObject;
-                mapGenerator.RemoveChampion(selectedChampion);
-
-                Debug.Log($"{player.UserData.UserName}이(가) {selectedChampion.name}을(를) 선택했습니다.");
-
-                // 추가적인 선택 처리 로직 (인벤토리에 추가 등)
-
-                // 움직임 비활성화
-                canMove = false;
-
-                break;
-            }
+            GameObject selectedChampion = other.gameObject;
+            SelectChampion(selectedChampion);
         }
+    }
+
+    void SelectChampion(GameObject champion)
+    {
+        hasSelectedChampion = true;
+        selectedChampion = champion;
+        mapGenerator.RemoveChampion(selectedChampion);
+        Debug.Log($"{player.UserData.UserName}이(가) {selectedChampion.name}을(를) 선택했습니다.");
+
+        // 챔피언이 플레이어를 따라오도록 설정
+        selectedChampion.transform.SetParent(transform);
+        selectedChampion.transform.localPosition = new Vector3(0, 0, -1); // 플레이어 뒤에 위치
+
+        // 챔피언의 회전을 플레이어와 동일하게 설정
+        selectedChampion.transform.localRotation = Quaternion.identity;
+
+        // 원래 위치로 이동 시작
+        if (player.UserData.PlayerType != PlayerType.Player1)
+            targetPosition = startPosition;
+        isMoving = true;
     }
 
     public void SaveOriginalPosition()
     {
         originalPosition = transform.position;
     }
-
     // 원래 위치로 돌아가는 함수
     public void ReturnToOriginalPosition()
     {
         transform.position = originalPosition;
+    }
+    private void AddCarouselChampion()
+    {
+        HexTile emptyTile = FindEmptyRectTile();
+        if(emptyTile != null)
+        {
+            selectedChampion.transform.position = emptyTile.transform.position;
+            selectedChampion.transform.SetParent(emptyTile.transform);
+            emptyTile.championOnTile.Add(selectedChampion);
+        }
+        
+        /*if (emptyTile != null)
+        {
+            ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampion.name) as ChampionBlueprint;
+            //Manager.Asset.GetBlueprint(selectedChampion.name) as ChampionBlueprint
+            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(selectedChampion.name);
+
+            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            frame.transform.SetParent(newChampionObject.transform, false);
+            newChampionObject.transform.position = emptyTile.transform.position;
+
+            newChampionObject.transform.SetParent(emptyTile.transform);
+            emptyTile.championOnTile.Add(newChampionObject);
+
+            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
+
+            cBase.SetChampion(championBlueprint, player);
+            cBase.InitChampion(cFrame);
+
+            Manager.Champion.SettingNonBattleChampion(player.UserData);
+            Destroy(selectedChampion);
+        }*/
+    }
+    private HexTile FindEmptyRectTile()
+    {
+        MapGenerator.MapInfo mapInfo = player.UserData.MapInfo;
+        foreach (var tileEntry in mapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied)
+            {
+                return tile;
+            }
+        }
+        return null;
     }
 }

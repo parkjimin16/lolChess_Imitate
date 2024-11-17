@@ -366,6 +366,69 @@ public class ChampionBase : MonoBehaviour
         ResetHealth();
     }
 
+    public void SetChampion(ChampionBlueprint blueprint)
+    {
+        SetChampionLogic();
+
+        blueprint.ChampionSet(blueprint.ChampionLevel);
+
+        championBlueprint = blueprint;
+        skillBlueprint = blueprint.SkillBlueprint;
+        skillObject = blueprint.SkillBlueprint.SkillObject;
+
+        if (baseSkill != null)
+            baseSkill = blueprint.SkillBlueprint.SkillObject.GetComponent<BaseSkill>();
+
+
+        // Champion Info
+        championName = blueprint.ChampionName;
+        line_First = blueprint.ChampionLine_First;
+        line_Second = blueprint.ChampionLine_Second;
+        job_First = blueprint.ChampionJob_First;
+        job_Second = blueprint.ChampionJob_Second;
+        cost = blueprint.ChampionCost;
+
+
+        // Champion Stats_1
+        levelData = blueprint.ChampionLevelData;
+        championLevel = blueprint.ChampionLevel;
+        maxHp = (int)blueprint.MaxHP;
+        curHp = maxHp;
+        maxMana = (int)blueprint.MaxMana;
+        curMana = (int)blueprint.CurMana;
+        speed = blueprint.Speed;
+        attack_Range = blueprint.Attack_Range;
+
+
+        // Champion Stats_2
+        ad_Power = blueprint.AD_Power;
+        ap_Power = blueprint.AP_Power;
+        ad_Defense = blueprint.AD_Defense;
+        ap_Defense = blueprint.AP_Defense;
+        attack_Speed = blueprint.AttackSpeed;
+        critical_Percent = blueprint.Critical_Percent;
+        critical_Power = blueprint.Critical_Power;
+        blood_Suck = blueprint.Blood_Suck;
+        power_Upgrade = blueprint.Power_Upgrade;
+        total_Defense = blueprint.Total_Defense;
+        healHpValue = 1.0f;
+
+
+        maxHp = blueprint.GetLevelHp(championLevel);
+        curHp = maxHp;
+        ad_Power = blueprint.GetLevelAdPower(championLevel);
+
+
+        SetTotalDamage(GetDamage());
+
+        // Champion Logic
+        maxItemSlot = 3;
+
+        UpdateStatWithItem(EquipItem);
+        UpdateChampmionStat();
+        ResetHealth();
+    }
+
     public void ResetHealth()
     {
         champion_CurHp = champion_MaxHp;

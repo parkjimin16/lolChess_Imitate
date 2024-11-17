@@ -27,6 +27,7 @@ public class User : MonoBehaviour
     private bool _isReturning = false;
     private bool _objectMoved = false;
     private bool _isDragging = false;
+    private bool _previousIsBattleOngoing = false;
 
     private ItemFrame _hoveredItem;
     [SerializeField]private MapGenerator _mapGenerator;
@@ -46,9 +47,33 @@ public class User : MonoBehaviour
     #region Unity Flow
     private void Update()
     {
+
+        if(!_previousIsBattleOngoing && Manager.Stage.IsBattleOngoing)
+        {
+            // 전투가 방금 시작됨
+            if (_isDragging && _movableObj != null)
+            {
+                if (!_isReturning)
+                {
+                    // 드래그 중인 오브젝트 반환 프로세스 초기화
+                    _isReturning = true;
+                    _returningObjData = new ReturningObjectData
+                    {
+                        obj = _movableObj,
+                        beforePosition = _beforePosition,
+                        currentTile = currentTile,
+                        movableObjectType = _movableObjectType
+                    };
+                    _movableObj = null;
+                    currentTile = null;
+                }
+            }
+        }
+        _previousIsBattleOngoing = Manager.Stage.IsBattleOngoing;
+
         if (Manager.Stage.IsBattleOngoing)
         {
-            if (_isDragging && _movableObj != null)
+            if (_isDragging && _movableObj != null && _movableObjectType == MovableObjectType.Champion)
             {
                 if (!_isReturning)
                 {
@@ -64,12 +89,8 @@ public class User : MonoBehaviour
                     _movableObj = null;
                     currentTile = null;
                 }
-
                 ObjectReturn(); // 드래그 중인 오브젝트 반환
             }
-
-            // 전투 중이므로 다른 입력을 처리하지 않음
-            return;
         }
 
         _lastTouchPos = _currentTouchPos;
