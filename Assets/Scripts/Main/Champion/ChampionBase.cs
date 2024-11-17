@@ -391,7 +391,7 @@ public class ChampionBase : MonoBehaviour
         championAttackController.Init(this, attack_Speed, attack_Range, curMana, maxMana);
         championHpMpController.Init(this);
         championStateController.Init(this);
-        championView.Init(this); 
+        championView.Init(this);
         championFrame.Init(this, championBlueprint);
     }
 
@@ -502,6 +502,15 @@ public class ChampionBase : MonoBehaviour
         Augmenter_Blood_Suck = 0;
         Augmenter_Power_Upgrade = 0;
         Augmenter_Total_Def = 0;
+    }
+
+    public void InitSlider()
+    {
+        if (championFrame == null)
+            return;
+
+        championFrame.SetHPSlider(champion_CurHp, champion_MaxHp);
+        championFrame.SetManaSlider(champion_CurMana, champion_MaxMana);
     }
 
     public int GetDamage()
@@ -766,6 +775,7 @@ public class ChampionBase : MonoBehaviour
         champion_Shield = 0;
 
         UpdateDisplayStat();
+        InitSlider();
     }
     private void UpdateDisplayStat()
     {

@@ -63,7 +63,7 @@ namespace ChampionOwnedStates
         public DieState(ChampionBase championBase) : base(championBase) { }
         public override void Enter(ChampionBase champion)
         {
-
+            
         }
         public override void Execute(ChampionBase champion)
         {

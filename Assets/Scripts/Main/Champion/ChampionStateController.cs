@@ -34,16 +34,11 @@ public class ChampionStateController : MonoBehaviour
             case ChampionState.Move:
                 if (!MergeScene.BatteStart)
                 {
-                    Debug.Log("배틀 종료");
                     return;
                 }
 
-                Debug.Log("Move State");
-
-
                 if (cBase.ChampionAttackController.IsAttack)
                 {
-                    Debug.Log("Move To Attack");
                     ChangeState(ChampionState.Attack, cBase);
                 }
 
@@ -52,7 +47,6 @@ public class ChampionStateController : MonoBehaviour
             case ChampionState.Attack:
                 if (!MergeScene.BatteStart)
                 {
-                    Debug.Log("배틀 종료");
                     return;
                 }
 
@@ -60,9 +54,17 @@ public class ChampionStateController : MonoBehaviour
 
                 if (!cBase.ChampionAttackController.IsAttack)
                 {
-                    //Debug.Log("Attack To Move");
-                    //ChangeState(ChampionState.Move, cBase);
+
                 }
+                break;
+
+            case ChampionState.Die:
+                if (!MergeScene.BatteStart)
+                {
+                    return;
+                }
+
+                Debug.Log("Die State");
                 break;
         }
 
@@ -82,6 +84,9 @@ public class ChampionStateController : MonoBehaviour
                 fsm.ChangeState(new MoveState(cBase), cBase);
                 break;
             case ChampionState.Attack:
+                fsm.ChangeState(new AttackState(cBase), cBase);
+                break;
+            case ChampionState.Die:
                 fsm.ChangeState(new AttackState(cBase), cBase);
                 break;
         }

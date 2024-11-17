@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ChampionAnimController : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
+    public Animator Anim;
     private ChampionBase cBase;
 
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
-        anim = GetComponentInChildren<Animator>();
+        Anim = GetComponentInChildren<Animator>();
         cBase.ChampionStateController.OnStateChanged += HandleStateChange;
 
     }
@@ -42,9 +42,9 @@ public class ChampionAnimController : MonoBehaviour
 
     private void PlayAnimation(string animationName)
     {
-        if (anim != null)
+        if (Anim != null)
         {
-            anim.Play(animationName);
+            Anim.Play(animationName);
         }
         else
         {

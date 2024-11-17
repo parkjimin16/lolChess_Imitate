@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChampionAttackController : MonoBehaviour
@@ -37,7 +38,7 @@ public class ChampionAttackController : MonoBehaviour
     public bool IsAttack; // 전체 체크 용
 
     [SerializeField] private bool attackLogic;
-
+    [SerializeField] private bool isAttackRange;
     public bool IsUseSkill()
     {
         return isUseSkill;
@@ -309,6 +310,8 @@ public class ChampionAttackController : MonoBehaviour
         if (cBase.Attack_Range > 1)
         {
             // 원거리 공격 - 발사체 생성
+            isAttackRange = true;
+
             GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
             NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
 
@@ -320,6 +323,7 @@ public class ChampionAttackController : MonoBehaviour
         else 
         {
             // 근접 공격
+            isAttackRange = false;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
             if (distanceToTarget <= 1.5f)

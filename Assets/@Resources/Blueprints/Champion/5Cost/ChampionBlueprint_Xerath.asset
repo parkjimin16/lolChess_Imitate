@@ -34,7 +34,7 @@ MonoBehaviour:
   championLevel: 1
   maxHp: 0
   curHp: 0
-  maxMana: 0
+  maxMana: 120
   curMana: 0
   attack_Range: 4
   speed: 1

@@ -7,12 +7,14 @@ public class ChampionHpMpController : MonoBehaviour
     private ChampionBase cBase;
     private int totalDamage;
 
-
+    private bool isDieCoroutineRunning = false;
     private void Update()
     {
-        if (IsDie())
+        if (IsDie() && !isDieCoroutineRunning)
         {
-            gameObject.SetActive(false);
+            isDieCoroutineRunning = true;
+            cBase.ChampionStateController.ChangeState(ChampionState.Die, cBase);
+            StartCoroutine(WaitForAnimationToEnd());
         }
     }
 
@@ -101,5 +103,13 @@ public class ChampionHpMpController : MonoBehaviour
     public void DamageMana()
     {
         cBase.Champion_CurMana += 5;
+    }
+
+
+
+    private IEnumerator WaitForAnimationToEnd()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
