@@ -19,6 +19,7 @@ public class ChampionSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text_Attribute_2;
     [SerializeField] private TextMeshProUGUI text_Attribute_3;
 
+    [SerializeField] private List<GameObject> image_Upgrades;
     [SerializeField] private Image image_Upgrade_1;
     [SerializeField] private Image image_Upgrade_2;
     [SerializeField] private Image image_Upgrade_3;
@@ -50,8 +51,34 @@ public class ChampionSlot : MonoBehaviour
         this.championBlueprint = championBlueprint;
         image_ChampionBackground.color = color;
         image_Champion.sprite = championBlueprint.ChampionImage;
-        // image_Attribute_1 = Dic 사용해서 속성 이미지 매핑
-        // image_Attribute_2 = Dic 사용해서 속성 이미지 매핑
+
+        int count = GetSameChampionCount(championBlueprint);
+
+        switch(count)
+        {
+            case 2:
+                image_Upgrades[0].SetActive(true);
+                image_Upgrades[1].SetActive(false);
+                image_Upgrades[2].SetActive(false);
+                break;
+            case 5:
+                image_Upgrades[0].SetActive(true);
+                image_Upgrades[1].SetActive(true);
+                image_Upgrades[2].SetActive(false);
+                break;
+            case 8:
+                image_Upgrades[0].SetActive(true);
+                image_Upgrades[1].SetActive(true);
+                image_Upgrades[2].SetActive(true);
+                break;
+            default:
+                image_Upgrades[0].SetActive(false);
+                image_Upgrades[1].SetActive(false);
+                image_Upgrades[2].SetActive(false);
+                break;
+        }
+
+
 
 
         attributeString.AddRange(new List<string> {
@@ -90,6 +117,22 @@ public class ChampionSlot : MonoBehaviour
             image_Attributes[i].gameObject.SetActive(false);
             text_Attributes[i].gameObject.SetActive(false);
         }
+    }
+
+    private int GetSameChampionCount(ChampionBlueprint championBlueprint)
+    {
+        int matchingCount = 0;
+
+        foreach (var championObject in Manager.User.GetHumanUserData().TotalChampionObject)
+        {
+            ChampionBase championBase = championObject.GetComponent<ChampionBase>();
+            if (championBase != null && championBase.ChampionBlueprint == championBlueprint)
+            {
+                matchingCount++;
+            }
+        }
+
+        return matchingCount;
     }
 
     #endregion

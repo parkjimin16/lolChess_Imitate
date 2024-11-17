@@ -1090,6 +1090,10 @@ MonoBehaviour:
   text_Attribute_1: {fileID: 3917453929165680820}
   text_Attribute_2: {fileID: 2841775620498392499}
   text_Attribute_3: {fileID: 8521580412939583463}
+  image_Upgrades:
+  - {fileID: 5853568818866226855}
+  - {fileID: 8909854339166134574}
+  - {fileID: 2307226199387795888}
   image_Upgrade_1: {fileID: 6109690038434668633}
   image_Upgrade_2: {fileID: 6396547621104837676}
   image_Upgrade_3: {fileID: 8388878846192295963}

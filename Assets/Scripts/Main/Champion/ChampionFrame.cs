@@ -58,8 +58,6 @@ public class ChampionFrame : MonoBehaviour
 
     private void Update()
     {
-        Quaternion quater_HP = Quaternion.LookRotation(canvas.position - cam.transform.position);
-        Vector3 hp_angle = Quaternion.RotateTowards(canvas.rotation, quater_HP, 1000 * Time.deltaTime).eulerAngles;
-        canvas.rotation = Quaternion.Euler(0, hp_angle.y, 0);
+        transform.LookAt(transform.position + cam.transform.forward);
     }
 }
