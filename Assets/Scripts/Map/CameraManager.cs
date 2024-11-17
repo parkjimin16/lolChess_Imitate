@@ -3,67 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using static MapGenerator;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager
 {
-    public Camera mainCamera;
-    public MapGenerator mapGenerator; 
+    private Camera mainCamera;
+    private MapGenerator mapGenerator;
+    private UISceneMain uiMain;
+    private MinimapController minimap;
 
     private float cameraHeight = 18f; // 카메라 높이
     private float cameraDistance = 26f; // 카메라 거리
     private float cameraRotationX = 40f; // 카메라 X축 회전
 
-    private void Update()
+    public void Init(Camera cam, MapGenerator map, UISceneMain main, MinimapController mini)
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            MoveCameraToSharedSelectionMap();
-        }
+        mainCamera = cam;
+        mapGenerator = map;
+        uiMain = main;
+        minimap = mini;
     }
 
     public void MoveCameraToPlayer(Player playerData)
     {
-        Debug.Log("카메라 이동");
-        // 해당 플레이어의 맵 정보를 찾음
+        if(mapGenerator == null)
+        {
+            GameObject obj = GameObject.Find("Map");
+            mapGenerator = obj.GetComponent<MapGenerator>();
+        }
+
         MapInfo targetMap = mapGenerator.mapInfos.Find(mapInfo => mapInfo.playerData == playerData);
 
         if (targetMap != null)
         {
             Vector3 targetPosition = targetMap.mapTransform.position;
-
-            // 카메라 위치와 회전 설정
             Vector3 cameraPosition = targetPosition + new Vector3(0, cameraHeight, -cameraDistance);
 
             mainCamera.transform.position = cameraPosition;
-
-            // 필요 시 경계선 색상 업데이트
-            MinimapManager minimapClickHandler = FindObjectOfType<MinimapManager>();
-            if (minimapClickHandler != null)
-            {
-                minimapClickHandler.UpdateBoundaryColors(targetMap.mapId);
-            }
+            minimap.UpdateBoundaryColors(targetMap.mapId);
         }
         else
         {
             Debug.LogWarning("해당 플레이어의 맵을 찾을 수 없습니다.");
         }
+
+        uiMain.UISynergyPanel.UpdateSynergy(playerData.UserData);
     }
+
     public void MoveCameraToSharedSelectionMap()
     {
         if (mapGenerator.sharedSelectionMapTransform != null)
         {
             Vector3 targetPosition = mapGenerator.sharedSelectionMapTransform.position;
 
-            // 카메라 위치와 회전 설정
             Vector3 cameraPosition = targetPosition + new Vector3(0, cameraHeight, -cameraDistance);
-            StartCoroutine(MoveCameraCoroutine(cameraPosition));
+            CoroutineHelper.StartCoroutine(MoveCameraCoroutine(cameraPosition));
 
-            // 필요 시 경계선 색상 업데이트 (공동 선택 맵의 경우 특별한 처리가 필요할 수 있음)
-            MinimapManager minimapClickHandler = FindObjectOfType<MinimapManager>();
-            if (minimapClickHandler != null)
-            {
-                // 공동 선택 맵의 경우 특별한 ID를 전달하거나, 경계선 색상을 기본값으로 설정
-                minimapClickHandler.UpdateBoundaryColors(-1); // -1 또는 적절한 값 사용
-            }
+
+            minimap.UpdateBoundaryColors(-1); // -1 또는 적절한 값 사용
+
         }
         else
         {
@@ -73,7 +69,7 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator MoveCameraCoroutine(Vector3 targetPosition)
     {
-        float duration = 1.0f; // 전환 시간
+        float duration = 1.0f; 
         float elapsedTime = 0f;
 
         Vector3 startingPosition = mainCamera.transform.position;
@@ -89,7 +85,6 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
 
-        // 전환 완료 후 정확한 위치와 회전으로 설정
         mainCamera.transform.position = targetPosition;
     }
 }

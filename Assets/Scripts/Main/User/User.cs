@@ -379,7 +379,7 @@ public class User : MonoBehaviour
         if (uiMain == null)
             return;
 
-        uiMain.UISynergyPanel.UpdateSynergy();
+        uiMain.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
     }
     private void HandleItemCombination(GameObject targetItemObj)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MinimapManager : MonoBehaviour, IPointerClickHandler
+public class MinimapController : MonoBehaviour, IPointerClickHandler
 {
     public Camera minimapCamera; // 미니맵 카메라
     public MapGenerator mapGenerator; // MapGenerator 스크립트 참조

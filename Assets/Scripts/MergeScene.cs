@@ -21,6 +21,7 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
     [SerializeField] private AugmenterBlueprint augmenterBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
+    [SerializeField] private Camera mainCam;
     [SerializeField] 
     public int Level = 1;
 
@@ -47,6 +48,9 @@ public class MergeScene : MonoBehaviour
                 Manager.User.InitMap(mapGenerator);
                 Manager.Champion.Init(gameDataBlueprint);
 
+                MinimapController minimapClickHandler = FindObjectOfType<MinimapController>();
+                Manager.Cam.Init(mainCam, mapGenerator, mainScene, minimapClickHandler);
+
                 Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint);
                 Manager.UserHp.InitializeHealthBars();
                 
@@ -55,7 +59,7 @@ public class MergeScene : MonoBehaviour
 
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
-                mainScene.UISynergyPanel.UpdateSynergy();
+                mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
             }
         });
     }
