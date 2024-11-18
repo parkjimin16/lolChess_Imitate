@@ -305,6 +305,8 @@ public class StageManager
     #region 전투 스테이지 로직
     private void StartAllBattles()
     {
+        
+
         ongoingBattles = 0; // 전투 시작 전에 초기화
 
         MergeScene.BatteStart = true;

@@ -327,6 +327,7 @@ public class User : MonoBehaviour
         {
             SwapItemsOnTiles(hitTile);
         }
+        _movableObj = null;
     }
 
     private void HandleChampionDrop(HexTile hitTile)
@@ -347,6 +348,7 @@ public class User : MonoBehaviour
         }
 
         UpdateSynergy();
+        _movableObj = null;
     }
 
     private void HandleChampionDrop()
