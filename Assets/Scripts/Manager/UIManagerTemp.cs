@@ -154,7 +154,21 @@ public class UIManagerTemp
         popupOrder--;
     }
 
+    public void ClosePopup(string target)
+    {
+        if (popupStack.Count == 0) return;
 
+        UIPopup popup = popupStack.Pop();
+
+        if(popup.gameObject.name == target)
+        {
+            popupStack.Push(popup);
+            return;
+        }
+
+        Destroy(popup.gameObject);
+        popupOrder--;
+    }
     public void CloseAllPopupUI()
     {
         while (popupStack.Count > 0)
@@ -165,14 +179,10 @@ public class UIManagerTemp
 
     public void CloseAllPopupUIExcept(string name)
     {
-        foreach (var popup in popupStack)
+        int count = popupStack.Count;
+        for(int i=0;i < count; i++)
         {
-            if (popup.gameObject.name == name)
-            {
-                continue;
-            }
-
-            ClosePopup();
+            ClosePopup(name);
         }
     }
 
