@@ -243,12 +243,6 @@ MonoBehaviour:
     augmenterName: "\uC2E0\uBCD1"
     augmenterDescription: "\uCD5C\uB300 \uD300 \uADDC\uBAA8\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4."
     baseAugmenter: {fileID: 7919612815002163710, guid: 1d228dd5d6d23bb41acaed546569feba, type: 3}
-  - augmenterType: 8
-    augmenterIcon: {fileID: 21300000, guid: 13556c85c514dfe4a8cd0fcd40ec2402, type: 3}
-    augmenterName: "\uC751\uB2F9\uD55C \uB300\uAC00"
-    augmenterDescription: "\uC989\uC2DC 6\uB808\uBCA8\uC774 \uB429\uB2C8\uB2E4. \uCD94\uD6C4
-      \uC99D\uAC15\uC774 \uC790\uB3D9\uC73C\uB85C \uC120\uD0DD\uB429\uB2C8\uB2E4."
-    baseAugmenter: {fileID: 3268989951750983451, guid: 1e23a3c6122ad32448e3b65e458d6034, type: 3}
   - augmenterType: 1
     augmenterIcon: {fileID: 21300000, guid: c7630af57bb8af4448c5c759d69a4980, type: 3}
     augmenterName: "\uC791\uC9C0\uB9CC \uCE58\uBA85\uC801\uC778"

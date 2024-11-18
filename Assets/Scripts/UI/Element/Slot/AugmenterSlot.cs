@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 public class AugmenterSlot : MonoBehaviour
 {
+    [SerializeField] private AugmenterData augmenterData;
+    [SerializeField] private UserData userData;
+    
+
     [SerializeField] private Image augmenter_Icon;
     [SerializeField] private TextMeshProUGUI augmenter_Name;
     [SerializeField] private TextMeshProUGUI augmenter_Desc;
@@ -14,10 +18,28 @@ public class AugmenterSlot : MonoBehaviour
 
     // 시너지 정보 필요함
 
-    public void InitAugmenterSlot(Sprite sprite, string name, string desc)
+    public void InitAugmenterSlot(AugmenterData aug, UserData user)
     {
-        augmenter_Icon.sprite = sprite;
-        augmenter_Name.text = name;
-        augmenter_Desc.text = desc;
+        userData = user;
+
+        augmenterData = aug;
+        augmenter_Icon.sprite = augmenterData.AugmenterIcon;
+        augmenter_Name.text = augmenterData.AugmenterName;
+        augmenter_Desc.text = augmenterData.AugmenterDescription;
+
+        btn_AugmenterSlot.onClick.AddListener(() => AddAugmenter(userData));
+    }
+
+    public void RerollButton(AugmenterData aug)
+    {
+        augmenterData = aug;
+        augmenter_Icon.sprite = augmenterData.AugmenterIcon;
+        augmenter_Name.text = augmenterData.AugmenterName;
+        augmenter_Desc.text = augmenterData.AugmenterDescription;
+    }
+
+    private void AddAugmenter(UserData user)
+    {
+        Manager.Augmenter.SetAugmenter(user, augmenterData);
     }
 }

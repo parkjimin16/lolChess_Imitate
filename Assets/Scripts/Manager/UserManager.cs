@@ -135,6 +135,7 @@ public class UserData
 {
     [SerializeField] private int gold;
     [SerializeField] private string userName;
+    [SerializeField] private int userHealthMax;
     [SerializeField] private int userHealth;
     [SerializeField] private int userId;
     [SerializeField] private int userLevel;
@@ -170,6 +171,12 @@ public class UserData
     {
         get { return gold; }
         set { gold = value; }
+    }
+    
+    public int UserHealthMax
+    {
+        get { return userHealthMax; }
+        set { userHealthMax = value; }
     }
 
     public int UserHealth
@@ -349,9 +356,27 @@ public class UserData
         
     }
 
-    
+
     #endregion
-    
+
+    #region User Logic
+
+    public bool IsUserDie()
+    {
+        return userHealth <= 0 ? true : false;
+    }
+
+    public void SetUserHealth(int hp)
+    {
+        userHealth += hp;
+
+        if(userHealth >= userHealthMax)
+        {
+            userHealth = userHealthMax;
+        }
+    }
+
+    #endregion
 
 }
 

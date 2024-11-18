@@ -17,7 +17,10 @@ public class Augmenter_ClearMind : BaseAugmenter
 
     public override void ApplyEndRound(UserData user)
     {
-
+        if(user.NonBattleChampionObject.Count == 0)
+        {
+            user.UserExp += 3;
+        }
     }
     public override void ApplyWhenever(UserData user)
     {

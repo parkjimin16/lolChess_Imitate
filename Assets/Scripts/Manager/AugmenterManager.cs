@@ -6,7 +6,6 @@ public class AugmenterManager
 
     private AugmenterBlueprint augmenterBlueprint;
 
-
     public AugmenterBlueprint AugmenterBlueprint => augmenterBlueprint;
     #endregion
 
@@ -37,6 +36,9 @@ public class AugmenterManager
     public void SetAugmenter(UserData user, AugmenterData augData)
     {
         user.UserAugmenter.Add(augData);
+
+        if (Manager.UI.CheckPopupStack())
+            Manager.UI.CloseAllPopupUI();
     }
     #endregion
 

@@ -56,7 +56,7 @@ public class MergeScene : MonoBehaviour
                 
                 Manager.Item.Init();
                 Manager.Synergy.Init(symbolDataBlueprint);
-
+                Manager.Augmenter.Init(augmenterBlueprint);
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
                 mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
@@ -90,6 +90,12 @@ public class MergeScene : MonoBehaviour
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
             //AugmenterData aData = augmenterBlueprint.GetAugmentByName("ªÔ√—ªÁ");
             //Manager.Augmenter.SetAugmenter(Manager.User.GetHumanUserData(), aData);
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            var augPopup = Manager.UI.ShowPopup<UIPopupAugmenter>();
+
+            augPopup.InitAugmenterGoldPopup();
         }
         else if(Input.GetKeyDown(KeyCode.N)) //¿¸≈ı Ω√¿€ 
         {

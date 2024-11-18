@@ -395,8 +395,7 @@ public class StageManager
     #region 유저 로직
     private void CheckPlayerElimination(GameObject player)
     {
-        int playerHealth = player.GetComponent<Player>().UserData.UserHealth;
-        if (playerHealth <= 0)
+        if (player.GetComponent<Player>().UserData.IsUserDie())
         {
             // 플레이어 탈락 처리
             // 탈락한 플레이어를 리스트에서 제거
@@ -410,15 +409,15 @@ public class StageManager
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
 
         // 플레이어에게 데미지 적용
-        int hp = player.GetComponent<Player>().UserData.UserHealth;
-        hp -= totalDamage;
-        player.GetComponent<Player>().UserData.UserHealth = hp;
+        Player player_  = player.GetComponent<Player>();
+        player_.UserData.SetUserHealth(-totalDamage);
+
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();
 
         // 게임 오버 체크
-        if (hp <= 0)
+        if (player_.UserData.IsUserDie())
         {
             // Debug.Log($"{player.GetComponent<Player>().PlayerName} 탈락!");
             // 플레이어 탈락 처리

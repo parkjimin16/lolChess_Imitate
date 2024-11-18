@@ -69,7 +69,7 @@ public class UserHpManager
         foreach (HealthUI hbUI in healthBars)
         {
             hbUI.UpdateHealthBar();
-            if (hbUI.PlayerData.UserData.UserHealth <= 0)
+            if (hbUI.PlayerData.UserData.IsUserDie())
             {
                 // 체력바를 회색으로 표시하거나 반투명하게 만들기
                 hbUI.SetDead(); // SetDead() 메서드를 HealthBarUI에 구현

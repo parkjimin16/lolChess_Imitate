@@ -12,7 +12,7 @@ public class Augmenter_ExchangeMarket : BaseAugmenter
 
     public override void ApplyStartRound(UserData user)
     {
-
+        user.UserGold += 3;
     }
 
     public override void ApplyEndRound(UserData user)
