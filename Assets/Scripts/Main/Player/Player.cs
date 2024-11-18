@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         userData = user;
 
         userData.UserName = playerData.PlayerName;
+        userData.UserHealthMax = playerData.Health;
         userData.UserHealth = playerData.Health;
         userData.PlayerType = playerData.PlayerType;
 

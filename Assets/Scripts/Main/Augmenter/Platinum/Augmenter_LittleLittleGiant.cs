@@ -17,7 +17,8 @@ public class Augmenter_LittleLittleGiant : BaseAugmenter
 
     public override void ApplyEndRound(UserData user)
     {
-
+        user.UserGold += 2;
+        user.SetUserHealth(2);
     }
     public override void ApplyWhenever(UserData user)
     {
