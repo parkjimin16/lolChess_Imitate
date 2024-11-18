@@ -868,9 +868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1033666894}
   - component: {fileID: 1033666889}
-  - component: {fileID: 1033666893}
   - component: {fileID: 1033666892}
-  - component: {fileID: 1033666890}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -897,18 +895,6 @@ MonoBehaviour:
   goldSlotSpacing: 0.1
   championsInCarousel: []
   sharedSelectionMapTransform: {fileID: 0}
---- !u!114 &1033666890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033666888}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f619ed0e8f3689342a761c491e71a57b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1033666892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,19 +907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec80b6e8ed47f9438eb31fd539aba98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1033666893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033666888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d0a4a4425cde7543ab46be172bfd673, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedUnit: {fileID: 0}
 --- !u!4 &1033666894
 Transform:
   m_ObjectHideFlags: 0
@@ -5046,7 +5019,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002037678}
-  - component: {fileID: 2002037677}
   - component: {fileID: 2002037675}
   m_Layer: 0
   m_Name: GameManager
@@ -5069,21 +5041,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageRoundText: {fileID: 255923612}
   timerText: {fileID: 969173416}
---- !u!114 &2002037677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002037672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8511578c4954a604ba56b63ad94d057b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerGoldList: []
-  EnemyGoldList: []
-  currentGold: 0
 --- !u!4 &2002037678
 Transform:
   m_ObjectHideFlags: 0
