@@ -9,7 +9,7 @@ public class ChampionFrame : MonoBehaviour
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Slider manaSlider;
     [SerializeField] private List<Image> equipItemImage;
-    [SerializeField] private TextMeshProUGUI level;
+    [SerializeField] private Image image_level;
 
     [Header("Camera")]
     [SerializeField] private Transform canvas;
@@ -29,7 +29,18 @@ public class ChampionFrame : MonoBehaviour
 
     public void SetChampionLevel(int level)
     {
-        this.level.text = level.ToString();
+        Color color = Color.white;
+        switch (level)
+        {
+            case 1: 
+                color = Color.gray; break;
+            case 2:
+                color = Color.blue; break;
+            case 3:
+                color = Color.red; break;
+        }
+
+        image_level.color = color;
     }
     public void SetHPSlider(float curHP, float maxHP)
     {

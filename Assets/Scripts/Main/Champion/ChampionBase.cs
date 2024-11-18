@@ -273,10 +273,28 @@ public class ChampionBase : MonoBehaviour
 
     public int ChampionSellCost(int cost, int level)
     {
-        if (level == 1)
-            return cost * level * 3;
+        if (cost == 1)
+        {
+            switch (level)
+            {
+                case 1:
+                    return 1;
+                case 2:
+                    return 3;
+                case 3:
+                    return 8;
+                default:
+                    return 0;
+            }
+        }
 
-        return (cost * level * 3) - 1;
+
+        if(level == 1)
+        {
+            return cost;
+        }
+
+        return (cost * (level-1) * 3) - 1;
     }
 
     public void SetShield(int shield)
