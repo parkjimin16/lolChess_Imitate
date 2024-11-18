@@ -239,13 +239,9 @@ public class PlayerMove : MonoBehaviour
         List<ItemBlueprint> item = new List<ItemBlueprint>();
         List<string> itemid = new List<string>();
         List<string> champion = new List<string>();
-        //GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
-        //Capsule cap = obj.GetComponent<Capsule>();
 
         ChampionBase cBase = selectedChampion.GetComponent<ChampionBase>();
-        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(cBase.ChampionName) as ChampionBlueprint;
-        champion.Add(championBlueprint.ChampionInstantiateName);
-        Debug.Log(champion[0]);
+        champion.Add(Manager.Champion.GetChampionInstantiateName(cBase.ChampionInstantiateName));
 
         item = cBase.EquipItem;
         foreach (var itemid1 in item)
@@ -256,13 +252,6 @@ public class PlayerMove : MonoBehaviour
         cap.InitCapsule(0, itemid, champion);
 
         Destroy(selectedChampion);
-        /*HexTile emptyTile = FindEmptyRectTile();
-        if(emptyTile != null)
-        {
-            selectedChampion.transform.position = emptyTile.transform.position;
-            selectedChampion.transform.SetParent(emptyTile.transform);
-            emptyTile.championOnTile.Add(selectedChampion);
-        }*/
     }
     private HexTile FindEmptyRectTile()
     {

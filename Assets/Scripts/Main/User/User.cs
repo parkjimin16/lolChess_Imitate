@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,40 +5,25 @@ using UnityEngine.EventSystems;
 
 public class User : MonoBehaviour
 {
-    // 변수 & 프로퍼티
     [SerializeField] private UISceneMain uiMain;
-    
-
-    // 클릭 로직
-    private Vector2 _lastTouchPos = Vector2.zero;
-    private Vector2 _currentTouchPos = Vector2.zero;
-    private Vector3 _prePos = Vector3.zero;
-
-    private Vector3 _beforePosition;
-    private Vector3 _offset;
-
     [SerializeField] private GameObject _movableObj;
     [SerializeField] private GameObject currentTile;
+    [SerializeField] private MapGenerator _mapGenerator;
+    [SerializeField] private GameObject test;
 
-    private MovableObjectType _movableObjectType;
-
-    private string _movableTag;
-    private string _tileLayerName;
-
+    private Vector2 _lastTouchPos = Vector2.zero;
+    private Vector2 _currentTouchPos = Vector2.zero;
+    private Vector3 _beforePosition;
+    private Vector3 _offset;
     private bool _isReturning = false;
     private bool _objectMoved = false;
     private bool _isDragging = false;
     private bool _previousIsBattleOngoing = false;
-
+    private MovableObjectType _movableObjectType;
+    private ReturningObjectData _returningObjData;
     private ItemFrame _hoveredItem;
-    [SerializeField]private MapGenerator _mapGenerator;
 
-    [SerializeField] private GameObject test;
-
-
-    // 챔피언 판매 변수
     private GraphicRaycaster raycaster;
-    private PointerEventData pointerEventData;
     private EventSystem eventSystem;
 
     private class ReturningObjectData
@@ -50,164 +34,70 @@ public class User : MonoBehaviour
         public MovableObjectType movableObjectType;
     }
 
-    // 변수 선언
-    private ReturningObjectData _returningObjData;
-
-    #region Unity Flow
-
     private void Start()
     {
         raycaster = uiMain.GetComponent<GraphicRaycaster>();
         eventSystem = EventSystem.current;
     }
+
     private void Update()
     {
-        if(!_previousIsBattleOngoing && Manager.Stage.IsBattleOngoing)
-        {
-            // 전투가 방금 시작됨
-            if (_isDragging && _movableObj != null)
-            {
-                if (!_isReturning)
-                {
-                    // 드래그 중인 오브젝트 반환 프로세스 초기화
-                    _isReturning = true;
-                    _returningObjData = new ReturningObjectData
-                    {
-                        obj = _movableObj,
-                        beforePosition = _beforePosition,
-                        currentTile = currentTile,
-                        movableObjectType = _movableObjectType
-                    };
-                    _movableObj = null;
-                    currentTile = null;
-                }
-            }
-        }
-        _previousIsBattleOngoing = Manager.Stage.IsBattleOngoing;
+        HandleBattleState();
+        UpdateTouchPositions();
+        HandleRightClick();
+        HandleMouseInput();
+        ObjectReturn();
+        HandleItemHover();
+        CheckChampionDrag();
+    }
 
-        if (Manager.Stage.IsBattleOngoing)
-        {
-            if (_isDragging && _movableObj != null && _movableObjectType == MovableObjectType.Champion)
-            {
-                if (!_isReturning)
-                {
-                    // 반환 과정을 초기화합니다.
-                    _isReturning = true;
-                    _returningObjData = new ReturningObjectData
-                    {
-                        obj = _movableObj,
-                        beforePosition = _beforePosition,
-                        currentTile = currentTile,
-                        movableObjectType = _movableObjectType
-                    };
-                    _movableObj = null;
-                    currentTile = null;
-                }
-                ObjectReturn(); // 드래그 중인 오브젝트 반환
-            }
-        }
+    #region Mouse Input Handling
 
-        _lastTouchPos = _currentTouchPos;
-        _currentTouchPos = Input.mousePosition;
-
-        // 챔피언 클릭 (마우스 오른쪽)
-        if (Input.GetMouseButtonDown(1))
-        {
-            GameObject clickedObject = OnClickObjUsingTag("Champion");
-
-            if (clickedObject != null)
-            {
-                HandleChampionRightClick(clickedObject);
-                return;
-            }
-        }
-
-
+    private void HandleMouseInput()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             if (Manager.UI.CheckPopupStack())
-            {
                 Manager.UI.CloseAllPopupUI();
-            }
-;
+
             TouchBeganEvent();
-            FindcurrentTile();
-            _prePos = Input.mousePosition;
+            FindCurrentTile();
         }
 
         if (Input.GetMouseButton(0))
         {
-
-            if (Input.mousePosition != _prePos)
-            {
+            if (Input.mousePosition != _beforePosition)
                 TouchMovedEvent();
-            }
-            else
-            {
-                TouchStayEvent();
-            }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             TouchEndedEvent();
         }
-
- 
-        ObjectReturn();
-        HandleItemHover();
-        CheckChampionDrag();
     }
-    #endregion
 
-    #region Mouse Click Logic
     private void TouchBeganEvent()
     {
-        if (_isReturning)
-        {
-            return;
-        }
+        if (_isReturning) return;
 
         _objectMoved = false;
-
-        _movableObj = OnClickObjUsingTag("Item");
-        if (_movableObj != null)
-        {
-            SetMovableObjectType(MovableObjectType.Item);
-        }
-        else
-        {
-            _movableObj = OnClickObjUsingTag("Champion");
-            if (_movableObj != null)
-            {
-                SetMovableObjectType(MovableObjectType.Champion);
-            }
-        }
+        _movableObj = GetObjectUnderMouse("Item") ?? GetObjectUnderMouse("Champion");
 
         if (_movableObj != null)
         {
-            if (_movableObj.transform.parent != null)
-            {
-                currentTile = _movableObj.transform.parent.gameObject;
-            }
-
+            SetMovableObjectType(_movableObj.CompareTag("Item") ? MovableObjectType.Item : MovableObjectType.Champion);
+            currentTile = _movableObj.transform.parent?.gameObject;
             _beforePosition = _movableObj.transform.position;
 
             if (currentTile != null)
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
-
                 if (_movableObjectType == MovableObjectType.Item)
                 {
                     tile.isItemTile = false;
                     tile.itemOnTile = null;
                 }
-                else if (_movableObjectType == MovableObjectType.Champion)
-                {
-                    //tile.championOnTile.Remove(_movableObj);
-                }
             }
-            //_movableObj.transform.SetParent(null);
         }
     }
 
@@ -216,18 +106,12 @@ public class User : MonoBehaviour
         if (_movableObj != null)
         {
             _objectMoved = true;
-            _isDragging = true; // 드래그 중임을 표시
+            _isDragging = true;
 
             Vector3 touchPos = Input.mousePosition;
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, 10));
-
             _movableObj.transform.position = worldPos;
         }
-    }
-
-    private void TouchStayEvent()
-    {
-        // 필요 시 구현
     }
 
     private void TouchEndedEvent()
@@ -235,212 +119,198 @@ public class User : MonoBehaviour
         if (_movableObj != null)
         {
             _isDragging = false;
-            if (_objectMoved)
+            if (_objectMoved && currentTile != null)
             {
-                if (currentTile != null)
+                HexTile tile = currentTile.GetComponent<HexTile>();
+                if (_movableObjectType == MovableObjectType.Item)
                 {
-                    HexTile tile = currentTile.GetComponent<HexTile>();
-
-                    if (_movableObjectType == MovableObjectType.Item)
-                    {
-                        tile.isItemTile = false;
-                        tile.itemOnTile = null;
-                    }
-                    else if (_movableObjectType == MovableObjectType.Champion)
-                    {
-                        //tile.championOnTile.Remove(_movableObj);
-                    }
+                    tile.isItemTile = false;
+                    tile.itemOnTile = null;
                 }
             }
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit[] hits = Physics.RaycastAll(ray);
-
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
             foreach (RaycastHit hit in hits)
             {
                 GameObject hitObj = hit.collider.gameObject;
+                if (hitObj == _movableObj) continue;
 
-                if (hitObj == _movableObj)
+                string expectedTileTag = _movableObjectType == MovableObjectType.Item ? "ItemTile" : "PlayerTile";
+                if (hitObj.CompareTag(expectedTileTag) || hitObj.transform.root.CompareTag(expectedTileTag))
                 {
-                    continue;
-                }
-
-                string expectedTileTag = (_movableObjectType == MovableObjectType.Item) ? "ItemTile" : "PlayerTile";
-
-                GameObject hitParentObj = hitObj.transform.root.gameObject;
-
-                if (hitObj.CompareTag(expectedTileTag) || hitParentObj.CompareTag(expectedTileTag))
-                {
-                    HexTile hitTile = hitObj.GetComponent<HexTile>() ?? hitParentObj.GetComponent<HexTile>();
-
+                    HexTile hitTile = hitObj.GetComponent<HexTile>() ?? hitObj.transform.root.GetComponent<HexTile>();
                     if (hitTile != null)
                     {
                         if (_movableObjectType == MovableObjectType.Item)
-                        {
-                            HandleItemDrop(hitTile, hitTile.gameObject);
-                        }
+                            HandleItemDrop(hitTile);
                         else if (_movableObjectType == MovableObjectType.Champion)
-                        {
-
-                            HandleUnitDrop(hitTile, hitTile.gameObject);
-                        }
-
-                        return; 
+                            HandleChampionDrop(hitTile);
+                        return;
                     }
                 }
                 else
                 {
-                    HandleChampionDrop(_movableObj);
+                    HandleChampionDrop();
                 }
 
                 if (_movableObjectType == MovableObjectType.Item)
                 {
-                    if (hitObj.CompareTag("Item") && hitObj.transform != _movableObj.transform)
+                    if (hitObj.CompareTag("Champion"))
                     {
-                        HandleItemCombination(hitObj);
-                        return;
-                    }
-                    else if (hitObj.CompareTag("Champion"))
-                    {
-                        Debug.Log("챔피언 아이템 저장");
                         HandleGiveItemToChampion(hitObj);
                         return;
                     }
                 }
             }
 
-            _isReturning = true;
-            _returningObjData = new ReturningObjectData
-            {
-                obj = _movableObj,
-                beforePosition = _beforePosition,
-                currentTile = currentTile,
-                movableObjectType = _movableObjectType
-            };
-
-            _movableObj = null;
-            currentTile = null;
+            StartReturningObject();
         }
     }
+
     #endregion
 
-    #region Item Champion Move, Combine Logic
-    private void CheckChampionDrag()
+    #region Battle State Handling
+
+    private void HandleBattleState()
     {
-        if (_movableObj != null && _movableObjectType == MovableObjectType.Champion)
+        if (!_previousIsBattleOngoing && Manager.Stage.IsBattleOngoing)
         {
-            if (IsMouseOverUI("ShopBG"))
+            if (_isDragging && _movableObj != null)
             {
-                uiMain.UIShopPanel.SellPanel.SetActive(true);
-                uiMain.UIShopPanel.InitSellPanel(_movableObj);
-            }
-            else
-            {
-                uiMain.UIShopPanel.SellPanel.SetActive(false);
+                StartReturningObject();
             }
         }
-        else
+        _previousIsBattleOngoing = Manager.Stage.IsBattleOngoing;
+
+        if (Manager.Stage.IsBattleOngoing && _isDragging && _movableObj != null && _movableObjectType == MovableObjectType.Champion)
         {
-            uiMain.UIShopPanel.SellPanel.SetActive(false);
+            StartReturningObject();
+            ObjectReturn();
         }
     }
 
-    private void HandleChampionRightClick(GameObject championObj)
+    #endregion
+
+    #region Helper Methods
+
+    private void UpdateTouchPositions()
+    {
+        _lastTouchPos = _currentTouchPos;
+        _currentTouchPos = Input.mousePosition;
+    }
+
+    private void HandleRightClick()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameObject clickedObject = GetObjectUnderMouse("Champion");
+            if (clickedObject != null)
+            {
+                ShowChampionInfo(clickedObject);
+            }
+        }
+    }
+
+    private GameObject GetObjectUnderMouse(string tag)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            GameObject hitObject = hitInfo.collider.gameObject;
+            if (hitObject.CompareTag(tag))
+            {
+                UserData user1 = Manager.User.GetHumanUserData();
+                if (tag == "Champion")
+                {
+                    // 전투 중이면 챔피언 선택 불가
+                    if (!Manager.Stage.IsBattleOngoing && user1.TotalChampionObject.Contains(hitObject))
+                        return hitObject;
+                    else
+                        return null;
+                }
+                if (tag == "Item")
+                {
+                    if (user1.UserItemObject.Contains(hitObject))
+                        return hitObject;
+                    else
+                        return null;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void ShowChampionInfo(GameObject championObj)
     {
         ChampionBase cBase = championObj.GetComponent<ChampionBase>();
         if (cBase != null)
-        {
             uiMain.UIChampionExplainPanel.UpdateChampionExplainPanel(cBase);
+    }
+
+    private void SetMovableObjectType(MovableObjectType type)
+    {
+        _movableObjectType = type;
+        _offset = type == MovableObjectType.Item ? new Vector3(0.0f, 0.3f, 0.0f) : Vector3.zero;
+    }
+
+    private void FindCurrentTile()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            GameObject hitObj = hit.collider.gameObject;
+            if (hitObj.CompareTag("PlayerTile") || hitObj.CompareTag("ItemTile"))
+                currentTile = hitObj;
         }
     }
-    private void HandleItemDrop(HexTile hitTile, GameObject hitTileObj)
-    {
-        if (hitTile.isItemTile == false)
-        {
-            _movableObj.transform.position = hitTileObj.transform.position + _offset;
-            _movableObj.transform.SetParent(hitTileObj.transform);
 
-            hitTile.isItemTile = true;
-            hitTile.itemOnTile = _movableObj;
-            
+    private void StartReturningObject()
+    {
+        _isReturning = true;
+        _returningObjData = new ReturningObjectData
+        {
+            obj = _movableObj,
+            beforePosition = _beforePosition,
+            currentTile = currentTile,
+            movableObjectType = _movableObjectType
+        };
+        _movableObj = null;
+        currentTile = null;
+    }
+
+    #endregion
+
+    #region Object Handling
+
+    private void HandleItemDrop(HexTile hitTile)
+    {
+        if (!hitTile.isItemTile)
+        {
+            PlaceObjectOnTile(hitTile);
         }
         else
         {
-            GameObject otherItem = hitTile.itemOnTile;
-
-            if (currentTile != null)
-            {
-                otherItem.transform.position = currentTile.transform.position + _offset;
-                otherItem.transform.SetParent(currentTile.transform);
-
-                HexTile previousTile = currentTile.GetComponent<HexTile>();
-                previousTile.isItemTile = true;
-                previousTile.itemOnTile = otherItem;
-            }
-            else
-            {
-                // 이전 타일이 없을 경우, 다른 아이템을 원하는 위치로 이동하거나 동작을 정의합니다.
-                otherItem.transform.position = _beforePosition;
-                otherItem.transform.SetParent(null);
-            }
-
-            _movableObj.transform.position = hitTileObj.transform.position + _offset;
-            _movableObj.transform.SetParent(hitTileObj.transform);
-
-            hitTile.isItemTile = true;
-            hitTile.itemOnTile = _movableObj;
+            SwapItemsOnTiles(hitTile);
         }
     }
-    private void HandleUnitDrop(HexTile hitTile, GameObject hitTileObj)
+
+    private void HandleChampionDrop(HexTile hitTile)
     {
-       
-        if (hitTile == null)
+        if (hitTile == null || hitTile.HasChampion)
         {
-            Debug.LogWarning("hitTile이 null입니다.");
-            _isReturning = true;
+            StartReturningObject();
             return;
         }
 
-        if (!hitTile.HasChampion)
-        {
-            _movableObj.transform.position = hitTileObj.transform.position + _offset;
-            _movableObj.transform.SetParent(hitTileObj.transform);
-
-            hitTile.championOnTile.Add(_movableObj);
-
-            if (currentTile != null && currentTile != hitTileObj)
-            {
-                
-                HexTile previousTile = currentTile.GetComponent<HexTile>();
-                Debug.Log(previousTile.name);
-                if (previousTile != null)
-                {
-                    previousTile.championOnTile.Remove(_movableObj);
-                }
-                else
-                {
-                    Debug.LogWarning("이전 타일에 HexTile 컴포넌트가 없습니다.");
-                }
-            }
-
-            currentTile = hitTileObj;
-        }
-        // 타일에 유닛 있으면 원래 자리로
-        else
-        {
-            _isReturning = true;
-        }
+        PlaceObjectOnTile(hitTile);
 
         Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
         Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
         Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
-
-        if (uiMain == null)
-            return;
-
-        uiMain.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
     }
-    private void HandleChampionDrop(GameObject hitTileObj)
+
+    private void HandleChampionDrop()
     {
         if (IsMouseOverUI("SellPanel"))
         {
@@ -460,30 +330,16 @@ public class User : MonoBehaviour
 
             if (combinedItemName == "error")
             {
-                Debug.Log("아이템 조합 실패");
-                _isReturning = true;
+                StartReturningObject();
                 return;
             }
 
-            // 새로운 아이템 생성
             GameObject newItem = Manager.Item.CreateItem(combinedItemName, targetItemObj.transform.position);
 
-            // 기존 아이템들 삭제
             Destroy(targetItemFrame.gameObject);
             Destroy(draggedItemFrame.gameObject);
 
-            // 타일 정보 업데이트
-            HexTile tile = null;
-
-            if (currentTile != null)
-            {
-                tile = currentTile.GetComponent<HexTile>();
-            }
-            else
-            {
-                tile = targetItemObj.transform.parent.GetComponent<HexTile>();
-            }
-
+            HexTile tile = currentTile?.GetComponent<HexTile>() ?? targetItemObj.transform.parent.GetComponent<HexTile>();
             if (tile != null)
             {
                 tile.itemOnTile = newItem;
@@ -492,31 +348,25 @@ public class User : MonoBehaviour
         }
         else
         {
-            Debug.Log("아이템 프레임을 찾을 수 없습니다.");
-            _isReturning = true;
+            StartReturningObject();
         }
     }
+
     private void HandleGiveItemToChampion(GameObject championObj)
     {
         ChampionBase cBase = championObj.GetComponent<ChampionBase>();
-
         if (cBase == null)
         {
-            Debug.Log("챔피언 베이스를 찾을 수 없습니다.");
-            _isReturning = true;
+            StartReturningObject();
             return;
         }
 
         ItemFrame draggedItemFrame = _movableObj.GetComponent<ItemFrame>();
-
         if (draggedItemFrame != null)
         {
             cBase.GetItem(draggedItemFrame.ItemBlueprint);
-
-            // 아이템 오브젝트 삭제
             Destroy(draggedItemFrame.gameObject);
 
-            // 현재 타일의 아이템 정보를 업데이트
             if (currentTile != null)
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
@@ -526,120 +376,70 @@ public class User : MonoBehaviour
         }
         else
         {
-            Debug.Log("드래그된 아이템 프레임을 찾을 수 없습니다.");
-            _isReturning = true;
+            StartReturningObject();
         }
     }
-    private void HandleItemHover()
+
+    private void PlaceObjectOnTile(HexTile hitTile)
     {
-        if (_movableObj != null)
+        _movableObj.transform.position = hitTile.transform.position + _offset;
+        _movableObj.transform.SetParent(hitTile.transform);
+
+        if (_movableObjectType == MovableObjectType.Item)
         {
-            if (_hoveredItem != null)
-            {
-                _hoveredItem.HideItemInfoUI();
-                _hoveredItem = null;
-            }
-            return;
+            hitTile.isItemTile = true;
+            hitTile.itemOnTile = _movableObj;
         }
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        else if (_movableObjectType == MovableObjectType.Champion)
         {
-            GameObject hoveredObject = hit.collider.gameObject;
-
-            if (hoveredObject.CompareTag("Item"))
+            hitTile.championOnTile.Add(_movableObj);
+            if (currentTile != null && currentTile != hitTile.gameObject)
             {
-                ItemFrame itemFrame = hoveredObject.GetComponent<ItemFrame>();
-                if (_hoveredItem != itemFrame)
-                {
-                    if (_hoveredItem != null)
-                    {
-                        _hoveredItem.HideItemInfoUI();
-                    }
+                HexTile previousTile = currentTile.GetComponent<HexTile>();
+                previousTile?.championOnTile.Remove(_movableObj);
+            }
+            currentTile = hitTile.gameObject;
+        }
+    }
 
-                    _hoveredItem = itemFrame;
-                    _hoveredItem.ShowItemInfoUI();
-                }
-            }
-            else
-            {
-                if (_hoveredItem != null)
-                {
-                    _hoveredItem.HideItemInfoUI();
-                    _hoveredItem = null;
-                }
-            }
+    private void SwapItemsOnTiles(HexTile hitTile)
+    {
+        GameObject otherItem = hitTile.itemOnTile;
+
+        if (currentTile != null)
+        {
+            otherItem.transform.position = currentTile.transform.position + _offset;
+            otherItem.transform.SetParent(currentTile.transform);
+
+            HexTile previousTile = currentTile.GetComponent<HexTile>();
+            previousTile.isItemTile = true;
+            previousTile.itemOnTile = otherItem;
         }
         else
         {
-            if (_hoveredItem != null)
-            {
-                _hoveredItem.HideItemInfoUI();
-                _hoveredItem = null;
-            }
+            otherItem.transform.position = _beforePosition;
+            otherItem.transform.SetParent(null);
         }
+
+        _movableObj.transform.position = hitTile.transform.position + _offset;
+        _movableObj.transform.SetParent(hitTile.transform);
+        hitTile.itemOnTile = _movableObj;
     }
 
-    private GameObject OnClickObjUsingTag(string tag)
-    {
-        Vector3 touchPos = Input.mousePosition;
-
-        Ray ray = Camera.main.ScreenPointToRay(touchPos);
-        RaycastHit hitInfo;
-        Physics.Raycast(ray, out hitInfo);
-
-        if (hitInfo.collider != null)
-        {
-            GameObject hitObject = hitInfo.collider.gameObject;
-            if (hitObject != null && hitObject.gameObject.tag.Equals(tag))
-            {
-                if (tag == "Champion" && !Manager.Stage.IsBattleOngoing)
-                {
-                    UserData user1 = Manager.User.GetHumanUserData();
-                    if (user1.TotalChampionObject.Contains(hitObject))
-                    {
-                        return hitObject;
-                    }
-                    else
-                    {
-                        // 소유자가 아니면 선택 불가
-                        return null;
-                    }
-                }
-                else if (tag == "Item")
-                {
-                    UserData user1 = Manager.User.GetHumanUserData();
-                    if (user1.UserItemObject.Contains(hitObject))
-                    {
-                        return hitObject;
-                    }
-                    else
-                    {
-                        // 소유자가 아니면 선택 불가
-                        return null;
-                    }
-                }
-                //return hitObject;
-            }
-        }
-        return null;
-    }
     private void ObjectReturn()
     {
         if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
         {
-            if(_returningObjData.movableObjectType == MovableObjectType.Champion)
-            {
-                _returningObjData.obj.transform.position = _returningObjData.beforePosition;
-            }
-            if(_returningObjData.movableObjectType == MovableObjectType.Item)
+            if (_returningObjData.movableObjectType == MovableObjectType.Item)
             {
                 _returningObjData.obj.transform.position = Vector3.MoveTowards(
-                _returningObjData.obj.transform.position,
-                _returningObjData.beforePosition,
-                Time.deltaTime * 30f);
+                    _returningObjData.obj.transform.position,
+                    _returningObjData.beforePosition,
+                    Time.deltaTime * 30f);
+            }
+            else
+            {
+                _returningObjData.obj.transform.position = _returningObjData.beforePosition;
             }
 
             if (Vector3.Distance(_returningObjData.obj.transform.position, _returningObjData.beforePosition) < 0.01f)
@@ -660,17 +460,10 @@ public class User : MonoBehaviour
                         else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
                         {
                             if (!previousTile.championOnTile.Contains(_returningObjData.obj))
-                            {
                                 previousTile.championOnTile.Add(_returningObjData.obj);
-                            }
                         }
                     }
-                    else
-                    {
-                        Debug.LogWarning("이전 타일에 HexTile 컴포넌트가 없습니다.");
-                    }
                 }
-
                 _returningObjData = null;
             }
         }
@@ -678,56 +471,78 @@ public class User : MonoBehaviour
 
     #endregion
 
-    #region 설정 메서드
-    public void SetMovableObjectType(MovableObjectType type)
-    {
-        _movableObjectType = type;
+    #region UI Handling
 
-        if (type == MovableObjectType.Item)
+    private void HandleItemHover()
+    {
+        if (_movableObj != null)
         {
-            _movableTag = "Item";
-            _offset = new Vector3(0.0f, 0.3f, 0.0f);
+            _hoveredItem?.HideItemInfoUI();
+            _hoveredItem = null;
+            return;
         }
-        else if (type == MovableObjectType.Champion)
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _movableTag = "Champion";
-            _offset = new Vector3(0.0f, 0.0f, 0.0f);
+            GameObject hoveredObject = hit.collider.gameObject;
+
+            if (hoveredObject.CompareTag("Item"))
+            {
+                ItemFrame itemFrame = hoveredObject.GetComponent<ItemFrame>();
+                if (_hoveredItem != itemFrame)
+                {
+                    _hoveredItem?.HideItemInfoUI();
+                    _hoveredItem = itemFrame;
+                    _hoveredItem.ShowItemInfoUI();
+                }
+            }
+            else
+            {
+                _hoveredItem?.HideItemInfoUI();
+                _hoveredItem = null;
+            }
+        }
+        else
+        {
+            _hoveredItem?.HideItemInfoUI();
+            _hoveredItem = null;
         }
     }
 
-    private GameObject FindcurrentTile()
+    private void CheckChampionDrag()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        if (_movableObj != null && _movableObjectType == MovableObjectType.Champion)
         {
-            GameObject hitObj = hit.collider.gameObject;
-
-            if (hitObj.CompareTag("PlayerTile") || hitObj.CompareTag("ItemTile"))
+            if (IsMouseOverUI("ShopBG"))
             {
-                currentTile = hitObj;
-                return currentTile;
+                uiMain.UIShopPanel.SellPanel.SetActive(true);
+                uiMain.UIShopPanel.InitSellPanel(_movableObj);
+            }
+            else
+            {
+                uiMain.UIShopPanel.SellPanel.SetActive(false);
             }
         }
-        return null;
+        else
+        {
+            uiMain.UIShopPanel.SellPanel.SetActive(false);
+        }
     }
 
     private bool IsMouseOverUI(string name)
     {
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
-
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerEventData, results);
 
         foreach (var result in results)
         {
             if (result.gameObject.name == name && result.gameObject.activeSelf)
-            {
                 return true;
-            }
         }
-
         return false;
     }
+
     #endregion
 }
