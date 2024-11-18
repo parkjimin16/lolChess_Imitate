@@ -47,7 +47,6 @@ public class User : MonoBehaviour
     #region Unity Flow
     private void Update()
     {
-
         if(!_previousIsBattleOngoing && Manager.Stage.IsBattleOngoing)
         {
             // 전투가 방금 시작됨

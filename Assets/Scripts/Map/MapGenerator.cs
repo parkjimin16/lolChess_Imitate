@@ -656,6 +656,14 @@ public class MapGenerator : MonoBehaviour
             cBase.SetChampion(championBlueprint);
             cBase.InitChampion(cFrame);
 
+            string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+            ItemBlueprint newItem;
+            if (Manager.Item.ItemDataDictionary.TryGetValue(itemId, out newItem))
+            {
+                cBase.GetItem(newItem);
+            }
+            //cBase.GetItem(newItem);
+
             championsInCarousel.Add(championPrefab);
 
             // 이동 방향(접선 방향) 계산

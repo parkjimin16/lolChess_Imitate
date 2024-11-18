@@ -79,7 +79,7 @@ public class MergeScene : MonoBehaviour
             champion.Add("ChampionBlueprint_Ashe");
             champion.Add("ChampionBlueprint_Olaf");
 
-            cap.InitCapsule(10, item, champion);
+            cap.InitCapsule(0, item, champion);
 
             //Manager.Item.CreateItem("B020", new Vector3(0, 0, 0));
             //AugmenterData aData = augmenterBlueprint.GetAugmentByName("ªÔ√—ªÁ");
