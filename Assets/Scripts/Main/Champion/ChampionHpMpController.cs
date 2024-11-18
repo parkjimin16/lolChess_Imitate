@@ -7,28 +7,42 @@ public class ChampionHpMpController : MonoBehaviour
     private ChampionBase cBase;
     private int totalDamage;
 
-    private bool isDieCoroutineRunning = false;
-    private void Update()
-    {
-        if (IsDie() && !isDieCoroutineRunning)
-        {
-            isDieCoroutineRunning = true;
-            cBase.ChampionStateController.ChangeState(ChampionState.Die, cBase);
-            StartCoroutine(WaitForAnimationToEnd());
-        }
-    }
+    private bool isDieCoroutineRunning;
 
     public bool IsDie()
     {
         return cBase.Champion_CurHp <= 0;
     }
 
+
+    private void Update()
+    {
+        if (IsDie() && !isDieCoroutineRunning)
+        {
+            isDieCoroutineRunning = true;
+            cBase.ChampionStateController.ChangeState(ChampionState.Die, cBase);
+            HexTile hex = Manager.Stage.GetParentTileInHex(gameObject);
+            hex.championOnTile.Clear();
+            StartCoroutine(WaitForAnimationToEnd());
+        }
+    }
+
+    #region Init
+
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
         cBase.ChampionFrame.SetHPSlider(cBase.Champion_CurHp, cBase.Champion_MaxHp);
         cBase.ChampionFrame.SetManaSlider(cBase.Champion_CurHp, cBase.Champion_MaxHp);
+        isDieCoroutineRunning = false;
     }
+    
+    public void InitBattleEnd()
+    {
+        StopAllCoroutines();
+        isDieCoroutineRunning = false;
+    }
+    #endregion
 
     public void AddHealth(int hp, float value)
     {

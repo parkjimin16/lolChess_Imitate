@@ -78,6 +78,7 @@ public class ChampionAttackController : MonoBehaviour
     public void EndBattle()
     {
         StopAllCoroutines();
+        cBase.ChampionHpMpController.InitBattleEnd();
 
         findCoroutine = null;
         moveCoroutine = null;
