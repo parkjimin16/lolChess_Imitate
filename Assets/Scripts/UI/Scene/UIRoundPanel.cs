@@ -20,13 +20,14 @@ public class UIRoundPanel : UIBase
     [SerializeField] private List<Image> image_FirstRound;
     [SerializeField] private TextMeshProUGUI txt_FirstStage;
     [SerializeField] private TextMeshProUGUI txt_FirstTimer;
+    [SerializeField] private Slider slier_Timer_First;
 
     [Header("이후 라운드")]
     [SerializeField] private GameObject AfterSecondRound;
     [SerializeField] private List<Image> image_AfterRound;
     [SerializeField] private TextMeshProUGUI txt_AfterStage;
     [SerializeField] private TextMeshProUGUI txt_AfterTimer;
-
+    [SerializeField] private Slider slier_Timer_After;
 
     #endregion
 
