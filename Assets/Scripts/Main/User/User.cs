@@ -60,7 +60,7 @@ public class User : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (Manager.UI.CheckPopupStack())
-                Manager.UI.CloseAllPopupUI();
+                Manager.UI.CloseAllPopupUIExcept("UIPopupAugmenter");
 
             TouchBeganEvent();
             FindCurrentTile();

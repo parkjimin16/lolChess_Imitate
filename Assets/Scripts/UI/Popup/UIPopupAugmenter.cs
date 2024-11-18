@@ -30,7 +30,7 @@ public class UIPopupAugmenter : UIPopup
             btn_Reroll[i].onClick.AddListener(() => RerollBtn(index));
         }
 
-        btn_Back.onClick.AddListener(() => ClosePopup());
+        btn_Back.onClick.AddListener(() => DisablePopup());
     }
     #endregion
 
@@ -80,9 +80,16 @@ public class UIPopupAugmenter : UIPopup
         btn_Reroll[buttonIndex].interactable = false;
     }
 
-    private void ClosePopup()
+    private void DisablePopup()
     {
-
+        if (backObject.activeSelf)
+        {
+            backObject.SetActive(false);
+        }
+        else
+        {
+            backObject.SetActive(true);
+        }
     }
     #endregion
 }
