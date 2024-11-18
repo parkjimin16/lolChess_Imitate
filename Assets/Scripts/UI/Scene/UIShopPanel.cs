@@ -147,6 +147,7 @@ public class UIShopPanel : UIBase
     #endregion
 
     #region 경험치 & 골드 & 연승 연패
+
     private void UpdateExpBtn(PointerEventData enterEvent)
     {
         UserData user = Manager.User.GetHumanUserData();
@@ -165,8 +166,8 @@ public class UIShopPanel : UIBase
             Debug.Log($"{user.UserName}님에게는 충분한 골드가 없습니다.");
         }
 
-
     }
+
 
 
     private void UpdatePlayerXP()
@@ -187,6 +188,29 @@ public class UIShopPanel : UIBase
         txt_Gold.text = user.UserGold.ToString();
     }
 
+
+    /// <summary>
+    /// 라운드 끝날때 호출
+    /// </summary>
+    public void UpdateContinousBox(UserData user)
+    {
+        if(user.UserSuccessiveWin == 0)
+        {
+            continous_Box.SetActive(true);
+            contious_Image.color = Color.blue;
+            continous_Count.text = user.UserSuccessiveLose.ToString();
+        }
+        else if(user.UserSuccessiveLose == 0)
+        {
+            continous_Box.SetActive(true);
+            contious_Image.color = Color.red;
+            continous_Count.text = user.UserSuccessiveWin.ToString();
+        }
+        else if(user.UserSuccessiveWin == 0 && user.UserSuccessiveLose == 0)
+        {
+            continous_Box.SetActive(false);
+        }
+    }
     #endregion
 
     #region 챔피언 확률

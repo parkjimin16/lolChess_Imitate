@@ -179,7 +179,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4095f0bcee6ee41940e1536be3d20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  synergyDescPopup: {fileID: 126141103639278208, guid: bcf6bf4c988f354459f9b6cff6546e7d, type: 3}
+  lineData:
+    championLine: 0
+    championLineSprite: {fileID: 0}
+    championLineName: 
+    championLineDesc: 
+    symbolData: []
+    championBlueprint: []
+    synergyObject: {fileID: 0}
+  jobData:
+    championJob: 0
+    championJobSprite: {fileID: 0}
+    championJobName: 
+    championJobDesc: 
+    symbolData: []
+    championBlueprint: []
+    synergyObject: {fileID: 0}
 --- !u!1 &7714421600776853772
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6415094, g: 0.49424464, b: 0.49424464, a: 1}
+  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
