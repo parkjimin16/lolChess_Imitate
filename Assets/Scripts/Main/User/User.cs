@@ -406,6 +406,8 @@ public class User : MonoBehaviour
         if (draggedItemFrame != null)
         {
             cBase.GetItem(draggedItemFrame.ItemBlueprint);
+            UserData user1 = Manager.User.GetHumanUserData();
+            user1.UserItemObject.Remove(_movableObj);
             Destroy(draggedItemFrame.gameObject);
 
             if (currentTile != null)
