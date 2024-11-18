@@ -1261,7 +1261,7 @@ MonoBehaviour:
   - {fileID: 8218244187038202156}
   txt_FirstStage: {fileID: 6973078907172810539}
   txt_FirstTimer: {fileID: 8413717558877255513}
-  slier_Timer_First: {fileID: 0}
+  slier_Timer_First: {fileID: 967443504332677013}
   AfterSecondRound: {fileID: 1128321798624231809}
   image_AfterRound:
   - {fileID: 8248676102605265395}
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   - {fileID: 2873647488347494466}
   txt_AfterStage: {fileID: 3837676092186194782}
   txt_AfterTimer: {fileID: 8643773700067375973}
-  slier_Timer_After: {fileID: 0}
+  slier_Timer_After: {fileID: 8884515522778380757}
 --- !u!1 &2089533456984428845
 GameObject:
   m_ObjectHideFlags: 0
