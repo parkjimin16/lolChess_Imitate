@@ -2213,6 +2213,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 993c3b4b82fa2cc45b53791f26f653a9
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupItemCombineDesk.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48021cd842c710243ab47439bdd05646
+    m_Address: Assets/@Resources/Prefab/UI/Element/Slot/ItemCombineSlot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

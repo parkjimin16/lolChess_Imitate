@@ -137,6 +137,13 @@ public class ItemTile : MonoBehaviour
                 HexTile tile = selectedTile.GetComponent<HexTile>();
                 tile.isItemTile = true;
                 tile.itemOnTile = newItem;
+
+                // MapInfo를 통해 UserData에 접근하여 아이템 추가
+                if (MapInfo != null && MapInfo.playerData != null && MapInfo.playerData.UserData != null)
+                {
+                    UserData userData = MapInfo.playerData.UserData;
+                    userData.UserItemObject.Add(newItem);
+                }
             }
             else
             {

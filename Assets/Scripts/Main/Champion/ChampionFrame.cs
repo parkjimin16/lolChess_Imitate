@@ -16,19 +16,22 @@ public class ChampionFrame : MonoBehaviour
     private Camera cam;
     private ChampionBase championBase;
     private ChampionBlueprint championBlueprint;
+
     public void Init(ChampionBase cBase, ChampionBlueprint cBlueprint)
     {
         championBase = cBase;
         championBlueprint = cBlueprint;
 
-        SetChampionLevel(championBlueprint.ChampionLevel);
+        SetChampionLevel();
         SetHPSlider(championBlueprint.CurHP, championBlueprint.MaxHP);
         SetManaSlider(championBlueprint.CurMana, championBlueprint.MaxMana);
-        SetEquipItemImage(cBase.EquipItem);
+        SetEquipItemImage(championBase.EquipItem);
     }
 
-    public void SetChampionLevel(int level)
+    public void SetChampionLevel()
     {
+        int level = championBase.ChampionLevel;
+
         Color color = Color.white;
         switch (level)
         {

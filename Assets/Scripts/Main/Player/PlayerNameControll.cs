@@ -8,13 +8,11 @@ public class PlayerNameControll : MonoBehaviour
 
     void Start()
     {
-        // 메인 카메라를 찾습니다.
         mainCamera = Camera.main.transform;
     }
 
     void LateUpdate()
     {
-        // TextMeshPro가 항상 카메라를 바라보도록 설정합니다.
         transform.LookAt(transform.position + mainCamera.forward);
     }
 }

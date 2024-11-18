@@ -35,6 +35,12 @@ public class ItemDataContainerBlueprint : ScriptableObject
 
         return null;
     }
+
+    public List<ItemCombineDesk> GetMatchingItemCombines(string itemId)
+    {
+        return itemCombineDesk.Where(desk =>
+            desk.FirstItem == itemId || desk.SecondItem == itemId).ToList();
+    }
 }
 
 

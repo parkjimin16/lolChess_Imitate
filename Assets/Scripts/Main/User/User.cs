@@ -46,8 +46,8 @@ public class User : MonoBehaviour
     {
         HandleBattleState();
         UpdateTouchPositions();
-        HandleRightClick();
         HandleMouseInput();
+        HandleRightClick();
         ObjectReturn();
         HandleItemHover();
         CheckChampionDrag();
@@ -217,7 +217,15 @@ public class User : MonoBehaviour
                 {
                     ShowChampionInfo(hitObject);
                 }
-            } 
+                else if (hitObject.CompareTag("Item"))
+                {
+                    ItemFrame iFrame = hitObject.GetComponent<ItemFrame>();
+
+                    if(iFrame.ItemBlueprint.ItemType == ItemType.Normal && !(iFrame.ItemBlueprint.ItemName == "뒤집개")
+                        && !(iFrame.ItemBlueprint.ItemName == "프라이팬"))
+                        ShowItemCombinePopup(hitObject);
+                }
+            }
         }
     }
 
@@ -277,6 +285,20 @@ public class User : MonoBehaviour
         ChampionBase cBase = championObj.GetComponent<ChampionBase>();
         if (cBase != null)
             uiMain.UIChampionExplainPanel.UpdateChampionExplainPanel(cBase);
+    }
+
+    private void ShowItemCombinePopup(GameObject item)
+    {
+        var itemCombine = Manager.UI.ShowPopup<UIPopupItemCombineDesk>();
+
+        Vector2 mousePosition = Input.mousePosition;
+        itemCombine.SetPosition(mousePosition);
+
+        UIPopupItemCombineDesk uiItemCombine = itemCombine.GetComponent<UIPopupItemCombineDesk>();
+        ItemFrame iFrame = item.GetComponent<ItemFrame>();
+
+        var list = Manager.Item.GetItemCombineDesk(iFrame.ItemBlueprint.ItemId);
+        uiItemCombine.InitItemCombinePopup(list, iFrame.ItemBlueprint.ItemId);
     }
 
     private void SetMovableObjectType(MovableObjectType type)

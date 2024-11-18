@@ -7,6 +7,7 @@ public class ItemManager
 {
     private ItemDataContainerBlueprint itemDataBase;
     private Dictionary<string, ItemBlueprint> itemDataDictionary;
+    private Dictionary<ItemAttributeType, Sprite> attributeDictionary;
 
     private List<ItemBlueprint> totalItems; // 모든 조합 아이템
     private List<ItemBlueprint> normalItem;
@@ -14,6 +15,9 @@ public class ItemManager
     private List<ItemBlueprint> usingItem;
     private List<ItemBlueprint> symbolItem;
 
+    #region Properties
+    public Dictionary<string, ItemBlueprint> ItemDataDictionary => itemDataDictionary;
+    public Dictionary<ItemAttributeType, Sprite> AttributeDictionary => attributeDictionary;
 
 
     public List<ItemBlueprint> TotalItmes => totalItems;
@@ -21,12 +25,34 @@ public class ItemManager
     public List<ItemBlueprint> CombineItem => combineItem;
     public List<ItemBlueprint> UsingItem => usingItem;
     public List<ItemBlueprint> SymbolItem => symbolItem;
-    #region Properties
-
-    public Dictionary<string, ItemBlueprint> ItemDataDictionary => itemDataDictionary;
-
     #endregion
 
+    public Sprite GetIcon(ItemAttributeType iType)
+    {
+        return attributeDictionary.TryGetValue(iType, out Sprite sprite) ? sprite : null;
+    }
+
+    public ItemBlueprint FindItemById(string id)
+    {
+        itemDataDictionary.TryGetValue(id, out ItemBlueprint bluePrint);
+        return bluePrint;
+    }
+
+    public ItemBlueprint GetItemBlueprint(List<ItemBlueprint> list)
+    {
+        if (list != null && list.Count > 0)
+        {
+            int randomIndex = Random.Range(0, list.Count);
+            return list[randomIndex];
+        }
+        else
+            return null;
+    }
+
+    public List<ItemCombineDesk> GetItemCombineDesk(string itemId)
+    {
+        return itemDataBase.GetMatchingItemCombines(itemId);
+    }
 
     #region Init
     public void Init()
@@ -38,13 +64,10 @@ public class ItemManager
         symbolItem = new List<ItemBlueprint>();
 
         itemDataDictionary = new Dictionary<string, ItemBlueprint>();
+        attributeDictionary = new Dictionary<ItemAttributeType, Sprite>();
 
         ParseItemData();
     }
-
-    #endregion
-
-    #region ItemDataMethod
 
     public void ParseItemData()
     {
@@ -61,13 +84,27 @@ public class ItemManager
         normalItem = itemDataBase.FindItemType('A');
         combineItem = itemDataBase.FindItemType('B');
         symbolItem = itemDataBase.FindItemType('C');
+
+        attributeDictionary = new Dictionary<ItemAttributeType, Sprite>
+        {
+            { ItemAttributeType.AD_Power, Resources.Load<Sprite>("Sprite/Stats Icon/ad_power") },
+            { ItemAttributeType.AD_Speed, Resources.Load<Sprite>("Sprite/Stats Icon/atk_spd") },
+            { ItemAttributeType.AD_Defense, Resources.Load<Sprite>("Sprite/Stats Icon/ad_def") },
+            { ItemAttributeType.AP_Power, Resources.Load<Sprite>("Sprite/Stats Icon/ap_power") },
+            { ItemAttributeType.AP_Defense, Resources.Load<Sprite>("Sprite/Stats Icon/ap_def") },
+            { ItemAttributeType.HP, Resources.Load<Sprite>("Sprite/Stats Icon/HP") },
+            { ItemAttributeType.Mana, Resources.Load<Sprite>("Sprite/Stats Icon/Mana") },
+            { ItemAttributeType.CriticalPercent, Resources.Load<Sprite>("Sprite/Stats Icon/critical_percent") },
+            { ItemAttributeType.BloodSuck, Resources.Load<Sprite>("Sprite/Stats Icon/blood_suck") },
+            { ItemAttributeType.TotalPower, Resources.Load<Sprite>("Sprite/Stats Icon/total_power") },
+            { ItemAttributeType.TotalDefense, Resources.Load<Sprite>("Sprite/Stats Icon/total_def") }
+        };
     }
 
-    public ItemBlueprint FindItemById(string id)
-    {
-        itemDataDictionary.TryGetValue(id, out ItemBlueprint bluePrint);
-        return bluePrint;
-    }
+    #endregion
+
+    #region ItemDataMethod
+
     
     public string ItemCombine(string item1, string item2)
     {
@@ -131,16 +168,7 @@ public class ItemManager
         }
     }
 
-    public ItemBlueprint GetItemBlueprint(List<ItemBlueprint> list)
-    {
-        if (list != null && list.Count > 0)
-        {
-            int randomIndex = Random.Range(0, list.Count);
-            return list[randomIndex];
-        }
-        else
-            return null; 
-    }
+
 
     #endregion
 }
@@ -151,7 +179,7 @@ public class ItemAttribute
 {
     public ItemAttributeType ItemAttributeType;
     public float AttributeValue;
-
+    
     private float tempValue;
 
     public float GetAttributeValue()

@@ -65,12 +65,10 @@ public class PlayerMove : MonoBehaviour
         isInCarouselRound = false;
         carouselMapTransform = null;
         carouselMapInfo = null;
-        //SetCanMove(true);
-        //player.UserData.NonBattleChampionObject.Add(selectedChampion);
         AddCarouselChampion();
     }
 
-    void HandleCarouselMovement()
+    private void HandleCarouselMovement()
     {
         if (player.UserData.PlayerType == PlayerType.Player1)
         {
@@ -100,7 +98,7 @@ public class PlayerMove : MonoBehaviour
         // 이동 처리 (공통)
         MoveTowardsTarget();
     }
-    void HandleNormalMovement()
+    private void HandleNormalMovement()
     {
         if (player.UserData.PlayerType == PlayerType.Player1)
         {
@@ -112,6 +110,13 @@ public class PlayerMove : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
+                    GameObject hitObject = hit.collider.gameObject;
+
+                    if (hitObject.CompareTag("Champion") || hitObject.CompareTag("Item"))
+                    {
+                        return; 
+                    }
+
                     Vector3 clickedPosition = hit.point;
 
                     // 클릭한 위치를 자신의 맵의 경계선 내로 제한

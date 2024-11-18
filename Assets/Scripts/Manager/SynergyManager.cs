@@ -99,6 +99,7 @@ public class SynergyManager
     {
         var synergyCounts = new Dictionary<string, int>();
 
+        // 시너지 확인
         foreach (var champion in userData.ChampionSynergies)
         {
             var synergyData = champion.Value;
@@ -127,6 +128,39 @@ public class SynergyManager
                 }
             }
         }
+
+
+        // 챔피언 아이템
+        foreach (var battleChampion in userData.BattleChampionObject)
+        {
+            var championBase = battleChampion.GetComponent<ChampionBase>();
+
+            if (championBase == null || championBase.EquipItem == null)
+                continue;
+
+            var equipItem = championBase.EquipItem;
+
+            foreach(var item in equipItem)
+            {
+                if (item.ItemType == ItemType.Symbol)
+                {
+                    var synergyName = item.ItemName.Replace(" 상징", "");
+
+                    if (string.IsNullOrEmpty(synergyName))
+                        continue;
+
+                    if (synergyCounts.ContainsKey(synergyName))
+                    {
+                        synergyCounts[synergyName]++;
+                    }
+                    else
+                    {
+                        synergyCounts[synergyName] = 1;
+                    }
+                }
+            }
+        }
+
         return synergyCounts.OrderByDescending(s => s.Value).ToList();
     }
 

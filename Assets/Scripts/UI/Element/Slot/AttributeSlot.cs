@@ -12,9 +12,9 @@ public class AttributeSlot : MonoBehaviour
     public void SetSlot(ItemAttribute iAttribute)
     {
         // 이미지 매핑
+        image_Icon.sprite = Manager.Item.GetIcon(iAttribute.ItemAttributeType);
 
         string value = Utilities.SetDescriptionValueReturnString(iAttribute);
         text_Value.text = $"+ {value}";
-        
     }
 }

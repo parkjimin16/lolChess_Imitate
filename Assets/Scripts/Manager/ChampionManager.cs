@@ -416,35 +416,42 @@ public class ChampionManager
     #region 강화로직
     private GameObject MergeChampion(UserData userData, GameObject champion)
     {
-        List<ItemBlueprint> itemList = new List<ItemBlueprint> ();
+        List<ItemBlueprint> itemList = new List<ItemBlueprint>();
 
-
-        int countToRemove = 2;
+        int countToRemove = 2; 
         GameObject championToEnhance = champion;
 
-        // 리스트를 뒤에서부터 순회하며 중복 챔피언 제거, 인덱스 에러남
+        ChampionBase targetChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        string targetName = targetChampionBase.ChampionName;
+        int targetLevel = targetChampionBase.ChampionLevel;
+
+
+        // 리스트를 뒤에서부터 순회하며 중복 챔피언 제거
         for (int i = userData.TotalChampionObject.Count - 1; i >= 0 && countToRemove > 0; i--)
         {
             GameObject currentChampionObj = userData.TotalChampionObject[i];
-            ChampionBase championBase = userData.TotalChampionObject[i].GetComponent<ChampionBase>();
-            if (championBase != null && championBase.ChampionName == championToEnhance.GetComponent<ChampionBase>().ChampionName)
+            ChampionBase currentChampionBase = currentChampionObj.GetComponent<ChampionBase>();
+
+            if (currentChampionBase != null
+                && currentChampionBase.ChampionName == targetName 
+                && currentChampionBase.ChampionLevel == targetLevel)
             {
-                if (championBase == championToEnhance.GetComponent<ChampionBase>())
+                if (currentChampionBase == targetChampionBase)
                 {
-                    continue;
+                    continue; 
                 }
 
-
-                itemList.AddRange(championBase.EquipItem);
+                itemList.AddRange(currentChampionBase.EquipItem);
 
                 HexTile parentTile = currentChampionObj.GetComponentInParent<HexTile>();
                 if (parentTile != null)
                 {
                     parentTile.championOnTile.Remove(currentChampionObj);
                 }
-                Utilities.Destroy(userData.TotalChampionObject[i]);
+
+                Utilities.Destroy(currentChampionObj);
                 userData.TotalChampionObject.RemoveAt(i);
-                
+
                 countToRemove--;
             }
         }
@@ -456,6 +463,8 @@ public class ChampionManager
 
         itemList.Clear();
         EnhanceChampion(championToEnhance);
+        championToEnhance.GetComponent<ChampionBase>().ChampionFrame.SetChampionLevel();
+
         return championToEnhance;
     }
 
