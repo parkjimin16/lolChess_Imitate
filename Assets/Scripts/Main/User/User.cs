@@ -15,10 +15,12 @@ public class User : MonoBehaviour
     private Vector2 _currentTouchPos = Vector2.zero;
     private Vector3 _beforePosition;
     private Vector3 _offset;
+
     private bool _isReturning = false;
     private bool _objectMoved = false;
     private bool _isDragging = false;
     private bool _previousIsBattleOngoing = false;
+
     private MovableObjectType _movableObjectType;
     private ReturningObjectData _returningObjData;
     private ItemFrame _hoveredItem;
@@ -184,8 +186,12 @@ public class User : MonoBehaviour
 
         if (Manager.Stage.IsBattleOngoing && _isDragging && _movableObj != null && _movableObjectType == MovableObjectType.Champion)
         {
-            StartReturningObject();
-            ObjectReturn();
+            UserData user1 = Manager.User.GetHumanUserData();
+            if (user1.BattleChampionObject.Contains(_movableObj))
+            {
+                StartReturningObject();
+                ObjectReturn();
+            }
         }
     }
 
@@ -201,32 +207,58 @@ public class User : MonoBehaviour
 
     private void HandleRightClick()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(1))
         {
-            GameObject clickedObject = GetObjectUnderMouse("Champion");
-            if (clickedObject != null)
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                ShowChampionInfo(clickedObject);
-            }
+                GameObject hitObject = hitInfo.collider.gameObject;
+                if (hitObject.CompareTag("Champion"))
+                {
+                    ShowChampionInfo(hitObject);
+                }
+            } 
         }
     }
 
-    private GameObject GetObjectUnderMouse(string tag)
+    private GameObject GetObjectUnderMouse(string tag, bool ignoreBattleCheck = false)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
             GameObject hitObject = hitInfo.collider.gameObject;
+            Debug.Log($"Hit object: {hitObject.name}, tag: {hitObject.tag}");
             if (hitObject.CompareTag(tag))
             {
                 UserData user1 = Manager.User.GetHumanUserData();
                 if (tag == "Champion")
                 {
-                    // 전투 중이면 챔피언 선택 불가
-                    if (!Manager.Stage.IsBattleOngoing && user1.TotalChampionObject.Contains(hitObject))
-                        return hitObject;
+                    if (Manager.Stage.IsBattleOngoing && !ignoreBattleCheck)
+                    {
+                        if (user1.BattleChampionObject.Contains(hitObject))
+                        {
+                            Debug.Log("BattleChampionObject에 포함된 챔피언입니다. 선택 불가.");
+                            return null;
+                        }
+                        else if (user1.NonBattleChampionObject.Contains(hitObject))
+                        {
+                            Debug.Log("NonBattleChampionObject에 포함된 챔피언입니다. 선택 가능.");
+                            return hitObject;
+                        }
+                        else if (user1.TotalChampionObject.Contains(hitObject))
+                        {
+                            Debug.Log("TotalChampionObject에 포함된 챔피언입니다. 선택 가능.");
+                            return hitObject;
+                        }
+                    }
                     else
-                        return null;
+                    {
+                        if (user1.TotalChampionObject.Contains(hitObject))
+                        {
+                            Debug.Log("TotalChampionObject에 포함된 챔피언입니다. 선택 가능.");
+                            return hitObject;
+                        }
+                    }
                 }
                 if (tag == "Item")
                 {
@@ -266,16 +298,19 @@ public class User : MonoBehaviour
 
     private void StartReturningObject()
     {
-        _isReturning = true;
-        _returningObjData = new ReturningObjectData
+        if (!_isReturning)
         {
-            obj = _movableObj,
-            beforePosition = _beforePosition,
-            currentTile = currentTile,
-            movableObjectType = _movableObjectType
-        };
-        _movableObj = null;
-        currentTile = null;
+            _isReturning = true;
+            _returningObjData = new ReturningObjectData
+            {
+                obj = _movableObj,
+                beforePosition = _beforePosition,
+                currentTile = currentTile,
+                movableObjectType = _movableObjectType
+            };
+            _movableObj = null;
+            currentTile = null;
+        }
     }
 
     #endregion
@@ -296,18 +331,22 @@ public class User : MonoBehaviour
 
     private void HandleChampionDrop(HexTile hitTile)
     {
-        if (hitTile == null || hitTile.HasChampion)
+        if (hitTile == null || (Manager.Stage.IsBattleOngoing && !hitTile.isRectangularTile))
         {
             StartReturningObject();
             return;
         }
 
-        PlaceObjectOnTile(hitTile);
+        if (hitTile.HasChampion)
+        {
+            SwapChampions(hitTile);
+        }
+        else
+        {
+            PlaceObjectOnTile(hitTile);
+        }
 
-        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
-        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+        UpdateSynergy();
     }
 
     private void HandleChampionDrop()
@@ -425,7 +464,36 @@ public class User : MonoBehaviour
         _movableObj.transform.SetParent(hitTile.transform);
         hitTile.itemOnTile = _movableObj;
     }
+    private void SwapChampions(HexTile hitTile)
+    {
+        // 현재 드래그 중인 챔피언과 타일에 있는 챔피언을 가져옵니다.
+        GameObject tileChampion = hitTile.championOnTile[0]; // 해당 타일의 챔피언 (리스트의 첫 번째 요소)
+        HexTile currentChampionTile = currentTile.GetComponent<HexTile>(); // 드래그 중인 챔피언의 현재 타일
 
+        // 위치 교환을 위해 임시 변수에 위치 정보를 저장합니다.
+        Vector3 tempPosition = tileChampion.transform.position;
+        GameObject tempTile = hitTile.gameObject;
+
+        // 드래그 중인 챔피언을 대상 타일로 이동
+        _movableObj.transform.position = hitTile.transform.position + _offset;
+        _movableObj.transform.SetParent(hitTile.transform);
+
+        // 대상 타일의 챔피언을 원래 드래그 중인 챔피언의 타일로 이동
+        tileChampion.transform.position = currentChampionTile.transform.position + _offset;
+        tileChampion.transform.SetParent(currentChampionTile.transform);
+
+        // 타일의 챔피언 정보를 업데이트합니다.
+        // 대상 타일에 드래그 중인 챔피언을 등록
+        hitTile.championOnTile.Clear();
+        hitTile.championOnTile.Add(_movableObj);
+
+        // 원래 타일에 대상 챔피언을 등록
+        currentChampionTile.championOnTile.Clear();
+        currentChampionTile.championOnTile.Add(tileChampion);
+
+        // 현재 타일 정보를 업데이트합니다.
+        currentTile = hitTile.gameObject;
+    }
     private void ObjectReturn()
     {
         if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
@@ -543,6 +611,13 @@ public class User : MonoBehaviour
         }
         return false;
     }
+    private void UpdateSynergy()
+    {
+        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
 
+        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+    }
     #endregion
 }
