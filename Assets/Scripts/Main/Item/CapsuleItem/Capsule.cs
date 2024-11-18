@@ -40,7 +40,6 @@ public class Capsule : MonoBehaviour
     }
     #endregion
 
-
     #region 충돌 처리
     private void OnTriggerEnter(Collider other)
     {

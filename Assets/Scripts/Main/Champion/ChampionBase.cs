@@ -18,6 +18,7 @@ public class ChampionBase : MonoBehaviour
 
     #region Fields
     // Champion Info
+    private string championInstantiateName;
     private string championName;
     private ChampionLine line_First;
     private ChampionLine line_Second;
@@ -187,6 +188,7 @@ public class ChampionBase : MonoBehaviour
     }
 
     // Champion Info
+    public string ChampionInstantiateName => championInstantiateName;
     public string ChampionName => championName;
     public ChampionLine ChampionLine_First => line_First;
     public ChampionLine ChampionLine_Second => line_Second;
@@ -336,6 +338,7 @@ public class ChampionBase : MonoBehaviour
 
 
         // Champion Info
+        championInstantiateName = blueprint.ChampionInstantiateName;
         championName = blueprint.ChampionName;
         line_First = blueprint.ChampionLine_First;
         line_Second = blueprint.ChampionLine_Second;
@@ -399,6 +402,7 @@ public class ChampionBase : MonoBehaviour
 
 
         // Champion Info
+        championInstantiateName = blueprint.ChampionInstantiateName;
         championName = blueprint.ChampionName;
         line_First = blueprint.ChampionLine_First;
         line_Second = blueprint.ChampionLine_Second;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static MapGenerator;
+using static UnityEditor.Progress;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class PlayerMove : MonoBehaviour
         carouselMapTransform = null;
         carouselMapInfo = null;
         //SetCanMove(true);
-        player.UserData.NonBattleChampionObject.Add(selectedChampion);
+        //player.UserData.NonBattleChampionObject.Add(selectedChampion);
         AddCarouselChampion();
     }
 
@@ -231,35 +232,36 @@ public class PlayerMove : MonoBehaviour
     }
     private void AddCarouselChampion()
     {
-        HexTile emptyTile = FindEmptyRectTile();
+        GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+        obj.transform.position = player.UserData.MapInfo.mapTransform.position;
+        Capsule cap = obj.GetComponent<Capsule>();
+
+        List<ItemBlueprint> item = new List<ItemBlueprint>();
+        List<string> itemid = new List<string>();
+        List<string> champion = new List<string>();
+        //GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+        //Capsule cap = obj.GetComponent<Capsule>();
+
+        ChampionBase cBase = selectedChampion.GetComponent<ChampionBase>();
+        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(cBase.ChampionName) as ChampionBlueprint;
+        champion.Add(championBlueprint.ChampionInstantiateName);
+        Debug.Log(champion[0]);
+
+        item = cBase.EquipItem;
+        foreach (var itemid1 in item)
+        {
+            itemid.Add(itemid1.ItemId);
+        }
+
+        cap.InitCapsule(0, itemid, champion);
+
+        Destroy(selectedChampion);
+        /*HexTile emptyTile = FindEmptyRectTile();
         if(emptyTile != null)
         {
             selectedChampion.transform.position = emptyTile.transform.position;
             selectedChampion.transform.SetParent(emptyTile.transform);
             emptyTile.championOnTile.Add(selectedChampion);
-        }
-        
-        /*if (emptyTile != null)
-        {
-            ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampion.name) as ChampionBlueprint;
-            //Manager.Asset.GetBlueprint(selectedChampion.name) as ChampionBlueprint
-            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(selectedChampion.name);
-
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
-            frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = emptyTile.transform.position;
-
-            newChampionObject.transform.SetParent(emptyTile.transform);
-            emptyTile.championOnTile.Add(newChampionObject);
-
-            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
-            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
-
-            cBase.SetChampion(championBlueprint, player);
-            cBase.InitChampion(cFrame);
-
-            Manager.Champion.SettingNonBattleChampion(player.UserData);
-            Destroy(selectedChampion);
         }*/
     }
     private HexTile FindEmptyRectTile()
