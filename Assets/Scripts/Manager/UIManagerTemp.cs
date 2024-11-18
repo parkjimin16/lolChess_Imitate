@@ -163,6 +163,19 @@ public class UIManagerTemp
         }
     }
 
+    public void CloseAllPopupUIExcept(string name)
+    {
+        foreach (var popup in popupStack)
+        {
+            if (popup.gameObject.name == name)
+            {
+                continue;
+            }
+
+            ClosePopup();
+        }
+    }
+
     public bool CheckPopupStack()
     {
         return popupStack.Count != 0;
