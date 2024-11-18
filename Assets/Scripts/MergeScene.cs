@@ -76,8 +76,14 @@ public class MergeScene : MonoBehaviour
 
             item.Add("A001");
             item.Add("B012");
-            champion.Add("ChampionBlueprint_Ashe");
-            champion.Add("ChampionBlueprint_Olaf");
+            //champion.Add("ChampionBlueprint_Ashe");
+            //champion.Add("ChampionBlueprint_Olaf");
+
+            string a = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Olaf");
+            string b = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Ashe");
+
+            champion.Add(a);
+            champion.Add(b);
 
             cap.InitCapsule(10, item, champion);
 

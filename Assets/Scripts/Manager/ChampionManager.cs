@@ -77,6 +77,29 @@ public class ChampionManager
     }
 
 
+    /// <summary>
+    /// 챔피언 이름으로 생성
+    /// </summary>
+    public string GetChampionInstantiateName(string name)
+    {
+        int index = name.IndexOf('_');
+
+        string instantiateName = index >= 0 ? name.Substring(index + 1) : string.Empty;
+
+        foreach(ChampionData data in gameDataBlueprint.ChampionDataList)
+        {
+            for(int i =0;i < data.Names.Length; i++)
+            {
+                if (data.Names[i].Contains(instantiateName))
+                {
+                    return data.Names[i];
+                }
+            }
+        }
+
+        return string.Empty;
+    }
+
     public string GetRandomChapmion(int cost)
     {
         string newChampion = string.Empty;
