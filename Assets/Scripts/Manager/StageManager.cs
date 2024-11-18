@@ -155,7 +155,8 @@ public class StageManager
             // 증강 선택 라운드의 경우
 
             // 매칭 및 유닛 이동 수행
-            GenerateMatchups();
+            StartMatchups();
+            //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
@@ -181,7 +182,8 @@ public class StageManager
             // 일반 라운드의 경우
 
             // 매칭 및 유닛 이동 수행
-            GenerateMatchups();
+            StartMatchups();
+            //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
@@ -243,10 +245,16 @@ public class StageManager
     #endregion
 
     #region 매칭 로직
-    private void GenerateMatchups()
+    private void StartMatchups()
     {
+        CoroutineHelper.StartCoroutine(GenerateMatchups());
+    }
+    IEnumerator GenerateMatchups()
+    {
+
         IsBattleOngoing = true;
 
+        yield return new WaitForSeconds(0.1f); // 0.1초 정도 지연
         // 플레이어 리스트를 섞습니다.
         ShufflePlayers();
 
@@ -305,8 +313,6 @@ public class StageManager
     #region 전투 스테이지 로직
     private void StartAllBattles()
     {
-        
-
         ongoingBattles = 0; // 전투 시작 전에 초기화
 
         MergeScene.BatteStart = true;

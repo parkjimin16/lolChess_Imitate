@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
 using static MapGenerator;
 using static UnityEditor.Progress;
@@ -191,10 +192,12 @@ public class PlayerMove : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        List<GameObject> availableChampions = mapGenerator.GetAvailableChampions();
+
         if (!isInCarouselRound || hasSelectedChampion)
             return;
-
-        if (other.CompareTag("Champion"))
+        
+        if (other.CompareTag("Champion") && availableChampions.Contains(other.gameObject))
         {
             GameObject selectedChampion = other.gameObject;
             SelectChampion(selectedChampion);

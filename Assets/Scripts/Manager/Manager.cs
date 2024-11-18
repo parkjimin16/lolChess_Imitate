@@ -63,8 +63,8 @@ public class Manager : MonoBehaviour
     public static UserManager User => Instance != null ? Instance.user : null;
     public static SynergyManager Synergy => Instance != null ? Instance.synergy : null;
     public static AugmenterManager Augmenter => Instance != null ? Instance.augmenter : null;
-    // Áö¹Î
 
+    // Áö¹Î
     public static StageManager Stage => Instance != null ? Instance.stage : null;
     public static BattleManager Battle => Instance != null ? Instance.battle : null;
     public static UserHpManager UserHp => Instance != null ? Instance.userHp : null;

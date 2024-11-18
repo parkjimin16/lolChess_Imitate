@@ -1,91 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MapGenerator;
 
-public class GoldDisplay : MonoBehaviour
+public class GoldDisplay
 {
-    private int playerGold = 0;
-    private int enemyGold = 0;
+    private int playerGold;
+    private int enemyGold;
+    private List<GameObject> PlayerGoldList;
+    private List<GameObject> EnemyGoldList;
+    private int maxGold;
+    private UserData userData;
 
-    [SerializeField]
-    private List<GameObject> PlayerGoldList = new List<GameObject>();
-    [SerializeField]
-    private List<GameObject> EnemyGoldList = new List<GameObject>();
-
-    public int currentGold = 0;
-
-    private int maxGold = 5;
-
-    // Start is called before the first frame update
-    void Start()
+    public GoldDisplay(UserData userData)
     {
-        GoldListAdd();
+        this.userData = userData;
+        this.PlayerGoldList = userData.MapInfo.PlayerGold;
+        this.EnemyGoldList = userData.MapInfo.EnemyGold;
+        this.maxGold = PlayerGoldList.Count;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateGoldTiles()
     {
-        UpdateGoldTiles();
-        //Debug.Log(activeGoldTiles);
-    }
-
-    private void GoldListAdd()
-    {
-        for (int i = 0; i < maxGold; i++)
-        {
-            GameObject leftTile = GameObject.Find($"PlayerGold_{i}");
-            if (leftTile != null)
-            {
-                PlayerGoldList.Add(leftTile);
-                leftTile.SetActive(false); // 초기에는 비활성화
-            }
-
-            GameObject rightTile = GameObject.Find($"EnemyGold_{i}");
-            if (rightTile != null)
-            {
-                EnemyGoldList.Add(rightTile);
-                rightTile.SetActive(false); // 초기에는 비활성화
-            }
-        }
-    }
-
-    private void UpdateGoldTiles()
-    {
-        // 활성화할 골드 타일의 수 계산
         int activePlayerGold = Mathf.Clamp(playerGold / 10, 0, maxGold);
         int activeEnemyGold = Mathf.Clamp(enemyGold / 10, 0, maxGold);
 
-        // 왼쪽 골드 타일 업데이트
+        // 플레이어 골드 타일 업데이트
         for (int i = 0; i < PlayerGoldList.Count; i++)
         {
-            if (i < activePlayerGold)
-                PlayerGoldList[i].SetActive(true);
-            else
-                PlayerGoldList[i].SetActive(false);
+            PlayerGoldList[i].SetActive(i < activePlayerGold);
         }
 
-        // 오른쪽 골드 타일 업데이트
+        // 적 골드 타일 업데이트
         for (int i = 0; i < EnemyGoldList.Count; i++)
         {
-            int index = EnemyGoldList.Count - 1 - i; // 역순으로
-            if (i < activeEnemyGold)
-                EnemyGoldList[index].SetActive(true);
-            else
-                EnemyGoldList[index].SetActive(false);
+            int index = EnemyGoldList.Count - 1 - i;
+            EnemyGoldList[index].SetActive(i < activeEnemyGold);
         }
     }
 
-    public void AddGold(int amount)
+    public void SetPlayerGold(int gold)
     {
-        playerGold += amount;
-        playerGold = Mathf.Clamp(playerGold, 0, maxGold);
+        playerGold = gold;
         UpdateGoldTiles();
     }
 
-    public void SpendGold(int amount)
+    public void SetEnemyGold(int gold)
     {
-        playerGold -= amount;
-        playerGold = Mathf.Clamp(playerGold, 0, maxGold);
+        enemyGold = gold;
         UpdateGoldTiles();
     }
 }

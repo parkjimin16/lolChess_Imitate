@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,10 +115,16 @@ public class MapGenerator : MonoBehaviour
 
         public Dictionary<(int, int), HexTile> HexDictionary = new Dictionary<(int, int), HexTile>();
         public Dictionary<(int, int), HexTile> RectDictionary = new Dictionary<(int, int), HexTile>();
+        
+        public List<GameObject> PlayerGold = new List<GameObject>();
+        public List<GameObject> EnemyGold = new List<GameObject>();
+
         public List<Transform> SugarcraftPosition = new List<Transform>();
         public List<Transform> PortalPosition = new List<Transform>();
 
+
         public List<ItemTile> ItemTile = new List<ItemTile>();
+        public GoldDisplay goldDisplay; // GoldDisplay 참조 추가
 
     }
 
@@ -161,7 +168,7 @@ public class MapGenerator : MonoBehaviour
                     GameObject userMap = new GameObject($"User_{userIndex}_Map");
                     userMap.transform.position = mapPosition;
                     userMap.transform.SetParent(this.transform);
-                    userMap.AddComponent<GoldDisplay>();
+                    //userMap.AddComponent<GoldDisplay>();
                     userMap.AddComponent<RectTile>();
 
                     Vector3 PlayerPosition = userMap.transform.position + new Vector3(-13.5f, 0.8f, -5f);
@@ -180,6 +187,8 @@ public class MapGenerator : MonoBehaviour
                     mapInfo.mapId = userIndex;
                     mapInfo.mapTransform = userMap.transform;
 
+                    mapInfo.playerData = allPlayers[userIndex].GetComponent<Player>();
+
                     // 맵의 경계 영역 계산
                     float mapWidth = desiredMapWidth;
                     float mapHeight = mapHeightSize + rectWidthSize * 2;
@@ -192,7 +201,7 @@ public class MapGenerator : MonoBehaviour
                     size.z += boundaryExtraHeight;
 
                     mapInfo.mapBounds = new Bounds(center, size);
-                    mapInfo.playerData = allPlayers[userIndex].GetComponent<Player>();
+                    
                     
                     mapInfos.Add(mapInfo);
 
@@ -243,7 +252,7 @@ public class MapGenerator : MonoBehaviour
         CreateRectTile(-1, -hexHeight * 0.75f - zOffset, parent, mapInfo);
         CreateRectTile(height, hexHeight * 0.75f * (height) - zOffset, parent, mapInfo);
         CreateItemTiles(parent, mapInfo);
-        CreateGoldTiles(parent);
+        CreateGoldTiles(parent, mapInfo);
 
         //gameObject.transform.SetParent(User.transform);
     }
@@ -445,7 +454,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void CreateGoldTiles(Transform parent)
+    void CreateGoldTiles(Transform parent, MapInfo mapinfo)
     {
         float xOffset = mapWidthSize / 2f + goldSlotSize / 2f + 2.3f;
         float xLeft = parent.position.x - xOffset;
@@ -466,14 +475,18 @@ public class MapGenerator : MonoBehaviour
             PlayerTile.name = $"PlayerGoldTile_{i}";
             GameObject PlayerGold = Instantiate(goldPrefeb, PlayerTile.transform.position, transform.rotation, this.transform);
             PlayerGold.name = $"PlayerGold_{i}";
+            mapinfo.PlayerGold.Add(PlayerGold);
             PlayerGold.transform.SetParent(PlayerTile.transform);
+            PlayerGold.SetActive(false);
 
             Vector3 rightPos = new Vector3(xRight, 0, zPos);
             GameObject EnemyTile = Instantiate(goldTilePrefeb, rightPos, goldTilePrefeb.transform.rotation, parent);
             EnemyTile.name = $"EnemyGoldTile_{i}";
             GameObject EnemyGold = Instantiate(goldPrefeb, EnemyTile.transform.position, transform.rotation, this.transform);
             EnemyGold.name = $"EnemyGold_{i}";
+            mapinfo.EnemyGold.Add(EnemyGold);
             EnemyGold.transform.SetParent(EnemyTile.transform);
+            EnemyGold.SetActive(false);
         }
     }
 
@@ -642,7 +655,7 @@ public class MapGenerator : MonoBehaviour
             Vector3 position = new Vector3(x, 0, z) + carouselPivot.position;
            
             List<string> championNames = Manager.Champion.GetRandomChampions(1);
-            string selectedChampionName = championNames[Random.Range(0, championNames.Count)];
+            string selectedChampionName = championNames[UnityEngine.Random.Range(0, championNames.Count)];
 
             ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
             GameObject championPrefab = Manager.Asset.InstantiatePrefab(championBlueprint.ChampionInstantiateName);
@@ -656,7 +669,7 @@ public class MapGenerator : MonoBehaviour
             cBase.SetChampion(championBlueprint);
             cBase.InitChampion(cFrame);
 
-            string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+            string itemId = Manager.Item.NormalItem[UnityEngine.Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
             ItemBlueprint newItem;
             if (Manager.Item.ItemDataDictionary.TryGetValue(itemId, out newItem))
             {

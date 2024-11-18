@@ -179,20 +179,12 @@ public class User : MonoBehaviour
         {
             if (_isDragging && _movableObj != null)
             {
+                // 반환 과정을 즉시 완료
                 StartReturningObject();
+                CompleteObjectReturnImmediately();
             }
         }
         _previousIsBattleOngoing = Manager.Stage.IsBattleOngoing;
-
-        if (Manager.Stage.IsBattleOngoing && _isDragging && _movableObj != null && _movableObjectType == MovableObjectType.Champion)
-        {
-            UserData user1 = Manager.User.GetHumanUserData();
-            if (user1.BattleChampionObject.Contains(_movableObj))
-            {
-                StartReturningObject();
-                ObjectReturn();
-            }
-        }
     }
 
     #endregion
@@ -347,7 +339,11 @@ public class User : MonoBehaviour
             PlaceObjectOnTile(hitTile);
         }
 
-        UpdateSynergy();
+        if (!Manager.Stage.IsBattleOngoing)
+        {
+            UpdateSynergy();
+        }
+        
         _movableObj = null;
     }
 
@@ -538,6 +534,37 @@ public class User : MonoBehaviour
                 }
                 _returningObjData = null;
             }
+        }
+    }
+
+    private void CompleteObjectReturnImmediately()
+    {
+        if (_isReturning && _returningObjData != null && _returningObjData.obj != null)
+        {
+            // 즉시 위치를 원래 위치로 변경
+            _returningObjData.obj.transform.position = _returningObjData.beforePosition;
+
+            // 부모 설정 및 타일 정보 업데이트
+            if (_returningObjData.currentTile != null)
+            {
+                _returningObjData.obj.transform.SetParent(_returningObjData.currentTile.transform);
+                HexTile previousTile = _returningObjData.currentTile.GetComponent<HexTile>();
+                if (previousTile != null)
+                {
+                    if (_returningObjData.movableObjectType == MovableObjectType.Item)
+                    {
+                        previousTile.isItemTile = true;
+                        previousTile.itemOnTile = _returningObjData.obj;
+                    }
+                    else if (_returningObjData.movableObjectType == MovableObjectType.Champion)
+                    {
+                        if (!previousTile.championOnTile.Contains(_returningObjData.obj))
+                            previousTile.championOnTile.Add(_returningObjData.obj);
+                    }
+                }
+            }
+            _isReturning = false;
+            _returningObjData = null;
         }
     }
 
