@@ -37,7 +37,7 @@ public class UserManager
         for (int i = 0; i < obj.transform.childCount; i++)
         {
             UserData user = new UserData();
-            user.InitUserData(50, "박태영", i);
+            user.InitUserData(20, "박태영", i);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
 
@@ -118,6 +118,12 @@ public class UserManager
             user.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == user.UserId);
             user.SugarCraftPosition = user.MapInfo.SugarcraftPosition;
             user.PortalPosition = user.MapInfo.PortalPosition;
+
+            // GoldDisplay 초기화 및 설정
+            user.GoldDisplay = new GoldDisplay(user);
+            user.MapInfo.goldDisplay = user.GoldDisplay;
+
+            //user.InitializeGoldDisplay();
         }
 
         UserData hUser = GetHumanUserData();
@@ -126,6 +132,8 @@ public class UserManager
         hUser.PortalPosition = hUser.MapInfo.PortalPosition;
 
     }
+
+
     #endregion
 }
 
@@ -153,6 +161,7 @@ public class UserData
     [SerializeField] private PlayerType playerType;
     [SerializeField] private List<AugmenterData> userAugmenter;
     [SerializeField] private List<GameObject> userItemObject;
+    [SerializeField] private GoldDisplay goldDisplay;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -170,9 +179,21 @@ public class UserData
     public int UserGold
     {
         get { return gold; }
-        set { gold = value; }
+        set 
+        { 
+            gold = value;
+            if (goldDisplay != null)
+            {
+                goldDisplay.SetPlayerGold(gold);
+            }
+        }
     }
-    
+    public void InitializeGoldDisplay()
+    {
+        goldDisplay = new GoldDisplay(this);
+        goldDisplay.UpdateGoldTiles();
+    }
+
     public int UserHealthMax
     {
         get { return userHealthMax; }
@@ -318,6 +339,12 @@ public class UserData
     {
         get { return userItemObject; }
         set { userItemObject = value; }
+    }
+
+    public GoldDisplay GoldDisplay
+    {
+        get { return goldDisplay; }
+        set { goldDisplay = value; }
     }
 
     public Dictionary<GameObject, ItemOriginalState> ItemOriginState

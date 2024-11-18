@@ -55,7 +55,6 @@ public class BattleManager
             battleCoroutines.Remove(player2);
         }
 
-
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
 
@@ -90,6 +89,12 @@ public class BattleManager
         RestoreOpponentPlayer(player2);
         RestoreOpponentChampions(player2);
         RestoreOpponentItems(player2);
+
+        Player playerComponent1 = player1.GetComponent<Player>();
+        if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
+        {
+            player1.GetComponent<Player>().UserData.MapInfo.goldDisplay.SetEnemyGold(0);
+        }
 
         SuccessiveWinLose(player1, player2, player1Won);
 
@@ -162,6 +167,11 @@ public class BattleManager
 
         player2.transform.position = opponentPlayerPosition;
         player2.transform.LookAt(player1.transform.position);
+
+        if (playerComponent1.UserData.MapInfo.goldDisplay != null)
+        {
+            playerComponent1.UserData.MapInfo.goldDisplay.SetEnemyGold(playerComponent2.UserData.UserGold);
+        }
     }
     private void RestoreOpponentPlayer(GameObject opponent)
     {

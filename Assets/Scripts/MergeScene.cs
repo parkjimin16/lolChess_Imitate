@@ -22,7 +22,7 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private AugmenterBlueprint augmenterBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private Camera mainCam;
-    [SerializeField] 
+
     public int Level = 1;
 
     private void Start()
