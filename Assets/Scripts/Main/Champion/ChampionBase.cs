@@ -711,8 +711,12 @@ public class ChampionBase : MonoBehaviour
         for (int i = 0; i < equipItem.Count; i++)
         {
             var item = equipItem[i];
-            item.BaseItem.EquipChampionSetting(this.gameObject, player);
-            item.BaseItem.InitItemSkill();
+
+            if(item.ItemType != ItemType.Symbol)
+            {
+                item.BaseItem.EquipChampionSetting(this.gameObject, player);
+                item.BaseItem.InitItemSkill();
+            }
         }
     }
 
@@ -790,6 +794,9 @@ public class ChampionBase : MonoBehaviour
 
         foreach (ItemBlueprint blueprint in equipItem)
         {
+            if (blueprint.ItemType == ItemType.Symbol)
+                continue;
+
             ItemSkillUpdate(blueprint);
 
             foreach (ItemAttribute item in blueprint.Attribute)

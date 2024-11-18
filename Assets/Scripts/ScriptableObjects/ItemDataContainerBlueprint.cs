@@ -90,7 +90,7 @@ public class ItemBlueprint
     {
         foreach(var attribute in itemAttribute)
         {
-            //attribute.InitItemAttributeValue();
+            attribute.InitItemAttributeValue();
         }
     }
 }

@@ -777,7 +777,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 3
       AttributeValue: 0.1
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 8537553592820016315, guid: ad3432473f3225a48a3e0a7de783504d, type: 3}
     championLine: 1
     championJob: 0
   - material: {fileID: 2100000, guid: 02924c18e50472248a48980e85ed5c8c, type: 2}
@@ -789,7 +789,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 7
       AttributeValue: 0.1
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 287507732268742625, guid: 2ceff387f440aae4fa82d1b5d41af275, type: 3}
     championLine: 13
     championJob: 0
   - material: {fileID: 2100000, guid: 65a1cfe9316c8f94ab0077a3bc2e823b, type: 2}
@@ -801,7 +801,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 5
       AttributeValue: 20
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 2678510272878214451, guid: 0494775ab2f1d21478aa28bef93a6389, type: 3}
     championLine: 5
     championJob: 0
   - material: {fileID: 2100000, guid: 484e8f3635846144aa5af79ada078253, type: 2}
@@ -813,7 +813,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 6
       AttributeValue: 20
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 586824155479447554, guid: 63a4043463a017a4db1339ea975112e1, type: 3}
     championLine: 3
     championJob: 0
   - material: {fileID: 2100000, guid: 55c8d990e79df9744a3d74c35cc90571, type: 2}
@@ -826,7 +826,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 4
       AttributeValue: 20
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 3765797628334032303, guid: 366508d7dd4161c42ae8edbd3b7e313e, type: 3}
     championLine: 11
     championJob: 0
   - material: {fileID: 2100000, guid: 162e08ef0a1ad0b4eac85b348e518bc1, type: 2}
@@ -838,7 +838,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 2
       AttributeValue: 15
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 6787139720505010969, guid: f2c9eb474220e674e97e511626eed1a1, type: 3}
     championLine: 9
     championJob: 0
   - material: {fileID: 2100000, guid: 3bbbca462fa69ce4298d9527bb7742b5, type: 2}
@@ -851,7 +851,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 7770346072657407165, guid: d02d1970e14329542af3ba889b701951, type: 3}
     championLine: 6
     championJob: 0
   - material: {fileID: 2100000, guid: 7fa1814ddb0c48f43b7e38044552ba0b, type: 2}
@@ -864,7 +864,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 8
       AttributeValue: 0.2
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 7098866210359134850, guid: be1e6e21e6342b64b8a6ecaaf228bbab, type: 3}
     championLine: 4
     championJob: 0
   - material: {fileID: 2100000, guid: 5c43177ddce677c4e886303b6f3db59f, type: 2}
@@ -877,7 +877,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 1311067509687670135, guid: 68f9c2e20c295aa47b143097b4f72939, type: 3}
     championLine: 0
     championJob: 5
   - material: {fileID: 2100000, guid: 2191ddd3476e6aa45832397e7eb1fdf6, type: 2}
@@ -890,7 +890,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 3883672477354361850, guid: 9c877f3a73dcc3745b14580f5d087450, type: 3}
     championLine: 0
     championJob: 7
   - material: {fileID: 2100000, guid: 2fb2b9d6d3697b742a8819e59e1e92aa, type: 2}
@@ -902,7 +902,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 7701095996276304645, guid: ead028a2fca3ffa4bba80b9b16e0831e, type: 3}
     championLine: 0
     championJob: 8
   - material: {fileID: 2100000, guid: fa2cb9ea31ebb664793b4598be3a92eb, type: 2}
@@ -915,7 +915,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: -3903783953802273076, guid: afaf34303b922a947817382754afd08a, type: 3}
     championLine: 0
     championJob: 4
   - material: {fileID: 2100000, guid: a1a3e0d082ea8af4aaaaf28e9a67b89f, type: 2}
@@ -928,7 +928,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 5490425496218670333, guid: 8a066851410400445b318ea8c10ee947, type: 3}
     championLine: 0
     championJob: 9
   - material: {fileID: 2100000, guid: cd664a9292fe3bf48af2e9571b0930b2, type: 2}
@@ -940,7 +940,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 1515663896248640251, guid: cbeaf74e8fdf42e4a940d8833051910a, type: 3}
     championLine: 0
     championJob: 13
   - material: {fileID: 2100000, guid: d4aa73673abe71a44951b355ad3ab1c1, type: 2}
@@ -953,7 +953,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 103541153787782187, guid: 0cc82383cacc1b449b9a967292844dde, type: 3}
     championLine: 0
     championJob: 14
   - material: {fileID: 2100000, guid: dbedda712db15134f920e57a78b6e36a, type: 2}
@@ -965,7 +965,7 @@ MonoBehaviour:
     itemAttribute:
     - ItemAttributeType: 1
       AttributeValue: 150
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 6085957321745509625, guid: a8cdcd9c0fc61ec43b83fbe176f23009, type: 3}
     championLine: 0
     championJob: 10
   - material: {fileID: 2100000, guid: a73661016a9cf4b46a49961ab6474fc2, type: 2}
@@ -975,9 +975,9 @@ MonoBehaviour:
     description: "\uC544\uAD70\uC758 \uCD5C\uB300 \uD300 \uADDC\uBAA8 +1 \uC99D\uAC00.\n\n\uC804\uD22C
       \uC2B9\uB9AC \uC2DC 1\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD560 \uD655\uB960 10%\n\n\"...\uC601\uC6C5\uC758
       \uC2EC\uC7A5...\""
-    itemType: 4
+    itemType: 2
     itemAttribute: []
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 2366356147051401365, guid: 4bf9223553459ab4ba29db5804e803b9, type: 3}
     championLine: 0
     championJob: 0
   - material: {fileID: 2100000, guid: 2e406958ba4fbb84f8804515d4266b49, type: 2}
@@ -987,9 +987,9 @@ MonoBehaviour:
     description: "\uC544\uAD70\uC758 \uCD5C\uB300 \uD300 \uADDC\uBAA8 +1 \uC99D\uAC00.\n\n\uC804\uD22C
       \uC2DC\uC791 10\uCD08 \uD6C4 1\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD560 \uD655\uB960
       10%\t\n\n\"...\uADF8\uB9AC\uACE0 \uC57D\uAC04\uC758 \uD589\uC6B4.\""
-    itemType: 4
+    itemType: 2
     itemAttribute: []
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 2366356147051401365, guid: 4bf9223553459ab4ba29db5804e803b9, type: 3}
     championLine: 0
     championJob: 0
   - material: {fileID: 2100000, guid: 1b4b7d21b01af6447b79307cd4953763, type: 2}
@@ -999,9 +999,9 @@ MonoBehaviour:
     description: "\uC544\uAD70\uC758 \uCD5C\uB300 \uD300 \uADDC\uBAA8 +1 \uC99D\uAC00.\n\n\uC7A5\uCC29
       \uC720\uB2DB \uC0AC\uB9DD \uC2DC  1\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD560 \uD655\uB960
       10%\t\n\n\"...\uADF8\uB9AC\uACE0 \uC57D\uAC04\uC758 \uD589\uC6B4.\""
-    itemType: 4
+    itemType: 2
     itemAttribute: []
-    baseItem: {fileID: 0}
+    baseItem: {fileID: 2366356147051401365, guid: 4bf9223553459ab4ba29db5804e803b9, type: 3}
     championLine: 0
     championJob: 0
   itemCombineDesk:

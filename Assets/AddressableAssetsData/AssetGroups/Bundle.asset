@@ -2111,6 +2111,108 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68f9c2e20c295aa47b143097b4f72939
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Hunter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8cdcd9c0fc61ec43b83fbe176f23009
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Warrior.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbeaf74e8fdf42e4a940d8833051910a
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Scholar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c877f3a73dcc3745b14580f5d087450
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Rusher.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cc82383cacc1b449b9a967292844dde
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Transmogrifier.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a066851410400445b318ea8c10ee947
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Enchantress.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ead028a2fca3ffa4bba80b9b16e0831e
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Bastion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 366508d7dd4161c42ae8edbd3b7e313e
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Portal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2c9eb474220e674e97e511626eed1a1
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Fairy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad3432473f3225a48a3e0a7de783504d
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Sugarcraft.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d02d1970e14329542af3ba889b701951
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Eldritch.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ceff387f440aae4fa82d1b5d41af275
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Pyro.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0494775ab2f1d21478aa28bef93a6389
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Frost.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be1e6e21e6342b64b8a6ecaaf228bbab
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Meadist.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63a4043463a017a4db1339ea975112e1
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Line/Item_Witchcraft.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bf9223553459ab4ba29db5804e803b9
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Item_Strategist.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afaf34303b922a947817382754afd08a
+    m_Address: Assets/@Resources/Prefab/Item/SymbolItem/Job/Item_Shelter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:
