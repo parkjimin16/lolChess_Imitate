@@ -9,6 +9,7 @@ public class StageManager
     private int curRound;
 
     public bool IsBattleOngoing { get; private set; } = false;
+    public bool isCripRound { get; private set; } = false;
 
     public GameObject[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
     private List<GameObject> players; // 모든 플레이어 목록
@@ -123,7 +124,9 @@ public class StageManager
         bool isCarouselRound = IsCarouselRound(currentStage, curRound);
 
         // 크립 라운드 여부 확인
-        bool isCripRound = IsCripRound(currentStage, curRound);
+
+        isCripRound = IsCripRound(currentStage, curRound);
+
 
         // 라운드 전 대기시간 설정
         int preWaitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
@@ -165,7 +168,7 @@ public class StageManager
             // **3. 일반 라운드 진행시간**
 
             // 크립 라운드 진행
-            //StartAllCripBattles();
+            StartCripRound();
 
             // 라운드 진행 시간 타이머 시작
             UIManager.Instance.StartTimer(cripDuration);
@@ -674,19 +677,13 @@ public class StageManager
         else
             return false;
     }
-    IEnumerator StartCripRound()
+    private void StartCripRound()
     {
-        // 라운드 진행 시간 타이머 시작
-        UIManager.Instance.StartTimer(roundDuration);
+        MergeScene.BatteStart = true;
+        foreach (GameObject player in AllPlayers)
+        {
 
-        // 전투 시작 (크립과의 전투 로직을 시작해야 합니다)
-        //Manager.Battle.StartCripBattle(selfPlayer, roundDuration);
-
-        // 라운드 진행 시간만큼 대기
-        yield return new WaitForSeconds(roundDuration);
-
-        // 라운드 종료 처리
-        EndCripRound();
+        }   
     }
 
     void SpawnCrips()
@@ -744,7 +741,7 @@ public class StageManager
 
                 CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
                 CripPrefab.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-
+                playerComponent.UserData.CripObjectList.Add(CripPrefab);
 
                 // 타일에 크립을 설정합니다.
                 tile.championOnTile.Add(CripPrefab);
@@ -759,6 +756,7 @@ public class StageManager
 
                 // 크립의 부모를 설정하여 맵 구조에 포함되도록 합니다.
                 CripPrefab.transform.SetParent(tile.transform);
+                
             }
         }
     }
@@ -821,9 +819,6 @@ public class StageManager
 
                     // 타일의 championsOnTile 리스트에서 크립 제거
                     currentTile.championOnTile.Remove(crip.gameObject);
-
-                    // 필요에 따라 타일의 점유 상태 업데이트 (IsOccupied 프로퍼티 사용 시 생략 가능)
-                    // currentTile.isOccupied = currentTile.championsOnTile.Count > 0;
                 }
                 crip.Death(); // OnDeath() 함수를 호출하여 아이템 생성 및 크립 파괴 처리
             }
@@ -834,6 +829,9 @@ public class StageManager
             // 각 플레이어별로 라운드 종료 처리
             //OnRoundEndForPlayer(playerComponent, playerWon, survivingCrips);
         }
+
+        MergeScene.BatteStart = false;
+        IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
         SetCurrentRound(1);
 
         int maxRounds = currentStage == 1 ? 3 : 7;
@@ -859,7 +857,6 @@ public class StageManager
         }
         DistributeGoldToPlayers();
         DistributeExp();
-        IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
     }
 
     #endregion
