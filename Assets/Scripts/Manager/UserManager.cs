@@ -167,8 +167,8 @@ public class UserData
     [SerializeField] private List<AugmenterData> userAugmenter;
     [SerializeField] private List<GameObject> userItemObject;
     [SerializeField] private GoldDisplay goldDisplay;
-    [SerializeField] private UISceneMain uiMain;
     [SerializeField] private List<GameObject> CripObject;
+    [SerializeField] private UISceneMain uiMain;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -377,6 +377,11 @@ public class UserData
         set { itemOriginalStates = value; }
     }
 
+    public List<GameObject> CripObjectList
+    {
+        get { return CripObject; } 
+        set { CripObject = value; }
+    }
     public UISceneMain UIMain
     {
         get { return uiMain; } 
@@ -385,12 +390,6 @@ public class UserData
             uiMain = value;
         }
     }
-    public List<GameObject> CripObjectList
-    {
-        get { return CripObject; } 
-        set { CripObject = value; }
-    }
-
     #endregion
 
     #region Init
