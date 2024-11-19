@@ -52,7 +52,6 @@ public class MergeScene : MonoBehaviour
                 Manager.Cam.Init(mainCam, mapGenerator, mainScene, minimapClickHandler);
 
                 Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint);
-                Manager.UserHp.InitializeHealthBars();
                 
                 Manager.Item.Init();
                 Manager.Synergy.Init(symbolDataBlueprint);

@@ -22,11 +22,11 @@ public class UIShopPanel : UIBase
     [SerializeField] private GameObject image_Lock;
     [SerializeField] private GameObject image_UnLock;
 
-
     [Header("레벨")]
     [SerializeField] private TextMeshProUGUI txt_User_Level;
     [SerializeField] private Slider slider_Xp;
     [SerializeField] private TextMeshProUGUI txt_User_Xp;
+
 
     [Header("정보")]
     [SerializeField] private List<TextMeshProUGUI> txt_Champion_Percent;

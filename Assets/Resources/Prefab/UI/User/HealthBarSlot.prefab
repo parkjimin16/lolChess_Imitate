@@ -48,9 +48,9 @@ GameObject:
   - component: {fileID: 6651657353771059632}
   - component: {fileID: 6473993454375135703}
   - component: {fileID: 6425324507670653444}
-  - component: {fileID: -8135739752468069538}
+  - component: {fileID: 1613270123372045369}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: HealthBarSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_FillOrigin: 3
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-8135739752468069538
+--- !u!114 &1613270123372045369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5121357442382481610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 746de85587349eb42a349e9efd89c0ab, type: 3}
+  m_Script: {fileID: 11500000, guid: e59512baa073eb44c9f43921f2955514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 6425324507670653444}
