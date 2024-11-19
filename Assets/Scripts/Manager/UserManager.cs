@@ -162,6 +162,8 @@ public class UserData
     [SerializeField] private List<AugmenterData> userAugmenter;
     [SerializeField] private List<GameObject> userItemObject;
     [SerializeField] private GoldDisplay goldDisplay;
+    [SerializeField] private List<GameObject> CripObject;
+
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -352,6 +354,13 @@ public class UserData
         get { return itemOriginalStates; }
         set { itemOriginalStates = value; }
     }
+
+    public List<GameObject> CripObjectList
+    {
+        get { return CripObject; } 
+        set { CripObject = value; }
+    }
+
     #endregion
 
     #region Init
@@ -372,6 +381,7 @@ public class UserData
         championOriginalStates = new Dictionary<GameObject, ChampionOriginalState> { };
         userItemObject = new List<GameObject>();
         itemOriginalStates = new Dictionary<GameObject, ItemOriginalState>();
+        CripObject = new List<GameObject>();
 
         gold = _gold;
         userName = _userName;

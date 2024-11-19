@@ -54,6 +54,17 @@ public class Crip : MonoBehaviour
             //currentTile.isOccupied = false;
             currentTile.championOnTile.Remove(this.gameObject);
         }
+
+        if (playerMapInfo != null)
+        {
+            Player playerComponent = playerMapInfo.playerData;
+            if (playerComponent != null)
+            {
+                playerComponent.UserData.CripObjectList.Remove(this.gameObject);
+            }
+        }
+
+
         Destroy(this.gameObject);
     }
     void GenerateItem()

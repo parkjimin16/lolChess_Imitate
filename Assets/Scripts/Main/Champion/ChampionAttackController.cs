@@ -103,59 +103,121 @@ public class ChampionAttackController : MonoBehaviour
 
     private void SetTargetEnemy()
     {
-        if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count <= 0)
+        if (Manager.Stage.isCripRound)
         {
-            Debug.Log("SetTargetEnemy: EnemyPlayer가 null이거나 적 챔피언이 없습니다.");
-            return;
-        }
+            // 플레이어의 UserData 가져오기
+            UserData userData = cBase.Player.UserData;
 
-        int aliveCount = 0;
-        GameObject closestChampion = null;
-        float minDistance = float.MaxValue;
-
-        Vector3 currentPosition = transform.position;
-
-        foreach (var champion in EnemyPlayer.UserData.BattleChampionObject)
-        {
-            if (champion == null)
-                continue;
-
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
-            if (cBase.ChampionHpMpController.IsDie())
-                continue; // 사망한 챔피언 무시
-
-            aliveCount++;
-
-            // 거리 계산
-            float distance = Vector3.Distance(currentPosition, champion.transform.position);
-            if (distance < minDistance)
+            if (userData == null || userData.CripObjectList.Count == 0)
             {
-                minDistance = distance;
-                closestChampion = champion;
+                Debug.Log("이 플레이어에게 크립이 없습니다.");
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                return;
             }
-        }
+            
+            int aliveCount = 0;
+            GameObject closestCrip = null;
+            float minDistance = float.MaxValue;
 
-        if (aliveCount == 0)
+            Vector3 currentPosition = transform.position;
+
+            foreach (var crip in userData.CripObjectList)
+            {
+                if (crip == null)
+                    continue;
+
+                Crip cripComponent = crip.GetComponent<Crip>();
+                if (cripComponent == null)
+                    continue;
+
+                aliveCount++;
+
+                float distance = Vector3.Distance(currentPosition, crip.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestCrip = crip;
+                }
+            }
+
+            if (aliveCount == 0)
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                return;
+            }
+
+            targetChampion = closestCrip;
+
+            if (targetChampion == null)
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                return;
+            }
+
+            Manager.Stage.SetNearestTile(gameObject);
+            curTile = Manager.Stage.GetParentTileInHex(gameObject);
+
+            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+
+            StopAllCoroutines();
+            StartCoroutine(StartMoveAndCheck());
+        }
+        else
         {
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase); 
-            return;
-        }
+            if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count <= 0)
+            {
+                Debug.Log("SetTargetEnemy: EnemyPlayer가 null이거나 적 챔피언이 없습니다.");
+                return;
+            }
 
-        targetChampion = closestChampion;
+            int aliveCount = 0;
+            GameObject closestChampion = null;
+            float minDistance = float.MaxValue;
 
-        if (targetChampion == null)
-        {
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
-            return;
-        }
+            Vector3 currentPosition = transform.position;
 
-        Manager.Stage.SetNearestTile(gameObject);
-        curTile = Manager.Stage.GetParentTileInHex(gameObject);
+            foreach (var champion in EnemyPlayer.UserData.BattleChampionObject)
+            {
+                if (champion == null)
+                    continue;
 
-        path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+                if (cBase.ChampionHpMpController.IsDie())
+                    continue; // 사망한 챔피언 무시
 
-        StopAllCoroutines(); 
-        StartCoroutine(StartMoveAndCheck());
+                aliveCount++;
+
+                // 거리 계산
+                float distance = Vector3.Distance(currentPosition, champion.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestChampion = champion;
+                }
+            }
+
+            if (aliveCount == 0)
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                return;
+            }
+
+            targetChampion = closestChampion;
+
+            if (targetChampion == null)
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                return;
+            }
+
+            Manager.Stage.SetNearestTile(gameObject);
+            curTile = Manager.Stage.GetParentTileInHex(gameObject);
+
+            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+
+            StopAllCoroutines();
+            StartCoroutine(StartMoveAndCheck());
+        }  
     }
     #endregion
 
