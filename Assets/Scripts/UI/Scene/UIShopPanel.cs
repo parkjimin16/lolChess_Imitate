@@ -73,6 +73,8 @@ public class UIShopPanel : UIBase
 
         UpdateChampionPercent(Manager.User.GetHumanUserData());
 
+        continous_Box.SetActive(false);
+
         reRoll_Lock = true;
         Btn_ReRoll_Lock(null);
     }
@@ -211,13 +213,13 @@ public class UIShopPanel : UIBase
     /// </summary>
     public void UpdateContinousBox(UserData user)
     {
-        if(user.UserSuccessiveWin == 0)
+        if(user.UserSuccessiveWin == 0 && user.UserSuccessiveLose != 0)
         {
             continous_Box.SetActive(true);
             contious_Image.color = Color.blue;
             continous_Count.text = user.UserSuccessiveLose.ToString();
         }
-        else if(user.UserSuccessiveLose == 0)
+        else if(user.UserSuccessiveLose == 0 && user.UserSuccessiveWin != 0)
         {
             continous_Box.SetActive(true);
             contious_Image.color = Color.red;

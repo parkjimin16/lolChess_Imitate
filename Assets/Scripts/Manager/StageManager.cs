@@ -6,6 +6,8 @@ using static MapGenerator;
 
 public class StageManager
 {
+    private int curRound;
+
     public bool IsBattleOngoing { get; private set; } = false;
 
     public GameObject[] AllPlayers; // 총 8명의 플레이어 (자기 자신 포함)
@@ -16,7 +18,14 @@ public class StageManager
     private MapGenerator _mapGenerator;
 
     public int currentStage = 1;
-    public int currentRound = 1;
+
+    public void SetCurrentRound(int value)
+    {
+        curRound += value;
+
+        UserData user = Manager.User.GetHumanUserData();
+        user.UIMain.UIShopPanel.UpdateContinousBox(user);
+    }
 
     // 스테이지별 기본 피해량과 생존한 적 유닛당 피해량
     public int[] baseDamages = new int[] { 0, 2, 5, 8, 10, 12, 17 }; // 인덱스는 스테이지 번호 - 1
@@ -53,6 +62,9 @@ public class StageManager
 
         reRollCount = 0;
 
+        currentStage = 1;
+        curRound = 1;
+
         InitializePlayers();
         StartStage(currentStage);
         
@@ -83,7 +95,7 @@ public class StageManager
     #region 스테이지 로직
     private void StartStage(int stageNumber)
     {
-        currentRound = 1;
+        curRound = 1;
 
         if (roundCoroutine != null)
             CoroutineHelper.StopCoroutine(roundCoroutine);
@@ -95,7 +107,7 @@ public class StageManager
     {
         UserData user = Manager.User.GetHumanUserData();
         // UI 업데이트
-        UIManager.Instance.UpdateStageRoundUI(currentStage, currentRound);
+        UIManager.Instance.UpdateStageRoundUI(currentStage, curRound);
 
         if(reRollCount != 0)
         {
@@ -105,13 +117,13 @@ public class StageManager
         }
        
         // 증강 선택 라운드 여부 확인
-        isAugmentRound = IsAugmentRound(currentStage, currentRound);
+        isAugmentRound = IsAugmentRound(currentStage, curRound);
 
         // 공동 선택 라운드 여부 확인
-        bool isCarouselRound = IsCarouselRound(currentStage, currentRound);
+        bool isCarouselRound = IsCarouselRound(currentStage, curRound);
 
         // 크립 라운드 여부 확인
-        bool isCripRound = IsCripRound(currentStage, currentRound);
+        bool isCripRound = IsCripRound(currentStage, curRound);
 
         // 라운드 전 대기시간 설정
         int preWaitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
@@ -222,11 +234,11 @@ public class StageManager
 
     private void ProceedToNextRound()
     {
-        currentRound++;
+        SetCurrentRound(1);
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (currentRound > maxRounds)
+        if (curRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -609,11 +621,11 @@ public class StageManager
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
         // 이후 라운드 진행 로직
         // 다음 라운드로 이동
-        currentRound++;
+        SetCurrentRound(1);
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (currentRound > maxRounds)
+        if (curRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -711,7 +723,7 @@ public class StageManager
             }
 
             // 생성할 크립의 수를 결정합니다.
-            int numCripsToSpawn = GetNumberOfCripsToSpawn(currentStage, currentRound);
+            int numCripsToSpawn = GetNumberOfCripsToSpawn(currentStage, curRound);
 
             // 생성할 수 있는 최대 크립 수를 계산합니다.
             int cripsToSpawn = Mathf.Min(numCripsToSpawn, availableTiles.Count);
@@ -822,11 +834,11 @@ public class StageManager
             // 각 플레이어별로 라운드 종료 처리
             //OnRoundEndForPlayer(playerComponent, playerWon, survivingCrips);
         }
-        currentRound++;
+        SetCurrentRound(1);
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (currentRound > maxRounds)
+        if (curRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -1145,7 +1157,7 @@ public class StageManager
             Player playerComponent = playerObj.GetComponent<Player>();
             UserData userData = playerComponent.UserData;
 
-            int baseGold = GetBaseGold(currentStage, currentRound);
+            int baseGold = GetBaseGold(currentStage, curRound);
             int interestGold = GetInterestGold(userData.UserGold);
             int streakGold = GetStreakGold(userData);
 
