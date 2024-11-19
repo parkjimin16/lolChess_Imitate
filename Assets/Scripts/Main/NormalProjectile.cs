@@ -32,10 +32,23 @@ public class NormalProjectile : MonoBehaviour
     {
         if (other.gameObject == target) 
         {
-            ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-            if (targetHealth != null && targetHealth.ChampionHpMpController != null)
+            if(Manager.Stage.isCripRound)
             {
-                targetHealth.ChampionHpMpController.TakeDamage(damage);
+                Crip crip = target.GetComponent<Crip>();
+                if(crip != null)
+                {
+                    crip.TakeDamage(damage);
+                    //Debug.Log(damage);
+                    //Debug.Log(crip.CurrentHp);
+                }
+            }
+            else
+            {
+                ChampionBase targetHealth = target.GetComponent<ChampionBase>();
+                if (targetHealth != null && targetHealth.ChampionHpMpController != null)
+                {
+                    targetHealth.ChampionHpMpController.TakeDamage(damage);
+                }
             }
 
             Destroy(gameObject);

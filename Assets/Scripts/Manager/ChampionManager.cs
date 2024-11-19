@@ -248,7 +248,7 @@ public class ChampionManager
                 foreach (GameObject champion in tile.championOnTile)
                 {
                     if (champion.CompareTag("Champion"))
-                    {
+                    { 
                         userData.TotalChampionObject.Add(champion);
                         userData.BattleChampionObject.Add(champion);
                     }

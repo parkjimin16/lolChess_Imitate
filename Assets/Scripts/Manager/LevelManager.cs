@@ -25,7 +25,8 @@ public class LevelManager
         {
             user.UserExp -= ExperienceTable[user.UserLevel];
             user.UserLevel++;
-            if(user.UIMain != null)
+            user.MaxPlaceChampion++;
+            if (user.UIMain != null)
             {
                 user.UIMain.UIShopPanel.UpdateChampionPercent(user);
             }

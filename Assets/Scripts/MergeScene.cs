@@ -22,7 +22,7 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private AugmenterBlueprint augmenterBlueprint;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private Camera mainCam;
-
+    [SerializeField] private User user;
     public int Level = 1;
 
     private void Start()
@@ -51,7 +51,7 @@ public class MergeScene : MonoBehaviour
                 MinimapController minimapClickHandler = FindObjectOfType<MinimapController>();
                 Manager.Cam.Init(mainCam, mapGenerator, mainScene, minimapClickHandler);
 
-                Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint);
+                Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint, user);
                 
                 Manager.Item.Init();
                 Manager.Synergy.Init(symbolDataBlueprint);

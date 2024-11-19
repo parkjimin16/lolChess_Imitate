@@ -153,6 +153,8 @@ public class UserData
     [SerializeField] private int userId;
     [SerializeField] private int userLevel;
     [SerializeField] private int userExp;
+    [SerializeField] private int maxPlaceChampion;
+    [SerializeField] private int currentPlaceChampion;
     [SerializeField] private int successiveWin;
     [SerializeField] private int successiveLose;
     [SerializeField] private List<GameObject> totalChampionObject;
@@ -252,6 +254,18 @@ public class UserData
                 uiMain.UIShopPanel.UpdatePlayerXP(this);
             }
         }
+    }
+
+    public int MaxPlaceChampion
+    {
+        get { return maxPlaceChampion; }
+        set { maxPlaceChampion = value; }
+    }
+
+    public int CurrentPlaceChampion
+    {
+        get { return BattleChampionObject != null ? BattleChampionObject.Count : 0; }
+        set {  currentPlaceChampion = value; }
     }
 
     public int UserSuccessiveWin
@@ -417,9 +431,10 @@ public class UserData
         userId = _userId;
         userLevel = 1;
         userExp = 0;
+        maxPlaceChampion = 1;
+        currentPlaceChampion = 0;
         totalItemBlueprint.Clear();
-        synergies_Line.Clear();
-        
+        synergies_Line.Clear();  
     }
 
 
