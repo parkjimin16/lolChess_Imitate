@@ -108,8 +108,8 @@ MonoBehaviour:
   - Level: 4
     Probability:
     - 0.55
-    - 30
-    - 15
+    - 0.3
+    - 0.15
     - 0
     - 0
   - Level: 5

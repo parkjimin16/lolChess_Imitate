@@ -122,8 +122,6 @@ public class UserManager
             // GoldDisplay 초기화 및 설정
             user.GoldDisplay = new GoldDisplay(user);
             user.MapInfo.goldDisplay = user.GoldDisplay;
-
-            //user.InitializeGoldDisplay();
         }
 
         UserData hUser = GetHumanUserData();
@@ -133,6 +131,13 @@ public class UserManager
 
     }
 
+    public void SetShopUI(UserData user, UISceneMain uiMain)
+    {
+        user.UIMain = uiMain;
+
+        user.UIMain.UIShopPanel.UpdatePlayerGold(user);
+        user.UIMain.UIShopPanel.UpdatePlayerXP(user);
+    }
 
     #endregion
 }
@@ -162,6 +167,7 @@ public class UserData
     [SerializeField] private List<AugmenterData> userAugmenter;
     [SerializeField] private List<GameObject> userItemObject;
     [SerializeField] private GoldDisplay goldDisplay;
+    [SerializeField] private UISceneMain uiMain;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -186,12 +192,12 @@ public class UserData
             {
                 goldDisplay.SetPlayerGold(gold);
             }
+
+            if(uiMain != null)
+            {
+                uiMain.UIShopPanel.UpdatePlayerGold(this);
+            }
         }
-    }
-    public void InitializeGoldDisplay()
-    {
-        goldDisplay = new GoldDisplay(this);
-        goldDisplay.UpdateGoldTiles();
     }
 
     public int UserHealthMax
@@ -221,13 +227,30 @@ public class UserData
     public int UserLevel
     {
         get { return userLevel; }
-        set { userLevel = value; }
+        set 
+        { 
+            userLevel = value;
+
+            if (uiMain != null)
+            {
+                uiMain.UIShopPanel.UpdatePlayerXP(this);
+                Manager.Augmenter.ApplyLevelUpAugmenter(this);
+            }
+        }
     }
 
     public int UserExp
     {
         get { return userExp; }
-        set { userExp = value; }
+        set 
+        {
+            userExp = value;
+
+            if(uiMain != null)
+            {
+                uiMain.UIShopPanel.UpdatePlayerXP(this);
+            }
+        }
     }
 
     public int UserSuccessiveWin
@@ -351,6 +374,15 @@ public class UserData
     {
         get { return itemOriginalStates; }
         set { itemOriginalStates = value; }
+    }
+
+    public UISceneMain UIMain
+    {
+        get { return uiMain; } 
+        set
+        {
+            uiMain = value;
+        }
     }
     #endregion
 

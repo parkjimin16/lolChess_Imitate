@@ -41,6 +41,8 @@ public class StageManager
 
     private MapInfo battleMap;
 
+
+    private int reRollCount;
     #region Init
 
     public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData)
@@ -48,6 +50,8 @@ public class StageManager
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
         gameDataBlueprint = gameData;
+
+        reRollCount = 0;
 
         InitializePlayers();
         StartStage(currentStage);
@@ -89,9 +93,17 @@ public class StageManager
 
     IEnumerator StartRoundCoroutine()
     {
+        UserData user = Manager.User.GetHumanUserData();
         // UI 업데이트
         UIManager.Instance.UpdateStageRoundUI(currentStage, currentRound);
 
+        if(reRollCount != 0)
+        {
+            // 상점 업데이트
+            user.UserGold += 2;
+            user.UIMain.UIShopPanel.UpdateChampionSlot(null);
+        }
+       
         // 증강 선택 라운드 여부 확인
         isAugmentRound = IsAugmentRound(currentStage, currentRound);
 
@@ -103,6 +115,8 @@ public class StageManager
 
         // 라운드 전 대기시간 설정
         int preWaitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
+
+        reRollCount++;
 
         // **1. 라운드 전 대기시간**
 
