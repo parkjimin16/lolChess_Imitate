@@ -12,6 +12,8 @@ public class UISceneMain : UIBase
     [Header("시너지")]
     [SerializeField] private UISynergyPanel uiSynergyPanel;
 
+    [Header("플레이어 체력")]
+    [SerializeField] private UIHeatlhBarPanel uiHealthBarPanel;
 
     [Header("상점")]
     [SerializeField] private UIShopPanel uiShopPanel;
@@ -19,11 +21,6 @@ public class UISceneMain : UIBase
     [Header("스테이지")]
     [SerializeField] private GameObject[] player;
     [SerializeField] private MapGenerator mapGenerator;
-
-    [Header("유저 체력")]
-    [SerializeField] private GameObject healthBarContainer;
-    [SerializeField] private GameObject healthBarPrefab;
-    [SerializeField] private List<HealthUI> hpBarList = new List<HealthUI>();
 
     [Header("챔피언 정보")]
     [SerializeField] private UIChampionExplainPanel uiChampionExplainPanel;
@@ -52,7 +49,6 @@ public class UISceneMain : UIBase
     protected override void Init()
     {
         base.Init();
-        Manager.UserHp.InitUserHp(hpBarList);
     }
 
 
@@ -64,6 +60,6 @@ public class UISceneMain : UIBase
         uiSynergyPanel.InitSynergyBtn(symbolData);
         uiShopPanel.InitShopBtn(gameData);
         uiChampionExplainPanel.InitChampionExplainPanel(symbolData);
-
+        uiHealthBarPanel.InitHpBarPanel();
     }
 }

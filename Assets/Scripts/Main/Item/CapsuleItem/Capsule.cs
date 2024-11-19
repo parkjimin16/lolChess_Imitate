@@ -50,10 +50,6 @@ public class Capsule : MonoBehaviour
                 && Manager.Champion.GetEmptyTileCount(player.UserData) >= championContainer.Count)
             {
                 Manager.User.UserCrushWithCapsule(player.UserData, gold, ItemContainer, championContainer);
-                
-                UISceneMain main = GameObject.Find("UISceneMain").GetComponent<UISceneMain>();
-                main.UIShopPanel.UpdatePlayerGold(Manager.User.GetHumanUserData());
-
                 Destroy(gameObject);
             }
         }

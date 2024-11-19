@@ -18,11 +18,15 @@ public class UIShopPanel : UIBase
     [SerializeField] private GameObject targetObject;
     [SerializeField] private List<Transform> championPos;
     [SerializeField] private RectTile rtile;
+    [SerializeField] private Button btn_Reroll_Lock;
+    [SerializeField] private GameObject image_Lock;
+    [SerializeField] private GameObject image_UnLock;
 
     [Header("레벨")]
     [SerializeField] private TextMeshProUGUI txt_User_Level;
     [SerializeField] private Slider slider_Xp;
     [SerializeField] private TextMeshProUGUI txt_User_Xp;
+
 
     [Header("정보")]
     [SerializeField] private List<TextMeshProUGUI> txt_Champion_Percent;
@@ -35,6 +39,10 @@ public class UIShopPanel : UIBase
     public GameObject SellPanel;
     [SerializeField] private TextMeshProUGUI txt_SellAmount;
 
+    // 변수
+    [SerializeField] private bool reRoll_Lock;
+   
+
     #region Init
 
     public void InitShopBtn(GameDataBlueprint gameData)
@@ -46,6 +54,7 @@ public class UIShopPanel : UIBase
         // 유저 경험치 버튼
         SetButtonEvent("Btn_Exp", UIEventType.Click, UpdateExpBtn);
         SetButtonEvent("Btn_Reroll", UIEventType.Click, UpdateChampionSlot);
+        SetButtonEvent("Btn_Reroll_Lock", UIEventType .Click, Btn_ReRoll_Lock);
 
         int i = 0;
         foreach (GameObject slot in championSlotList)
@@ -62,9 +71,10 @@ public class UIShopPanel : UIBase
             i++;
         }
 
-        UpdatePlayerXP();
-        UpdateChampionPercent();
-        UpdatePlayerGold(Manager.User.GetHumanUserData());
+        UpdateChampionPercent(Manager.User.GetHumanUserData());
+
+        reRoll_Lock = true;
+        Btn_ReRoll_Lock(null);
     }
 
     #endregion
@@ -75,7 +85,6 @@ public class UIShopPanel : UIBase
         HexTile hextile = null;
         Transform tileTransform = null;
 
-        // championPos 리스트에서 빈 타일을 찾습니다.
         foreach (Transform pos in championPos)
         {
             HexTile tile = pos.GetComponent<HexTile>();
@@ -94,21 +103,18 @@ public class UIShopPanel : UIBase
         HideSlot(obj);
         Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
     }
-
     public void UpdateChampionSlot(PointerEventData enterEvent)
     {
+        if (reRoll_Lock)
+            return;
+
         UserData user = Manager.User.GetHumanUserData();
 
-        // 골드가 2 이상인지 확인
         if (user.UserGold >= 2)
         {
-            // 골드 2 소모
+            Manager.Augmenter.ApplyRerollAugmenter(user);
+
             user.UserGold -= 2;
-
-            // UI 업데이트 (골드 표시)
-            //UIManager.Instance.UpdateUserGoldUI(user);
-
-            // 챔피언 슬롯 업데이트
             shopChampionList = Manager.Champion.GetRandomChampions(user.UserLevel);
 
             int idx = 0;
@@ -143,6 +149,22 @@ public class UIShopPanel : UIBase
         rtile = tile;
         championPos = rtile.GetRectTileList();
     }
+    public void Btn_ReRoll_Lock(PointerEventData eventData)
+    {
+        if (reRoll_Lock)
+        {
+            reRoll_Lock = false;
+            image_Lock.SetActive(false);
+            image_UnLock.SetActive(true);
+        }
+        else
+        {
+            reRoll_Lock = true;
+            image_Lock.SetActive(true);
+            image_UnLock.SetActive(false);
+        }
+
+    }
 
     #endregion
 
@@ -156,10 +178,6 @@ public class UIShopPanel : UIBase
         {
             user.UserGold -= 4;
             Manager.Level.AddExperience(user, 4);
-            UpdatePlayerXP();
-            UpdateChampionPercent();
-            UpdatePlayerGold(user);
-            Debug.Log($"{user.UserName}님이 4 골드를 사용하여 4 EXP를 얻었습니다.");
         }
         else
         {
@@ -168,19 +186,18 @@ public class UIShopPanel : UIBase
 
     }
 
-
-
-    private void UpdatePlayerXP()
+    public void UpdatePlayerXP(UserData user)
     {
-        int level = Manager.User.GetHumanUserData().UserLevel;
+        int level = user.UserLevel;
         txt_User_Level.text = level.ToString() + "레벨";
 
 
-        int curXp = Manager.User.GetHumanUserData().UserExp;
-        int maxXp = Manager.Level.ExperienceTable[level+1];
+        int curXp = user.UserExp;
+        int maxXp = Manager.Level.ExperienceTable[level];
         txt_User_Xp.text = $"{curXp} / {maxXp}";
 
         SetSliderRange(curXp, maxXp);
+     
     }
 
     public void UpdatePlayerGold(UserData user)
@@ -215,12 +232,11 @@ public class UIShopPanel : UIBase
 
     #region 챔피언 확률
 
-    private void UpdateChampionPercent()
+    public void UpdateChampionPercent(UserData user)
     {
-        int level = Manager.User.GetHumanUserData().UserLevel;
+        int level = user.UserLevel;
        
-
-        for(int i =0;i < uiMain.GameDataBlueprint.ChampionRandomDataList[level].Probability.Length; i++)
+        for(int i =0;i < uiMain.GameDataBlueprint.ChampionRandomDataList[level - 1].Probability.Length; i++)
         {
             txt_Champion_Percent[i].text = (uiMain.GameDataBlueprint.ChampionRandomDataList[level].Probability[i] * 100).ToString() + "%";
         }
@@ -241,7 +257,7 @@ public class UIShopPanel : UIBase
     {
         Manager.Champion.RemoveChampion(Manager.User.GetHumanUserData(), champion);
 
-        UpdatePlayerGold(Manager.User.GetHumanUserData());
+        //UpdatePlayerGold(Manager.User.GetHumanUserData());
 
         HexTile hex = Manager.Stage.GetParentTileInHex(champion);
         hex.championOnTile.Clear();

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class HealthUI : MonoBehaviour, IPointerClickHandler
+public class HealthBarSlot : MonoBehaviour, IPointerClickHandler
 {
     public Image healthBarImage; // Inspector에서 할당
     public TextMeshProUGUI playerNameText; // Inspector에서 할당
@@ -67,17 +67,13 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 이미 선택된 상태라면 아무 것도 하지 않음
         if (isSelected) return;
 
-        // 모든 체력바의 선택 상태 초기화
         Manager.UserHp.ResetHealthBarSelection();
 
-        // 현재 체력바를 선택 상태로 설정하고 강조
         isSelected = true;
         HighlightHealthBar(true);
 
-        // 카메라 이동 로직 호출
         Manager.UserHp.OnHealthBarClicked(this);
     }
 
@@ -87,12 +83,10 @@ public class HealthUI : MonoBehaviour, IPointerClickHandler
 
         if (highlight)
         {
-            // Content 오브젝트를 왼쪽으로 이동
             contentRectTransform.anchoredPosition = originalPosition + new Vector2(-20f, 0);
         }
         else
         {
-            // Content 오브젝트를 원래 위치로 복귀
             contentRectTransform.anchoredPosition = originalPosition;
             isSelected = false;
         }

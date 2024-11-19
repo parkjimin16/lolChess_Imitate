@@ -41,5 +41,6 @@ public class AugmenterSlot : MonoBehaviour
     private void AddAugmenter(UserData user)
     {
         Manager.Augmenter.SetAugmenter(user, augmenterData);
+        Manager.Augmenter.ApplyFirstAugmenter(user, augmenterData.BaseAugmenter);
     }
 }

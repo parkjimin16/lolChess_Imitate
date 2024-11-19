@@ -52,11 +52,11 @@ public class MergeScene : MonoBehaviour
                 Manager.Cam.Init(mainCam, mapGenerator, mainScene, minimapClickHandler);
 
                 Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint);
-                Manager.UserHp.InitializeHealthBars();
                 
                 Manager.Item.Init();
                 Manager.Synergy.Init(symbolDataBlueprint);
                 Manager.Augmenter.Init(augmenterBlueprint);
+                Manager.User.SetShopUI(Manager.User.GetHumanUserData() ,mainScene);
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
                 mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
@@ -90,33 +90,15 @@ public class MergeScene : MonoBehaviour
             //AugmenterData aData = augmenterBlueprint.GetAugmentByName("삼총사");
             //Manager.Augmenter.SetAugmenter(Manager.User.GetHumanUserData(), aData);
         }
-        else if (Input.GetKeyDown(KeyCode.X))
+        else if (Input.GetKeyDown(KeyCode.X)) // 증강 팝업
         {
             var augPopup = Manager.UI.ShowPopup<UIPopupAugmenter>();
 
             augPopup.InitAugmenterGoldPopup();
         }
-        else if(Input.GetKeyDown(KeyCode.N)) //전투 시작 
-        {
-            Manager.Synergy.ApplySynergy(Manager.User.GetHumanUserData());
-        }
-        else if(Input.GetKeyDown(KeyCode.M)) // 전투 종료
-        {
-            Manager.Synergy.UnApplySynergy(Manager.User.GetHumanUserData());
-
-            foreach(var champion in Manager.User.GetHumanUserData().BattleChampionObject)
-            {
-                ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-                if(cBase != null)
-                {
-                    cBase.ResetChampionStats();
-                }
-            }
-        }
         else if (Input.GetKeyDown(KeyCode.J)) // 증강 시작
         {
-            Manager.Augmenter.ApplyFirstAugmenter(Manager.User.GetHumanUserData());
+            //Manager.Augmenter.ApplyFirstAugmenter(Manager.User.GetHumanUserData());
             Manager.Augmenter.ApplyStartRoundAugmenter(Manager.User.GetHumanUserData());
         }
         else if (Input.GetKeyDown(KeyCode.K)) // 증강 종료

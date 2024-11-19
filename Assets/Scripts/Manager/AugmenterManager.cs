@@ -36,6 +36,8 @@ public class AugmenterManager
     public void SetAugmenter(UserData user, AugmenterData augData)
     {
         user.UserAugmenter.Add(augData);
+        
+
 
         if (Manager.UI.CheckPopupStack())
             Manager.UI.CloseAllPopupUI();
@@ -44,12 +46,9 @@ public class AugmenterManager
 
     #region 증강 적용 로직
 
-    public void ApplyFirstAugmenter(UserData user)
+    public void ApplyFirstAugmenter(UserData user, BaseAugmenter aug)
     {
-        foreach(var aug in user.UserAugmenter)
-        {
-            aug.BaseAugmenter.ApplyNow(user);
-        }
+        aug.ApplyNow(user);
     }
 
 
@@ -73,6 +72,22 @@ public class AugmenterManager
         foreach (var aug in user.UserAugmenter)
         {
             aug.BaseAugmenter.ApplyWhenever(user);
+        }
+    }
+
+    public void ApplyRerollAugmenter(UserData user) 
+    {
+        foreach (var aug in user.UserAugmenter)
+        {
+            aug.BaseAugmenter.ApplyReroll(user);
+        }
+    }
+
+    public void ApplyLevelUpAugmenter(UserData user)
+    {
+        foreach (var aug in user.UserAugmenter)
+        {
+            aug.BaseAugmenter.ApplyLevelUp(user);
         }
     }
     #endregion

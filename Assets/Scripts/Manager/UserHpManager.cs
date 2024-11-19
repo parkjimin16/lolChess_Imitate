@@ -7,35 +7,20 @@ public class UserHpManager
 {
     private GameObject healthBarContianer;
     private GameObject healthBarPrefab;
-    private List<HealthUI> healthBars = new List<HealthUI>();
+    private List<HealthBarSlot> healthBars;
 
-    public void InitUserHp(List<HealthUI> hpList)
+    public void InitUserHp(List<HealthBarSlot> hpList)
     {
         healthBars = hpList;
 
-        //InitializeHealthBars();
+        InitializeHealthBars();
     }
 
     public void InitializeHealthBars()
     {
-        /*
-        // 기존 체력바 삭제
-        foreach (Transform child in healthBarContianer.transform)
-        {
-            child.gameObject.SetActive(false);  
-            Destroy(child.gameObject);
-        }
-        healthBars.Clear();
-        */
-
-
         int idx = 0;
 
-        if(healthBars.Count == Manager.Game.PlayerListObject.Length)
-        {
-
-        }
-        else
+        if(healthBars.Count != Manager.Game.PlayerListObject.Length)
         {
             Debug.Log("Error");
             return;
@@ -44,11 +29,6 @@ public class UserHpManager
         // 각 플레이어에 대한 체력바 생성
         foreach (GameObject player in Manager.Game.PlayerListObject)
         {
-            //GameObject hbObj = Instantiate(healthBarPrefab, transform);
-            //HealthUI hbUI = hbObj.GetComponent<HealthUI>();
-            //hbUI.SetPlayer(player);
-            //healthBars.Add(hbUI);
-
             healthBars[idx].SetPlayer(player);
             idx++;
         }
@@ -66,7 +46,7 @@ public class UserHpManager
     public void UpdateHealthBars()
     {
         // 모든 체력바 업데이트
-        foreach (HealthUI hbUI in healthBars)
+        foreach (HealthBarSlot hbUI in healthBars)
         {
             hbUI.UpdateHealthBar();
             if (hbUI.PlayerData.UserData.IsUserDie())
@@ -96,21 +76,21 @@ public class UserHpManager
 
     public void ResetHealthBarSelection()
     {
-        foreach (HealthUI hbUI in healthBars)
+        foreach (HealthBarSlot hbUI in healthBars)
         {
             hbUI.HighlightHealthBar(false);
         }
     }
 
     // 체력바 클릭 시 호출되는 메서드
-    public void OnHealthBarClicked(HealthUI clickedHealthBar)
+    public void OnHealthBarClicked(HealthBarSlot clickedHealthBar)
     {
         // 카메라 이동 로직 호출
         Manager.Cam.MoveCameraToPlayer(clickedHealthBar.PlayerData);
     }
     public void HighlightHealthBar(Player playerData)
     {
-        foreach (HealthUI hbUI in healthBars)
+        foreach (HealthBarSlot hbUI in healthBars)
         {
             if (hbUI.PlayerData == playerData)
             {
