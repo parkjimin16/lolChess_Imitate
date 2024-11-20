@@ -52,12 +52,14 @@ public class MergeScene : MonoBehaviour
                 MinimapController minimapClickHandler = FindObjectOfType<MinimapController>();
                 Manager.Cam.Init(mainCam, mapGenerator, mainScene, minimapClickHandler);
 
+                Manager.User.SetShopUI(Manager.User.GetHumanUserData(), mainScene);
                 Manager.Stage.InitStage(Manager.Game.PlayerListObject, mapGenerator, gameDataBlueprint, user);
                 
                 Manager.Item.Init();
                 Manager.Synergy.Init(symbolDataBlueprint);
                 Manager.Augmenter.Init(augmenterBlueprint);
-                Manager.User.SetShopUI(Manager.User.GetHumanUserData() ,mainScene);
+
+
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
                 mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());

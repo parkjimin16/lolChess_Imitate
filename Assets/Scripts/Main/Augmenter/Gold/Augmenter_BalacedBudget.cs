@@ -16,7 +16,7 @@ public class Augmenter_BalacedBudget : BaseAugmenter
 
     public override void ApplyStartRound(UserData user)
     {
-        if(curCount < 4)
+        if(curCount < maxCount)
         {
             user.UserGold += 7;
 
