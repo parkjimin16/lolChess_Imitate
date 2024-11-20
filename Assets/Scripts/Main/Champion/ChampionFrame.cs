@@ -59,9 +59,12 @@ public class ChampionFrame : ObjectPoolable
 
     public void SetEquipItemImage(List<ItemBlueprint> equipItem)
     {
-        for(int i=0;i < equipItem.Count; i++)
+        for(int i=0;i < equipItemImage.Count; i++)
         {
-            equipItemImage[i].sprite = equipItem[i].Icon;
+            if (i < equipItem.Count)
+                equipItemImage[i].sprite = equipItem[i].Icon;
+            else
+                equipItemImage[i].sprite = null;
         }
     }
 

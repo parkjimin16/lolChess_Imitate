@@ -7,7 +7,7 @@ public class Augmenter_NewRecruit : BaseAugmenter
     #region 증강체 로직
     public override void ApplyNow(UserData user)
     {
-
+        user.MaxPlaceChampion++;
     }
 
     public override void ApplyStartRound(UserData user)

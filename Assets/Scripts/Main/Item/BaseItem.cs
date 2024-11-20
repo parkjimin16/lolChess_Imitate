@@ -37,7 +37,7 @@ public class BaseItem : MonoBehaviour
 
     #endregion
 
-    public void Initialize(ItemBlueprint blueprint)
+    public virtual void Initialize(ItemBlueprint blueprint)
     {
         icon = blueprint.Icon;
         itemId = blueprint.ItemId;
@@ -82,9 +82,11 @@ public class BaseItem : MonoBehaviour
 
     }
 
-    // 테스트용
-    public void OnApplicationQuit()
+    /// <summary>
+    /// 처음 생성 시 호출
+    /// </summary>
+    public virtual void FirstItem(UserData user)
     {
-        ResetItem();
+
     }
 }

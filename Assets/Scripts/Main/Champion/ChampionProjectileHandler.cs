@@ -14,7 +14,7 @@ public class ChampionProjectileHandler : ProjectileHandlerBase
         TrackingTarget(TargetPosition, Speed);
 
         if(Vector3.Distance(transform.position, TargetPosition) < Mathf.Epsilon)
-        {
+        {   
             ReleaseObject();
         }
     }
