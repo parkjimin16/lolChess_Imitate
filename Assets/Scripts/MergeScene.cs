@@ -41,6 +41,7 @@ public class MergeScene : MonoBehaviour
 
                 Manager.Game.InitGameManager();
                 Manager.User.Init();
+                Manager.ObjectPool.Initialize();
 
                 mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
@@ -60,6 +61,8 @@ public class MergeScene : MonoBehaviour
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
                 mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+
+
             }
         });
     }
