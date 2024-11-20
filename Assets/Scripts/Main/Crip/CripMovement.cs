@@ -19,8 +19,12 @@ public class CripMovement : MonoBehaviour
     // 이전 타일을 추적하기 위한 변수
     private HexTile lastTile;
 
+    public Crip crip;
+
     void Start()
     {
+        crip = GetComponent<Crip>();
+
         moveTimer = moveInterval;
 
         // 크립이 속한 맵 정보를 가져옵니다.
@@ -39,6 +43,8 @@ public class CripMovement : MonoBehaviour
 
         lastTile = currentTile;
 
+        transform.rotation = Quaternion.Euler(0,180,0);
+
     }
 
     void Update()
@@ -48,7 +54,8 @@ public class CripMovement : MonoBehaviour
             moveTimer -= Time.deltaTime;
             if (moveTimer <= 0f)
             {
-                //MoveRandomly(); 움직임
+                crip.PlayAnimation("Walk");
+                MoveRandomly();
                 moveTimer = moveInterval;
             }
         }
@@ -68,8 +75,8 @@ public class CripMovement : MonoBehaviour
         }
     }
 
-    void MoveRandomly()
-    {
+    private void MoveRandomly()
+    { 
         if (playerMapInfo == null)
             return;
 
@@ -96,10 +103,19 @@ public class CripMovement : MonoBehaviour
             Vector3 tilePosition = nextTile.transform.position;
             tilePosition.y = fixedYPosition;
             targetPosition = tilePosition;
+
+            // 진행 방향 계산
+            Vector3 direction = (targetPosition - transform.position).normalized;
+
+            // 오브젝트를 방향으로 회전
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = targetRotation;
+            }
         }
     }
 
-    
 
     void UpdateTileUnderCrip()
     {

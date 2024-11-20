@@ -246,6 +246,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             if (CanAttack(targetChampion))
             {
+                StopAllCoroutines();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
@@ -275,7 +276,6 @@ public class ChampionAttackController : MonoBehaviour
         if (tcBase.IsDie && tcBase != null)
         {
             StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             yield break;
         }
@@ -284,6 +284,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             if (CanAttack(targetChampion))
             {
+                StopAllCoroutines();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
@@ -393,6 +394,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (tcBase.ChampionHpMpController.IsDie())
             {
+                StopAllCoroutines();
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 yield break;
             }
@@ -446,6 +449,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (tcBase.IsDie)
             {
+                StopAllCoroutines();
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 yield break;
             }

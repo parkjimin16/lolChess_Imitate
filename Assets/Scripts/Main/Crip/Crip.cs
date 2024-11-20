@@ -1,3 +1,4 @@
+using ChampionOwnedStates;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Crip : MonoBehaviour
     public MapGenerator.MapInfo playerMapInfo;
     public bool IsDie;
 
+
+    public Animator anim;
     //[SerializeField] private ItemTile itemtile;
 
 
@@ -27,6 +30,8 @@ public class Crip : MonoBehaviour
     {
         IsDie = false;
         currentHP = cripData.HP;
+
+        anim = GetComponentInChildren<Animator>();
     }
 
 
@@ -55,6 +60,11 @@ public class Crip : MonoBehaviour
         }
 
         // ÀÚ½Å ÆÄ±«
+      
+    }
+
+    private void DestroyObj()
+    {
         Destroy(this.gameObject);
     }
 
@@ -77,7 +87,22 @@ public class Crip : MonoBehaviour
                 playerComponent.UserData.CripObjectList.Remove(this.gameObject);
             }
         }
-        Destroy(this.gameObject);
+
+        PlayAnimation("Die");
+
+        Invoke("DestroyObj", 1.5f);
+    }
+
+    public void PlayAnimation(string animationName)
+    {
+        if (anim != null)
+        {
+            anim.Play(animationName);
+        }
+        else
+        {
+            Debug.LogError("Animator is not assigned.");
+        }
     }
     void GenerateItem()
     {

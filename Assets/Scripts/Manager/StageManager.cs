@@ -110,7 +110,7 @@ public class StageManager
     private IEnumerator StartRoundCoroutine()
     {
         UserData user = Manager.User.GetHumanUserData();
-        user.UIMain.UIRoundPanel.UpdateStageRoundPanel(currentStage, curRound);
+       user.UIMain.UIRoundPanel.UpdateStageRoundPanel(currentStage, curRound);
 
         if(reRollCount != 0)
         {

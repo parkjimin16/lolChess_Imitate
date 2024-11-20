@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,26 +31,52 @@ public class UIRoundPanel : UIBase
 
     private bool isFirst;
     private Coroutine timerCoroutine;
+    private List<Sprite> sprites;
     #endregion
 
     #region √ ±‚»≠
 
+    public void InitRoundPanel()
+    {
+        sprites = new List<Sprite>();
+    }
+
     public void UpdateStageRoundPanel(int stage, int round)
     {
-        if(stage == 1)
+        sprites.Clear();
+
+        if (stage == 1)
         {
+            sprites = new List<Sprite> { crip, crip, crip  };
             FirstStage.SetActive(true);
             AfterSecondStage.SetActive(false);
             txt_FirstStage.text = $"{stage} - {round}";
+
+            for(int i=0;i < sprites.Count; i++)
+            {
+                image_FirstStage[i].sprite = sprites[i];
+            }
         }
         else
         {
+            if(stage == 2) 
+            {
+                sprites = new List<Sprite> { augmenter, combat, combat, select, combat, combat, crip };
+            }
+            else
+            {
+                sprites = new List<Sprite> { combat, augmenter, combat, select, combat, combat, crip };
+            }
+
             FirstStage.SetActive(false);
             AfterSecondStage.SetActive(true);
             txt_AfterStage.text = $"{stage} - {round}";
+
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                image_AfterStage[i].sprite = sprites[i];
+            }
         }
-
-
     }
 
     #endregion

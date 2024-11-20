@@ -70,5 +70,6 @@ public class UISceneMain : UIBase
         uiShopPanel.InitShopBtn(gameData);
         uiChampionExplainPanel.InitChampionExplainPanel(symbolData);
         uiHealthBarPanel.InitHpBarPanel();
+        UIRoundPanel.InitRoundPanel();
     }
 }

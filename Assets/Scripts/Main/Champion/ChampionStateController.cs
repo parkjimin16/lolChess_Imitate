@@ -34,7 +34,6 @@ public class ChampionStateController : MonoBehaviour
             case ChampionState.Move:
                 if (!MergeScene.BatteStart)
                 {
-                    Debug.Log("여기에요");
                     return;
                 }
 
