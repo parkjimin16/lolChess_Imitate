@@ -87,7 +87,7 @@ public class ChampionStateController : MonoBehaviour
                 fsm.ChangeState(new AttackState(cBase), cBase);
                 break;
             case ChampionState.Die:
-                fsm.ChangeState(new AttackState(cBase), cBase);
+                fsm.ChangeState(new DieState(cBase), cBase);
                 break;
         }
 

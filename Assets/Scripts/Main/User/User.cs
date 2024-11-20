@@ -977,7 +977,5 @@ public class User : MonoBehaviour
             }
         }
     }
-        
-
     #endregion
 }
