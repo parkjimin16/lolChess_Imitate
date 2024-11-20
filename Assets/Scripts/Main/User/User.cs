@@ -79,6 +79,7 @@ public class User : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             TouchEndedEvent();
+            InActiveTile();
         }
     }
 
@@ -503,6 +504,7 @@ public class User : MonoBehaviour
             }
             currentTile = hitTile.gameObject;
         }
+        _movableObj = null;
     }
 
     private void SwapItemsOnTiles(HexTile hitTile)
@@ -527,6 +529,7 @@ public class User : MonoBehaviour
         _movableObj.transform.position = hitTile.transform.position + _offset;
         _movableObj.transform.SetParent(hitTile.transform);
         hitTile.itemOnTile = _movableObj;
+        _movableObj = null;
     }
     private void SwapChampions(HexTile hitTile)
     {
@@ -557,7 +560,8 @@ public class User : MonoBehaviour
 
         // 현재 타일 정보를 업데이트합니다.
         currentTile = hitTile.gameObject;
-
+        _movableObj = null;
+        InActiveTile();
         UpdateSynergy();
     }
     private void ObjectReturn()
@@ -887,9 +891,10 @@ public class User : MonoBehaviour
 
     private void ActiveHoverTile()
     {
-        if(_movableObj != null && _movableObj.CompareTag("Champion"))
+        // 챔피언을 드래그 중인지 확인
+        if (!_isDragging || _movableObjectType != MovableObjectType.Champion || _isReturning)
         {
-            // 이전에 호버된 타일의 하이라이트를 비활성화
+            // 이전에 활성화된 하이라이트를 비활성화
             if (_previousHoveredTile != null)
             {
                 Transform highlightTransform = _previousHoveredTile.transform.Find("Highlight");
@@ -899,33 +904,76 @@ public class User : MonoBehaviour
                 }
                 _previousHoveredTile = null;
             }
+            return;
+        }
 
-            int layerMask = 1 << LayerMask.NameToLayer("PlayerTile");
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+        // 이전에 활성화된 하이라이트를 비활성화
+        if (_previousHoveredTile != null)
+        {
+            Transform highlightTransform = _previousHoveredTile.transform.Find("Highlight");
+            if (highlightTransform != null)
             {
-                // 히트한 오브젝트에서 부모를 탐색하여 PlayerTile을 찾음
-                Transform hoveredTransform = hit.collider.transform;
-                while (hoveredTransform != null)
+                highlightTransform.gameObject.SetActive(false);
+            }
+            _previousHoveredTile = null;
+        }
+
+        int layerMask = 1 << LayerMask.NameToLayer("PlayerTile");
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+        {
+            Transform hoveredTransform = hit.collider.transform;
+            while (hoveredTransform != null)
+            {
+                UserData user = Manager.User.GetHumanUserData();
+                MapGenerator.MapInfo mapinfo = user.MapInfo;
+                HexTile hexTile = hoveredTransform.GetComponent<HexTile>();
+
+                if (hexTile != null)
                 {
-                    if (hoveredTransform.CompareTag("PlayerTile"))
+                    bool isRectTile = mapinfo.RectDictionary.ContainsValue(hexTile);
+                    bool isHexTile = mapinfo.HexDictionary.ContainsValue(hexTile);
+
+                    if (Manager.Stage.IsBattleOngoing)
                     {
-                        HexTile hexTile = hoveredTransform.GetComponent<HexTile>();
-                        if (hexTile != null)
+                        // 전투 중일 때는 RectTile만 고려
+                        if (isRectTile)
                         {
-                            // 하이라이트 오브젝트를 이름으로 찾음
                             Transform highlightTransform = hoveredTransform.Find("Highlight");
                             if (highlightTransform != null)
                             {
                                 highlightTransform.gameObject.SetActive(true);
-                                _previousHoveredTile = hexTile; // 이전 호버된 타일로 저장
+                                _previousHoveredTile = hexTile;
                             }
+                            break;
                         }
-                        break;
                     }
-                    hoveredTransform = hoveredTransform.parent;
+                    else
+                    {
+                        // 전투 중이 아닐 때는 HexTile만 고려
+                        if (isHexTile)
+                        {
+                            Transform highlightTransform = hoveredTransform.Find("Highlight");
+                            if (highlightTransform != null)
+                            {
+                                highlightTransform.gameObject.SetActive(true);
+                                _previousHoveredTile = hexTile;
+                            }
+                            break;
+                        }
+                        if (isRectTile)
+                        {
+                            Transform highlightTransform = hoveredTransform.Find("Highlight");
+                            if (highlightTransform != null)
+                            {
+                                highlightTransform.gameObject.SetActive(true);
+                                _previousHoveredTile = hexTile;
+                            }
+                            break;
+                        }
+                    }
                 }
+                hoveredTransform = hoveredTransform.parent;
             }
         }
     }
