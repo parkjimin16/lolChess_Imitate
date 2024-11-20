@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetChampion: {fileID: 0}
-  projectilePrefab: {fileID: 2919007433744897484, guid: 910422ae88ff98b498ad9fdf20f63864, type: 3}
+  projectilePrefab: {fileID: 1030300852583897363, guid: a95ac0ebbd4778743893eca56e6ea798, type: 3}
   shootPoint: {fileID: 7602927647226427858}
   isUseSkill: 0
   realAttackRange: 0

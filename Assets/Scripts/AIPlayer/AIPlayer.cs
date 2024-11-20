@@ -72,7 +72,6 @@ public class AIPlayer
             cBase.InitChampion(cFrame);
 
             cBase.BattleStageIndex = aiPlayer.UserData.UserId;
-            Debug.Log(cBase.BattleStageIndex);
             //Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
 
             // AI 플레이어의 챔피언 리스트에 추가

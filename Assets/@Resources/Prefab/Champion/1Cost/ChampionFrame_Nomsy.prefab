@@ -296,7 +296,7 @@ MonoBehaviour:
   UICanvas: {fileID: 3825472009826961112}
   championAttackController: {fileID: 6252604476818844917}
   championAnimController: {fileID: 5138671916796917089}
-  championHpMpController: {fileID: 0}
+  championHpMpController: {fileID: 4551747180640086549, guid: 3fafa8f8197cdd445b8499885de6b82d, type: 3}
   championStateController: {fileID: 1042186363350281454}
   championView: {fileID: 4803408484816773377}
   player: {fileID: 0}
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetChampion: {fileID: 0}
-  projectilePrefab: {fileID: 2919007433744897484, guid: 910422ae88ff98b498ad9fdf20f63864, type: 3}
+  projectilePrefab: {fileID: 1030300852583897363, guid: a95ac0ebbd4778743893eca56e6ea798, type: 3}
   shootPoint: {fileID: 7602927647226427858}
   isUseSkill: 0
   realAttackRange: 0

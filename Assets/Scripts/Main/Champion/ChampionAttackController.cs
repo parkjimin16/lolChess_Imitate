@@ -223,6 +223,10 @@ public class ChampionAttackController : MonoBehaviour
 
     #region 이동 로직
 
+    /// <summary>
+    /// 챔피언 이동
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator StartMoveAndCheck()
     {
         if (targetChampion == null)
@@ -240,8 +244,13 @@ public class ChampionAttackController : MonoBehaviour
 
         while (targetChampion != null && MergeScene.BatteStart && !tcBase.ChampionHpMpController.IsDie())
         {
-            HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+            if (CanAttack(targetChampion))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield break;
+            }
 
+            HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
             path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
             if (path == null || path.Count == 0)
@@ -249,17 +258,11 @@ public class ChampionAttackController : MonoBehaviour
 
             nextTile = path[0];
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
-
-            if (CanAttack(targetChampion))
-            {
-                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                yield break;
-            }
         }
     }
 
     /// <summary>
-    /// 크립이동
+    /// 크립 이동
     /// </summary>
     /// <returns></returns>
     private IEnumerator StartMoveAndCheck_Crip()
@@ -279,6 +282,12 @@ public class ChampionAttackController : MonoBehaviour
 
         while (targetChampion != null && MergeScene.BatteStart && !tcBase.IsDie)
         {
+            if (CanAttack(targetChampion))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield break;
+            }
+
             HexTile curTile = Manager.Stage.FindNearestTile_Crip(gameObject, cBase.Player.UserData.UserId);
 
             path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
@@ -289,11 +298,7 @@ public class ChampionAttackController : MonoBehaviour
             nextTile = path[0];
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
 
-            if (CanAttack(targetChampion))
-            {
-                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                yield break;
-            }
+
         }
     }
 
@@ -371,14 +376,16 @@ public class ChampionAttackController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 챔피언 전투
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator AttackRoutine()
     {
         if (attackLogic)
             yield break;
 
         attackLogic = true;
-
-
 
         while (targetChampion != null)
         {
@@ -420,6 +427,11 @@ public class ChampionAttackController : MonoBehaviour
         attackLogic = false;
     }
 
+
+    /// <summary>
+    /// 크립 전투
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator AttackRoutine_Crip()
     {
         if (attackLogic)
@@ -483,8 +495,7 @@ public class ChampionAttackController : MonoBehaviour
 
             if (projectile != null)
             {
-                projectile.SetTarget(target, ChampionDamageSet());
-                Debug.Log(ChampionDamageSet());
+                projectile.SetTarget(target, cBase.GetDamage());
             }
         }
         else 
@@ -493,25 +504,25 @@ public class ChampionAttackController : MonoBehaviour
             isAttackRange = false;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-            if (distanceToTarget <= 1.5f)
+            if (distanceToTarget <= 16f)
             {
+                if (Manager.Stage.isCripRound)
+                {
+                    Crip crip = target.GetComponent<Crip>();
+                    if (crip != null)
+                    {
+                        crip.TakeDamage(cBase.GetDamage());
+                    }
+                    return;
+                }
+
                 ChampionBase targetHealth = target.GetComponent<ChampionBase>();
                 if (targetHealth != null)
                 {
-                    PlayMeleeAttackAnimation();
-                    targetHealth.ChampionHpMpController.TakeDamage(ChampionDamageSet()); 
+                    targetHealth.ChampionHpMpController.TakeDamage(cBase.GetDamage()); 
                 }
             }
         }
-    }
-    private void PlayMeleeAttackAnimation()
-    {
-        // 근접 공격 애니메이션 재생 로직 (예: animator.SetTrigger("MeleeAttack"))
-    }
-
-    private int ChampionDamageSet()
-    {
-        return cBase.Champion_TotalDamage;
     }
 
     private IEnumerator UseSkillCoroutine()

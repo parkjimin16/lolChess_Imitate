@@ -62,19 +62,25 @@ public class ChampionHpMpController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        totalDamage = (int)(100 * (100 / (100 + cBase.Champion_AD_Def)));
-        totalDamage = (int)(totalDamage / (1 - cBase.Champion_Total_Def));
+        float reducedDamage = damage * (100f / (100f + cBase.Champion_AD_Def));
 
-        cBase.Champion_CurHp -= totalDamage;
+        if (cBase.Champion_Total_Def < 1f) 
+            reducedDamage /= (1f - cBase.Champion_Total_Def);
+        else
+            reducedDamage = float.MaxValue; 
+
+        // 정수로 변환하여 실제 데미지 반영
+        int totalDamage = Mathf.RoundToInt(reducedDamage);
+        cBase.Champion_CurHp = Mathf.Max(0, cBase.Champion_CurHp - totalDamage); 
 
         DamageMana();
 
-        if (cBase.EquipItem == null)
-            return;
-
-        foreach(ItemBlueprint it in cBase.EquipItem)
+        if (cBase.EquipItem != null && cBase.EquipItem.Count > 0)
         {
-            it.BaseItem.CheckHp(cBase.Champion_CurHp, cBase.Champion_MaxHp);
+            foreach (ItemBlueprint it in cBase.EquipItem)
+            {
+                it.BaseItem.CheckHp(cBase.Champion_CurHp, cBase.Champion_MaxHp);
+            }
         }
 
         if (cBase.Champion_CurHp > cBase.Champion_MaxHp)
@@ -85,7 +91,8 @@ public class ChampionHpMpController : MonoBehaviour
         cBase.UpdateChampmionStat();
     }
 
-    
+
+
 
     public bool IsManaFull()
     {

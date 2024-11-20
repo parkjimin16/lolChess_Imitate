@@ -368,6 +368,7 @@ MonoBehaviour:
   augmenterBlueprint: {fileID: 0}
   mapGenerator: {fileID: 1033666889}
   mainCam: {fileID: 989249099}
+  user: {fileID: 565879211}
   Level: 1
 --- !u!1 &312038771
 GameObject:

@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalProjectile : MonoBehaviour
 {
     public float speed = 10f;
     public int damage;
-    private GameObject target;
+    [SerializeField] private GameObject target;
 
     public void SetTarget(GameObject target, int damage)
     {
@@ -30,16 +29,14 @@ public class NormalProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == target) 
+        if (target.gameObject.CompareTag($"{other.gameObject.tag}")) 
         {
-            if(Manager.Stage.isCripRound)
+            if (Manager.Stage.isCripRound)
             {
                 Crip crip = target.GetComponent<Crip>();
                 if(crip != null)
                 {
                     crip.TakeDamage(damage);
-                    //Debug.Log(damage);
-                    //Debug.Log(crip.CurrentHp);
                 }
             }
             else

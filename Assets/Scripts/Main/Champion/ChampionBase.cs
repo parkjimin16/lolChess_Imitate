@@ -599,7 +599,7 @@ public class ChampionBase : MonoBehaviour
 
     public int GetDamage()
     {
-        return (int)(champion_AD_Power * (1 + champion_Total_Def));
+        return (int)(champion_AD_Power + Champion_AP_Power);
     }
 
 
@@ -864,6 +864,8 @@ public class ChampionBase : MonoBehaviour
         champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade + Augmenter_Power_Upgrade;
         champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def + Augmenter_Total_Def;
         champion_Shield = 0;
+
+        SetTotalDamage(GetDamage());
 
         UpdateDisplayStat();
         InitSlider();
