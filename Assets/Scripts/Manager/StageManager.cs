@@ -24,7 +24,7 @@ public class StageManager
     public int[] damagePerEnemyUnit = new int[] { 1, 2, 3, 4, 5, 6, 7 }; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
-    private int normalWaitTime = 3; //라운드 전 대기시간
+    private int normalWaitTime = 20; //라운드 전 대기시간
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 3; //일반 라운드 진행시간
@@ -145,7 +145,7 @@ public class StageManager
             // 크립 라운드의 경우
 
             // 크립 생성
-            SpawnCrips();
+            SpawnCrip();
 
             // 매치 후 대기시간 타이머 시작
             UIManager.Instance.StartTimer(postMatchWaitTime);
@@ -268,8 +268,9 @@ public class StageManager
     }
     IEnumerator GenerateMatchups()
     {
-
         IsBattleOngoing = true;
+
+        yield return null;
 
         UserData userData = Manager.User.GetHumanUserData();
         user.AutoPlaceUserChampions(userData);
@@ -696,9 +697,16 @@ public class StageManager
         }
     }
 
-    void SpawnCrips()
+    private void SpawnCrip()
+    {
+        CoroutineHelper.StartCoroutine(SpawnCrips());
+    }
+
+    IEnumerator SpawnCrips()
     {
         IsBattleOngoing = true;
+
+        yield return null;
 
         UserData userData = Manager.User.GetHumanUserData();
         user.AutoPlaceUserChampions(userData);
