@@ -6,8 +6,6 @@ using static MapGenerator;
 
 public class StageManager
 {
-    private int curRound;
-
     public bool IsBattleOngoing { get; private set; } = false;
     public bool isCripRound { get; private set; } = false;
 
@@ -19,24 +17,17 @@ public class StageManager
     private MapGenerator _mapGenerator;
 
     public int currentStage = 1;
-
-    public void SetCurrentRound(int value)
-    {
-        curRound += value;
-
-        UserData user = Manager.User.GetHumanUserData();
-        user.UIMain.UIShopPanel.UpdateContinousBox(user);
-    }
+    public int currentRound = 1;
 
     // 스테이지별 기본 피해량과 생존한 적 유닛당 피해량
     public int[] baseDamages = new int[] { 0, 2, 5, 8, 10, 12, 17 }; // 인덱스는 스테이지 번호 - 1
     public int[] damagePerEnemyUnit = new int[] { 1, 2, 3, 4, 5, 6, 7 }; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
-    private int normalWaitTime = 20; //라운드 전 대기시간
+    private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 3; //일반 라운드 진행시간
+    private int roundDuration = 10; //일반 라운드 진행시간
     private int cripDuration = 3; //크립 라운드 진행시간
 
 
@@ -54,7 +45,7 @@ public class StageManager
     private int reRollCount;
 
     private User user;
-
+    //private Dictionary<GameObject, ChampionOriginalState_Crip> championOriginalPositions = new Dictionary<GameObject, ChampionOriginalState_Crip>();
     #region Init
 
     public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData, User user1)
@@ -64,9 +55,6 @@ public class StageManager
         gameDataBlueprint = gameData;
 
         reRollCount = 0;
-
-        currentStage = 1;
-        curRound = 1;
 
         InitializePlayers();
         StartStage(currentStage);
@@ -98,8 +86,7 @@ public class StageManager
     #region 스테이지 로직
     private void StartStage(int stageNumber)
     {
-        currentStage = stageNumber;
-        curRound = 1;
+        currentRound = 1;
 
         if (roundCoroutine != null)
             CoroutineHelper.StopCoroutine(roundCoroutine);
@@ -107,27 +94,26 @@ public class StageManager
         roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
     }
 
-    private IEnumerator StartRoundCoroutine()
+    IEnumerator StartRoundCoroutine()
     {
         UserData user = Manager.User.GetHumanUserData();
-       user.UIMain.UIRoundPanel.UpdateStageRoundPanel(currentStage, curRound);
+        user.UIMain.UIRoundPanel.UpdateStageRoundPanel(currentStage, currentRound);
 
         if(reRollCount != 0)
         {
+            // 상점 업데이트
             user.UserGold += 2;
             user.UIMain.UIShopPanel.UpdateChampionSlot(null);
         }
        
         // 증강 선택 라운드 여부 확인
-        isAugmentRound = IsAugmentRound(currentStage, curRound);
+        isAugmentRound = IsAugmentRound(currentStage, currentRound);
 
         // 공동 선택 라운드 여부 확인
-        bool isCarouselRound = IsCarouselRound(currentStage, curRound);
+        bool isCarouselRound = IsCarouselRound(currentStage, currentRound);
 
         // 크립 라운드 여부 확인
-
-        isCripRound = IsCripRound(currentStage, curRound);
-
+        isCripRound = IsCripRound(currentStage, currentRound);
 
         // 라운드 전 대기시간 설정
         int preWaitTime = isAugmentRound ? augmentWaitTime : normalWaitTime;
@@ -140,7 +126,7 @@ public class StageManager
         PerformAIActions();
 
         // 라운드 전 대기시간 타이머 시작
-        user.UIMain.UIRoundPanel.StartTimer(currentStage, preWaitTime);
+        UIManager.Instance.StartTimer(preWaitTime);
 
         // 라운드 전 대기시간 동안 대기
         yield return new WaitForSeconds(preWaitTime);
@@ -161,7 +147,7 @@ public class StageManager
             SpawnCrip();
 
             // 매치 후 대기시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
+            UIManager.Instance.StartTimer(postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -172,7 +158,7 @@ public class StageManager
             StartCripRound();
 
             // 라운드 진행 시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, cripDuration);
+            UIManager.Instance.StartTimer(cripDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(cripDuration);
@@ -189,7 +175,7 @@ public class StageManager
             //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
+            UIManager.Instance.StartTimer(postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -200,7 +186,7 @@ public class StageManager
             StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, roundDuration);
+            UIManager.Instance.StartTimer(roundDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(roundDuration);
@@ -216,7 +202,7 @@ public class StageManager
             //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
+            UIManager.Instance.StartTimer(postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -227,7 +213,7 @@ public class StageManager
             StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
-            user.UIMain.UIRoundPanel.StartTimer(currentStage, roundDuration);
+            UIManager.Instance.StartTimer(roundDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(roundDuration);
@@ -238,11 +224,11 @@ public class StageManager
 
     private void ProceedToNextRound()
     {
-        SetCurrentRound(1);
+        currentRound++;
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (curRound > maxRounds)
+        if (currentRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -630,11 +616,11 @@ public class StageManager
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
         // 이후 라운드 진행 로직
         // 다음 라운드로 이동
-        SetCurrentRound(1);
+        currentRound++;
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (curRound > maxRounds)
+        if (currentRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -755,7 +741,7 @@ public class StageManager
             }
 
             // 생성할 크립의 수를 결정합니다.
-            int numCripsToSpawn = GetNumberOfCripsToSpawn(currentStage, curRound);
+            int numCripsToSpawn = GetNumberOfCripsToSpawn(currentStage, currentRound);
 
             // 생성할 수 있는 최대 크립 수를 계산합니다.
             int cripsToSpawn = Mathf.Min(numCripsToSpawn, availableTiles.Count);
@@ -890,14 +876,13 @@ public class StageManager
             // 원래 상태 정보 초기화
             userData.ChampionOriginState.Clear();
         }
-
         MergeScene.BatteStart = false;
         IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
-        SetCurrentRound(1);
+        currentRound++;
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
-        if (curRound > maxRounds)
+        if (currentRound > maxRounds)
         {
             // 다음 스테이지로 이동
             currentStage++;
@@ -1311,7 +1296,7 @@ public class StageManager
             Player playerComponent = playerObj.GetComponent<Player>();
             UserData userData = playerComponent.UserData;
 
-            int baseGold = GetBaseGold(currentStage, curRound);
+            int baseGold = GetBaseGold(currentStage, currentRound);
             int interestGold = GetInterestGold(userData.UserGold);
             int streakGold = GetStreakGold(userData);
 

@@ -36,9 +36,38 @@ public class BattleManager
     {
         yield return new WaitForSeconds(duration);
 
-        // 예시로 랜덤하게 승패를 결정
-        bool player1Won = Random.value > 0.5f;
-        int survivingEnemyUnits = player1Won ? 0 : Random.Range(1, 5);
+        int player1AliveChampions = CountAliveChampions(player1);
+        int player2AliveChampions = CountAliveChampions(player2);
+
+        bool player1Won;
+        int survivingEnemyUnits;
+
+        if (player1AliveChampions > player2AliveChampions)
+        {
+            player1Won = true;
+            survivingEnemyUnits = player1AliveChampions;
+        }
+        else if (player1AliveChampions < player2AliveChampions)
+        {
+            player1Won = false;
+            survivingEnemyUnits = player2AliveChampions;
+        }
+        else
+        {
+            float player1TotalHp = GetTotalHp(player1);
+            float player2TotalHp = GetTotalHp(player2);
+
+            if (player1TotalHp >= player2TotalHp)
+            {
+                player1Won = true;
+                survivingEnemyUnits = player1AliveChampions;
+            }
+            else
+            {
+                player1Won = false;
+                survivingEnemyUnits = player2AliveChampions;
+            }
+        }
 
         EndBattle(player1, player2, player1Won, survivingEnemyUnits);
     }
@@ -251,6 +280,7 @@ public class BattleManager
                 // 유닛을 이동시킵니다.
                 opponentChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
                 opponentChampion.transform.SetParent(mirroredTile.transform);
+                opponentChampion.transform.rotation = Quaternion.Euler(0, 180, 0);
 
                 // 타일 정보 업데이트
                 mirroredTile.championOnTile.Add(opponentChampion);
@@ -292,6 +322,7 @@ public class BattleManager
                 // 유닛을 이동시킵니다.
                 opponentChampion.transform.position = mirroredTile.transform.position;
                 opponentChampion.transform.SetParent(mirroredTile.transform);
+                opponentChampion.transform.rotation = Quaternion.Euler(0, 180, 0);
 
                 // 타일 정보 업데이트
                 mirroredTile.championOnTile.Add(opponentChampion);
@@ -518,4 +549,44 @@ public class BattleManager
         opponentData.ItemOriginState.Clear();
     }
     #endregion
+
+    private int CountAliveChampions(GameObject player)
+    {
+        Player playerComponent = player.GetComponent<Player>();
+        int aliveCount = 0;
+
+        foreach (GameObject championObj in playerComponent.UserData.BattleChampionObject)
+        {
+            if (championObj.activeSelf)
+            {
+                ChampionHpMpController hpMpController = championObj.GetComponent<ChampionHpMpController>();
+                if (hpMpController != null && !hpMpController.IsDie())
+                {
+                    aliveCount++;
+                }
+            }
+        }
+
+        return aliveCount;
+    }
+    private float GetTotalHp(GameObject player)
+    {
+        Player playerComponent = player.GetComponent<Player>();
+        float totalHp = 0f;
+
+        foreach (GameObject championObj in playerComponent.UserData.BattleChampionObject)
+        {
+            if (championObj.activeSelf)
+            {
+                ChampionBase cBase = championObj.GetComponent<ChampionBase>();
+                ChampionHpMpController hpMpController = championObj.GetComponent<ChampionHpMpController>();
+                if (hpMpController != null && !hpMpController.IsDie())
+                {
+                    totalHp += cBase.Champion_CurHp;
+                }
+            }
+        }
+
+        return totalHp;
+    }
 }
