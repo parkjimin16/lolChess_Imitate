@@ -6,24 +6,38 @@ using static MapGenerator;
 public class Crip : MonoBehaviour
 {
     [SerializeField] private CripObjectData cripData;
-    private int currentHP;
+
+    [SerializeField]private int currentHP;
     public HexTile currentTile;
     public MapGenerator.MapInfo playerMapInfo;
+    public bool IsDie;
 
     //[SerializeField] private ItemTile itemtile;
 
+
+    public int CurrentHp
+    {
+        get { return currentHP; }
+        set { currentHP = value; }
+    }
+
+
+
     void Start()
     {
+        IsDie = false;
         currentHP = cripData.HP;
-        
     }
+
+
 
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            OnDeath();
+            IsDie = true;
+            Death();
         }
     }
 
@@ -63,8 +77,6 @@ public class Crip : MonoBehaviour
                 playerComponent.UserData.CripObjectList.Remove(this.gameObject);
             }
         }
-
-
         Destroy(this.gameObject);
     }
     void GenerateItem()

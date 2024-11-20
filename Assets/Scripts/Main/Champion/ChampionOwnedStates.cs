@@ -45,7 +45,14 @@ namespace ChampionOwnedStates
 
         public override void Enter(ChampionBase champion)
         {
-            champion.ChampionAttackController.AttackLogic();
+            if (Manager.Stage.isCripRound)
+            {
+                champion.ChampionAttackController.AttackLogic_Crip();
+            }
+            else
+            {
+                champion.ChampionAttackController.AttackLogic();
+            }
         }
         public override void Execute(ChampionBase champion)
         {

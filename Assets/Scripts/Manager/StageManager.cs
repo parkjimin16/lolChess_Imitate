@@ -51,11 +51,13 @@ public class StageManager
 
     private MapInfo battleMap;
 
-
     private int reRollCount;
+
+    private User user;
+    //private Dictionary<GameObject, ChampionOriginalState_Crip> championOriginalPositions = new Dictionary<GameObject, ChampionOriginalState_Crip>();
     #region Init
 
-    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData)
+    public void InitStage(GameObject[] playerData, MapGenerator mapGenerator, GameDataBlueprint gameData, User user1)
     {
         AllPlayers = playerData;
         _mapGenerator = mapGenerator;
@@ -68,7 +70,7 @@ public class StageManager
 
         InitializePlayers();
         StartStage(currentStage);
-        
+        user = user1;
     }
 
 
@@ -282,6 +284,10 @@ public class StageManager
     {
 
         IsBattleOngoing = true;
+
+        UserData userData = Manager.User.GetHumanUserData();
+        user.AutoPlaceUserChampions(userData);
+        //AutoPlaceUserChampions(user);
 
         yield return new WaitForSeconds(0.1f); // 0.1초 정도 지연
         // 플레이어 리스트를 섞습니다.
@@ -682,13 +688,35 @@ public class StageManager
         MergeScene.BatteStart = true;
         foreach (GameObject player in AllPlayers)
         {
+            Player playerComponent = player.GetComponent<Player>();
+            UserData userData = playerComponent.UserData;
 
-        }   
+            foreach (var champion in userData.BattleChampionObject)
+            {
+                if (!userData.ChampionOriginState.ContainsKey(champion))
+                {
+                    ChampionOriginalState originalState = new ChampionOriginalState
+                    {
+                        originalPosition = champion.transform.position,
+                        originalParent = champion.transform.parent,
+                        originalTile = champion.GetComponentInParent<HexTile>(),
+                        wasActive = champion.activeSelf
+                    };
+                    userData.ChampionOriginState[champion] = originalState;
+                }
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+            }
+        }
     }
 
     void SpawnCrips()
     {
         IsBattleOngoing = true;
+
+        UserData userData = Manager.User.GetHumanUserData();
+        user.AutoPlaceUserChampions(userData);
+
         foreach (GameObject player in AllPlayers)
         {
             Player playerComponent = player.GetComponent<Player>();
@@ -751,9 +779,8 @@ public class StageManager
                 if (cripComponent != null)
                 {
                     cripComponent.currentTile = tile;
-                    cripComponent.playerMapInfo = playerMapInfo;
+                    cripComponent.playerMapInfo = playerMapInfo; 
                 }
-
                 // 크립의 부모를 설정하여 맵 구조에 포함되도록 합니다.
                 CripPrefab.transform.SetParent(tile.transform);
                 
@@ -778,6 +805,7 @@ public class StageManager
         foreach (GameObject player in AllPlayers)
         {
             Player playerComponent = player.GetComponent<Player>();
+            UserData userData = playerComponent.UserData;
             MapInfo playerMapInfo = GetPlayerMapInfo(playerComponent);
 
             if (playerMapInfo == null)
@@ -826,8 +854,34 @@ public class StageManager
             // 플레이어 승리 여부 판단
             bool playerWon = survivingCrips == 0;
 
-            // 각 플레이어별로 라운드 종료 처리
-            //OnRoundEndForPlayer(playerComponent, playerWon, survivingCrips);
+
+            foreach (var kvp in userData.ChampionOriginState)
+            {
+                GameObject champion = kvp.Key;
+                ChampionOriginalState originalState = kvp.Value;
+
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+                cBase.ChampionAttackController.EndBattle();
+                cBase.ResetChampionStats();
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                cBase.ChampionRotationReset();
+
+                // 챔피언이 현재 속한 모든 타일에서 제거
+                RemoveChampionFromAllTiles(champion, playerMapInfo);
+
+                // 위치 및 부모 복구
+                champion.transform.position = originalState.originalPosition;
+                champion.transform.SetParent(originalState.originalParent);
+
+                // 원래 타일에 챔피언 추가
+                if (originalState.originalTile != null && !originalState.originalTile.championOnTile.Contains(champion))
+                {
+                    originalState.originalTile.championOnTile.Add(champion);
+                }
+            }
+
+            // 원래 상태 정보 초기화
+            userData.ChampionOriginState.Clear();
         }
 
         MergeScene.BatteStart = false;
@@ -859,6 +913,28 @@ public class StageManager
         DistributeExp();
     }
 
+    private void RemoveChampionFromAllTiles(GameObject champion, MapInfo playerMapInfo)
+    {
+        // Hex 타일에서 제거
+        foreach (var tileEntry in playerMapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.championOnTile.Contains(champion))
+            {
+                tile.championOnTile.Remove(champion);
+            }
+        }
+
+        // Rect 타일에서 제거
+        foreach (var tileEntry in playerMapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.championOnTile.Contains(champion))
+            {
+                tile.championOnTile.Remove(champion);
+            }
+        }
+    }
     #endregion
 
     #region AI실행
@@ -1003,6 +1079,61 @@ public class StageManager
         return path;
     }
 
+    public List<HexTile> FindShortestPath_Crip(GameObject champion1, GameObject champion2)
+    {
+        List<HexTile> path = new List<HexTile>();
+
+        ChampionBase cBase1 = champion1.GetComponent<ChampionBase>();
+        Crip crip = champion2.GetComponent<Crip>();
+
+        HexTile startTile = FindNearestTile(champion1, cBase1.Player.UserData.UserId);
+        HexTile targetTile = FindNearestTile(champion2, cBase1.Player.UserData.UserId);
+
+        // A* 알고리즘을 위한 우선순위 큐 및 거리 정보 초기화
+        PriorityQueue<HexTile> priorityQueue = new PriorityQueue<HexTile>();
+        Dictionary<HexTile, HexTile> cameFrom = new Dictionary<HexTile, HexTile>();
+        Dictionary<HexTile, float> costSoFar = new Dictionary<HexTile, float>();
+
+        priorityQueue.Enqueue(startTile, 0);
+        cameFrom[startTile] = null;
+        costSoFar[startTile] = 0;
+
+        while (priorityQueue.Count > 0)
+        {
+            HexTile currentTile = priorityQueue.Dequeue();
+
+            // 목표 타일에 도달한 경우 경로 추적
+            if (currentTile == targetTile)
+            {
+                while (currentTile != startTile)
+                {
+                    path.Add(currentTile);
+                    currentTile = cameFrom[currentTile];
+                }
+                path.Reverse();
+                return path;
+            }
+
+            // 인접 타일 검사
+            foreach (HexTile neighbor in GetNeighbors(currentTile, cBase1.Player.UserData.UserId))
+            {
+                float newCost = costSoFar[currentTile] + 1; // 기본 이동 비용은 1로 설정
+
+                if ((!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor]) &&
+                    (neighbor.championOnTile.Count == 0 || neighbor == targetTile))
+                {
+                    costSoFar[neighbor] = newCost;
+                    float priority = newCost + Vector3.Distance(neighbor.transform.position, targetTile.transform.position);
+                    priorityQueue.Enqueue(neighbor, priority);
+                    cameFrom[neighbor] = currentTile;
+                }
+            }
+        }
+
+        return path;
+    }
+
+
     // 이웃 타일
     private List<HexTile> GetNeighbors(HexTile tile, int index)
     {
@@ -1031,6 +1162,25 @@ public class StageManager
 
     // 챔피언 가장 가까운 타일
     public HexTile FindNearestTile(GameObject champion, int index)
+    {
+        Vector3 championPosition = champion.transform.position;
+        HexTile nearestTile = null;
+        float minDistance = float.MaxValue;
+
+        foreach (HexTile tile in _mapGenerator.mapInfos[index].HexDictionary.Values)
+        {
+            float distance = Vector3.Distance(championPosition, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        return nearestTile;
+    }
+
+    public HexTile FindNearestTile_Crip(GameObject champion, int index)
     {
         Vector3 championPosition = champion.transform.position;
         HexTile nearestTile = null;
@@ -1210,6 +1360,121 @@ public class StageManager
             return 1;
         else
             return 0;
+    }
+    #endregion
+
+    #region 챔피언 자동배치
+    private void AutoPlaceUserChampions(UserData userData)
+    {
+        // 현재 배틀필드에 배치된 챔피언 수 확인
+        int currentBattleChampions = userData.CurrentPlaceChampion;
+
+        // 플레이어의 최대 배치 가능 챔피언 수
+        int maxBattleChampions = userData.MaxPlaceChampion;
+
+        // 배치 가능한 슬롯 수 계산
+        int availableSlots = maxBattleChampions - currentBattleChampions;
+
+        if (availableSlots <= 0)
+        {
+            // 배치 가능한 슬롯이 없으면 반환
+            return;
+        }
+
+        // NonBattleChampionObject 리스트에서 챔피언을 가져옵니다.
+        List<GameObject> championsOnBench = new List<GameObject>(userData.NonBattleChampionObject);
+
+        // 배치 가능한 수만큼 챔피언 선택
+        for (int i = 0; i < availableSlots && championsOnBench.Count > 0; i++)
+        {
+            // 랜덤 챔피언 선택
+            int randomIndex = Random.Range(0, championsOnBench.Count);
+            GameObject championToPlace = championsOnBench[randomIndex];
+
+            PlaceChampionOnHexTileForUser(championToPlace, userData);
+            championsOnBench.RemoveAt(randomIndex);
+        }
+    }
+
+    private void PlaceChampionOnHexTileForUser(GameObject champion, UserData userData)
+    {
+        // 플레이어의 맵 정보를 가져옵니다.
+        MapGenerator.MapInfo mapInfo = userData.MapInfo;
+
+        if (mapInfo == null)
+        {
+            Debug.LogWarning($"플레이어 {userData.UserName}의 MapInfo를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 빈 HexTile 찾기
+        HexTile emptyTile = FindEmptyHexTile(mapInfo);
+
+        if (emptyTile != null)
+        {
+            // 챔피언의 현재 타일 정보 가져오기
+            HexTile currentTile = champion.transform.parent.GetComponent<HexTile>();
+            if (currentTile != null)
+            {
+                currentTile.championOnTile.Remove(champion);
+
+                // 현재 타일이 RectTile인지 확인하여 리스트 업데이트
+                if (currentTile.isRectangularTile)
+                {
+                    userData.NonBattleChampionObject.Remove(champion);
+                }
+                else
+                {
+                    userData.BattleChampionObject.Remove(champion);
+                }
+            }
+
+            // 챔피언의 위치와 부모를 업데이트
+            champion.transform.position = emptyTile.transform.position;
+            champion.transform.SetParent(emptyTile.transform);
+
+            // 타일 상태 업데이트
+            emptyTile.championOnTile.Add(champion);
+
+            // 새로운 타일이 RectTile인지 확인하여 리스트 업데이트
+            if (emptyTile.isRectangularTile)
+            {
+                userData.NonBattleChampionObject.Add(champion);
+            }
+            else
+            {
+                userData.BattleChampionObject.Add(champion);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"플레이어 {userData.UserName}의 HexTile에 빈 타일이 없습니다.");
+        }
+    }
+
+    private HexTile FindEmptyHexTile(MapGenerator.MapInfo mapInfo)
+    {
+        List<HexTile> availableTiles = new List<HexTile>();
+
+        // 조건에 맞는 타일들을 리스트에 추가합니다.
+        foreach (var tileEntry in mapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied && tile.CompareTag("PlayerTile"))
+            {
+                availableTiles.Add(tile);
+            }
+        }
+
+        // 리스트가 비어있지 않으면 랜덤한 타일을 반환합니다.
+        if (availableTiles.Count > 0)
+        {
+            int randomIndex = Random.Range(0, availableTiles.Count);
+            return availableTiles[randomIndex];
+        }
+
+        // 조건에 맞는 타일이 없으면 null을 반환합니다.
+        return null;
     }
     #endregion
 }

@@ -71,6 +71,8 @@ public class AIPlayer
             cBase.SetChampion(cBlueprint, aiPlayer);
             cBase.InitChampion(cFrame);
 
+            cBase.BattleStageIndex = aiPlayer.UserData.UserId;
+            Debug.Log(cBase.BattleStageIndex);
             //Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
 
             // AI 플레이어의 챔피언 리스트에 추가
@@ -101,10 +103,10 @@ public class AIPlayer
     private void DecideAndPlaceChampions()
     {
         // 현재 배틀필드에 배치된 챔피언 수 확인
-        int currentBattleChampions = aiUserData.BattleChampionObject.Count;
+        int currentBattleChampions = aiUserData.CurrentPlaceChampion;
 
-        // AI 플레이어의 레벨에 따른 최대 배치 가능 챔피언 수
-        int maxBattleChampions = 3; //aiUserData.Level; // 임시로 6레벨 줌
+        // AI 플레이어의 최대 배치 가능 챔피언 수
+        int maxBattleChampions = aiUserData.MaxPlaceChampion;
 
         // 배치 가능한 슬롯 수 계산
         int availableSlots = maxBattleChampions - currentBattleChampions;
@@ -116,6 +118,42 @@ public class AIPlayer
         }
 
         // RectTile에 있는 챔피언들 중에서 배치할 챔피언 선택
+        List<GameObject> championsOnBench = new List<GameObject>(aiUserData.NonBattleChampionObject);
+
+        // 배치 가능한 수만큼 챔피언 선택
+        for (int i = 0; i < availableSlots && championsOnBench.Count > 0; i++)
+        {
+            // 랜덤 챔피언 선택
+            int randomIndex = Random.Range(0, championsOnBench.Count);
+            GameObject championToPlace = championsOnBench[randomIndex];
+
+            PlaceChampionOnHexTile(championToPlace);
+            championsOnBench.RemoveAt(randomIndex);
+        }
+        Manager.User.ClearSynergy(aiUserData);
+        Manager.Champion.SettingNonBattleChampion(aiUserData);
+        Manager.Champion.SettingBattleChampion(aiUserData);
+
+        //uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+    }
+    private void AutoPlaceAIChampions()
+    {
+        // 현재 배틀필드에 배치된 챔피언 수 확인
+        int currentBattleChampions = aiUserData.CurrentPlaceChampion;
+
+        // AI 플레이어의 최대 배치 가능 챔피언 수
+        int maxBattleChampions = aiUserData.MaxPlaceChampion;
+
+        // 배치 가능한 슬롯 수 계산
+        int availableSlots = maxBattleChampions - currentBattleChampions;
+
+        if (availableSlots <= 0)
+        {
+            // 배치 가능한 슬롯이 없으면 반환
+            return;
+        }
+
+        // NonBattleChampionObject 리스트에서 챔피언을 가져옵니다.
         List<GameObject> championsOnBench = new List<GameObject>(aiUserData.NonBattleChampionObject);
 
         // 배치 가능한 수만큼 챔피언 선택

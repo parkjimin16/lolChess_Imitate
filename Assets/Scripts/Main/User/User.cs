@@ -346,6 +346,42 @@ public class User : MonoBehaviour
 
     private void HandleChampionDrop(HexTile hitTile)
     {
+        UserData userData = Manager.User.GetHumanUserData();
+
+        bool isDraggingChampionOnBattleGrid = userData.BattleChampionObject.Contains(_movableObj);
+
+        if (hitTile != null && !hitTile.isRectangularTile && !Manager.Stage.IsBattleOngoing)
+        {
+            if (userData.CurrentPlaceChampion >= userData.MaxPlaceChampion)
+            {
+                if (hitTile.HasChampion)
+                {
+                    if (!isDraggingChampionOnBattleGrid)
+                    {
+                        SwapChampions(hitTile);
+                    }
+                    else
+                    {
+                        StartReturningObject();
+                        Debug.Log("최대 배치 가능한 챔피언 수에 도달했습니다.");
+                    }
+                }
+                else
+                {
+                    if (isDraggingChampionOnBattleGrid)
+                    {
+                        PlaceObjectOnTile(hitTile);
+                    }
+                    else
+                    {
+                        StartReturningObject();
+                        Debug.Log("최대 배치 가능한 챔피언 수에 도달했습니다.");
+                    }
+                }
+                return;
+            }
+        }
+
         if (hitTile == null || (Manager.Stage.IsBattleOngoing && !hitTile.isRectangularTile))
         {
             StartReturningObject();
@@ -365,7 +401,7 @@ public class User : MonoBehaviour
         {
             UpdateSynergy();
         }
-        
+
         _movableObj = null;
     }
 
@@ -515,6 +551,8 @@ public class User : MonoBehaviour
 
         // 현재 타일 정보를 업데이트합니다.
         currentTile = hitTile.gameObject;
+
+        UpdateSynergy();
     }
     private void ObjectReturn()
     {
@@ -672,5 +710,120 @@ public class User : MonoBehaviour
 
         uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
     }
+
+    #region 챔피언 자동배치
+    public void AutoPlaceUserChampions(UserData userData)
+    {
+        // 현재 배틀필드에 배치된 챔피언 수 확인
+        int currentBattleChampions = userData.CurrentPlaceChampion;
+
+        // 플레이어의 최대 배치 가능 챔피언 수
+        int maxBattleChampions = userData.MaxPlaceChampion;
+
+        // 배치 가능한 슬롯 수 계산
+        int availableSlots = maxBattleChampions - currentBattleChampions;
+
+        if (availableSlots <= 0)
+        {
+            // 배치 가능한 슬롯이 없으면 반환
+            return;
+        }
+
+        // NonBattleChampionObject 리스트에서 챔피언을 가져옵니다.
+        List<GameObject> championsOnBench = new List<GameObject>(userData.NonBattleChampionObject);
+
+        // 배치 가능한 수만큼 챔피언 선택
+        for (int i = 0; i < availableSlots && championsOnBench.Count > 0; i++)
+        {
+            // 랜덤 챔피언 선택
+            int randomIndex = Random.Range(0, championsOnBench.Count);
+            GameObject championToPlace = championsOnBench[randomIndex];
+
+            PlaceChampionOnHexTileForUser(championToPlace, userData);
+            championsOnBench.RemoveAt(randomIndex);
+        }
+        UpdateSynergy();
+    }
+    private void PlaceChampionOnHexTileForUser(GameObject champion, UserData userData)
+    {
+        // 플레이어의 맵 정보를 가져옵니다.
+        MapGenerator.MapInfo mapInfo = userData.MapInfo;
+
+        if (mapInfo == null)
+        {
+            Debug.LogWarning($"플레이어 {userData.UserName}의 MapInfo를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 빈 HexTile 찾기
+        HexTile emptyTile = FindEmptyHexTile(mapInfo);
+
+        if (emptyTile != null)
+        {
+            // 챔피언의 현재 타일 정보 가져오기
+            HexTile currentTile = champion.transform.parent.GetComponent<HexTile>();
+            if (currentTile != null)
+            {
+                currentTile.championOnTile.Remove(champion);
+
+                // 현재 타일이 RectTile인지 확인하여 리스트 업데이트
+                if (currentTile.isRectangularTile)
+                {
+                    userData.NonBattleChampionObject.Remove(champion);
+                }
+                else
+                {
+                    userData.BattleChampionObject.Remove(champion);
+                }
+            }
+
+            // 챔피언의 위치와 부모를 업데이트
+            champion.transform.position = emptyTile.transform.position;
+            champion.transform.SetParent(emptyTile.transform);
+
+            // 타일 상태 업데이트
+            emptyTile.championOnTile.Add(champion);
+
+            // 새로운 타일이 RectTile인지 확인하여 리스트 업데이트
+            if (emptyTile.isRectangularTile)
+            {
+                userData.NonBattleChampionObject.Add(champion);
+            }
+            else
+            {
+                userData.BattleChampionObject.Add(champion);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"플레이어 {userData.UserName}의 HexTile에 빈 타일이 없습니다.");
+        }
+    }
+    private HexTile FindEmptyHexTile(MapGenerator.MapInfo mapInfo)
+    {
+        List<HexTile> availableTiles = new List<HexTile>();
+
+        // 조건에 맞는 타일들을 리스트에 추가합니다.
+        foreach (var tileEntry in mapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (!tile.isOccupied && tile.CompareTag("PlayerTile"))
+            {
+                availableTiles.Add(tile);
+            }
+        }
+
+        // 리스트가 비어있지 않으면 랜덤한 타일을 반환합니다.
+        if (availableTiles.Count > 0)
+        {
+            int randomIndex = Random.Range(0, availableTiles.Count);
+            return availableTiles[randomIndex];
+        }
+
+        // 조건에 맞는 타일이 없으면 null을 반환합니다.
+        return null;
+    }
+    #endregion
+
     #endregion
 }
