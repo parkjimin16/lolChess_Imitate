@@ -89,8 +89,8 @@ public class Crip : MonoBehaviour
         }
 
         PlayAnimation("Die");
-
-        Invoke("DestroyObj", 1.5f);
+        Destroy(gameObject);
+        //Invoke("DestroyObj", 1.5f);
     }
 
     public void PlayAnimation(string animationName)
