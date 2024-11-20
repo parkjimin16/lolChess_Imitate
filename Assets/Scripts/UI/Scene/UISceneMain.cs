@@ -18,6 +18,9 @@ public class UISceneMain : UIBase
     [Header("상점")]
     [SerializeField] private UIShopPanel uiShopPanel;
 
+    [Header("라운드 정보")]
+    [SerializeField] private UIRoundPanel uiRoundPanel;
+
     [Header("스테이지")]
     [SerializeField] private GameObject[] player;
     [SerializeField] private MapGenerator mapGenerator;
@@ -44,6 +47,12 @@ public class UISceneMain : UIBase
     {
         get { return uiShopPanel; }
         set { uiShopPanel = value; }
+    }
+
+    public UIRoundPanel UIRoundPanel
+    {
+        get { return uiRoundPanel; }
+        set { uiRoundPanel = value; }
     }
 
     protected override void Init()
