@@ -276,6 +276,7 @@ public class ChampionAttackController : MonoBehaviour
         if (tcBase.IsDie && tcBase != null)
         {
             StopAllCoroutines();
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             yield break;
         }
