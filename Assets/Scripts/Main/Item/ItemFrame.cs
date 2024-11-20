@@ -50,24 +50,4 @@ public class ItemFrame : MonoBehaviour
         Manager.UI.ClosePopup();
     }
     #endregion
-
-    #region Combine
-    public void TryCombineItem(ItemFrame targetItemFrame)
-    {
-        string combinedItemName = Manager.Item.ItemCombine(itemBlueprint.ItemId, targetItemFrame.ItemBlueprint.ItemId);
-
-        if (combinedItemName == "error")
-        {
-            Debug.Log("아이템 조합 실패");
-            return;
-        }
-
-        // 조합 성공 시 아이템 생성
-        Manager.Item.CreateItem(combinedItemName, new Vector3(0, 0, 0));
-
-        // 기존 아이템 파괴
-        Destroy(targetItemFrame.gameObject);
-        Destroy(gameObject);
-    }
-    #endregion
 }

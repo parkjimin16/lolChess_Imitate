@@ -994,7 +994,7 @@ MonoBehaviour:
     championJob: 0
   - material: {fileID: 2100000, guid: 1b4b7d21b01af6447b79307cd4953763, type: 2}
     icon: {fileID: 21300000, guid: 4c0c0cca54e7ddb48981226ce05ca0c1, type: 3}
-    itemId: C0189
+    itemId: C019
     itemName: "\uC804\uB7B5\uAC00\uC758 \uBC29\uD328"
     description: "\uC544\uAD70\uC758 \uCD5C\uB300 \uD300 \uADDC\uBAA8 +1 \uC99D\uAC00.\n\n\uC7A5\uCC29
       \uC720\uB2DB \uC0AC\uB9DD \uC2DC  1\uACE8\uB4DC\uB97C \uD68D\uB4DD\uD560 \uD655\uB960

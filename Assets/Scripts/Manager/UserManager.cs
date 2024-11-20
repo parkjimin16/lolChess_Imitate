@@ -303,6 +303,12 @@ public class UserData
         set { userSynergyData = value; }
     }
 
+    public List<ItemBlueprint> TotalItemBlueprint
+    {
+        get { return totalItemBlueprint;}
+        set { totalItemBlueprint = value; }
+    }
+
     public PlayerType PlayerType
     {
         get { return playerType; }

@@ -670,15 +670,12 @@ public class ChampionBase : MonoBehaviour
                 {
                     equipItem.Add(item);
                     CombineItem();
-                    championFrame.SetEquipItemImage(equipItem);     
                 }
             }
             else
             {
                 Debug.Log("Inventory is full!");
             }
-
-
         }
         else
         {
@@ -690,7 +687,6 @@ public class ChampionBase : MonoBehaviour
                 {
                     equipItem.Add(item);
                     CombineItem();
-                    championFrame.SetEquipItemImage(equipItem);
                 }
             }
             else
@@ -699,6 +695,7 @@ public class ChampionBase : MonoBehaviour
             }
         }
 
+        championFrame.SetEquipItemImage(equipItem);
         EquipItemChampionSetting();
         UpdateStatWithItem(equipItem);
     }
@@ -735,20 +732,34 @@ public class ChampionBase : MonoBehaviour
             ItemBlueprint combineItem2 = normalItems[1];
 
             string newId = Manager.Item.ItemCombine(combineItem1.ItemId, combineItem2.ItemId);
+            if (newId.Equals("Empty"))
+                return;
+
             ItemBlueprint combinedItem = Manager.Item.FindItemById(newId);
+
 
             if (CheckSymbol(combinedItem))
             {
                 equipItem.Add(combinedItem);
+                player.UserData.TotalItemBlueprint.Add(combinedItem);
+            }
+            else
+            {
+                GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+                obj.transform.position = new Vector3(0, 0, 0);
+                Capsule cap = obj.GetComponent<Capsule>();
+                List<string> item = new List<string>();
+                List<string> champion = new List<string>();
+
+                item.Add(combinedItem.ItemId);
+                cap.InitCapsule(0, item, champion);
             }
 
+            player.UserData.TotalItemBlueprint.Remove(combineItem1);
+            player.UserData.TotalItemBlueprint.Remove(combineItem2);
 
             equipItem.Remove(combineItem1);
             equipItem.Remove(combineItem2);
-        }
-        else
-        {
-            Debug.Log("Not enough normal items to combine!");
         }
     }
 

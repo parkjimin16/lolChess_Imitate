@@ -82,28 +82,27 @@ public class ItemTile : MonoBehaviour
 
             if (emptyTiles.Count > 0)
             {
-                // 빈 타일 중에서 무작위로 선택
+                if (MapInfo == null && MapInfo.playerData == null && MapInfo.playerData.UserData == null)
+                    return;
+
                 GameObject selectedTile = emptyTiles[Random.Range(0, emptyTiles.Count)];
 
-                // 아이템 생성
                 string itemId = Manager.Item.NormalItem[Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
                 GameObject newItem = Manager.Item.CreateItem(itemId, selectedTile.transform.position);
-
-                // 아이템을 타일의 자식으로 설정하고 위치 조정
                 newItem.transform.SetParent(selectedTile.transform);
                 newItem.transform.position = selectedTile.transform.position + new Vector3(0, 0.3f, 0);
 
-                // 타일의 상태 업데이트
                 HexTile tile = selectedTile.GetComponent<HexTile>();
                 tile.isItemTile = true;
                 tile.itemOnTile = newItem;
 
-                // MapInfo를 통해 UserData에 접근하여 아이템 추가
-                if (MapInfo != null && MapInfo.playerData != null && MapInfo.playerData.UserData != null)
-                {
-                    UserData userData = MapInfo.playerData.UserData;
-                    userData.UserItemObject.Add(newItem);
-                }
+
+                UserData userData = MapInfo.playerData.UserData;
+                ItemFrame bItem = newItem.GetComponent<ItemFrame>();
+                bItem.ItemBlueprint.BaseItem.FirstItem(userData);
+                userData.TotalItemBlueprint.Add(bItem.ItemBlueprint);
+                userData.UserItemObject.Add(newItem);
+
             }
             else
             {
@@ -128,6 +127,10 @@ public class ItemTile : MonoBehaviour
 
             if (emptyTiles.Count > 0)
             {
+                if (MapInfo == null && MapInfo.playerData == null && MapInfo.playerData.UserData == null)
+                    return;
+
+
                 GameObject selectedTile = emptyTiles[Random.Range(0, emptyTiles.Count)];
                 GameObject newItem = Manager.Item.CreateItem(itemId, selectedTile.transform.position);
 
@@ -138,12 +141,11 @@ public class ItemTile : MonoBehaviour
                 tile.isItemTile = true;
                 tile.itemOnTile = newItem;
 
-                // MapInfo를 통해 UserData에 접근하여 아이템 추가
-                if (MapInfo != null && MapInfo.playerData != null && MapInfo.playerData.UserData != null)
-                {
-                    UserData userData = MapInfo.playerData.UserData;
-                    userData.UserItemObject.Add(newItem);
-                }
+                UserData userData = MapInfo.playerData.UserData;
+                ItemFrame bItem = newItem.GetComponent<ItemFrame>();
+                bItem.ItemBlueprint.BaseItem.FirstItem(userData);
+                userData.TotalItemBlueprint.Add(bItem.ItemBlueprint);
+                userData.UserItemObject.Add(newItem);
             }
             else
             {

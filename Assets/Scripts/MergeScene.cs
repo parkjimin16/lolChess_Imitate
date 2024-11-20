@@ -77,15 +77,19 @@ public class MergeScene : MonoBehaviour
             List<string> item = new List<string>();
             List<string> champion = new List<string>();
 
-            item.Add("A001");
-            //item.Add("B012");
+            item.Add("C017");
+            item.Add("C018");
 
-
+            item.Add("A009");
+            item.Add("A009");
+            item.Add("A008");
+            item.Add("A008");
+            
             string a = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Olaf");
             string b = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Ashe");
 
-            champion.Add(a);
-            champion.Add(b);
+            //champion.Add(a);
+            //champion.Add(b);
 
             cap.InitCapsule(0, item, champion);
 
