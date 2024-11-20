@@ -126,7 +126,7 @@ public class StageManager
         PerformAIActions();
 
         // 라운드 전 대기시간 타이머 시작
-        UIManager.Instance.StartTimer(preWaitTime);
+        user.UIMain.UIRoundPanel.StartTimer(currentStage, preWaitTime);
 
         // 라운드 전 대기시간 동안 대기
         yield return new WaitForSeconds(preWaitTime);
@@ -147,7 +147,7 @@ public class StageManager
             SpawnCrip();
 
             // 매치 후 대기시간 타이머 시작
-            UIManager.Instance.StartTimer(postMatchWaitTime);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -158,7 +158,7 @@ public class StageManager
             StartCripRound();
 
             // 라운드 진행 시간 타이머 시작
-            UIManager.Instance.StartTimer(cripDuration);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, cripDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(cripDuration);
@@ -175,7 +175,7 @@ public class StageManager
             //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
-            UIManager.Instance.StartTimer(postMatchWaitTime);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -186,7 +186,7 @@ public class StageManager
             StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
-            UIManager.Instance.StartTimer(roundDuration);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, roundDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(roundDuration);
@@ -202,7 +202,7 @@ public class StageManager
             //GenerateMatchups();
 
             // 매치 후 대기시간 타이머 시작
-            UIManager.Instance.StartTimer(postMatchWaitTime);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, postMatchWaitTime);
 
             // 매치 후 대기시간 동안 대기
             yield return new WaitForSeconds(postMatchWaitTime);
@@ -213,7 +213,7 @@ public class StageManager
             StartAllBattles();
 
             // 라운드 진행 시간 타이머 시작
-            UIManager.Instance.StartTimer(roundDuration);
+            user.UIMain.UIRoundPanel.StartTimer(currentStage, roundDuration);
 
             // 라운드 진행 시간 동안 대기
             yield return new WaitForSeconds(roundDuration);
