@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChampionFrame : MonoBehaviour
+public class ChampionFrame : ObjectPoolable
 {
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Slider manaSlider;

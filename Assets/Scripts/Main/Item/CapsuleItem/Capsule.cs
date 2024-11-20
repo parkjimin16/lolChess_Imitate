@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Capsule : MonoBehaviour
+public class Capsule : ObjectPoolable
 {
     #region 변수 & 프로퍼티
     [SerializeField] private int gold;
