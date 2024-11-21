@@ -81,7 +81,8 @@ public class TestScene : UIBase
         if (currentChampionIndex < championPos.Count)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
+            //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
 
             frame.transform.SetParent(newChampionObject.transform, false);
             newChampionObject.transform.position = championPos[currentChampionIndex].transform.position;

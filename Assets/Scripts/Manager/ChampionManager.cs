@@ -114,7 +114,9 @@ public class ChampionManager
     public void InstantiateChampion(UserData user, ChampionBlueprint cBlueprint, HexTile hextile, Transform tileTransform)
     {
         GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-        GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+        //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+        GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
+        
         frame.transform.SetParent(newChampionObject.transform, false);
         newChampionObject.transform.position = tileTransform.position;
 

@@ -17,6 +17,10 @@ public class ObjectPoolable : MonoBehaviour
 
     public void ObjectOff()
     {
+        gameObject.transform.SetParent(Manager.ObjectPool.ObjpoolParent.transform);
+
+        transform.gameObject.SetActive(false);
+
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);

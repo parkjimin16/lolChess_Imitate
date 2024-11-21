@@ -240,7 +240,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void AddCarouselChampion()
     {
-        GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+        //GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+        GameObject obj = Manager.ObjectPool.GetGo("Capsule");
         obj.transform.position = player.UserData.MapInfo.mapTransform.position;
         Capsule cap = obj.GetComponent<Capsule>();
 

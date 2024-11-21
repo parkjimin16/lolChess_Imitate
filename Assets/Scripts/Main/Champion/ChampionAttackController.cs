@@ -483,8 +483,7 @@ public class ChampionAttackController : MonoBehaviour
 
             if (projectile != null)
             {
-                projectile.SetTarget(target, ChampionDamageSet());
-                Debug.Log(ChampionDamageSet());
+                projectile.SetTarget(target, cBase.GetDamage());
             }
         }
         else 
@@ -493,26 +492,17 @@ public class ChampionAttackController : MonoBehaviour
             isAttackRange = false;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-            if (distanceToTarget <= 1.5f)
+            if (distanceToTarget <= 3f)
             {
                 ChampionBase targetHealth = target.GetComponent<ChampionBase>();
                 if (targetHealth != null)
                 {
-                    PlayMeleeAttackAnimation();
-                    targetHealth.ChampionHpMpController.TakeDamage(ChampionDamageSet()); 
+                    targetHealth.ChampionHpMpController.TakeDamage(cBase.GetDamage()); 
                 }
             }
         }
     }
-    private void PlayMeleeAttackAnimation()
-    {
-        // 근접 공격 애니메이션 재생 로직 (예: animator.SetTrigger("MeleeAttack"))
-    }
 
-    private int ChampionDamageSet()
-    {
-        return cBase.Champion_TotalDamage;
-    }
 
     private IEnumerator UseSkillCoroutine()
     {

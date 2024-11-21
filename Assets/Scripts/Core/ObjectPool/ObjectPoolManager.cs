@@ -20,14 +20,17 @@ public class ObjectPoolManager
     }
 
     private ObjectInfo[] _poolList = new ObjectInfo[] {
-        new ObjectInfo("ChampionFrame", 100),
+        new ObjectInfo("ChampionFrame", 20),
         new ObjectInfo("Capsule", 20),
-        new ObjectInfo("ProjectileFrame", 150)
+        new ObjectInfo("ProjectileFrame", 30),
+        new ObjectInfo("NormalProjectile", 150),
+        new ObjectInfo("ItemFrame", 80),
+        //new ObjectInfo("Crip", 27)
     };
 
     private string objectName;
 
-    private GameObject objpoolParent;
+    public GameObject ObjpoolParent;
 
     private Dictionary<string, IObjectPool<GameObject>> poolDict = new Dictionary<string, IObjectPool<GameObject>>();
 
@@ -37,7 +40,7 @@ public class ObjectPoolManager
 
     public void Initialize()
     {
-        objpoolParent = new GameObject("Object Polling List");
+        ObjpoolParent = new GameObject("Object Polling List");
 
         for (int i = 0; i < _poolList.Length; i++)
         {
@@ -68,13 +71,19 @@ public class ObjectPoolManager
     {
         GameObject poolGo = Manager.Asset.InstantiatePrefab(objectName);
         poolGo.GetComponent<ObjectPoolable>().SetManagedPool(poolDict[objectName]);
-        poolGo.transform.SetParent(objpoolParent.transform);
+        poolGo.transform.SetParent(ObjpoolParent.transform);
         return poolGo;
     }
 
     private void OnGetProjectile(GameObject projectile)
     {
         projectile.SetActive(true);
+
+        for (int i = 0; i < projectile.transform.childCount; i++)
+        {
+            projectile.transform.GetChild(i).gameObject.SetActive(true);
+        }
+
     }
 
     private void OnReleaseProjectile(GameObject projectile)

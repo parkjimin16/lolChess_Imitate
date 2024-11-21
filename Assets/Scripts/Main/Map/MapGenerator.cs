@@ -659,7 +659,8 @@ public class MapGenerator : MonoBehaviour
 
             ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
             GameObject championPrefab = Manager.Asset.InstantiatePrefab(championBlueprint.ChampionInstantiateName);
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
             frame.transform.SetParent(championPrefab.transform, false);
             championPrefab.transform.position = position;
             championPrefab.transform.SetParent(carouselPivot);

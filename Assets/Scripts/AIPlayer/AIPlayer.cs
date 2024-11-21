@@ -58,7 +58,8 @@ public class AIPlayer
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
 
-            GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
+            GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
             frame.transform.SetParent(newChampionObject.transform, false);
             newChampionObject.transform.position = emptyTile.transform.position;
 

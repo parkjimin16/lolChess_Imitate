@@ -264,6 +264,12 @@ public class UIShopPanel : UIBase
         HexTile hex = Manager.Stage.GetParentTileInHex(champion);
         hex.championOnTile.Clear();
 
+
+        ChampionFrame cFrame = champion.GetComponentInChildren<ChampionFrame>();
+        cFrame.ReleaseObject();
+        cFrame.ObjectOff();
+
+
         Destroy(champion);
     }
 

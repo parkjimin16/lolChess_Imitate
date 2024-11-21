@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class ItemFrame : MonoBehaviour
+public class ItemFrame : ObjectPoolable
 {
     [SerializeField] private MeshRenderer mesh;
     [SerializeField] private Sprite itemImge;

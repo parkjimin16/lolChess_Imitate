@@ -39,6 +39,7 @@ public class MergeScene : MonoBehaviour
                 GameStart = true;
                 BatteStart = false;
 
+
                 Manager.Game.InitGameManager();
                 Manager.User.Init();
                 Manager.ObjectPool.Initialize();
@@ -73,8 +74,8 @@ public class MergeScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
-            obj.transform.position = new Vector3(0, 0, 0);
+            GameObject obj = Manager.ObjectPool.GetGo("Capsule");
+            obj.transform.position = new Vector3(0, 2, 0);
             Capsule cap = obj.GetComponent<Capsule>();
             List<string> item = new List<string>();
             List<string> champion = new List<string>();
@@ -82,10 +83,6 @@ public class MergeScene : MonoBehaviour
             item.Add("C017");
             item.Add("C018");
 
-            item.Add("A009");
-            item.Add("A009");
-            item.Add("A008");
-            item.Add("A008");
             
             string a = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Olaf");
             string b = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Ashe");

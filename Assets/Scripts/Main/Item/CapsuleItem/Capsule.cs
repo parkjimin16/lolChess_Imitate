@@ -50,7 +50,10 @@ public class Capsule : ObjectPoolable
                 && Manager.Champion.GetEmptyTileCount(player.UserData) >= championContainer.Count)
             {
                 Manager.User.UserCrushWithCapsule(player.UserData, gold, ItemContainer, championContainer);
-                Destroy(gameObject);
+                
+                ReleaseObject();
+                ObjectOff();
+                //Destroy(gameObject);
             }
         }
 

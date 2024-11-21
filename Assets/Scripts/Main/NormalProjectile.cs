@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class NormalProjectile : MonoBehaviour
+public class NormalProjectile : ObjectPoolable
 {
     public float speed = 10f;
     public int damage;
@@ -17,7 +17,7 @@ public class NormalProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (target == null)
+        if (target == null || !Manager.Stage.IsBattleOngoing)
         {
             Destroy(gameObject);
             return;

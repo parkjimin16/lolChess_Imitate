@@ -599,7 +599,7 @@ public class ChampionBase : MonoBehaviour
 
     public int GetDamage()
     {
-        return (int)((champion_AD_Power + Champion_AP_Power) * 0.1f);
+        return (int)((champion_AD_Power + Champion_AP_Power) * 0.5f);
     }
 
 
