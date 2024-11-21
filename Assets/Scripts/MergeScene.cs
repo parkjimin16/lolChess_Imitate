@@ -44,10 +44,10 @@ public class MergeScene : MonoBehaviour
                 Manager.User.Init();
                 Manager.ObjectPool.Initialize();
 
-                mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
-
                 Manager.User.InitMap(mapGenerator);
+                mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
+                
                 Manager.Champion.Init(gameDataBlueprint);
 
                 MinimapController minimapClickHandler = FindObjectOfType<MinimapController>();

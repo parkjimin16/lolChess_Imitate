@@ -71,6 +71,8 @@ public class UIShopPanel : UIBase
             i++;
         }
 
+        InitChampionPos();
+
         UpdateChampionPercent(Manager.User.GetHumanUserData());
 
         continous_Box.SetActive(false);
@@ -146,10 +148,17 @@ public class UIShopPanel : UIBase
 
       
     }
-    public void SetChampionPos(RectTile tile)
+    public void InitChampionPos()
     {
-        rtile = tile;
-        championPos = rtile.GetRectTileList();
+        UserData user = Manager.User.GetHumanUserData();
+        MapGenerator.MapInfo currentMap = user.MapInfo;
+        RectTile rectTile = currentMap.mapTransform.GetComponent<RectTile>();
+        championPos = rectTile.GetRectTileList();
+    }
+
+    public void SetChampionPos(List<Transform> setChamPos)
+    {
+        championPos = setChamPos;
     }
     public void Btn_ReRoll_Lock(PointerEventData eventData)
     {

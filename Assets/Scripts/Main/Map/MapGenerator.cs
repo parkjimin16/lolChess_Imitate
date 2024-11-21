@@ -179,7 +179,7 @@ public class MapGenerator : MonoBehaviour
                     UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
                     if (userIndex == 0) // 유저 정보 받아와서 수정하기
                     {
-                        uIShop.SetChampionPos(userMap.GetComponent<RectTile>());
+                        //uIShop.SetChampionPos(userMap.GetComponent<RectTile>());
                     }
 
                     // 각 유저들 맵정보 저장
