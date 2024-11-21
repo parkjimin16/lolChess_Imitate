@@ -30,7 +30,7 @@ public class User : MonoBehaviour
     private EventSystem eventSystem;
 
     private HexTile _previousHoveredTile = null;
-
+    private UserData player1;
     private class ReturningObjectData
     {
         public GameObject obj;
@@ -715,11 +715,16 @@ public class User : MonoBehaviour
     }
     private void UpdateSynergy()
     {
-        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
+        if(Manager.Stage.isCripRound || !Manager.Stage.IsBattleOngoing) 
+        {
+            player1 = Manager.User.GetHumanUserData();
+        }
 
-        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+        Manager.User.ClearSynergy(player1);
+        Manager.Champion.SettingNonBattleChampion(player1);
+        Manager.Champion.SettingBattleChampion(player1);
+
+        uiMain?.UISynergyPanel.UpdateSynergy(player1);
     }
 
     #region 챔피언 자동배치
@@ -976,6 +981,11 @@ public class User : MonoBehaviour
                 hoveredTransform = hoveredTransform.parent;
             }
         }
+    }
+
+    public UserData ReturnUser(UserData user)
+    {
+        return player1 = user;
     }
     #endregion
 }
