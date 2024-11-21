@@ -136,7 +136,7 @@ public class ItemManager
 
         item.InitBaseItem();
         
-        GameObject itemObj = Manager.Asset.InstantiatePrefab("ItemFrame");
+        GameObject itemObj = Manager.ObjectPool.GetGo("ItemFrame");
         itemObj.transform.position = pos;
 
         ItemFrame iFrame = itemObj.GetComponent<ItemFrame>();
@@ -160,7 +160,7 @@ public class ItemManager
             itemId.Add(itemList[i].ItemId);
         }
 
-        GameObject itemObj = Manager.Asset.InstantiatePrefab("Capsule");
+        GameObject itemObj = Manager.ObjectPool.GetGo("Capsule");
         Capsule cap = itemObj.GetComponent<Capsule>();
         itemObj.transform.position = new Vector3(0, 1, 0);
 

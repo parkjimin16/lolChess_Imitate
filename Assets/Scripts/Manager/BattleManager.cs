@@ -126,7 +126,18 @@ public class BattleManager
 
         SuccessiveWinLose(player1, player2, player1Won);
 
-        //Debug.Log(player1Won ? $"{player1.GetComponent<Player>().UserData.UserName} ½Â¸®" : $"{player2.GetComponent<Player>().UserData.UserName} ½Â¸®");
+        if(p1.UserData == Manager.User.GetHumanUserData())
+        {
+            p1.UserData.UIMain.UIShopPanel.UpdateContinousBox(p1.UserData);
+            p1.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player1Won);
+        }
+        else if (p2.UserData == Manager.User.GetHumanUserData())
+        {
+            bool player2Won = !player1Won;
+            p2.UserData.UIMain.UIShopPanel.UpdateContinousBox(p2.UserData);
+            p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
+        }
+
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         MergeScene.BatteStart = false;
     }

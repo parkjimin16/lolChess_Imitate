@@ -22,8 +22,7 @@ public class ObjectPoolManager
     private ObjectInfo[] _poolList = new ObjectInfo[] {
         new ObjectInfo("ChampionFrame", 20),
         new ObjectInfo("Capsule", 20),
-        new ObjectInfo("ProjectileFrame", 30),
-        new ObjectInfo("NormalProjectile", 150),
+        new ObjectInfo("NormalProjectile", 100),
         new ObjectInfo("ItemFrame", 80),
         //new ObjectInfo("Crip", 27)
     };

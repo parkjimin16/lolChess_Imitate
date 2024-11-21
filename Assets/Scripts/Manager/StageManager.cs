@@ -763,7 +763,7 @@ public class StageManager
                 HexTile tile = availableTiles[i];
 
                 CripPrefab = Manager.Asset.InstantiatePrefab("Crip", tile.transform);
-                CripPrefab.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+                CripPrefab.transform.position = tile.transform.position;
                 playerComponent.UserData.CripObjectList.Add(CripPrefab);
 
                 // 타일에 크립을 설정합니다.

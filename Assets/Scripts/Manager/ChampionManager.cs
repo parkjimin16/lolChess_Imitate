@@ -172,7 +172,7 @@ public class ChampionManager
 
         if (cBase.EquipItem.Count > 0)
         {
-            GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+            GameObject obj = Manager.ObjectPool.GetGo("Capsule");
             obj.transform.position = new Vector3(0, 1, 0);
             Capsule cap = obj.GetComponent<Capsule>();
             List<string> item = new List<string>();

@@ -430,9 +430,10 @@ public class ChampionAttackController : MonoBehaviour
         {
             Crip tcBase = targetChampion.GetComponent<Crip>();
 
-            if (tcBase.IsDie)
+            if (tcBase.IsDie || !CanAttack(targetChampion))
             {
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                attackLogic = false;
                 yield break;
             }
 
@@ -476,7 +477,8 @@ public class ChampionAttackController : MonoBehaviour
             // 원거리 공격 - 발사체 생성
             isAttackRange = true;
 
-            GameObject projectileObject = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+            GameObject projectileObject = Manager.ObjectPool.GetGo("NormalProjectile");
+            projectileObject.transform.position = shootPoint.position;
             NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
 
             if (projectile != null)

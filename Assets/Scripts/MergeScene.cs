@@ -85,10 +85,10 @@ public class MergeScene : MonoBehaviour
 
             
             string a = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Olaf");
-            string b = Manager.Champion.GetChampionInstantiateName("ChampionFrame_Ashe");
+            string b = Manager.Champion.GetChampionInstantiateName("ChampionFrame_NorraYummi");
 
-            //champion.Add(a);
-            //champion.Add(b);
+            champion.Add(a);
+            champion.Add(b);
 
             cap.InitCapsule(0, item, champion);
 
