@@ -378,8 +378,6 @@ public class ChampionAttackController : MonoBehaviour
 
         attackLogic = true;
 
-
-
         while (targetChampion != null)
         {
             ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();

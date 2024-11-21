@@ -140,6 +140,7 @@ public class CripMovement : MonoBehaviour
 
                 // 현재 타일 업데이트
                 currentTile = hitTile;
+                crip.currentTile = currentTile;
             }
             // 현재 타일과 같다면 아무 작업도 하지 않음
         }
