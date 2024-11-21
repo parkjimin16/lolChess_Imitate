@@ -14,7 +14,6 @@ public class BattleManager
         if (battleCoroutines.ContainsKey(player1))
             return;
 
-
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
 
