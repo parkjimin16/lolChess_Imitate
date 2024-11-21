@@ -27,7 +27,6 @@ namespace ChampionOwnedStates
         public override void Enter(ChampionBase champion)
         {
             // 전투 시작
-            champion.ChampionAttackController.StopAllCoroutines();
             champion.ChampionAttackController.FindPathToTarget();
         }
         public override void Execute(ChampionBase champion)
@@ -60,7 +59,7 @@ namespace ChampionOwnedStates
         }
         public override void Exit(ChampionBase champion)
         {
-            champion.ChampionAttackController.AttackLogicStop();
+            //champion.ChampionAttackController.AttackLogicStop();
         }
     }
 

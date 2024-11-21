@@ -6,11 +6,12 @@ public class NormalProjectile : ObjectPoolable
     public float speed = 10f;
     public int damage;
     [SerializeField] private GameObject target;
-
-    public void SetTarget(GameObject target, int damage)
+    private ChampionBase championBase;
+    public void SetTarget(ChampionBase cBase, GameObject target, int damage)
     {
         this.target = target;
         this.damage = damage;
+        championBase = cBase;
 
         StartCoroutine(DestroyAfterDelay(3f));
     }
