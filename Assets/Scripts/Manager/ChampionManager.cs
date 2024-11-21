@@ -131,6 +131,20 @@ public class ChampionManager
         cBase.InitChampion(cFrame);
 
         Manager.Champion.SettingNonBattleChampion(user);
+
+        if(Manager.Stage.IsBattleOngoing)
+        {
+            ChampionOriginalState originalState = new ChampionOriginalState
+            {
+                originalPosition = hextile.transform.position,
+                originalParent = hextile.transform,
+                originalTile = hextile,
+                wasActive = newChampionObject.activeSelf,
+                originalMapInfo = user.MapInfo // 원래 맵 정보 저장
+            };
+            //Debug.Log(originalState.originalMapInfo);
+            user.ChampionOriginState[newChampionObject] = originalState;
+        }
     }
 
     // 챔피언 생성 위치 반환
@@ -208,9 +222,10 @@ public class ChampionManager
         {
             user.NonBattleChampionObject.Remove(targetChampion);
         }
-
-
-
+        if (user.ChampionOriginState.ContainsKey(targetChampion))
+        {
+            user.ChampionOriginState.Remove(targetChampion);
+        }
 
         Manager.Synergy.UpdateSynergies(user);
     }
@@ -233,7 +248,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         userData.TotalChampionObject.Add(champion);
                         userData.NonBattleChampionObject.Add(champion);
@@ -249,7 +264,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     { 
                         userData.TotalChampionObject.Add(champion);
                         userData.BattleChampionObject.Add(champion);
@@ -269,7 +284,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         userData.TotalChampionObject.Add(champion);
                     }
@@ -285,7 +300,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         userData.TotalChampionObject.Add(champion);
                     }
@@ -312,7 +327,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         AddNonBattleChampion(userData, champion);
                     }
@@ -384,7 +399,7 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         AddBattleChampion(userData, champion);
                     }
@@ -518,4 +533,5 @@ public class ChampionOriginalState
     public Transform originalParent;
     public HexTile originalTile;
     public bool wasActive;
+    public MapGenerator.MapInfo originalMapInfo;
 }

@@ -103,7 +103,6 @@ public class UIShopPanel : UIBase
         if (hextile == null)
             return;
 
-
         HideSlot(obj);
         Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
     }

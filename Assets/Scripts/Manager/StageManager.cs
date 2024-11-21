@@ -27,8 +27,8 @@ public class StageManager
     private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 10; //일반 라운드 진행시간
-    private int cripDuration = 10; //크립 라운드 진행시간
+    private int roundDuration = 3; //일반 라운드 진행시간
+    private int cripDuration = 3; //크립 라운드 진행시간
 
 
     private bool isAugmentRound = false;
@@ -44,7 +44,7 @@ public class StageManager
 
     private int reRollCount;
 
-    private User user;
+    public User user;
     //private Dictionary<GameObject, ChampionOriginalState_Crip> championOriginalPositions = new Dictionary<GameObject, ChampionOriginalState_Crip>();
     #region Init
 
@@ -854,27 +854,28 @@ public class StageManager
             {
                 GameObject champion = kvp.Key;
                 ChampionOriginalState originalState = kvp.Value;
-
+                
                 ChampionBase cBase = champion.GetComponent<ChampionBase>();
-                cBase.ChampionAttackController.EndBattle();
-                cBase.ResetChampionStats();
-                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
-                cBase.ChampionRotationReset();
-
-                // 챔피언이 현재 속한 모든 타일에서 제거
-                RemoveChampionFromAllTiles(champion, playerMapInfo);
-
-                // 위치 및 부모 복구
-                champion.transform.position = originalState.originalPosition;
-                champion.transform.SetParent(originalState.originalParent);
-
-                // 원래 타일에 챔피언 추가
-                if (originalState.originalTile != null && !originalState.originalTile.championOnTile.Contains(champion))
+                if (userData.BattleChampionObject.Contains(champion))
                 {
-                    originalState.originalTile.championOnTile.Add(champion);
+                    cBase.ChampionAttackController.EndBattle();
+                    cBase.ResetChampionStats();
+                    cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                    cBase.ChampionRotationReset();
+                    // 챔피언이 현재 속한 모든 타일에서 제거
+                    RemoveChampionFromAllTiles(champion, playerMapInfo);
+
+                    // 위치 및 부모 복구
+                    champion.transform.position = originalState.originalPosition;
+                    champion.transform.SetParent(originalState.originalParent);
+
+                    // 원래 타일에 챔피언 추가
+                    if (originalState.originalTile != null && !originalState.originalTile.championOnTile.Contains(champion))
+                    {
+                        originalState.originalTile.championOnTile.Add(champion);
+                    }
                 }
             }
-
             // 원래 상태 정보 초기화
             userData.ChampionOriginState.Clear();
         }

@@ -115,7 +115,7 @@ public class BattleManager
 
         // Init player2
         RestoreOpponentPlayer(player2);
-        RestoreOpponentChampions(player2);
+        RestoreOpponentChampions2(player2);
         RestoreOpponentItems(player2);
 
         Player playerComponent1 = player1.GetComponent<Player>();
@@ -192,6 +192,15 @@ public class BattleManager
         Player playerComponent1 = player1.GetComponent<Player>();
         Player playerComponent2 = player2.GetComponent<Player>();
 
+        if (playerComponent2.UserData == Manager.User.GetHumanUserData())
+        {
+            GameObject shop = GameObject.Find("ShopPanel");
+            UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
+            RectTile reverseRect = playerComponent1.UserData.MapInfo.mapTransform.GetComponent<RectTile>();
+            uIShop.SetChampionPos(reverseRect.GetReversRectTileList());
+            //Manager.Stage.user.ReturnUser(playerComponent1.UserData);
+        }
+
         playerComponent1.SetBattleStageIndex(playerComponent1.UserData.UserId);
         playerComponent2.SetBattleStageIndex(playerComponent1.UserData.UserId);
 
@@ -215,6 +224,13 @@ public class BattleManager
     private void RestoreOpponentPlayer(GameObject opponent)
     {
         Player opponentComponent = opponent.GetComponent<Player>();
+
+        if(opponentComponent.UserData == Manager.User.GetHumanUserData())
+        {
+            GameObject shop = GameObject.Find("ShopPanel");
+            UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
+            uIShop.InitChampionPos();
+        }
 
         if (opponentComponent != null)
         {
@@ -374,61 +390,170 @@ public class BattleManager
         //int y = opponentTile.y;
 
         // 좌표를 반전합니다.
-        int mirroredX = 8 - x;
-        int mirroredY = 8;
-        if (playerMapInfo.RectDictionary.TryGetValue((mirroredX, mirroredY), out HexTile mirroredTile))
+        if (opponentTile.y == -1)
         {
-            return mirroredTile;
+            int mirroredX = 8 - x;
+            int mirroredY = 8;
+            if (playerMapInfo.RectDictionary.TryGetValue((mirroredX, mirroredY), out HexTile mirroredTile))
+            {
+                return mirroredTile;
+            }
+            else
+            {
+                Debug.LogWarning($"반전된 좌표 ({mirroredX}, {mirroredY})에 해당하는 타일을 찾을 수 없습니다.");
+                return null;
+            }
         }
-        else
+        else if (opponentTile.y == 8)
         {
-            Debug.LogWarning($"반전된 좌표 ({mirroredX}, {mirroredY})에 해당하는 타일을 찾을 수 없습니다.");
-            return null;
+            int mirroredX = 8 - x;
+            int mirroredY = -1;
+            Debug.Log($"{mirroredX}, {mirroredY}");
+            if (playerMapInfo.RectDictionary.TryGetValue((mirroredX, mirroredY), out HexTile mirroredTile))
+            {
+                return mirroredTile;
+            }
+            else
+            {
+                Debug.LogWarning($"반전된 좌표 ({mirroredX}, {mirroredY})에 해당하는 타일을 찾을 수 없습니다.");
+                return null;
+            }
         }
+        else { return null; }
     }
     private void RestoreOpponentChampions(GameObject opponent)
     {
         Player opponentComponent = opponent.GetComponent<Player>();
         UserData opponentData = opponentComponent.UserData;
 
-        foreach(var champ in opponentData.TotalChampionObject)
+        foreach (var champ in opponentData.TotalChampionObject)
         {
             champ.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        foreach (var kvp in opponentData.ChampionOriginState)
+        foreach (var kvp in opponentData.ChampionOriginState.ToList()) // ToList()로 컬렉션 수정 방지
         {
             GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;
 
-            if (!champion.activeSelf && originalState.wasActive)
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            cBase.ChampionAttackController.EndBattle();
+            cBase.ResetChampionStats();
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            cBase.ChampionRotationReset();
+
+            // 챔피언이 이동한 맵을 확인
+            if (originalState.originalMapInfo != opponentData.MapInfo)
             {
-                champion.SetActive(true);
+                // 챔피언이 원래 맵과 다른 맵에 있을 경우 이동
+                MoveChampionToOriginalMap(champion, originalState);
             }
-
-            HexTile currentTile = champion.GetComponentInParent<HexTile>();
-
-            if (currentTile != null)
+            else
             {
-                currentTile.championOnTile.Remove(champion);
-            }
-
-            // 원래 타일로 복귀
-            champion.transform.position = originalState.originalPosition;
-            champion.transform.SetParent(originalState.originalParent);
-
-            // 타일 정보 업데이트
-            currentTile = originalState.originalTile;
-
-            if (originalState.originalTile != null)
-            {
-                originalState.originalTile.championOnTile.Add(champion);
+                // 챔피언이 원래 맵에 있는 경우 위치 복귀
+                MoveChampionToOriginalPosition(champion, originalState);
             }
         }
 
         // 원래 상태 정보 초기화
         opponentData.ChampionOriginState.Clear();
     }
+
+    private void RestoreOpponentChampions2(GameObject opponent)
+    {
+        Player opponentComponent = opponent.GetComponent<Player>();
+        UserData opponentData = opponentComponent.UserData;
+
+        foreach (var champ in opponentData.TotalChampionObject)
+        {
+            champ.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        foreach (var kvp in opponentData.ChampionOriginState.ToList()) // ToList()로 컬렉션 수정 방지
+        {
+            GameObject champion = kvp.Key;
+            ChampionOriginalState originalState = kvp.Value;
+            HexTile opponentTile = champion.GetComponentInParent<HexTile>();
+
+            if(opponentTile == null)
+            {
+                Debug.Log("널이다");
+            }
+
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            cBase.ChampionAttackController.EndBattle();
+            cBase.ResetChampionStats();
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            cBase.ChampionRotationReset();
+
+            // 챔피언이 이동한 맵을 확인
+            if (originalState.originalMapInfo != opponentData.MapInfo)
+            {
+                // 챔피언이 원래 맵과 다른 맵에 있을 경우, GetMirroredRectTile 적용
+                HexTile mirroredTile = GetMirroredRectTile(opponentTile, originalState.originalMapInfo);
+                if (mirroredTile != null)
+                {
+                    // 챔피언의 현재 타일에서 제거
+                    HexTile currentTile = champion.GetComponentInParent<HexTile>();
+                    if (currentTile != null)
+                    {
+                        currentTile.championOnTile.Remove(champion);
+                    }
+
+                    // 챔피언의 위치와 부모를 반전된 타일로 설정
+                    champion.transform.position = mirroredTile.transform.position;
+                    champion.transform.SetParent(mirroredTile.transform);
+
+                    // 타일 상태 업데이트
+                    mirroredTile.championOnTile.Add(champion);
+                }
+            }
+            else
+            {
+                // 챔피언이 원래 맵에 있는 경우 위치 복귀
+                MoveChampionToOriginalPosition(champion, originalState);
+            }
+        }
+
+        // 원래 상태 정보 초기화
+        opponentData.ChampionOriginState.Clear();
+    }
+
+
+    private void MoveChampionToOriginalMap(GameObject champion, ChampionOriginalState originalState)
+    {
+        // 원래 맵으로 챔피언 이동
+        MapGenerator.MapInfo originalMap = originalState.originalMapInfo;
+        HexTile originalTile = originalState.originalTile;
+
+        // 현재 타일에서 챔피언 제거
+        HexTile currentTile = champion.GetComponentInParent<HexTile>();
+        if (currentTile != null)
+        {
+            currentTile.championOnTile.Remove(champion);
+        }
+
+        // 챔피언의 위치와 부모를 원래 타일로 설정
+        champion.transform.position = originalState.originalPosition;
+        champion.transform.SetParent(originalTile.transform);
+
+        // 타일 상태 업데이트
+        originalTile.championOnTile.Add(champion);
+    }
+
+    private void MoveChampionToOriginalPosition(GameObject champion, ChampionOriginalState originalState)
+    {
+        // 챔피언의 위치와 부모를 원래 위치로 설정
+        champion.transform.position = originalState.originalPosition;
+        champion.transform.SetParent(originalState.originalParent);
+
+        // 타일 상태 업데이트
+        if (originalState.originalTile != null)
+        {
+            originalState.originalTile.championOnTile.Add(champion);
+        }
+    }
+
     #endregion
 
     #region 아이템 이동 로직
