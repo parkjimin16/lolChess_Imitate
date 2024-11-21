@@ -100,11 +100,12 @@ public class ChampionAttackController : MonoBehaviour
     }
     #endregion
 
-    #region
+    #region Unity Flow
 
     private void Update()
     {
-        if (targetChampion == null && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.CripObjectList.Count != 0)
+        if (targetChampion == null && Manager.Stage.IsBattleOngoing && 
+            cBase.Player.UserData.CripObjectList.Count != 0 && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
         {
             targetChampion = null;
             AttackLogicStop();

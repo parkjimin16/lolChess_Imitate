@@ -160,6 +160,7 @@ public class UserData
     [SerializeField] private List<GameObject> totalChampionObject;
     [SerializeField] private List<GameObject> battleChampionObject;
     [SerializeField] private List<GameObject> nonBattleChamiponObject;
+    [SerializeField] private Queue<GameObject> mergeChampionQueue;
     [SerializeField] private List<ItemBlueprint> totalItemBlueprint;
     [SerializeField] private List<UserSynergyData> userSynergyData;
     [SerializeField] private MapGenerator.MapInfo mapInfo;
@@ -297,6 +298,12 @@ public class UserData
         set {  nonBattleChamiponObject = value; }
     }
 
+    public Queue<GameObject> MergeChampionQueue
+    {
+        get { return mergeChampionQueue; }
+        set {  mergeChampionQueue = value; }
+    }
+
     public List<UserSynergyData> UserSynergyData
     {
         get { return userSynergyData; }
@@ -431,6 +438,7 @@ public class UserData
         userItemObject = new List<GameObject>();
         itemOriginalStates = new Dictionary<GameObject, ItemOriginalState>();
         CripObject = new List<GameObject>();
+        mergeChampionQueue = new Queue<GameObject>();
 
         gold = _gold;
         userName = _userName;

@@ -879,6 +879,9 @@ public class StageManager
             }
             // 원래 상태 정보 초기화
             userData.ChampionOriginState.Clear();
+
+
+            Manager.Champion.OnBattleEnd(userData);
         }
         MergeScene.BatteStart = false;
         IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
@@ -905,6 +908,7 @@ public class StageManager
                 CoroutineHelper.StopCoroutine(roundCoroutine);
             roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
         }
+
         DistributeGoldToPlayers();
         DistributeExp();
     }
