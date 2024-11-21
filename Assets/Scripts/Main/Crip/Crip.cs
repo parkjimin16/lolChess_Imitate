@@ -48,6 +48,7 @@ public class Crip : MonoBehaviour
         if (currentHP <= 0)
         {
             IsDie = true;
+
             Death();
         }
     }
@@ -95,8 +96,7 @@ public class Crip : MonoBehaviour
         }
 
         PlayAnimation("Die");
-        Destroy(gameObject);
-        //Invoke("DestroyObj", 1.5f);
+        Invoke("DestroyObj", 0.5f);
     }
 
     public void PlayAnimation(string animationName)

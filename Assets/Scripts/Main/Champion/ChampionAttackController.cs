@@ -39,6 +39,13 @@ public class ChampionAttackController : MonoBehaviour
 
     [SerializeField] private bool attackLogic;
     [SerializeField] private bool isAttackRange;
+
+    public GameObject TargetChampion 
+    {
+        get { return targetChampion; }
+        set { targetChampion = value; }
+    }
+    
     public bool IsUseSkill()
     {
         return isUseSkill;
@@ -51,7 +58,6 @@ public class ChampionAttackController : MonoBehaviour
         return Vector3.Distance(gameObject.transform.position, target.transform.position) <= realAttackRange;
     }
 
-    public GameObject TargetChampion => targetChampion;
     public List<HexTile> Path
     {
         get { return path; }
@@ -94,6 +100,21 @@ public class ChampionAttackController : MonoBehaviour
     }
     #endregion
 
+    #region
+
+    private void Update()
+    {
+        if (targetChampion == null && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.CripObjectList.Count != 0)
+        {
+            targetChampion = null;
+            AttackLogicStop();
+            StopAllCoroutines();
+            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+        }
+    }
+
+    #endregion
+
     #region 탐색 로직
 
     public void FindPathToTarget()
@@ -110,7 +131,6 @@ public class ChampionAttackController : MonoBehaviour
 
             if (userData == null || userData.CripObjectList.Count == 0)
             {
-                Debug.Log("이 플레이어에게 크립이 없습니다.");
                 cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 return;
             }
@@ -159,8 +179,13 @@ public class ChampionAttackController : MonoBehaviour
 
             path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
 
-            StopAllCoroutines();
-            StartCoroutine(StartMoveAndCheck_Crip());
+
+            if(targetChampion != null)
+            {
+                StopAllCoroutines();
+                StartCoroutine(StartMoveAndCheck_Crip());
+            }
+
         }
         else
         {
@@ -307,6 +332,7 @@ public class ChampionAttackController : MonoBehaviour
         Vector3 targetPosition = nextTile.transform.position;
 
         curTile.championOnTile.Remove(gameObject);
+        curTile = null;
         nextTile.championOnTile.Add(gameObject);
         gameObject.transform.SetParent(nextTile.transform);
 
@@ -364,11 +390,11 @@ public class ChampionAttackController : MonoBehaviour
 
     public void AttackLogicStop()
     {
-        if(attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
-        }
+        if (!attackLogic)
+            return;
+
+        attackLogic = false;
+        StopAllCoroutines();
     }
 
     private IEnumerator AttackRoutine()
@@ -426,11 +452,11 @@ public class ChampionAttackController : MonoBehaviour
         attackLogic = true;
 
 
-        while (targetChampion != null)
+        while (targetChampion != null && targetChampion.activeInHierarchy)
         {
             Crip tcBase = targetChampion.GetComponent<Crip>();
 
-            if (tcBase.IsDie || !CanAttack(targetChampion))
+            if (tcBase.IsDie || tcBase == null || !CanAttack(targetChampion))
             {
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 attackLogic = false;
@@ -453,6 +479,9 @@ public class ChampionAttackController : MonoBehaviour
             {
                 Debug.Log("스킬 사용");
                 cBase.ChampionHpMpController.UseSkillMana();
+
+                CreateNormalAttack(targetChampion);
+                cBase.ChampionHpMpController.NormalAttackMana();
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())
@@ -461,8 +490,14 @@ public class ChampionAttackController : MonoBehaviour
                 cBase.ChampionHpMpController.NormalAttackMana();
             }
 
+            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                Debug.Log("공격 코루틴 while문 진행");
+
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
         }
+
+        if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+            Debug.Log("공격 코루틴 while문 탈출");
 
         attackLogic = false;
     }
@@ -483,7 +518,7 @@ public class ChampionAttackController : MonoBehaviour
 
             if (projectile != null)
             {
-                projectile.SetTarget(target, cBase.GetDamage());
+                projectile.SetTarget(cBase, target, cBase.GetDamage());
             }
         }
         else 
@@ -492,12 +527,26 @@ public class ChampionAttackController : MonoBehaviour
             isAttackRange = false;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-            if (distanceToTarget <= 3f)
+            if (Manager.Stage.isCripRound)
             {
-                ChampionBase targetHealth = target.GetComponent<ChampionBase>();
-                if (targetHealth != null)
+                if (distanceToTarget <= 3f)
+                {                    
+                    Crip targetHealth = target.GetComponent<Crip>();
+                    if (targetHealth != null)
+                    {
+                        targetHealth.TakeDamage(cBase.GetDamage());
+                    }
+                }
+            }
+            else
+            {
+                if (distanceToTarget <= 3f)
                 {
-                    targetHealth.ChampionHpMpController.TakeDamage(cBase.GetDamage()); 
+                    ChampionBase targetHealth = target.GetComponent<ChampionBase>();
+                    if (targetHealth != null)
+                    {
+                        targetHealth.ChampionHpMpController.TakeDamage(cBase.GetDamage());
+                    }
                 }
             }
         }

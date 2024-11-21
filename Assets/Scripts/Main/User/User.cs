@@ -234,7 +234,6 @@ public class User : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
             GameObject hitObject = hitInfo.collider.gameObject;
-            Debug.Log($"Hit object: {hitObject.name}, tag: {hitObject.tag}");
             if (hitObject.CompareTag(tag))
             {
                 UserData user1 = Manager.User.GetHumanUserData();

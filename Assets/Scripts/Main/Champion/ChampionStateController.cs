@@ -13,6 +13,13 @@ public class ChampionStateController : MonoBehaviour
 
     public event Action<ChampionState> OnStateChanged;
 
+
+    public ChampionState CurState
+    {
+        get { return curState; }
+        set { curState = value; }
+    }
+
     public void Init(ChampionBase championBase)
     {
         cBase = championBase;
@@ -27,8 +34,6 @@ public class ChampionStateController : MonoBehaviour
         switch (curState)
         {
             case ChampionState.Idle:
-                Debug.Log("Idle State");
-
                 break;
 
             case ChampionState.Move:
@@ -50,7 +55,7 @@ public class ChampionStateController : MonoBehaviour
                     return;
                 }
 
-                Debug.Log("Attack State");
+
 
                 if (!cBase.ChampionAttackController.IsAttack)
                 {
@@ -64,7 +69,7 @@ public class ChampionStateController : MonoBehaviour
                     return;
                 }
 
-                Debug.Log("Die State");
+
                 break;
         }
 

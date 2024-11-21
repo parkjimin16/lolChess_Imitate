@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
 using static MapGenerator;
-using static UnityEditor.Progress;
 
 public class PlayerMove : MonoBehaviour
 {

@@ -62,16 +62,16 @@ public class CripMovement : MonoBehaviour
         else
         {
             // 현재 위치에서 타겟 위치로 이동
-            Vector3 currentPosition = transform.position;
-            Vector3 desiredPosition = Vector3.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
+            //Vector3 currentPosition = transform.position;
+            //Vector3 desiredPosition = Vector3.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
 
             // y-좌표를 고정합니다.
-            desiredPosition.y = fixedYPosition;
+            //desiredPosition.y = fixedYPosition;
 
-            transform.position = desiredPosition;
+            //transform.position = desiredPosition;
 
             // 이동 중에 위치 기반으로 타일을 감지하고 상태를 업데이트
-            UpdateTileUnderCrip();
+            //pdateTileUnderCrip();
         }
     }
 
@@ -85,7 +85,7 @@ public class CripMovement : MonoBehaviour
         foreach (var tileEntry in playerMapInfo.HexDictionary)
         {
             HexTile tile = tileEntry.Value;
-            if (!tile.isOccupied)
+            if (!tile.isOccupied && tile.championOnTile.Count == 0)
             {
                 unoccupiedTiles.Add(tile);
             }
@@ -93,8 +93,13 @@ public class CripMovement : MonoBehaviour
 
         if (unoccupiedTiles.Count > 0)
         {
-            // 랜덤 타일 선택
-            HexTile nextTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count)];
+            HexTile nextTile;
+
+            do
+            {
+                nextTile = unoccupiedTiles[Random.Range(0, unoccupiedTiles.Count)];
+            }
+            while (nextTile.championOnTile.Count > 0);
 
             // 목표 타일과 위치 설정
             targetTile = nextTile;
@@ -113,14 +118,34 @@ public class CripMovement : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = targetRotation;
             }
+
+            HexTile currentTile = GetTileUnderCrip();
+            if (currentTile != null)
+            {
+                currentTile.championOnTile.Remove(gameObject);
+            }
+
+            nextTile.championOnTile.Add(gameObject);
+            StartCoroutine(MoveTo(targetPosition));
         }
     }
 
+    private IEnumerator MoveTo(Vector3 targetPosition)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            // 위치 이동
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+            yield return null;
+        }
+
+        // 도착 후 정확한 위치로 보정
+        transform.position = targetPosition;
+    }
 
     void UpdateTileUnderCrip()
     {
         HexTile hitTile = GetTileUnderCrip();
-
         if (hitTile != null)
         {
             // 현재 타일과 다르다면
