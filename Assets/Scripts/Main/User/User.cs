@@ -187,6 +187,7 @@ public class User : MonoBehaviour
                 // 반환 과정을 즉시 완료
                 StartReturningObject();
                 CompleteObjectReturnImmediately();
+                _isDragging = false; // 드래그 상태를 false로 설정
                 InActiveTile();
             }
         }

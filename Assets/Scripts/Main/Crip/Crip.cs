@@ -25,12 +25,18 @@ public class Crip : MonoBehaviour
     }
 
 
+    public void InitCrip()
+    {
+        IsDie = false;
+        currentHP = cripData.HP;
+        anim = GetComponentInChildren<Animator>();
+    }
+
 
     void Start()
     {
         IsDie = false;
         currentHP = cripData.HP;
-
         anim = GetComponentInChildren<Animator>();
     }
 
