@@ -81,6 +81,30 @@ public class UIRoundPanel : UIBase
 
     #endregion
 
+    #region 라운드 로직
+
+    public void UpdateWinOrLose(int stage, int round, bool isWin)
+    {
+        if(stage == 1)
+        {
+            if (isWin)
+                image_FirstStage[round - 1].color = Color.blue;
+            else
+                image_FirstStage[round - 1].color = Color.red;
+        }
+        else
+        {
+            if (isWin)
+                image_FirstStage[round - 1].color = Color.blue;
+            else
+                image_FirstStage[round - 1].color = Color.red;
+        }
+
+        Debug.Log($"플레이어 1이 이겼나요? : {isWin}");
+    }
+
+    #endregion
+
     #region 타이머 로직
 
     public void StartTimer(int stage, int duration)

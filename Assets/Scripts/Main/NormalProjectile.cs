@@ -19,7 +19,8 @@ public class NormalProjectile : ObjectPoolable
     {
         if (target == null || !Manager.Stage.IsBattleOngoing)
         {
-            Destroy(gameObject);
+            ReleaseObject();
+            ObjectOff();
             return;
         }
 
@@ -48,13 +49,15 @@ public class NormalProjectile : ObjectPoolable
                 }
             }
 
-            Destroy(gameObject);
+            ReleaseObject();
+            ObjectOff();
         }
     }
 
     private IEnumerator DestroyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
+        ReleaseObject();
+        ObjectOff();
     }
 }
