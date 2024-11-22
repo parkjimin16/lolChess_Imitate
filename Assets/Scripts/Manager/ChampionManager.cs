@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ChampionManager
@@ -352,7 +351,12 @@ public class ChampionManager
 
                     if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
-                        userData.TotalChampionObject.Add(champion);
+                        Debug.Log("논배틀 추가");
+                        if (!userData.MergeChampionQueue.Contains(champion))
+                        {
+                            Debug.Log($"큐 크기 in Rect : {userData.MergeChampionQueue.Count}");
+                            userData.TotalChampionObject.Add(champion);
+                        }
                     }
                 }
             }
@@ -371,7 +375,11 @@ public class ChampionManager
 
                     if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
-                        userData.TotalChampionObject.Add(champion);
+                        if (!userData.MergeChampionQueue.Contains(champion))
+                        {
+                            Debug.Log($"큐 크기 In Hex : {userData.MergeChampionQueue.Count}");
+                            userData.TotalChampionObject.Add(champion);
+                        }
                     }
                 }
             }
@@ -411,7 +419,6 @@ public class ChampionManager
 
     public void SettingNonBattleChampion_Battle(UserData userData, UserData enemyData)
     {
-        SettingTotalChampion_Battle(userData, enemyData);
         userData.NonBattleChampionObject.Clear();
 
         foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
@@ -431,6 +438,8 @@ public class ChampionManager
                 }
             }
         }
+
+        SettingTotalChampion_Battle(userData, enemyData);
     }
 
     private void AddNonBattleChampion(UserData userData, GameObject champion)
@@ -515,7 +524,7 @@ public class ChampionManager
                    championBase.ChampionLevel == cBase.ChampionLevel;
         });
 
-        return sameChampionCount >= 3;
+        return sameChampionCount >= 2;
     }
 
     private void ProcessMerge(UserData userData, GameObject champion)
