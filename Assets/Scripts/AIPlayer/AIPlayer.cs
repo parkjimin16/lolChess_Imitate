@@ -54,30 +54,11 @@ public class AIPlayer
         // 빈 타일 찾기
         HexTile emptyTile = FindEmptyRectTile(aiMapInfo);
 
+        
+
         if (emptyTile != null)
         {
-            GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-
-            //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
-            GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
-            frame.transform.SetParent(newChampionObject.transform, false);
-            newChampionObject.transform.position = emptyTile.transform.position;
-
-            newChampionObject.transform.SetParent(emptyTile.transform);
-            emptyTile.championOnTile.Add(newChampionObject);
-
-            ChampionBase cBase = newChampionObject.GetComponent<ChampionBase>();
-            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
-
-            cBase.SetChampion(cBlueprint, aiPlayer);
-            cBase.InitChampion(cFrame);
-
-            cBase.BattleStageIndex = aiPlayer.UserData.UserId;
-            //Manager.Champion.SettingNonBattleChampion(Manager.User.User1_Data);
-
-            // AI 플레이어의 챔피언 리스트에 추가
-            //aiUserData.NonBattleChampionObject.Add(newChampionObject);
-            Manager.Champion.SettingNonBattleChampion(aiUserData);
+            Manager.Champion.InstantiateChampion(aiUserData, cBlueprint, emptyTile, emptyTile.transform); 
         }
         else
         {
@@ -199,6 +180,7 @@ public class AIPlayer
             emptyTile.championOnTile.Add(champion);
 
             // AI 플레이어의 리스트 업데이트
+            Manager.Champion.SettingAllChampion(aiUserData);
             Manager.Champion.SettingBattleChampion(aiUserData);
         }
         else
