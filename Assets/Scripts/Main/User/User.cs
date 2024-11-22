@@ -754,7 +754,7 @@ public class User : MonoBehaviour
             PlaceChampionOnHexTileForUser(championToPlace, userData);
             championsOnBench.RemoveAt(randomIndex);
         }
-        UpdateSynergy();
+        //UpdateSynergy();
     }
     private void PlaceChampionOnHexTileForUser(GameObject champion, UserData userData)
     {
