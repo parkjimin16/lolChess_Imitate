@@ -142,7 +142,7 @@ public class ChampionManager
                 wasActive = newChampionObject.activeSelf,
                 originalMapInfo = user.MapInfo // 원래 맵 정보 저장
             };
-            //Debug.Log(originalState.originalMapInfo);
+            Debug.Log(originalState.originalMapInfo.playerData.UserData.UserName);
             user.ChampionOriginState[newChampionObject] = originalState;
         }
     }
@@ -300,6 +300,9 @@ public class ChampionManager
             {
                 foreach (GameObject champion in tile.championOnTile)
                 {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
                     if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         userData.TotalChampionObject.Add(champion);

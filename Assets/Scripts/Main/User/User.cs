@@ -715,16 +715,12 @@ public class User : MonoBehaviour
     }
     private void UpdateSynergy()
     {
-        if(Manager.Stage.isCripRound || !Manager.Stage.IsBattleOngoing) 
-        {
-            player1 = Manager.User.GetHumanUserData();
-        }
+        //player1 = Manager.User.GetHumanUserData();
+        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
+        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
 
-        Manager.User.ClearSynergy(player1);
-        Manager.Champion.SettingNonBattleChampion(player1);
-        Manager.Champion.SettingBattleChampion(player1);
-
-        uiMain?.UISynergyPanel.UpdateSynergy(player1);
+        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
     }
 
     #region 챔피언 자동배치
