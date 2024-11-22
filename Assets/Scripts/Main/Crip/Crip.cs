@@ -9,8 +9,8 @@ public class Crip : MonoBehaviour
     [SerializeField] private CripObjectData cripData;
 
     [SerializeField]private int currentHP;
-    public HexTile currentTile;
-    public MapGenerator.MapInfo playerMapInfo;
+    public HexTile CurrentTile;
+    public MapGenerator.MapInfo PlayerMapInfo;
     public bool IsDie;
 
 
@@ -60,10 +60,10 @@ public class Crip : MonoBehaviour
         //GenerateItem();
 
         // 타일 상태 업데이트
-        if (currentTile != null)
+        if (CurrentTile != null)
         {
             //currentTile.isOccupied = false;
-            currentTile.itemOnTile = null;
+            CurrentTile.itemOnTile = null;
         }
 
         // 자신 파괴
@@ -79,16 +79,16 @@ public class Crip : MonoBehaviour
     {
         //GenerateItem(); 아이템 생성
 
-        if (currentTile != null)
+        if (CurrentTile != null)
         {
-            currentTile = gameObject.GetComponent<CripMovement>().currentTile;
+            CurrentTile = gameObject.GetComponent<CripMovement>().currentTile;
             //currentTile.isOccupied = false;
-            currentTile.championOnTile.Remove(this.gameObject);
+            CurrentTile.championOnTile.Remove(this.gameObject);
         }
 
-        if (playerMapInfo != null)
+        if (PlayerMapInfo != null)
         {
-            Player playerComponent = playerMapInfo.playerData;
+            Player playerComponent = PlayerMapInfo.playerData;
             if (playerComponent != null)
             {
                 playerComponent.UserData.CripObjectList.Remove(this.gameObject);
@@ -127,9 +127,9 @@ public class Crip : MonoBehaviour
 
     ItemTile FindItemTileInMap()
     {
-        if (playerMapInfo != null)
+        if (PlayerMapInfo != null)
         {
-            foreach (var itemTile in playerMapInfo.ItemTile)
+            foreach (var itemTile in PlayerMapInfo.ItemTile)
             {
                 if(itemTile.TileType1 == ItemOwner.Player)
                 {

@@ -28,7 +28,7 @@ public class CripMovement : MonoBehaviour
         moveTimer = moveInterval;
 
         // 크립이 속한 맵 정보를 가져옵니다.
-        playerMapInfo = gameObject.GetComponent<Crip>().playerMapInfo;
+        playerMapInfo = gameObject.GetComponent<Crip>().PlayerMapInfo;
         currentTile = GetCurrentTile();
 
         targetTile = null;
@@ -165,7 +165,7 @@ public class CripMovement : MonoBehaviour
 
                 // 현재 타일 업데이트
                 currentTile = hitTile;
-                crip.currentTile = currentTile;
+                crip.CurrentTile = currentTile;
                 crip.transform.SetParent(currentTile.transform);
             }
             // 현재 타일과 같다면 아무 작업도 하지 않음

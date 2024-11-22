@@ -19,17 +19,17 @@ public class MapGenerator : MonoBehaviour
     private GameObject itemTilePrefab; // 아이템 타일 프리팹
     private GameObject goldTilePrefeb; // 골드 타일 프리팹
     private GameObject goldPrefeb; // 골드 표시 프리팹
-    public Camera minimapCamera;
+    public Camera MinimapCamera;
 
     private GameObject[] allPlayers;
 
-    public float gapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
+    public float GapBetweenTiles = 0.1f; // 타일 간격 조정용 변수
 
     private float rectWidthSize; // 사각형 타일 폭
 
-    public int maxGoldSlots = 5; // 최대 골드 표시 칸 수
-    public float goldSlotSize = 1f; // 골드 표시 칸의 크기
-    public float goldSlotSpacing = 0.1f; // 골드 표시 칸 간의 간격
+    private int maxGoldSlots = 5; // 최대 골드 표시 칸 수
+    private float goldSlotSize = 1f; // 골드 표시 칸의 크기
+    private float goldSlotSpacing = 0.1f; // 골드 표시 칸 간의 간격
 
     private float mapWidthSize;
     private float mapHeightSize;
@@ -41,11 +41,11 @@ public class MapGenerator : MonoBehaviour
     private GameObject championPrefab; // 챔피언 프리팹
     private GameObject playerPrefab;   // 플레이어 프리팹
 
-    public List<GameObject> championsInCarousel = new List<GameObject>();
+    public List<GameObject> ChampionsInCarousel = new List<GameObject>();
     //[SerializeField] List<GameObject> hexTiles = new List<GameObject>();
 
-    public Transform sharedSelectionMapTransform; // 공동 선택 맵의 Transform 참조
-    public MapInfo sharedMapInfo; // 공동 선택 맵의 MapInfo
+    public Transform SharedSelectionMapTransform; // 공동 선택 맵의 Transform 참조
+    public MapInfo SharedMapInfo; // 공동 선택 맵의 MapInfo
 
     private Vector3 storedLeftPosition;
     private Vector3 storedRightPosition;
@@ -72,7 +72,7 @@ public class MapGenerator : MonoBehaviour
         PositionMinimapCamera();
     }
 
-    void CalculateTileSize()
+    private void CalculateTileSize()
     {
         float hexWidth = Mathf.Sqrt(3); // 타일 크기가 1일 때의 헥사곤 타일 폭
         float totalHexWidth = hexWidth * width + hexWidth / 2f; // 타일 크기가 1일 때의 전체 맵 가로 크기
@@ -84,16 +84,16 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    void PositionMinimapCamera()
+    private void PositionMinimapCamera()
     {
         float centerX = mapSpacing;
         float centerZ = mapSpacing;
         float cameraHeight = 50f; // 미니맵에 적절한 높이로 설정합니다.
 
-        if (minimapCamera != null)
+        if (MinimapCamera != null)
         {
-            minimapCamera.transform.position = new Vector3(centerX, cameraHeight, centerZ);
-            minimapCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f); // 아래를 향하도록 설정
+            MinimapCamera.transform.position = new Vector3(centerX, cameraHeight, centerZ);
+            MinimapCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f); // 아래를 향하도록 설정
         }
         else
         {
@@ -131,7 +131,7 @@ public class MapGenerator : MonoBehaviour
     public List<MapInfo> mapInfos = new List<MapInfo>();
 
 
-    void CreatUserMap()
+    private void CreatUserMap()
     {
         //int totalUsers = 8; // 총 유저 수 (플레이어 포함)
         allPlayers = Manager.Game.PlayerListObject;
@@ -216,7 +216,7 @@ public class MapGenerator : MonoBehaviour
 
 
 
-    void GenerateMap(Transform parent, MapInfo mapInfo)
+    private void GenerateMap(Transform parent, MapInfo mapInfo)
     {
         float hexWidth = Mathf.Sqrt(3) * tileSize;
         float hexHeight = tileSize * 2f; // 헥사곤의 높이
@@ -257,7 +257,7 @@ public class MapGenerator : MonoBehaviour
         //gameObject.transform.SetParent(User.transform);
     }
 
-    void CreateHexTile(Vector3 position, int q, int r, Transform parent, MapInfo mapInfo)
+    private void CreateHexTile(Vector3 position, int q, int r, Transform parent, MapInfo mapInfo)
     {
         GameObject tile = Instantiate(hexTilePrefab, position, Quaternion.identity, parent);
         tile.name = $"Hex_{q}_{r}";
@@ -282,7 +282,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-    void CreateRectTile(int row, float zPos, Transform parent, MapInfo mapInfo)
+    private void CreateRectTile(int row, float zPos, Transform parent, MapInfo mapInfo)
     {
         // zPos에 부모의 z 위치를 더합니다.
         zPos += parent.position.z;
@@ -293,9 +293,9 @@ public class MapGenerator : MonoBehaviour
         float zOffset = (tileSize * 2f * 0.75f) / 2f;
 
         if (row == -1)
-            zPos -= zOffset + gapBetweenTiles;
+            zPos -= zOffset + GapBetweenTiles;
         else if (row == height)
-            zPos += zOffset + gapBetweenTiles;
+            zPos += zOffset + GapBetweenTiles;
 
         for (int x = 0; x < rectWidth; x++)
         {
@@ -327,7 +327,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-    void CreatSynergyPosition(int row, float zPos, Transform parent, float xOffset, MapInfo mapInfo)
+    private void CreatSynergyPosition(int row, float zPos, Transform parent, float xOffset, MapInfo mapInfo)
     {
         Vector3 leftPosition, rightPosition;
 
@@ -396,7 +396,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
-    void AdjustCamera()
+    private void AdjustCamera()
     {
         float hexWidth = Mathf.Sqrt(3) * tileSize;
         float hexHeight = tileSize * 2f;
@@ -422,7 +422,7 @@ public class MapGenerator : MonoBehaviour
         Camera.main.farClipPlane = 100f;
     }
 
-    void CreateItemTiles(Transform parent, MapInfo mapinfo)
+    private void CreateItemTiles(Transform parent, MapInfo mapinfo)
     {
         float cornerTileOffset = rectWidthSize * 0.6f;
         float adjustedTileOffset = rectWidthSize;
@@ -454,7 +454,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void CreateGoldTiles(Transform parent, MapInfo mapinfo)
+    private void CreateGoldTiles(Transform parent, MapInfo mapinfo)
     {
         float xOffset = mapWidthSize / 2f + goldSlotSize / 2f + 2.3f;
         float xLeft = parent.position.x - xOffset;
@@ -490,7 +490,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void CreateMapBoundary(Transform parent, int mapId, MapInfo mapInfo)
+    private void CreateMapBoundary(Transform parent, int mapId, MapInfo mapInfo)
     {
         //float boundaryExtraWidth = 10f;  // 가로 방향으로 추가할 길이
         //float boundaryExtraHeight = 10f; // 세로 방향으로 추가할 길이
@@ -548,7 +548,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void CreateSharedSelectionMap(Vector3 position)
+    private void CreateSharedSelectionMap(Vector3 position)
     {
         // 공동 선택 맵 오브젝트 생성
         GameObject sharedMap = new GameObject("SharedSelectionMap");
@@ -556,14 +556,14 @@ public class MapGenerator : MonoBehaviour
         sharedMap.transform.SetParent(this.transform);
 
         // 공동 선택 맵의 Transform을 저장
-        sharedSelectionMapTransform = sharedMap.transform;
+        SharedSelectionMapTransform = sharedMap.transform;
 
         // 공동 선택 맵의 MapInfo 생성 및 설정
-        sharedMapInfo = new MapInfo();
-        sharedMapInfo.mapTransform = sharedMap.transform;
+        SharedMapInfo = new MapInfo();
+        SharedMapInfo.mapTransform = sharedMap.transform;
 
         // 경계선 생성
-        CreateSharedMapBoundary(sharedMap.transform, sharedMapInfo);
+        CreateSharedMapBoundary(sharedMap.transform, SharedMapInfo);
 
         // 회전 축 오브젝트 생성 및 챔피언 배치
         GameObject carouselPivot = new GameObject("CarouselPivot");
@@ -580,7 +580,7 @@ public class MapGenerator : MonoBehaviour
         // 플레이어 배치 함수는 수정하여 플레이어들을 이동시키도록 변경
         // PlacePlayersInSharedMap(sharedMap.transform);
     }
-    void CreateSharedMapBoundary(Transform parent, MapInfo mapInfo)
+    private void CreateSharedMapBoundary(Transform parent, MapInfo mapInfo)
     {
         float boundaryRadius = 10f; // 경계선의 반지름
         int segments = 100;         // 원을 그리기 위한 세그먼트 수
@@ -636,16 +636,16 @@ public class MapGenerator : MonoBehaviour
     }
     public void PlaceChampionsInSharedMap()
     {
-        Transform carouselPivot = sharedSelectionMapTransform.Find("CarouselPivot");
+        Transform carouselPivot = SharedSelectionMapTransform.Find("CarouselPivot");
 
         float circleRadius = 5f; // 챔피언들이 배치될 원의 반지름
         int championCount = 9;
 
-        foreach (GameObject champion in championsInCarousel)
+        foreach (GameObject champion in ChampionsInCarousel)
         {
             Destroy(champion);
         }
-        championsInCarousel.Clear();
+        ChampionsInCarousel.Clear();
 
         for (int i = 0; i < championCount; i++)
         {
@@ -678,7 +678,7 @@ public class MapGenerator : MonoBehaviour
             }
             //cBase.GetItem(newItem);
 
-            championsInCarousel.Add(championPrefab);
+            ChampionsInCarousel.Add(championPrefab);
 
             // 이동 방향(접선 방향) 계산
             Vector3 tangent = new Vector3(-Mathf.Sin(angle), 0, Mathf.Cos(angle));
@@ -723,7 +723,7 @@ public class MapGenerator : MonoBehaviour
     {
         List<GameObject> availableChampions = new List<GameObject>();
 
-        foreach (GameObject champion in championsInCarousel)
+        foreach (GameObject champion in ChampionsInCarousel)
         {
             if (champion != null)
             {
@@ -735,7 +735,7 @@ public class MapGenerator : MonoBehaviour
     }
     public void RemoveChampion(GameObject champion)
     {
-        championsInCarousel.Remove(champion);
+        ChampionsInCarousel.Remove(champion);
         //Destroy(champion);
     }
 

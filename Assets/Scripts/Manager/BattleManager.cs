@@ -138,7 +138,6 @@ public class BattleManager
             Manager.Champion.UserChampionMerge_Total(p2.UserData);
         }
 
-
         // Init player1
         RestoreOpponentChampions(player1);
 
