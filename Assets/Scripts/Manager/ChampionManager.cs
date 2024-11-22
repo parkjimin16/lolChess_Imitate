@@ -446,7 +446,7 @@ public class ChampionManager
     {
         if (Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
         {
-            userData.MergeChampionQueue.Enqueue(champion);
+            //userData.MergeChampionQueue.Enqueue(champion);
             return;
         }
         else if(!Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
@@ -512,7 +512,7 @@ public class ChampionManager
 
     #region 강화로직
 
-    private bool CanAddToMergeQueue(UserData userData, GameObject champion)
+    public bool CanAddToMergeQueue(UserData userData, GameObject champion)
     {
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
@@ -527,7 +527,7 @@ public class ChampionManager
         return sameChampionCount >= 2;
     }
 
-    private void ProcessMerge(UserData userData, GameObject champion)
+    public void ProcessMerge(UserData userData, GameObject champion)
     {
         if (userData.NonBattleChampionObject.Contains(champion))
         {

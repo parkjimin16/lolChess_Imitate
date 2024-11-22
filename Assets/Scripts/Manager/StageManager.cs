@@ -533,7 +533,7 @@ public class StageManager
             PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
             if (playerMove != null)
             {
-                playerMove.StartCarouselRound(_mapGenerator.sharedSelectionMapTransform, _mapGenerator.sharedMapInfo);
+                playerMove.StartCarouselRound(_mapGenerator.SharedSelectionMapTransform, _mapGenerator.SharedMapInfo);
             }
         }
 
@@ -575,7 +575,7 @@ public class StageManager
         if (stage >= 2 && round % 4 == 0)
         {
             DisableAllPlayerMovement();
-            _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.sharedSelectionMapTransform);
+            _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.SharedSelectionMapTransform);
             _mapGenerator.PlaceChampionsInSharedMap();
             Manager.Cam.MoveCameraToSharedSelectionMap();
             return true;
@@ -798,8 +798,8 @@ public class StageManager
                 Crip cripComponent = CripPrefab.GetComponent<Crip>();
                 if (cripComponent != null)
                 {
-                    cripComponent.currentTile = tile;
-                    cripComponent.playerMapInfo = playerMapInfo; 
+                    cripComponent.CurrentTile = tile;
+                    cripComponent.PlayerMapInfo = playerMapInfo; 
                 }
                 // 크립의 부모를 설정하여 맵 구조에 포함되도록 합니다.
                 CripPrefab.transform.SetParent(tile.transform);
@@ -861,9 +861,9 @@ public class StageManager
             // 남아있는 크립 파괴 및 타일 상태 업데이트
             foreach (Crip crip in remainingCrips)
             {
-                if (crip.currentTile != null)
+                if (crip.CurrentTile != null)
                 {
-                    HexTile currentTile = crip.currentTile;
+                    HexTile currentTile = crip.CurrentTile;
 
                     // 타일의 championsOnTile 리스트에서 크립 제거
                     currentTile.championOnTile.Remove(crip.gameObject);

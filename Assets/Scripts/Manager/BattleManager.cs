@@ -125,7 +125,6 @@ public class BattleManager
             cBase.ResetChampionStats();
         }
 
-
         // Init player1
         RestoreOpponentChampions(player1);
 
