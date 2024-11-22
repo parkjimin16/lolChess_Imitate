@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -143,7 +144,7 @@ public class ChampionManager
         else
         {
             Debug.Log($" 유저 안 움직임? : {Manager.Battle.IsUserMove}");
-            Manager.Champion.SettingNonBattleChampion(user);
+            SettingNonBattleChampion(user);
         }
 
 
@@ -308,7 +309,7 @@ public class ChampionManager
                     if (champion == null || !champion.activeInHierarchy)
                         continue;
 
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         userData.TotalChampionObject.Add(champion);
                     }
@@ -401,7 +402,6 @@ public class ChampionManager
 
                     if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
-                        Debug.Log("논 배틀 추가 진짜");
                         AddNonBattleChampion(userData, champion);
                     }
                 }
@@ -433,18 +433,20 @@ public class ChampionManager
         }
     }
 
-    public void AddNonBattleChampion(UserData userData, GameObject champion)
+    private void AddNonBattleChampion(UserData userData, GameObject champion)
     {
-        if (Manager.Stage.IsBattleOngoing)
+        if (Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
         {
-            if (CanAddToMergeQueue(userData, champion))
-            {
-                userData.MergeChampionQueue.Enqueue(champion);
-                return;
-            }
+            userData.MergeChampionQueue.Enqueue(champion);
+            return;
+        }
+        else if(!Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
+        {
+            ProcessMerge(userData, champion);
+            return;
         }
 
-        ProcessMerge(userData, champion);
+        userData.NonBattleChampionObject.Add(champion);
     }
     #endregion
 
@@ -513,11 +515,16 @@ public class ChampionManager
                    championBase.ChampionLevel == cBase.ChampionLevel;
         });
 
-        return sameChampionCount >= 2;
+        return sameChampionCount >= 3;
     }
 
     private void ProcessMerge(UserData userData, GameObject champion)
     {
+        if (userData.NonBattleChampionObject.Contains(champion))
+        {
+            return;
+        }
+
         userData.NonBattleChampionObject.Add(champion);
 
         ChampionBase cBase = champion.GetComponent<ChampionBase>();
@@ -567,9 +574,8 @@ public class ChampionManager
         {
             GameObject champion = userData.MergeChampionQueue.Dequeue();
             ProcessMerge(userData, champion);
+            SettingAllChampion(userData);
         }
-
-        SettingAllChampion(userData);
     }
 
     private GameObject MergeChampion(UserData userData, GameObject champion)

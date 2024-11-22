@@ -491,15 +491,8 @@ public class ChampionAttackController : MonoBehaviour
                 cBase.ChampionHpMpController.NormalAttackMana();
             }
 
-            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-                Debug.Log("공격 코루틴 while문 진행");
-
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
         }
-
-        if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-            Debug.Log("공격 코루틴 while문 탈출");
-
         attackLogic = false;
     }
 

@@ -125,6 +125,7 @@ public class BattleManager
             cBase.ResetChampionStats();
         }
 
+
         // Init player1
         RestoreOpponentChampions(player1);
 
@@ -153,11 +154,12 @@ public class BattleManager
             p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
         }
 
+
         Manager.Champion.OnBattleEnd(p1.UserData);
         Manager.Champion.OnBattleEnd(p2.UserData);
 
-
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
+        InitUserMove();
         MergeScene.BatteStart = false;
     }
 
@@ -214,14 +216,9 @@ public class BattleManager
         if (playerComponent2.UserData == Manager.User.GetHumanUserData())
         {
             IsUserMove = true;
-            GameObject shop = GameObject.Find("ShopPanel");
-            UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
+            Debug.Log("이동했음" + IsUserMove);
             RectTile reverseRect = playerComponent1.UserData.MapInfo.mapTransform.GetComponent<RectTile>();
-            uIShop.SetChampionPos(reverseRect.GetReversRectTileList());
-        }
-        else
-        {
-            IsUserMove = false;
+            playerComponent2.UserData.UIMain.UIShopPanel.SetChampionPos(reverseRect.GetReversRectTileList());
         }
 
         playerComponent1.SetBattleStageIndex(playerComponent1.UserData.UserId);

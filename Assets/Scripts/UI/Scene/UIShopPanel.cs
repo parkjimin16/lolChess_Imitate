@@ -138,11 +138,11 @@ public class UIShopPanel : UIBase
                 idx++;
             }
 
-            Debug.Log($"{user.UserName}님이 2 골드를 사용하여 챔피언 슬롯을 업데이트했습니다.");
+            //Debug.Log($"{user.UserName}님이 2 골드를 사용하여 챔피언 슬롯을 업데이트했습니다.");
         }
         else
         {
-            Debug.Log($"{user.UserName}님에게는 2 골드가 부족합니다.");
+            //Debug.Log($"{user.UserName}님에게는 2 골드가 부족합니다.");
         }
 
       
