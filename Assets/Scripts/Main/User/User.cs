@@ -406,7 +406,7 @@ public class User : MonoBehaviour
 
         if (!Manager.Stage.IsBattleOngoing)
         {
-            UpdateSynergy();
+            UpdateSynergy(Manager.User.GetHumanUserData());
         }
         InActiveTile();
         _movableObj = null;
@@ -562,7 +562,7 @@ public class User : MonoBehaviour
         currentTile = hitTile.gameObject;
         _movableObj = null;
         InActiveTile();
-        UpdateSynergy();
+        UpdateSynergy(Manager.User.GetHumanUserData());
     }
     private void ObjectReturn()
     {
@@ -713,14 +713,14 @@ public class User : MonoBehaviour
         }
         return false;
     }
-    private void UpdateSynergy()
+    private void UpdateSynergy(UserData userdata)
     {
         //player1 = Manager.User.GetHumanUserData();
-        Manager.User.ClearSynergy(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingNonBattleChampion(Manager.User.GetHumanUserData());
-        Manager.Champion.SettingBattleChampion(Manager.User.GetHumanUserData());
+        Manager.User.ClearSynergy(userdata);
+        Manager.Champion.SettingNonBattleChampion(userdata);
+        Manager.Champion.SettingBattleChampion(userdata);
 
-        uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
+        uiMain?.UISynergyPanel.UpdateSynergy(userdata);
     }
 
     #region 챔피언 자동배치
@@ -754,7 +754,7 @@ public class User : MonoBehaviour
             PlaceChampionOnHexTileForUser(championToPlace, userData);
             championsOnBench.RemoveAt(randomIndex);
         }
-        //UpdateSynergy();
+        UpdateSynergy(userData);
     }
     private void PlaceChampionOnHexTileForUser(GameObject champion, UserData userData)
     {
