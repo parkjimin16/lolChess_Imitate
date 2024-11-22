@@ -138,6 +138,10 @@ public class BattleManager
             p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
         }
 
+        Manager.Champion.OnBattleEnd(p1.UserData);
+        Manager.Champion.OnBattleEnd(p2.UserData);
+
+
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         MergeScene.BatteStart = false;
     }
