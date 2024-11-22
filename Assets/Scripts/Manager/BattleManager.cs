@@ -39,8 +39,8 @@ public class BattleManager
         Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
         Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
 
-        SaveOriginalChampions(player1);
-        SaveOriginalChampions(player2);
+        //SaveOriginalChampions(player1);
+        //SaveOriginalChampions(player2);
 
         Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, player2));
         battleCoroutines.Add(player1, battleCoroutine);
@@ -131,7 +131,7 @@ public class BattleManager
 
         // Init player2
         RestoreOpponentPlayer(player2);
-        RestoreOpponentChampions(player2);
+        RestoreOpponentChampions2(player2);
         RestoreOpponentItems(player2);
 
         Player playerComponent1 = player1.GetComponent<Player>();
@@ -275,7 +275,8 @@ public class BattleManager
                     originalPosition = champion.transform.position,
                     originalParent = champion.transform.parent,
                     originalTile = champion.GetComponentInParent<HexTile>(),
-                    wasActive = champion.activeSelf
+                    wasActive = champion.activeSelf,
+                    originalMapInfo = userData.MapInfo
                 };
 
                 userData.ChampionOriginState[champion] = originalState;
@@ -308,7 +309,8 @@ public class BattleManager
                 originalPosition = opponentChampion.transform.position,
                 originalParent = opponentChampion.transform.parent,
                 originalTile = opponentChampion.GetComponentInParent<HexTile>(),
-                wasActive = opponentChampion.activeSelf
+                wasActive = opponentChampion.activeSelf,
+                originalMapInfo = playerMapInfo2
             };
 
 
@@ -349,7 +351,8 @@ public class BattleManager
                 originalPosition = opponentChampion.transform.position,
                 originalParent = opponentChampion.transform.parent,
                 originalTile = opponentChampion.GetComponentInParent<HexTile>(),
-                wasActive = opponentChampion.activeSelf
+                wasActive = opponentChampion.activeSelf,
+                originalMapInfo = playerMapInfo2
             };
 
             // UserData에 저장
@@ -484,56 +487,52 @@ public class BattleManager
         Player opponentComponent = opponent.GetComponent<Player>();
         UserData opponentData = opponentComponent.UserData;
 
+        List<GameObject> opponentTotalBattleChampions = opponentData.TotalChampionObject;
+
         foreach (var champ in opponentData.TotalChampionObject)
         {
             champ.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        foreach (var kvp in opponentData.ChampionOriginState.ToList()) // ToList()로 컬렉션 수정 방지
+        foreach(GameObject opponentChampion in opponentTotalBattleChampions)
         {
-            GameObject champion = kvp.Key;
-            ChampionOriginalState originalState = kvp.Value;
-            HexTile opponentTile = champion.GetComponentInParent<HexTile>();
+            HexTile opponentTile = opponentChampion.GetComponentInParent<HexTile>();
+            HexTile mirroredTile = GetMirroredRectTile(opponentTile, opponentData.MapInfo);
 
-            if(opponentTile == null)
-            {
-                Debug.Log("널이다");
-            }
-
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            ChampionBase cBase = opponentChampion.GetComponent<ChampionBase>();
             cBase.ChampionAttackController.EndBattle();
             cBase.ResetChampionStats();
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionRotationReset();
 
-            // 챔피언이 이동한 맵을 확인
-            if (originalState.originalMapInfo != opponentData.MapInfo)
+
+            if (opponentTile != null)
             {
-                // 챔피언이 원래 맵과 다른 맵에 있을 경우, GetMirroredRectTile 적용
-                HexTile mirroredTile = GetMirroredRectTile(opponentTile, originalState.originalMapInfo);
-                if (mirroredTile != null)
+                if (opponentTile.isRectangularTile)
                 {
-                    // 챔피언의 현재 타일에서 제거
-                    HexTile currentTile = champion.GetComponentInParent<HexTile>();
-                    if (currentTile != null)
+                    opponentTile.championOnTile.Remove(opponentChampion);
+                    opponentChampion.transform.position = mirroredTile.transform.position;
+                    opponentChampion.transform.SetParent(mirroredTile.transform);
+
+                    mirroredTile.championOnTile.Add(opponentChampion);
+                }
+                else
+                {
+                    if (opponentData.ChampionOriginState.TryGetValue(opponentChampion, out ChampionOriginalState originalState))
                     {
-                        currentTile.championOnTile.Remove(champion);
+                        opponentChampion.transform.position = originalState.originalPosition;
+                        opponentChampion.transform.SetParent(originalState.originalParent);
+
+                        // 타일 상태 업데이트
+                        if (originalState.originalTile != null)
+                        {
+                            originalState.originalTile.championOnTile.Add(opponentChampion);
+                        }
                     }
-
-                    // 챔피언의 위치와 부모를 반전된 타일로 설정
-                    champion.transform.position = mirroredTile.transform.position;
-                    champion.transform.SetParent(mirroredTile.transform);
-
-                    // 타일 상태 업데이트
-                    mirroredTile.championOnTile.Add(champion);
                 }
             }
-            else
-            {
-                // 챔피언이 원래 맵에 있는 경우 위치 복귀
-                MoveChampionToOriginalPosition(champion, originalState);
-            }
         }
+
 
         // 원래 상태 정보 초기화
         opponentData.ChampionOriginState.Clear();
