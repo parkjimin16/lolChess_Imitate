@@ -399,7 +399,7 @@ public class ChampionManager
                     if (champion == null || !champion.activeInHierarchy)
                         continue;
 
-                    if (champion.CompareTag("Champion"))
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
                     {
                         Debug.Log("논 배틀 추가 진짜");
                         AddNonBattleChampion(userData, champion);
@@ -437,8 +437,11 @@ public class ChampionManager
     {
         if (Manager.Stage.IsBattleOngoing)
         {
-            userData.MergeChampionQueue.Enqueue(champion);
-            return;
+            if (CanAddToMergeQueue(userData, champion))
+            {
+                userData.MergeChampionQueue.Enqueue(champion);
+                return;
+            }
         }
 
         ProcessMerge(userData, champion);
@@ -498,6 +501,21 @@ public class ChampionManager
 
     #region 강화로직
 
+    private bool CanAddToMergeQueue(UserData userData, GameObject champion)
+    {
+        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+        int sameChampionCount = userData.TotalChampionObject.Count(obj =>
+        {
+            ChampionBase championBase = obj.GetComponent<ChampionBase>();
+            return championBase != null && cBase != null &&
+                   championBase.ChampionName == cBase.ChampionName &&
+                   championBase.ChampionLevel == cBase.ChampionLevel;
+        });
+
+        return sameChampionCount >= 2;
+    }
+
     private void ProcessMerge(UserData userData, GameObject champion)
     {
         userData.NonBattleChampionObject.Add(champion);
@@ -550,6 +568,8 @@ public class ChampionManager
             GameObject champion = userData.MergeChampionQueue.Dequeue();
             ProcessMerge(userData, champion);
         }
+
+        SettingAllChampion(userData);
     }
 
     private GameObject MergeChampion(UserData userData, GameObject champion)

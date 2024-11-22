@@ -130,7 +130,7 @@ public class BattleManager
 
         // Init player2
         RestoreOpponentPlayer(player2);
-        RestoreOpponentChampions2(player2);
+        RestoreOpponentChampions(player2);
         RestoreOpponentItems(player2);
 
         Player playerComponent1 = player1.GetComponent<Player>();
