@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ChampionManager
@@ -114,7 +115,6 @@ public class ChampionManager
     public void InstantiateChampion(UserData user, ChampionBlueprint cBlueprint, HexTile hextile, Transform tileTransform)
     {
         GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-        //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
         GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
         
         frame.transform.SetParent(newChampionObject.transform, false);
@@ -130,7 +130,22 @@ public class ChampionManager
         cBase.SetChampion(cBlueprint, player);
         cBase.InitChampion(cFrame);
 
-        Manager.Champion.SettingNonBattleChampion(user);
+        if (Manager.Stage.IsBattleOngoing && Manager.Battle.IsUserMove)
+        {
+            Debug.Log($" 유저 움직임? : {Manager.Battle.IsUserMove}");
+            Player enemy = Manager.Stage.FindMyEnemy(user).GetComponent<Player>();
+
+            if (enemy != null)
+            {
+                Manager.Champion.SettingNonBattleChampion_Battle(user, enemy.UserData);
+            }
+        }
+        else
+        {
+            Debug.Log($" 유저 안 움직임? : {Manager.Battle.IsUserMove}");
+            Manager.Champion.SettingNonBattleChampion(user);
+        }
+
 
         if(Manager.Stage.IsBattleOngoing)
         {
@@ -293,7 +308,7 @@ public class ChampionManager
                     if (champion == null || !champion.activeInHierarchy)
                         continue;
 
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    if (champion.CompareTag("Champion"))
                     {
                         userData.TotalChampionObject.Add(champion);
                     }
@@ -320,6 +335,48 @@ public class ChampionManager
             }
         }
     }
+    private void SettingTotalChampion_Battle(UserData userData, UserData enemyData)
+    {
+        userData.TotalChampionObject.Clear();
+
+        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+
+        // HexDictionary의 타일 처리
+        foreach (var tileEntry in enemyData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region 비전투챔피언
@@ -333,6 +390,31 @@ public class ChampionManager
         userData.NonBattleChampionObject.Clear();
 
         foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile)
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion"))
+                    {
+                        Debug.Log("논 배틀 추가 진짜");
+                        AddNonBattleChampion(userData, champion);
+                    }
+                }
+            }
+        }
+    }
+
+    public void SettingNonBattleChampion_Battle(UserData userData, UserData enemyData)
+    {
+        SettingTotalChampion_Battle(userData, enemyData);
+        userData.NonBattleChampionObject.Clear();
+
+        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
         {
             HexTile tile = tileEntry.Value;
             if (tile.isOccupied)

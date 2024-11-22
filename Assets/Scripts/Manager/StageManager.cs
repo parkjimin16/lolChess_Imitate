@@ -46,6 +46,30 @@ public class StageManager
     private int reRollCount;
 
     public User user;
+    public List<(GameObject, GameObject)> Matchups
+    {
+        get { return matchups; }
+        set { matchups = value; }
+    }
+
+    public GameObject FindMyEnemy(UserData user)
+    {
+        GameObject myObject = AllPlayers[user.UserId];
+
+        foreach (var matchup in Matchups)
+        {
+            if (matchup.Item1 == myObject)
+                return matchup.Item2;
+
+            if (matchup.Item2 == myObject)
+                return matchup.Item1;
+        }
+
+        return null;
+
+    }
+
+
     //private Dictionary<GameObject, ChampionOriginalState_Crip> championOriginalPositions = new Dictionary<GameObject, ChampionOriginalState_Crip>();
     #region Init
 

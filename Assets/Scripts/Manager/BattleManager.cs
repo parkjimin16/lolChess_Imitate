@@ -9,6 +9,22 @@ public class BattleManager
 {
     private Dictionary<GameObject, Coroutine> battleCoroutines = new Dictionary<GameObject, Coroutine>();
 
+    public bool IsUserMove;
+
+    #region √ ±‚»≠
+
+    public void InitUserMove()
+    {
+        IsUserMove = false;
+    }
+
+    #endregion
+
+
+
+
+
+
     public void StartBattle(GameObject player1, GameObject player2, int duration)
     {
         if (battleCoroutines.ContainsKey(player1))
@@ -70,7 +86,6 @@ public class BattleManager
 
         EndBattle(player1, player2, player1Won, survivingEnemyUnits);
     }
-
 
     private void EndBattle(GameObject player1, GameObject player2, bool player1Won, int survivingEnemyUnits)
     {
@@ -198,11 +213,15 @@ public class BattleManager
 
         if (playerComponent2.UserData == Manager.User.GetHumanUserData())
         {
+            IsUserMove = true;
             GameObject shop = GameObject.Find("ShopPanel");
             UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
             RectTile reverseRect = playerComponent1.UserData.MapInfo.mapTransform.GetComponent<RectTile>();
             uIShop.SetChampionPos(reverseRect.GetReversRectTileList());
-            //Manager.Stage.user.ReturnUser(playerComponent1.UserData);
+        }
+        else
+        {
+            IsUserMove = false;
         }
 
         playerComponent1.SetBattleStageIndex(playerComponent1.UserData.UserId);

@@ -60,6 +60,7 @@ public class MergeScene : MonoBehaviour
                 Manager.Synergy.Init(symbolDataBlueprint);
                 Manager.Augmenter.Init(augmenterBlueprint);
 
+                Manager.Battle.InitUserMove();
 
 
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
