@@ -490,7 +490,7 @@ public class ChampionBase : MonoBehaviour
         InitAugmenterStat();
         ResetHealth();
 
-        UpdateChampmionStat();
+        InitAllStat();
     }
 
     /// <summary>
@@ -565,7 +565,6 @@ public class ChampionBase : MonoBehaviour
         Synergy_Total_Def = 0;
     }
 
-
     /// <summary>
     /// 증강체 스탯 초기화
     /// </summary>
@@ -586,6 +585,30 @@ public class ChampionBase : MonoBehaviour
         Augmenter_Blood_Suck = 0;
         Augmenter_Power_Upgrade = 0;
         Augmenter_Total_Def = 0;
+    }
+
+    private void InitAllStat()
+    {
+        champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP + Augmenter_MaxHP;
+        champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana + Augmenter_MaxMana;
+        Champion_CurMana = champion_CurMana + item_CurMana + Synergy_CurMana + Augmenter_CurMana;
+        champion_Speed = speed + item_Speed + Synergy_Speed + Augmenter_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power + Augmenter_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power + Augmenter_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def + Synergy_AD_Def + Augmenter_AP_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def + Synergy_AP_Def + Augmenter_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd + Synergy_Atk_Spd + Augmenter_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent + Synergy_Critical_Percent + Augmenter_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Critical_Power + Synergy_Critical_Power + Augmenter_Critical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck + Synergy_Blood_Suck + Augmenter_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade + Augmenter_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def + Augmenter_Total_Def;
+        champion_Shield = 0;
+
+        SetTotalDamage(GetDamage());
+
+        UpdateDisplayStat();
+        InitSlider();
     }
 
     public void InitSlider()

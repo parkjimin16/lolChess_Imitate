@@ -125,6 +125,19 @@ public class BattleManager
             cBase.ResetChampionStats();
         }
 
+        if (p2.UserData == Manager.User.GetHumanUserData())
+        {
+            Player enemy = Manager.Stage.FindMyEnemy(p2.UserData).GetComponent<Player>();
+
+            Manager.Champion.UserChampionMerge_Total(p1.UserData);
+            Manager.Champion.UserChampionMerge_Total_MoveUser(p2.UserData, enemy.UserData);
+        }
+        else
+        {
+            Manager.Champion.UserChampionMerge_Total(p1.UserData);
+            Manager.Champion.UserChampionMerge_Total(p2.UserData);
+        }
+
 
         // Init player1
         RestoreOpponentChampions(player1);
@@ -134,7 +147,6 @@ public class BattleManager
         RestoreOpponentChampions2(player2);
         RestoreOpponentItems(player2);
 
-        Player playerComponent1 = player1.GetComponent<Player>();
         if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
         {
             player1.GetComponent<Player>().UserData.MapInfo.goldDisplay.SetEnemyGold(0);
@@ -153,10 +165,6 @@ public class BattleManager
             p2.UserData.UIMain.UIShopPanel.UpdateContinousBox(p2.UserData);
             p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
         }
-
-
-        Manager.Champion.OnBattleEnd(p1.UserData);
-        Manager.Champion.OnBattleEnd(p2.UserData);
 
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         InitUserMove();
@@ -454,7 +462,7 @@ public class BattleManager
             champ.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        foreach (var kvp in opponentData.ChampionOriginState.ToList()) // ToList()로 컬렉션 수정 방지
+        foreach (var kvp in opponentData.ChampionOriginState.ToList())
         {
             GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;

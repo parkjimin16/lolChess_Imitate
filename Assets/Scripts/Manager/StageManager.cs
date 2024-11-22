@@ -879,7 +879,8 @@ public class StageManager
             {
                 GameObject champion = kvp.Key;
                 ChampionOriginalState originalState = kvp.Value;
-                
+
+ 
                 ChampionBase cBase = champion.GetComponent<ChampionBase>();
                 if (userData.BattleChampionObject.Contains(champion))
                 {
@@ -903,9 +904,7 @@ public class StageManager
             }
             // 원래 상태 정보 초기화
             userData.ChampionOriginState.Clear();
-
-
-            Manager.Champion.OnBattleEnd(userData);
+            Manager.Champion.UserChampionMerge_Total(userData);
         }
         MergeScene.BatteStart = false;
         IsBattleOngoing = false; // 전투 종료 시 플래그 리셋

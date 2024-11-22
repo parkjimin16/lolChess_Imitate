@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChampionManager
@@ -101,6 +99,12 @@ public class ChampionManager
         return string.Empty;
     }
 
+
+    /// <summary>
+    /// 랜덤 챔피언 이름 가져오기
+    /// </summary>
+    /// <param name="cost"></param>
+    /// <returns></returns>
     public string GetRandomChapmion(int cost)
     {
         string newChampion = string.Empty;
@@ -112,6 +116,9 @@ public class ChampionManager
         return newChampion;
     }
 
+    /// <summary>
+    /// 챔피언 생성
+    /// </summary>
     public void InstantiateChampion(UserData user, ChampionBlueprint cBlueprint, HexTile hextile, Transform tileTransform)
     {
         GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
@@ -132,17 +139,15 @@ public class ChampionManager
 
         if (Manager.Stage.IsBattleOngoing && Manager.Battle.IsUserMove)
         {
-            Debug.Log($" 유저 움직임? : {Manager.Battle.IsUserMove}");
             Player enemy = Manager.Stage.FindMyEnemy(user).GetComponent<Player>();
 
             if (enemy != null)
             {
-                Manager.Champion.SettingNonBattleChampion_Battle(user, enemy.UserData);
+                Manager.Champion.SettingNonBattleChampion_MoveUser(user, enemy.UserData);
             }
         }
         else
         {
-            Debug.Log($" 유저 안 움직임? : {Manager.Battle.IsUserMove}");
             SettingNonBattleChampion(user);
         }
 
@@ -157,12 +162,11 @@ public class ChampionManager
                 wasActive = newChampionObject.activeSelf,
                 originalMapInfo = user.MapInfo // 원래 맵 정보 저장
             };
-            Debug.Log(originalState.originalMapInfo.playerData.UserData.UserName);
+            //Debug.Log(originalState.originalMapInfo.playerData.UserData.UserName);
             user.ChampionOriginState[newChampionObject] = originalState;
         }
     }
 
-    // 챔피언 생성 위치 반환
     public HexTile FindChampionPos(UserData user)
     {
         foreach (var tileEntry in user.MapInfo.RectDictionary)
@@ -175,7 +179,6 @@ public class ChampionManager
         return null;
     }
 
-    // 챔피언 생성 가능한 위치의 수 반환
     public int GetEmptyTileCount(UserData user)
     {
         int emptyTileCount = 0;
@@ -191,10 +194,13 @@ public class ChampionManager
 
         return emptyTileCount;
     }
-    #endregion
 
-    #region 챔피언 제거
 
+    /// <summary>
+    /// 챔피언 제거
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="targetChampion"></param>
     public void RemoveChampion(UserData user, GameObject targetChampion)
     {
         ChampionBase cBase = targetChampion.GetComponent<ChampionBase>();
@@ -245,225 +251,19 @@ public class ChampionManager
         Manager.Synergy.UpdateSynergies(user);
     }
 
-    #endregion
-
-    #region 유저 챔피언
-
-    #region 전체 챔피언
-    private void SettingAllChampion(UserData userData)
-    {
-        userData.TotalChampionObject.Clear();
-        userData.NonBattleChampionObject.Clear();
-        userData.BattleChampionObject.Clear();
-
-        foreach (var tileEntry in userData.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        userData.TotalChampionObject.Add(champion);
-                        userData.NonBattleChampionObject.Add(champion);
-                    }
-                }
-            }
-        }
-
-        foreach (var tileEntry in userData.MapInfo.HexDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    { 
-                        userData.TotalChampionObject.Add(champion);
-                        userData.BattleChampionObject.Add(champion);
-                    }
-                }
-            }
-        }
-    }
-    private void SettingTotalChampion(UserData userData)
-    {
-        userData.TotalChampionObject.Clear();
-
-        foreach (var tileEntry in userData.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        userData.TotalChampionObject.Add(champion);
-                    }
-                }
-            }
-        }
-
-        // HexDictionary의 타일 처리
-        foreach (var tileEntry in userData.MapInfo.HexDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        userData.TotalChampionObject.Add(champion);
-                    }
-                }
-            }
-        }
-    }
-    private void SettingTotalChampion_Battle(UserData userData, UserData enemyData)
-    {
-        userData.TotalChampionObject.Clear();
-
-        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        Debug.Log("논배틀 추가");
-                        if (!userData.MergeChampionQueue.Contains(champion))
-                        {
-                            Debug.Log($"큐 크기 in Rect : {userData.MergeChampionQueue.Count}");
-                            userData.TotalChampionObject.Add(champion);
-                        }
-                    }
-                }
-            }
-        }
-
-        // HexDictionary의 타일 처리
-        foreach (var tileEntry in enemyData.MapInfo.HexDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
-
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        if (!userData.MergeChampionQueue.Contains(champion))
-                        {
-                            Debug.Log($"큐 크기 In Hex : {userData.MergeChampionQueue.Count}");
-                            userData.TotalChampionObject.Add(champion);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     #endregion
 
-    #region 비전투챔피언
-    /// <summary>
-    /// 구매했을 때 호출 + 밑에 놓을 때
-    /// </summary>
-    /// <param name="userData"></param>
-    public void SettingNonBattleChampion(UserData userData)
-    {
-        SettingTotalChampion(userData);
-        userData.NonBattleChampionObject.Clear();
 
-        foreach (var tileEntry in userData.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
 
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        AddNonBattleChampion(userData, champion);
-                    }
-                }
-            }
-        }
-    }
 
-    public void SettingNonBattleChampion_Battle(UserData userData, UserData enemyData)
-    {
-        userData.NonBattleChampionObject.Clear();
 
-        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
-        {
-            HexTile tile = tileEntry.Value;
-            if (tile.isOccupied)
-            {
-                foreach (GameObject champion in tile.championOnTile)
-                {
-                    if (champion == null || !champion.activeInHierarchy)
-                        continue;
+    #region 챔피언 구매 로직
 
-                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
-                    {
-                        AddNonBattleChampion(userData, champion);
-                    }
-                }
-            }
-        }
+    #region 공통 로직
 
-        SettingTotalChampion_Battle(userData, enemyData);
-    }
+    #region 전투 챔피언
 
-    private void AddNonBattleChampion(UserData userData, GameObject champion)
-    {
-        if (Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
-        {
-            userData.MergeChampionQueue.Enqueue(champion);
-            return;
-        }
-        else if(!Manager.Stage.IsBattleOngoing && CanAddToMergeQueue(userData, champion))
-        {
-            ProcessMerge(userData, champion);
-            return;
-        }
-
-        userData.NonBattleChampionObject.Add(champion);
-    }
-    #endregion
-
-    #region 전투챔피언
-
-    /// <summary>
-    /// 위에 놓았을 때 호출
-    /// </summary>
     public void SettingBattleChampion(UserData userData)
     {
         SettingTotalChampion(userData);
@@ -490,7 +290,9 @@ public class ChampionManager
 
     public void AddBattleChampion(UserData userData, GameObject champion)
     {
-        userData.BattleChampionObject.Add(champion);
+        if (!userData.BattleChampionObject.Contains(champion))
+            userData.BattleChampionObject.Add(champion);
+
 
         ChampionBase addChampionBase = champion.GetComponent<ChampionBase>();
 
@@ -504,94 +306,395 @@ public class ChampionManager
         Manager.Synergy.AddSynergyJob(userData, addChampionBase.ChampionName, Utilities.GetJobName(addChampionBase.ChampionJob_Second));
     }
 
-    public void RemoveBattleChampion(UserData userData, GameObject champion)
+    private List<GameObject> GetBattleChampion(List<GameObject> total, List<GameObject> none)
     {
+        List<GameObject> result = total
+       .Where(champion => !none.Contains(champion))
+       .ToList();
+
+        return result;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region 상대가 넘어왔을 때
+
+    #region 전체 챔피언
+    private void SettingAllChampion(UserData userData)
+    {
+        userData.TotalChampionObject.Clear();
+        userData.NonBattleChampionObject.Clear();
+        userData.BattleChampionObject.Clear();
+
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+
+
+                        if (!userData.NonBattleChampionObject.Contains(champion))
+                            userData.NonBattleChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+
+        foreach (var tileEntry in userData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+
+
+                        if (!userData.BattleChampionObject.Contains(champion))
+                            userData.BattleChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+    }
+
+    private void SettingTotalChampion(UserData userData)
+    {
+        userData.TotalChampionObject.Clear();
+
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+
+        // HexDictionary의 타일 처리
+        foreach (var tileEntry in userData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region 비전투 챔피언
+
+    /// <summary>
+    /// 구매했을 때 호출 + 밑에 놓을 때
+    /// </summary>
+    /// <param name="userData"></param>
+    public void SettingNonBattleChampion(UserData userData)
+    {
+        SettingTotalChampion(userData);
+        userData.NonBattleChampionObject.Clear();
+
+        foreach (var tileEntry in userData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        AddNonBattleChampion(userData, champion);
+                    }
+                }
+            }
+        }
+
+        userData.BattleChampionObject.Clear();
+        userData.BattleChampionObject = GetBattleChampion(userData.TotalChampionObject, userData.NonBattleChampionObject);
+    }
+
+    private void AddNonBattleChampion(UserData userData, GameObject champion)
+    {
+        if (!userData.NonBattleChampionObject.Contains(champion))
+            userData.NonBattleChampionObject.Add(champion);
+
+
+
+
+        if (Manager.Stage.IsBattleOngoing)
+        {
+            if (userData == Manager.User.GetHumanUserData())
+                Debug.Log(" 전투 O");
+
+            UserChampionMerge_NonBattle(userData);
+        }
+        else if (!Manager.Stage.IsBattleOngoing)
+        {
+            if (userData == Manager.User.GetHumanUserData())
+                Debug.Log(" 전투 X");
+            UserChampionMerge_Total(userData);
+        }
+    }
+
+    #endregion
+
+    #endregion
+
+    #region 유저가 넘어갔을 때
+
+    #region 전체 챔피언
+
+    private void SettingAllChampion_MoveUser(UserData userData, UserData enemyData)
+    {
+        userData.TotalChampionObject.Clear();
+        userData.NonBattleChampionObject.Clear();
+        userData.BattleChampionObject.Clear();
+
+        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+
+
+                        if (!userData.NonBattleChampionObject.Contains(champion))
+                            userData.NonBattleChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+
+        foreach (var tileEntry in enemyData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+
+
+                        if (!userData.BattleChampionObject.Contains(champion))
+                            userData.BattleChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+    }
+    private void SettingTotalChampion_MoveUser(UserData userData, UserData enemyData)
+    {
+        userData.TotalChampionObject.Clear();
+
+        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+
+        // HexDictionary의 타일 처리
+        foreach (var tileEntry in enemyData.MapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        if (!userData.TotalChampionObject.Contains(champion))
+                            userData.TotalChampionObject.Add(champion);
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region 비전투챔피언
+
+    private void SettingNonBattleChampion_MoveUser(UserData userData, UserData enemyData)
+    {
+        SettingTotalChampion_MoveUser(userData, enemyData);
+        userData.NonBattleChampionObject.Clear();
+
+        foreach (var tileEntry in enemyData.MapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.isOccupied)
+            {
+                foreach (GameObject champion in tile.championOnTile.ToList())
+                {
+                    if (champion == null || !champion.activeInHierarchy)
+                        continue;
+
+                    if (champion.CompareTag("Champion") && champion.GetComponent<ChampionBase>().Player.UserData == userData)
+                    {
+                        AddNonBattleChampion_MoveUser(userData, enemyData, champion);
+                    }
+                }
+            }
+        }
+
+        userData.BattleChampionObject.Clear();
+        userData.BattleChampionObject = GetBattleChampion(userData.TotalChampionObject, userData.NonBattleChampionObject);
+    }
+
+    private void AddNonBattleChampion_MoveUser(UserData userData, UserData enemyData, GameObject champion)
+    {
+        if (!userData.NonBattleChampionObject.Contains(champion))
+            userData.NonBattleChampionObject.Add(champion);
+
+
+        if (Manager.Stage.IsBattleOngoing)
+        {
+            UserChampionMerge_NonBattle_MoveUser(userData, enemyData);
+        }
+        else if (!Manager.Stage.IsBattleOngoing)
+        {
+            UserChampionMerge_Total_MoveUser(userData, enemyData);
+        }
 
     }
     #endregion
 
-    #region 강화로직
+    #endregion
 
-    private bool CanAddToMergeQueue(UserData userData, GameObject champion)
+    #endregion
+
+
+
+    #region 챔피언 강화 로직
+
+    #region 강화 공통 로직
+
+    private Dictionary<string, List<GameObject>> GroupChampionsByMerge_TotalChampion(UserData userData)
     {
-        ChampionBase cBase = champion.GetComponent<ChampionBase>();
+        var groupedChampions = new Dictionary<string, List<GameObject>>();
 
-        int sameChampionCount = userData.TotalChampionObject.Count(obj =>
+        foreach (var champion in userData.TotalChampionObject)
         {
-            ChampionBase championBase = obj.GetComponent<ChampionBase>();
-            return championBase != null && cBase != null &&
-                   championBase.ChampionName == cBase.ChampionName &&
-                   championBase.ChampionLevel == cBase.ChampionLevel;
-        });
+            var championBase = champion.GetComponent<ChampionBase>();
+            if (championBase == null)
+            {
+                continue;
+            }
 
-        return sameChampionCount >= 2;
+            string key = $"{championBase.ChampionName}_{championBase.ChampionLevel}";
+
+            if (!groupedChampions.ContainsKey(key))
+            {
+                groupedChampions[key] = new List<GameObject>();
+            }
+
+            groupedChampions[key].Add(champion);
+        }
+
+        return groupedChampions;
     }
 
-    private void ProcessMerge(UserData userData, GameObject champion)
+    private Dictionary<string, List<GameObject>> GroupChampionsByMerge_NonBattleChampion(UserData userData)
     {
-        if (userData.NonBattleChampionObject.Contains(champion))
+        var groupedChampions = new Dictionary<string, List<GameObject>>();
+
+        foreach (var champion in userData.NonBattleChampionObject)
         {
-            return;
+            var championBase = champion.GetComponent<ChampionBase>();
+            if (championBase == null)
+            {
+                continue;
+            }
+
+            string key = $"{championBase.ChampionName}_{championBase.ChampionLevel}";
+
+            if (!groupedChampions.ContainsKey(key))
+            {
+                groupedChampions[key] = new List<GameObject>();
+            }
+
+            groupedChampions[key].Add(champion);
         }
 
-        userData.NonBattleChampionObject.Add(champion);
-
-        ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-        // 2성 합성 로직
-        int sameChampionCount = userData.TotalChampionObject.Count(obj =>
-        {
-            ChampionBase championBase = obj.GetComponent<ChampionBase>();
-            return championBase != null && cBase != null &&
-                   championBase.ChampionName == cBase.ChampionName &&
-                   championBase.ChampionLevel == cBase.ChampionLevel;
-        });
-
-        GameObject championToEnhance = null;
-
-        if (sameChampionCount >= 3)
-        {
-            championToEnhance = MergeChampion(userData, champion);
-
-            SettingAllChampion(userData);
-        }
-
-        if (championToEnhance == null)
-            return;
-
-        // 3성 합성 로직
-        ChampionBase tempChampionBase = championToEnhance.GetComponent<ChampionBase>();
-        string championName = tempChampionBase.ChampionName;
-        int sameChampionAfterMergeCount = userData.TotalChampionObject.Count(obj =>
-        {
-            ChampionBase championBase = obj.GetComponent<ChampionBase>();
-            return championBase != null &&
-                   championBase.ChampionName == championName &&
-                   championBase.ChampionLevel == 2;
-        });
-
-        if (sameChampionAfterMergeCount >= 3)
-        {
-            championToEnhance = MergeChampion(userData, championToEnhance);
-            SettingAllChampion(userData);
-        }
-    }
-
-    private void ProcessMergeQueue(UserData userData)
-    {
-        while (userData.MergeChampionQueue.Count > 0)
-        {
-            GameObject champion = userData.MergeChampionQueue.Dequeue();
-            ProcessMerge(userData, champion);
-            SettingAllChampion(userData);
-        }
+        return groupedChampions;
     }
 
     private GameObject MergeChampion(UserData userData, GameObject champion)
     {
         List<ItemBlueprint> itemList = new List<ItemBlueprint>();
 
-        int countToRemove = 2; 
+        int countToRemove = 2;
         GameObject championToEnhance = champion;
 
         ChampionBase targetChampionBase = championToEnhance.GetComponent<ChampionBase>();
@@ -606,12 +709,12 @@ public class ChampionManager
             ChampionBase currentChampionBase = currentChampionObj.GetComponent<ChampionBase>();
 
             if (currentChampionBase != null
-                && currentChampionBase.ChampionName == targetName 
+                && currentChampionBase.ChampionName == targetName
                 && currentChampionBase.ChampionLevel == targetLevel)
             {
                 if (currentChampionBase == targetChampionBase)
                 {
-                    continue; 
+                    continue;
                 }
 
                 itemList.AddRange(currentChampionBase.EquipItem);
@@ -635,29 +738,217 @@ public class ChampionManager
         }
 
         itemList.Clear();
-        EnhanceChampion(championToEnhance);
+        EnhanceChampion(targetChampionBase);
         championToEnhance.GetComponent<ChampionBase>().ChampionFrame.SetChampionLevel();
 
         return championToEnhance;
     }
 
-    private void EnhanceChampion(GameObject champion)
+    private void EnhanceChampion(ChampionBase cBase)
     {
-        var cBase = champion.GetComponent<ChampionBase>();
-        if (cBase != null)
+        cBase.ChampionLevelUp();
+    }
+
+    #endregion
+
+    #region 상대가 넘어왔을 때_강화
+
+    public void UserChampionMerge_Total(UserData user)
+    {
+        var list = GroupChampionsByMerge_TotalChampion(user);
+
+        foreach (var mergeList in list)
         {
-            cBase.ChampionLevelUp();
+            List<GameObject> champions = mergeList.Value;
+            ProcessMerge_Total(user, champions);
         }
     }
 
-    public void OnBattleEnd(UserData user)
+    public void UserChampionMerge_NonBattle(UserData user)
     {
-        ProcessMergeQueue(user);
+        var list = GroupChampionsByMerge_NonBattleChampion(user);
+
+        foreach (var kvp in list)
+        {
+            Debug.Log($"Key: {kvp.Key}, Count: {kvp.Value.Count}");
+            foreach (var champion in kvp.Value)
+            {
+                var championBase = champion.GetComponent<ChampionBase>();
+                Debug.Log($"  - {championBase.ChampionName}, Level: {championBase.ChampionLevel}");
+            }
+        }
+
+
+        foreach (var mergeList in list)
+        {
+            List<GameObject> champions = mergeList.Value;
+            
+            Debug.Log("Champons Count : " + champions.Count);
+            ProcessMerge_None(user, champions);
+        }
+    }
+
+    private void ProcessMerge_Total(UserData userData, List<GameObject> championsToMerge)
+    {
+        if (championsToMerge == null || championsToMerge.Count < 3)
+            return;
+
+        var baseChampion = championsToMerge[0];
+
+        if (championsToMerge.Count >= 3)
+        {
+            GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+            SettingAllChampion(userData);
+            CheckAndProcessThirdStarMerge(userData, enhancedChampion);
+        }
+
+    }
+
+    private void ProcessMerge_None(UserData userData, List<GameObject> championsToMerge)
+    {
+        if (championsToMerge == null || championsToMerge.Count < 3)
+            return;
+
+        List<GameObject> filteredChampions = championsToMerge
+           .Where(champion => !userData.BattleChampionObject.Contains(champion))
+           .ToList();
+
+        if (filteredChampions.Count >= 3)
+        {
+            var baseChampion = filteredChampions[0];
+            GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+            SettingAllChampion(userData);
+            CheckAndProcessThirdStarMerge(userData, enhancedChampion);
+        }
+
+    }
+
+
+    private void CheckAndProcessThirdStarMerge(UserData userData, GameObject championToEnhance)
+    {
+        if (championToEnhance == null)
+            return;
+
+        ChampionBase enhancedChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        if (enhancedChampionBase == null)
+            return;
+
+        string championName = enhancedChampionBase.ChampionName;
+        int targetLevel = 2;
+
+        // 2성 챔피언이 3개 이상인지 확인
+        var eligibleChampions = userData.TotalChampionObject
+         .Where(obj =>
+         {
+             ChampionBase champBase = obj.GetComponent<ChampionBase>();
+             return champBase != null &&
+                    champBase.ChampionName == championName &&
+                    champBase.ChampionLevel == targetLevel;
+         })
+         .ToList();
+
+        if (eligibleChampions.Count >= 3)
+        {
+            MergeChampion(userData, eligibleChampions[0]);
+            SettingAllChampion(userData);
+        }
+    }
+
+    #endregion
+
+    #region 유저가 넘어갔을 때_강화
+    public void UserChampionMerge_Total_MoveUser(UserData user, UserData enemyData)
+    {
+        var list = GroupChampionsByMerge_TotalChampion(user);
+
+        foreach (var mergeList in list)
+        {
+            List<GameObject> champions = mergeList.Value;
+            ProcessMerge_Total_MoveUser(user, enemyData, champions);
+        }
+    }
+
+    private void UserChampionMerge_NonBattle_MoveUser(UserData user, UserData enemyData)
+    {
+        var list = GroupChampionsByMerge_NonBattleChampion(user);
+
+        foreach (var mergeList in list)
+        {
+            List<GameObject> champions = mergeList.Value;
+            ProcessMerge_None_MoveUser(user, enemyData, champions);
+        }
+    }
+
+
+    private void ProcessMerge_Total_MoveUser(UserData userData, UserData enemyData, List<GameObject> championsToMerge)
+    {
+        if (championsToMerge == null || championsToMerge.Count < 3)
+            return;
+
+            var baseChampion = championsToMerge[0];
+
+            if (championsToMerge.Count >= 3)
+            {
+                GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+                SettingAllChampion_MoveUser(userData, enemyData);
+                CheckAndProcessThirdStarMerge_MoveUser(userData, enemyData, enhancedChampion);
+            }
+    }
+    private void ProcessMerge_None_MoveUser(UserData userData, UserData enemyData, List<GameObject> championsToMerge)
+    {
+        if (championsToMerge == null || championsToMerge.Count < 3)
+            return;
+
+        List<GameObject> filteredChampions = championsToMerge
+           .Where(champion => !userData.BattleChampionObject.Contains(champion))
+           .ToList();
+
+        if (filteredChampions.Count >= 3)
+        {
+            var baseChampion = filteredChampions[0];
+            GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+            SettingAllChampion_MoveUser(userData, enemyData);
+            CheckAndProcessThirdStarMerge_MoveUser(userData, enemyData, enhancedChampion);
+        }
+    }
+    private void CheckAndProcessThirdStarMerge_MoveUser(UserData userData, UserData enemyData, GameObject championToEnhance)
+    {
+        if (championToEnhance == null)
+            return;
+
+        ChampionBase enhancedChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        if (enhancedChampionBase == null)
+            return;
+
+        string championName = enhancedChampionBase.ChampionName;
+        int targetLevel = 2;
+
+        // 2성 챔피언이 3개 이상인지 확인
+        var eligibleChampions = userData.TotalChampionObject
+         .Where(obj =>
+         {
+             ChampionBase champBase = obj.GetComponent<ChampionBase>();
+             return champBase != null &&
+                    champBase.ChampionName == championName &&
+                    champBase.ChampionLevel == targetLevel;
+         })
+         .ToList();
+
+        if (eligibleChampions.Count >= 3)
+        {
+            MergeChampion(userData, eligibleChampions[0]);
+            SettingAllChampion_MoveUser(userData, enemyData);
+        }
     }
     #endregion
 
+
     #endregion
 }
+
+
+
+#region 클래스
 
 [System.Serializable]
 public class ChampionLevelData
@@ -696,3 +987,5 @@ public class ChampionOriginalState
     public bool wasActive;
     public MapGenerator.MapInfo originalMapInfo;
 }
+
+#endregion

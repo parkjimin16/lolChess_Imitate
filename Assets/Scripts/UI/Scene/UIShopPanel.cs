@@ -119,6 +119,21 @@ public class UIShopPanel : UIBase
 
             user.UserGold -= 2;
             shopChampionList = Manager.Champion.GetRandomChampions(user.UserLevel);
+            
+            
+            
+            // 테스트 용 지워야됨
+            shopChampionList.Clear();
+            shopChampionList.Add("ChampionBlueprint_Ashe");
+            shopChampionList.Add("ChampionBlueprint_Ashe");
+            shopChampionList.Add("ChampionBlueprint_Ashe");
+            shopChampionList.Add("ChampionBlueprint_Ashe");
+            shopChampionList.Add("ChampionBlueprint_Ashe");
+
+
+
+
+
 
             int idx = 0;
 

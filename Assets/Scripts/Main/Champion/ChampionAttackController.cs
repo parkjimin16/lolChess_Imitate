@@ -429,7 +429,7 @@ public class ChampionAttackController : MonoBehaviour
 
             if (cBase.ChampionHpMpController.IsManaFull())
             {
-                Debug.Log("스킬 사용");
+                //Debug.Log("스킬 사용");
                 cBase.ChampionHpMpController.UseSkillMana();
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
