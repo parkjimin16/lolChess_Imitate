@@ -717,8 +717,10 @@ public class User : MonoBehaviour
     {
         //player1 = Manager.User.GetHumanUserData();
         Manager.User.ClearSynergy(userdata);
-        Manager.Champion.SettingNonBattleChampion(userdata);
+        //Manager.Champion.SettingNonBattleChampion(userdata);
+        Manager.Champion.SettingAllChampion(userdata);
         Manager.Champion.SettingBattleChampion(userdata);
+
 
         uiMain?.UISynergyPanel.UpdateSynergy(userdata);
     }

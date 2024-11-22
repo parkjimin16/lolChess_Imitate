@@ -319,10 +319,10 @@ public class ChampionManager
 
     #endregion
 
-    #region 상대가 넘어왔을 때
+    #region 상대가 넘어왔을 때 + 크립 전투
 
     #region 전체 챔피언
-    private void SettingAllChampion(UserData userData)
+    public void SettingAllChampion(UserData userData)
     {
         userData.TotalChampionObject.Clear();
         userData.NonBattleChampionObject.Clear();
@@ -429,6 +429,9 @@ public class ChampionManager
     /// <param name="userData"></param>
     public void SettingNonBattleChampion(UserData userData)
     {
+        if(userData == Manager.User.GetHumanUserData())
+           Debug.Log(" 호출 됨");
+
         SettingTotalChampion(userData);
         userData.NonBattleChampionObject.Clear();
 
@@ -746,6 +749,60 @@ public class ChampionManager
         return championToEnhance;
     }
 
+    private GameObject MergeChampion_None(UserData userData, GameObject champion)
+    {
+        List<ItemBlueprint> itemList = new List<ItemBlueprint>();
+
+        int countToRemove = 2;
+        GameObject championToEnhance = champion;
+
+        ChampionBase targetChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        string targetName = targetChampionBase.ChampionName;
+        int targetLevel = targetChampionBase.ChampionLevel;
+
+
+        // 리스트를 뒤에서부터 순회하며 중복 챔피언 제거
+        for (int i = userData.NonBattleChampionObject.Count - 1; i >= 0 && countToRemove > 0; i--)
+        {
+            GameObject currentChampionObj = userData.NonBattleChampionObject[i];
+            ChampionBase currentChampionBase = currentChampionObj.GetComponent<ChampionBase>();
+
+            if (currentChampionBase != null
+                && currentChampionBase.ChampionName == targetName
+                && currentChampionBase.ChampionLevel == targetLevel)
+            {
+                if (currentChampionBase == targetChampionBase)
+                {
+                    continue;
+                }
+
+                itemList.AddRange(currentChampionBase.EquipItem);
+
+                HexTile parentTile = currentChampionObj.GetComponentInParent<HexTile>();
+                if (parentTile != null)
+                {
+                    parentTile.championOnTile.Remove(currentChampionObj);
+                }
+
+                Utilities.Destroy(currentChampionObj);
+                userData.NonBattleChampionObject.RemoveAt(i);
+
+                countToRemove--;
+            }
+        }
+
+        if (itemList.Count > 0)
+        {
+            Manager.Item.StartCreatingItems(itemList);
+        }
+
+        itemList.Clear();
+        EnhanceChampion(targetChampionBase);
+        championToEnhance.GetComponent<ChampionBase>().ChampionFrame.SetChampionLevel();
+
+        return championToEnhance;
+    }
+
     private void EnhanceChampion(ChampionBase cBase)
     {
         cBase.ChampionLevelUp();
@@ -770,22 +827,9 @@ public class ChampionManager
     {
         var list = GroupChampionsByMerge_NonBattleChampion(user);
 
-        foreach (var kvp in list)
-        {
-            Debug.Log($"Key: {kvp.Key}, Count: {kvp.Value.Count}");
-            foreach (var champion in kvp.Value)
-            {
-                var championBase = champion.GetComponent<ChampionBase>();
-                Debug.Log($"  - {championBase.ChampionName}, Level: {championBase.ChampionLevel}");
-            }
-        }
-
-
         foreach (var mergeList in list)
         {
             List<GameObject> champions = mergeList.Value;
-            
-            Debug.Log("Champons Count : " + champions.Count);
             ProcessMerge_None(user, champions);
         }
     }
@@ -812,15 +856,15 @@ public class ChampionManager
             return;
 
         List<GameObject> filteredChampions = championsToMerge
-           .Where(champion => !userData.BattleChampionObject.Contains(champion))
-           .ToList();
+         .Where(champion => userData.NonBattleChampionObject.Contains(champion))
+         .ToList();
 
-        if (filteredChampions.Count >= 3)
+        if (filteredChampions.Count == 3)
         {
             var baseChampion = filteredChampions[0];
-            GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+            GameObject enhancedChampion = MergeChampion_None(userData, baseChampion);
             SettingAllChampion(userData);
-            CheckAndProcessThirdStarMerge(userData, enhancedChampion);
+            CheckAndProcessThirdStarMerge_None(userData, enhancedChampion);
         }
 
     }
@@ -852,6 +896,38 @@ public class ChampionManager
         if (eligibleChampions.Count >= 3)
         {
             MergeChampion(userData, eligibleChampions[0]);
+            SettingAllChampion(userData);
+        }
+
+
+    }
+
+    private void CheckAndProcessThirdStarMerge_None(UserData userData, GameObject championToEnhance)
+    {
+        if (championToEnhance == null)
+            return;
+
+        ChampionBase enhancedChampionBase = championToEnhance.GetComponent<ChampionBase>();
+        if (enhancedChampionBase == null)
+            return;
+
+        string championName = enhancedChampionBase.ChampionName;
+        int targetLevel = 2;
+
+        // 2성 챔피언이 3개 이상인지 확인
+        var eligibleChampions = userData.NonBattleChampionObject
+         .Where(obj =>
+         {
+             ChampionBase champBase = obj.GetComponent<ChampionBase>();
+             return champBase != null &&
+                    champBase.ChampionName == championName &&
+                    champBase.ChampionLevel == targetLevel;
+         })
+         .ToList();
+
+        if (eligibleChampions.Count >= 3)
+        {
+            MergeChampion_None(userData, eligibleChampions[0]);
             SettingAllChampion(userData);
         }
     }
@@ -908,7 +984,7 @@ public class ChampionManager
         if (filteredChampions.Count >= 3)
         {
             var baseChampion = filteredChampions[0];
-            GameObject enhancedChampion = MergeChampion(userData, baseChampion);
+            GameObject enhancedChampion = MergeChampion_None(userData, baseChampion);
             SettingAllChampion_MoveUser(userData, enemyData);
             CheckAndProcessThirdStarMerge_MoveUser(userData, enemyData, enhancedChampion);
         }
@@ -938,7 +1014,7 @@ public class ChampionManager
 
         if (eligibleChampions.Count >= 3)
         {
-            MergeChampion(userData, eligibleChampions[0]);
+            MergeChampion_None(userData, eligibleChampions[0]);
             SettingAllChampion_MoveUser(userData, enemyData);
         }
     }

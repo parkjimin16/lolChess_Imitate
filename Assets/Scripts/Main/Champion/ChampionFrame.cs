@@ -26,6 +26,8 @@ public class ChampionFrame : ObjectPoolable
         SetHPSlider(championBlueprint.CurHP, championBlueprint.MaxHP);
         SetManaSlider(championBlueprint.CurMana, championBlueprint.MaxMana);
         SetEquipItemImage(championBase.EquipItem);
+
+        gameObject.transform.localPosition = Vector3.zero;
     }
 
     public void SetChampionLevel()
