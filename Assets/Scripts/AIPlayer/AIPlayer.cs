@@ -30,12 +30,11 @@ public class AIPlayer
     #region 챔피언구매로직
     private void BuyChampions(Player aiPlayer)
     {
-        // 챔피언 구매 로직
-        shopChampionList = Manager.Champion.GetRandomChampions(1);//GetRandomChampions(1);
+        shopChampionList = Manager.Champion.GetRandomChampions(1);
         string selectedChampionName = shopChampionList[Random.Range(0, shopChampionList.Count)];
-        
-        // 챔피언 블루프린트 가져오기
-        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
+
+        //ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
+        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Zoe") as ChampionBlueprint;
 
         InstantiateAIChampion(championBlueprint, aiPlayer);
     }
@@ -57,8 +56,6 @@ public class AIPlayer
         if (emptyTile != null)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
-
-            //GameObject frame = Manager.Asset.InstantiatePrefab("ChampionFrame");
             GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
             frame.transform.SetParent(newChampionObject.transform, false);
             newChampionObject.transform.position = emptyTile.transform.position;
@@ -131,7 +128,7 @@ public class AIPlayer
             championsOnBench.RemoveAt(randomIndex);
         }
         Manager.User.ClearSynergy(aiUserData);
-        Manager.Champion.SettingNonBattleChampion(aiUserData);
+        Manager.Champion.SettingAllChampion(aiUserData);
         Manager.Champion.SettingBattleChampion(aiUserData);
 
         //uiMain?.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());

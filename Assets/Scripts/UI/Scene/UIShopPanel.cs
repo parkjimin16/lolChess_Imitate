@@ -133,8 +133,6 @@ public class UIShopPanel : UIBase
 
 
 
-
-
             int idx = 0;
 
             foreach (var championName in shopChampionList)

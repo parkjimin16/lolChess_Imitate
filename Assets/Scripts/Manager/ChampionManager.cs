@@ -162,7 +162,7 @@ public class ChampionManager
                 wasActive = newChampionObject.activeSelf,
                 originalMapInfo = user.MapInfo // 원래 맵 정보 저장
             };
-            //Debug.Log(originalState.originalMapInfo.playerData.UserData.UserName);
+
             user.ChampionOriginState[newChampionObject] = originalState;
         }
     }
@@ -429,9 +429,6 @@ public class ChampionManager
     /// <param name="userData"></param>
     public void SettingNonBattleChampion(UserData userData)
     {
-        if(userData == Manager.User.GetHumanUserData())
-           Debug.Log(" 호출 됨");
-
         SettingTotalChampion(userData);
         userData.NonBattleChampionObject.Clear();
 
@@ -467,15 +464,10 @@ public class ChampionManager
 
         if (Manager.Stage.IsBattleOngoing)
         {
-            if (userData == Manager.User.GetHumanUserData())
-                Debug.Log(" 전투 O");
-
             UserChampionMerge_NonBattle(userData);
         }
         else if (!Manager.Stage.IsBattleOngoing)
         {
-            if (userData == Manager.User.GetHumanUserData())
-                Debug.Log(" 전투 X");
             UserChampionMerge_Total(userData);
         }
     }
