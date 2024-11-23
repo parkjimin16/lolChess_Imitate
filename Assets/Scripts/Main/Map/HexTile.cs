@@ -35,10 +35,4 @@ public class HexTile : MonoBehaviour
             return false;
         }
     }
-
-    private void Start()
-    {
-        isRectangularTile = false;
-        isItemTile = false;
-    }
 }
