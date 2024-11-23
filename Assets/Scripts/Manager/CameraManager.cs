@@ -46,7 +46,7 @@ public class CameraManager
     {
         if (mapGenerator.SharedSelectionMapTransform != null)
         {
-            Vector3 targetPosition = mapGenerator.SharedSelectionMapTransform.position;
+            Vector3 targetPosition = mapGenerator.SharedSelectionMapTransform.position + new Vector3(0, 3.5f, 0);
 
             Vector3 cameraPosition = targetPosition + new Vector3(0, cameraHeight, -cameraDistance);
             CoroutineHelper.StartCoroutine(MoveCameraCoroutine(cameraPosition));

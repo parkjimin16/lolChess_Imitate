@@ -9,9 +9,12 @@ public class NormalProjectile : ObjectPoolable
     private ChampionBase championBase;
     public void SetTarget(ChampionBase cBase, GameObject target, int damage)
     {
-        this.target = target;
-        this.damage = damage;
-        championBase = cBase;
+        if (target != null)
+        {
+            this.target = target;
+            this.damage = damage;
+            championBase = cBase;
+        }
 
         StartCoroutine(DestroyAfterDelay(3f));
     }

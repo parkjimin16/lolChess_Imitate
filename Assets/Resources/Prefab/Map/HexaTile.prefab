@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2103390884114374517}
   - component: {fileID: 5675211183809076080}
   - component: {fileID: 6097049759000537762}
-  - component: {fileID: 1923075142799897242}
-  - component: {fileID: 8559723570523981309}
   - component: {fileID: 8583992642063529935}
   m_Layer: 0
   m_Name: Highlight
@@ -86,49 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1923075142799897242
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731124331791847391}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fe23be46e62b5e24b976435e32bbe8e2, type: 2}
---- !u!114 &8559723570523981309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731124331791847391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea17b04d01e75645914ecfcc9d77adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  x: 0
-  y: 0
-  isRectangularTile: 0
-  isItemTile: 0
-  itemOnTile: {fileID: 0}
-  championOnTile: []
 --- !u!114 &8583992642063529935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +107,6 @@ GameObject:
   - component: {fileID: 4493446484087356355}
   - component: {fileID: 2205510479526654206}
   - component: {fileID: 7584785167353978916}
-  - component: {fileID: 4571321610909912665}
-  - component: {fileID: 8784889889072543190}
   - component: {fileID: 8510565714374388273}
   m_Layer: 0
   m_Name: HexaTile (1)
@@ -227,49 +180,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4571321610909912665
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3149456083051740353}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fe23be46e62b5e24b976435e32bbe8e2, type: 2}
---- !u!114 &8784889889072543190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3149456083051740353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea17b04d01e75645914ecfcc9d77adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  x: 0
-  y: 0
-  isRectangularTile: 0
-  isItemTile: 0
-  itemOnTile: {fileID: 0}
-  championOnTile: []
 --- !u!114 &8510565714374388273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,8 +347,6 @@ GameObject:
   - component: {fileID: 3546281739773274802}
   - component: {fileID: 8942852091545482193}
   - component: {fileID: 1566822228809217787}
-  - component: {fileID: 2396879328643670286}
-  - component: {fileID: 4599398958385700308}
   - component: {fileID: 6697036304173690248}
   m_Layer: 0
   m_Name: White
@@ -512,49 +420,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2396879328643670286
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7508362019634399707}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fe23be46e62b5e24b976435e32bbe8e2, type: 2}
---- !u!114 &4599398958385700308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7508362019634399707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea17b04d01e75645914ecfcc9d77adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  x: 0
-  y: 0
-  isRectangularTile: 0
-  isItemTile: 0
-  itemOnTile: {fileID: 0}
-  championOnTile: []
 --- !u!114 &6697036304173690248
 MonoBehaviour:
   m_ObjectHideFlags: 0

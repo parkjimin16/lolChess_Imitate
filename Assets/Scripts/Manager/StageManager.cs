@@ -149,11 +149,14 @@ public class StageManager
 
         // **1. 라운드 전 대기시간**
 
-        // 대기 시간 동안 AI 행동 실행
-        PerformAIActions();
-
         // 라운드 전 대기시간 타이머 시작
         user.UIMain.UIRoundPanel.StartTimer(currentStage, preWaitTime);
+
+        // 대기 시간 동안 AI 행동 실행
+        if (!isCarouselRound)
+        {
+            CoroutineHelper.StartCoroutine(DelayedPerformAIActions(0.5f));
+        }
 
         // 라운드 전 대기시간 동안 대기
         yield return new WaitForSeconds(preWaitTime);
@@ -162,6 +165,7 @@ public class StageManager
 
         if (isCarouselRound)
         {
+            yield return new WaitForSeconds(0.5f);
             // 공동 선택 라운드 처리
             yield return CoroutineHelper.StartCoroutine(StartCarouselRound());
             //yield break; // 공동 선택 라운드는 별도의 흐름이므로 여기서 종료
@@ -254,6 +258,7 @@ public class StageManager
     private void ProceedToNextRound()
     {
         currentRound++;
+        Debug.Log($"ProceedToNextRound 호출됨: Stage {currentStage}, Round {currentRound}");
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
@@ -261,6 +266,7 @@ public class StageManager
         {
             // 다음 스테이지로 이동
             currentStage++;
+            Debug.Log($"다음 스테이지로 이동: Stage {currentStage}");
             if (currentStage > 8)
             {
                 // 게임 종료
@@ -412,15 +418,6 @@ public class StageManager
 
         // 진행 중인 전투 수 감소 (전투당 한 번만 감소)
         ongoingBattles--;
-        
-        // 모든 전투가 종료되었는지 확인
-        if (AllBattlesFinished())
-        {
-            DistributeGoldToPlayers();
-            // 라운드 증가 및 다음 라운드 진행
-            ProceedToNextRound();
-            IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
-        }
 
         Player p1 = player1.GetComponent<Player>();
         Player p2 = player2.GetComponent<Player>();
@@ -439,6 +436,15 @@ public class StageManager
 
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionAttackController.EnemyPlayer = null;
+        }
+
+        // 모든 전투가 종료되었는지 확인
+        if (AllBattlesFinished())
+        {
+            DistributeGoldToPlayers();
+            // 라운드 증가 및 다음 라운드 진행s
+            ProceedToNextRound();
+            IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
         }
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
     }
@@ -525,7 +531,6 @@ public class StageManager
         //Debug.Log("공동 선택 라운드가 시작됩니다!");
 
         // 카메라를 공동 선택 맵으로 이동
-        
 
         // 모든 플레이어의 움직임을 일시적으로 비활성화
         DisableAllPlayerMovement();
@@ -846,8 +851,6 @@ public class StageManager
                 if (crip.CurrentTile != null)
                 {
                     HexTile currentTile = crip.CurrentTile;
-
-                    // 타일의 championsOnTile 리스트에서 크립 제거
                     currentTile.championOnTile.Remove(crip.gameObject);
                 }
                 crip.Death(); // OnDeath() 함수를 호출하여 아이템 생성 및 크립 파괴 처리
@@ -896,29 +899,8 @@ public class StageManager
         }
         MergeScene.BatteStart = false;
         IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
-        currentRound++;
 
-        int maxRounds = currentStage == 1 ? 3 : 7;
-
-        if (currentRound > maxRounds)
-        {
-            // 다음 스테이지로 이동
-            currentStage++;
-            if (currentStage > 8)
-            {
-                // 게임 종료
-                // Debug.Log("게임 클리어!");
-                return;
-            }
-            StartStage(currentStage);
-        }
-        else
-        { 
-            // 다음 라운드 시작
-            if (roundCoroutine != null)
-                CoroutineHelper.StopCoroutine(roundCoroutine);
-            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
-        }
+        ProceedToNextRound();
 
         DistributeGoldToPlayers();
         DistributeExp();
@@ -955,6 +937,11 @@ public class StageManager
         {
             aiPlayer.PerformActions(aiPlayer.AiPlayerComponent);
         }
+    }
+    private IEnumerator DelayedPerformAIActions(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PerformAIActions();
     }
     #endregion
 

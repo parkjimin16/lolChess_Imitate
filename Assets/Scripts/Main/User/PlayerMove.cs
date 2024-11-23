@@ -69,6 +69,8 @@ public class PlayerMove : MonoBehaviour
     public void StartCarouselRound(Transform carouselTransform, MapInfo carouselInfo)
     {
         isInCarouselRound = true;
+        hasSelectedChampion = false;
+        selectedChampion = null;
         carouselMapTransform = carouselTransform;
         carouselMapInfo = carouselInfo;
         startPosition = transform.position;
@@ -80,8 +82,8 @@ public class PlayerMove : MonoBehaviour
         carouselMapTransform = null;
         carouselMapInfo = null;
         RandomChampion();
-        Destroy(selectedChampion);
-        //AddCarouselChampion();
+        //Destroy(selectedChampion);
+        AddCarouselChampion();
     }
 
     private void HandleCarouselMovement()

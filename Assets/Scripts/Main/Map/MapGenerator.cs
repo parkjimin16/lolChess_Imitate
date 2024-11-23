@@ -582,7 +582,7 @@ public class MapGenerator : MonoBehaviour
     }
     private void CreateSharedMapBoundary(Transform parent, MapInfo mapInfo)
     {
-        float boundaryRadius = 10f; // 경계선의 반지름
+        float boundaryRadius = 15f; // 경계선의 반지름
         int segments = 100;         // 원을 그리기 위한 세그먼트 수
 
         GameObject boundaryObj = new GameObject("SharedMapBoundary");
@@ -627,18 +627,18 @@ public class MapGenerator : MonoBehaviour
         mapInfo.minZ = minZ;
         mapInfo.maxZ = maxZ;
 
-        int minimapLayer = LayerMask.NameToLayer("Minimap");
+        /*int minimapLayer = LayerMask.NameToLayer("Minimap");
         boundaryObj.layer = minimapLayer;
         foreach (Transform child in boundaryObj.transform)
         {
             child.gameObject.layer = minimapLayer;
-        }
+        }*/
     }
     public void PlaceChampionsInSharedMap()
     {
         Transform carouselPivot = SharedSelectionMapTransform.Find("CarouselPivot");
 
-        float circleRadius = 5f; // 챔피언들이 배치될 원의 반지름
+        float circleRadius = 6f; // 챔피언들이 배치될 원의 반지름
         int championCount = 9;
 
         foreach (GameObject champion in ChampionsInCarousel)
@@ -690,7 +690,7 @@ public class MapGenerator : MonoBehaviour
     public void PlacePlayersInSharedMap(Transform parent)
     {
         int totalPlayers = allPlayers.Length;
-        float spawnRadius = 8f; // 플레이어들이 스폰될 원의 반지름
+        float spawnRadius = 10f; // 플레이어들이 스폰될 원의 반지름
 
         for (int i = 0; i < totalPlayers; i++)
         {

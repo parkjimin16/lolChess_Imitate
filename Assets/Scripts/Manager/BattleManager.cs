@@ -21,10 +21,6 @@ public class BattleManager
     #endregion
 
 
-
-
-
-
     public void StartBattle(GameObject player1, GameObject player2, int duration)
     {
         if (battleCoroutines.ContainsKey(player1))
@@ -137,14 +133,15 @@ public class BattleManager
             Manager.Champion.UserChampionMerge_Total(p1.UserData);
             Manager.Champion.UserChampionMerge_Total(p2.UserData);
         }
-
+        Debug.Log("이동시작");
         // Init player1
         RestoreOpponentChampions(player1);
 
         // Init player2
         RestoreOpponentPlayer(player2);
-        RestoreOpponentChampions2(player2);
+        RestoreOpponentChampions2(player2, p1.UserData.MapInfo);
         RestoreOpponentItems(player2);
+        Debug.Log("이동 끝");
 
         if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
         {
@@ -479,6 +476,8 @@ public class BattleManager
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionRotationReset();
 
+            RemoveChampionFromAllTiles(champion, opponentData.MapInfo);
+
             // 챔피언이 이동한 맵을 확인
             if (originalState.originalMapInfo != opponentData.MapInfo)
             {
@@ -496,13 +495,12 @@ public class BattleManager
         opponentData.ChampionOriginState.Clear();
     }
 
-    private void RestoreOpponentChampions2(GameObject opponent)
+    private void RestoreOpponentChampions2(GameObject opponent, MapInfo player1Mapinfo)
     {
         Player opponentComponent = opponent.GetComponent<Player>();
         UserData opponentData = opponentComponent.UserData;
 
         List<GameObject> opponentTotalBattleChampions = opponentData.TotalChampionObject;
-
 
 
         foreach (var champ in opponentData.TotalChampionObject)
@@ -520,6 +518,8 @@ public class BattleManager
             cBase.ResetChampionStats();
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionRotationReset();
+
+            RemoveChampionFromAllTiles(opponentChampion, player1Mapinfo);
 
             if (opponentChampion == null)
             {
@@ -584,6 +584,7 @@ public class BattleManager
 
     private void MoveChampionToOriginalPosition(GameObject champion, ChampionOriginalState originalState)
     {
+
         // 챔피언의 위치와 부모를 원래 위치로 설정
         champion.transform.position = originalState.originalPosition;
         champion.transform.SetParent(originalState.originalParent);
@@ -764,5 +765,28 @@ public class BattleManager
         }
 
         return totalHp;
+    }
+
+    private void RemoveChampionFromAllTiles(GameObject champion, MapInfo playerMapInfo)
+    {
+        // Hex 타일에서 제거
+        foreach (var tileEntry in playerMapInfo.HexDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.championOnTile.Contains(champion))
+            {
+                tile.championOnTile.Remove(champion);
+            }
+        }
+
+        // Rect 타일에서 제거
+        foreach (var tileEntry in playerMapInfo.RectDictionary)
+        {
+            HexTile tile = tileEntry.Value;
+            if (tile.championOnTile.Contains(champion))
+            {
+                tile.championOnTile.Remove(champion);
+            }
+        }
     }
 }

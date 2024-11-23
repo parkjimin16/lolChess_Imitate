@@ -9,7 +9,7 @@ public class Capsule : ObjectPoolable
     [SerializeField] private int gold;
     [SerializeField] private List<string> itemContainer;
     [SerializeField] private List<string> championContainer;
-
+    [SerializeField] private int capsuleOwner;
 
     public int Gold
     {
@@ -27,6 +27,11 @@ public class Capsule : ObjectPoolable
     {
         get { return championContainer; }
         set { championContainer = value; }
+    }
+    public int CapsuleOwner
+    {
+        get { return capsuleOwner; }
+        set { capsuleOwner = value; }
     }
     #endregion
 

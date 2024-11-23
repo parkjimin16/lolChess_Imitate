@@ -10,7 +10,7 @@ public class CripMovement : MonoBehaviour
     private MapGenerator.MapInfo playerMapInfo;
     public HexTile currentTile;
 
-    private HexTile targetTile;
+    [SerializeField]private HexTile targetTile;
     private Vector3 targetPosition;
     public float moveSpeed = 2f; // 이동 속도
 
@@ -202,9 +202,12 @@ public class CripMovement : MonoBehaviour
         return nearestTile;
     }
 
-    HexTile GetCurrentTile()
+    public HexTile GetCurrentTile()
     {
         return GetTileUnderCrip();
     }
-
+    public HexTile GetTargetTile()
+    {
+        return targetTile;
+    }
 }

@@ -12,7 +12,7 @@ public class Crip : MonoBehaviour
     public HexTile CurrentTile;
     public MapGenerator.MapInfo PlayerMapInfo;
     public bool IsDie;
-
+    [SerializeField] private HexTile targetTile;
 
     public Animator anim;
     //[SerializeField] private ItemTile itemtile;
@@ -79,13 +79,6 @@ public class Crip : MonoBehaviour
     {
         //GenerateItem(); 아이템 생성
 
-        if (CurrentTile != null)
-        {
-            CurrentTile = gameObject.GetComponent<CripMovement>().currentTile;
-            //currentTile.isOccupied = false;
-            CurrentTile.championOnTile.Remove(this.gameObject);
-        }
-
         if (PlayerMapInfo != null)
         {
             Player playerComponent = PlayerMapInfo.playerData;
@@ -93,6 +86,12 @@ public class Crip : MonoBehaviour
             {
                 playerComponent.UserData.CripObjectList.Remove(this.gameObject);
             }
+        }
+        HexTile targetTile = gameObject.GetComponent<CripMovement>().GetTargetTile();
+        if(targetTile != null)
+        {
+            targetTile.championOnTile.Remove(this.gameObject);
+            Debug.Log("크립제거");
         }
 
         PlayAnimation("Die");
