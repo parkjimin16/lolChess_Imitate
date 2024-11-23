@@ -29,7 +29,7 @@ public class StageManager
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 3; //일반 라운드 진행시간
-    private int cripDuration = 3; //크립 라운드 진행시간
+    private int cripDuration = 30; //크립 라운드 진행시간
 
 
 

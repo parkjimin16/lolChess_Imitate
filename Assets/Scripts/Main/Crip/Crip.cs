@@ -48,26 +48,46 @@ public class Crip : MonoBehaviour
         if (currentHP <= 0)
         {
             IsDie = true;
-
-            Death();
+            OnDeath();
+            //Death();
         }
     }
 
-    void OnDeath()
+    public void OnDeath()
     {
-        //itemtile.GenerateItem();
-        // 아이템 생성
-        //GenerateItem();
+        //GenerateItem(); 아이템 생성
+        GameObject obj = Manager.ObjectPool.GetGo("Capsule");
+        obj.transform.position = this.transform.position + new Vector3(0, 1f, 0);
+        Capsule cap = obj.GetComponent<Capsule>();
 
-        // 타일 상태 업데이트
-        if (CurrentTile != null)
+        int randomGold = Random.Range(0, 7);
+
+        string itemId = Manager.Item.NormalItem[UnityEngine.Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
+        List<string> randomItems = new List<string>();
+        randomItems.Add(itemId);
+
+        List<string> championList = new List<string>();
+
+        cap.InitCapsule(this.PlayerMapInfo.playerData.UserData, randomGold, randomItems, championList);
+
+        if (PlayerMapInfo != null)
         {
-            //currentTile.isOccupied = false;
-            CurrentTile.itemOnTile = null;
+            Player playerComponent = PlayerMapInfo.playerData;
+            if (playerComponent != null)
+            {
+                playerComponent.UserData.CripObjectList.Remove(this.gameObject);
+            }
+        }
+        HexTile targetTile = gameObject.GetComponent<CripMovement>().GetTargetTile();
+        if (targetTile != null)
+        {
+            targetTile.championOnTile.Remove(this.gameObject);
+            Debug.Log("크립제거");
         }
 
-        // 자신 파괴
-      
+        PlayAnimation("Die");
+        Invoke("DestroyObj", 0.5f);
+
     }
 
     private void DestroyObj()
