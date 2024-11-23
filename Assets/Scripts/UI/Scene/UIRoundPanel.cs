@@ -63,9 +63,21 @@ public class UIRoundPanel : UIBase
             {
                 sprites = new List<Sprite> { augmenter, combat, combat, select, combat, combat, crip };
             }
-            else
+            else if(stage == 3)
             {
                 sprites = new List<Sprite> { combat, augmenter, combat, select, combat, combat, crip };
+            }
+            else
+            {
+                sprites = new List<Sprite> { combat, combat, combat, select, combat, combat, crip };
+            }
+
+            if(round == 1)
+            {
+                for(int i=0;i < image_AfterStage.Count;i++)
+                {
+                    image_AfterStage[round - 1].color = Color.white;
+                }
             }
 
             FirstStage.SetActive(false);
@@ -77,6 +89,7 @@ public class UIRoundPanel : UIBase
                 image_AfterStage[i].sprite = sprites[i];
             }
         }
+
     }
 
     #endregion
@@ -88,7 +101,7 @@ public class UIRoundPanel : UIBase
         if(stage == 1)
         {
             if (isWin)
-                image_FirstStage[round - 1].color = Color.blue;
+                image_FirstStage[round - 1].color = Color.red;
             else
                 image_FirstStage[round - 1].color = Color.red;
         }

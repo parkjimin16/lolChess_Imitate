@@ -123,13 +123,15 @@ public class UIShopPanel : UIBase
             
             
             // 테스트 용 지워야됨
+
+            /*
             shopChampionList.Clear();
             shopChampionList.Add("ChampionBlueprint_Ashe");
             shopChampionList.Add("ChampionBlueprint_Ashe");
             shopChampionList.Add("ChampionBlueprint_Ashe");
             shopChampionList.Add("ChampionBlueprint_Ashe");
             shopChampionList.Add("ChampionBlueprint_Ashe");
-
+            */
 
 
 
@@ -158,7 +160,7 @@ public class UIShopPanel : UIBase
             //Debug.Log($"{user.UserName}님에게는 2 골드가 부족합니다.");
         }
 
-      
+       
     }
     public void InitChampionPos()
     {

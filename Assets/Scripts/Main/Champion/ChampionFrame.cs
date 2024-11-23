@@ -64,9 +64,17 @@ public class ChampionFrame : ObjectPoolable
         for(int i=0;i < equipItemImage.Count; i++)
         {
             if (i < equipItem.Count)
+            {
+                equipItemImage[i].color = new Color(equipItemImage[i].color.r, equipItemImage[i].color.g, equipItemImage[i].color.b, 1);
                 equipItemImage[i].sprite = equipItem[i].Icon;
+            }
+ 
             else
+            {
+                equipItemImage[i].color = new Color(equipItemImage[i].color.r, equipItemImage[i].color.g, equipItemImage[i].color.b, 0);
                 equipItemImage[i].sprite = null;
+            }
+
         }
     }
 
