@@ -621,13 +621,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a5aeeba5813374a8b52b43a1c4bcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimapCamera: {fileID: 543521467}
-  gapBetweenTiles: -0.6
-  maxGoldSlots: 5
-  goldSlotSize: 1
-  goldSlotSpacing: 0.1
-  championsInCarousel: []
-  sharedSelectionMapTransform: {fileID: 0}
+  MinimapCamera: {fileID: 543521467}
+  GapBetweenTiles: 0.1
+  ChampionsInCarousel: []
+  SharedSelectionMapTransform: {fileID: 0}
 --- !u!114 &1033666892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1054,7 +1051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 342345451752619137, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.453995
+      value: 12.4539795
       objectReference: {fileID: 0}
     - target: {fileID: 439044722874458790, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1290,7 +1287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1052312868683846473, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 26.983032
+      value: 26.982971
       objectReference: {fileID: 0}
     - target: {fileID: 1084231550510687913, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2590,7 +2587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3882093152090468392, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.453995
+      value: 12.4539795
       objectReference: {fileID: 0}
     - target: {fileID: 3896980935104753684, guid: 099bf321476289f47a9a745944f3af58, type: 3}
       propertyPath: m_AnchorMax.y

@@ -18,7 +18,6 @@ public class TestScene : UIBase
     [SerializeField] private List<GameObject> championPos;
     private int currentChampionIndex = 0;
 
-    private bool isLoadComplete = false;
     public int Level = 1;
 
     private void Start()
@@ -27,8 +26,6 @@ public class TestScene : UIBase
         {
             if (count >= totalCount)
             {
-                isLoadComplete = true;
-                //championObject = null;
                 GameStart = false;
                 Debug.Log("Complete");
             }

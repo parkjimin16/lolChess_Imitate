@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CrownGuard : BaseItem
 {
-    
-    private bool isShieldDestroy;
     private bool hasShieldActivated;
     private int shieldAmount;
 
@@ -16,7 +14,6 @@ public class CrownGuard : BaseItem
     public override void InitItemSkill()
     {
         shieldPercent = 0.25f;
-        isShieldDestroy = false;
         hasShieldActivated = false;
 
         foreach (ItemAttribute iAttribute in ItemAttributes)
@@ -46,7 +43,6 @@ public class CrownGuard : BaseItem
     public override void ResetItem()
     {
         shieldPercent = 0.25f;
-        isShieldDestroy = false;
         hasShieldActivated = false;
 
         apPowerItemAttribute.InitItemAttributeValue();
@@ -56,12 +52,9 @@ public class CrownGuard : BaseItem
     {
         hasShieldActivated = true;
         EquipChampionBase.SetShield(shieldAmount);
-        Debug.Log("shield Start");
 
         yield return new WaitForSeconds(8);
 
-        isShieldDestroy = true;
         apPowerItemAttribute.SetAttributeValue(45);
-        Debug.Log("shield Done");
     }
 }

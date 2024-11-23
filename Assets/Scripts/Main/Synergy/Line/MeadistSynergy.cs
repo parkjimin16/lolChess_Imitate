@@ -8,7 +8,6 @@ public class MeadistSynergy : SynergyBase
     private int level;
 
     // ¹ú²Ü¼ú»ç ·ÎÁ÷ º¯¼ö
-    private float attackTimer;
     private float totalPower;
     private float totalDefense;
 
@@ -25,26 +24,22 @@ public class MeadistSynergy : SynergyBase
 
         if (level >= 0 && level < 3)
         {
-            attackTimer = 0;
             totalPower = 0;
             totalDefense = 0;
             Deactivate(user);
         }
         else if (level >= 3 && level < 5)
         {
-            attackTimer = 3;
             totalPower = 0.07f;
             totalDefense = 0.03f;
         }
         else if (level >= 5 && level < 7)
         {
-            attackTimer = 3;
             totalPower = 0.13f;
             totalDefense = 0.05f;
         }
         else if (level >= 7)
         {
-            attackTimer = 1.5f;
             totalPower = 0.2f;
             totalDefense = 0.1f;
         }
@@ -70,7 +65,6 @@ public class MeadistSynergy : SynergyBase
             cBase.UpdateChampmionStat();
         }
 
-        attackTimer = 0;
         totalPower = 0;
         totalDefense = 0;
 

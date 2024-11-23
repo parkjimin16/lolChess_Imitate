@@ -165,7 +165,6 @@ public class ChampionBase : MonoBehaviour
     [SerializeField] private List<ChampionJob> newChampionJob = new List<ChampionJob>();
 
     private int maxItemSlot;
-    private bool isAttacking;
     #endregion
 
     #region Property
@@ -465,7 +464,6 @@ public class ChampionBase : MonoBehaviour
         championView = GetComponent<ChampionView>();    
 
         maxItemSlot = 3;
-        isAttacking = false;
     }
 
     public void InitChampion(ChampionFrame frame)

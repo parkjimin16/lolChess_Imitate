@@ -10,12 +10,7 @@ public class MinimapController : MonoBehaviour, IPointerClickHandler
     public Camera minimapCamera; // 미니맵 카메라
     public MapGenerator mapGenerator; // MapGenerator 스크립트 참조
     public UserHpManager healthBarManager; // HealthBarManager 참조 추가
-    private int currentMapId = -1; // 현재 활성화된 맵의 ID (-1은 초기값)
 
-    private void Start()
-    {
-        //UpdateBoundaryColors(-1);
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

@@ -11,12 +11,12 @@ public class HexTile : MonoBehaviour
     public int x; // Rect Tile 좌표계 x
     public int y; // Rect Tile 좌표계 y
 
-    public bool isRectangularTile = false; // 직사각형 영역 여부
+    public bool isRectangularTile; // 직사각형 영역 여부
     //public bool isOccupied = false;
-    public bool isItemTile = false;
-    public GameObject itemOnTile = null;
+    public bool isItemTile;
+    public GameObject itemOnTile;
 
-    public List<GameObject> championOnTile = new List<GameObject>();
+    public List<GameObject> championOnTile;
     public bool isOccupied
     {
         get { return championOnTile.Count > 0; }
@@ -34,5 +34,11 @@ public class HexTile : MonoBehaviour
             }
             return false;
         }
+    }
+
+    private void Start()
+    {
+        isRectangularTile = false;
+        isItemTile = false;
     }
 }

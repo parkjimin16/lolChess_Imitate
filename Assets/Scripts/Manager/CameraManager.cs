@@ -12,8 +12,7 @@ public class CameraManager
 
     private float cameraHeight = 18f; // 카메라 높이
     private float cameraDistance = 26f; // 카메라 거리
-    private float cameraRotationX = 40f; // 카메라 X축 회전
-
+        
     public void Init(Camera cam, MapGenerator map, UISceneMain main, MinimapController mini)
     {
         mainCamera = cam;

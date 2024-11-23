@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Augmenter_PrismTicket : BaseAugmenter
 {
-    private float percent;
+    private int percent;
 
     #region 증강체 로직
     public override void ApplyNow(UserData user)
     {
-        percent = 0.45f;
+        percent = 45;
     }
 
     public override void ApplyStartRound(UserData user)
@@ -30,7 +30,7 @@ public class Augmenter_PrismTicket : BaseAugmenter
     {
         base.ApplyReroll(user);
 
-        if (Random.Range(0, 100) < 45)
+        if (Random.Range(0, 100) < percent)
         {
             user.UserGold += 2;
         }

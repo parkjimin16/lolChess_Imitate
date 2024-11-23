@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GuardianOath : BaseItem
 {
-    private bool isShieldDestroy;
     private bool hasShieldActivated;
     private int shieldAmount;
     private float shieldPercent;
@@ -14,7 +13,6 @@ public class GuardianOath : BaseItem
     public override void InitItemSkill()
     {
         shieldPercent = 0.25f;
-        isShieldDestroy = false;
         hasShieldActivated = false;
 
         foreach (ItemAttribute iAttribute in ItemAttributes)
@@ -63,7 +61,6 @@ public class GuardianOath : BaseItem
     public override void ResetItem()
     {
         shieldPercent = 0.25f;
-        isShieldDestroy = false;
         hasShieldActivated = false;
 
         adDefItemAttribute.InitItemAttributeValue();
@@ -78,7 +75,6 @@ public class GuardianOath : BaseItem
 
         yield return new WaitForSeconds(5);
 
-        isShieldDestroy = true;
         adDefItemAttribute.SetAttributeValue(40);
         apDefItemAttribute.SetAttributeValue(20);
         Debug.Log("shield Done");

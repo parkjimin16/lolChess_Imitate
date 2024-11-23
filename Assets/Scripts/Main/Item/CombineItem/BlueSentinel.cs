@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class BlueSentinel : BaseItem
 {
-    private int decreaseMana;
     private ItemAttribute totalPowerItemAttribute = new ItemAttribute();
 
 
     public override void InitItemSkill()
     {
-        decreaseMana = 10;
-
         foreach (ItemAttribute iAttribute in ItemAttributes)
         {
             if (iAttribute.ItemAttributeType == ItemAttributeType.TotalPower)

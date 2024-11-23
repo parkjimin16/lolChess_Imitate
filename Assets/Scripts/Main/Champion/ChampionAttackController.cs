@@ -8,10 +8,6 @@ public class ChampionAttackController : MonoBehaviour
     #region 변수 & 프로퍼티
     private ChampionBase cBase;
 
-    // State : Move
-    private IEnumerator findCoroutine;
-    private IEnumerator moveCoroutine;
-
     // State : Attack
     private IEnumerator attackCoroutine;
 
@@ -26,19 +22,13 @@ public class ChampionAttackController : MonoBehaviour
     public float realAttackRange;
     public Player EnemyPlayer;
 
-
-    [SerializeField] private HexTile nextTile = new HexTile();
-    [SerializeField] private HexTile curTile = new HexTile();
-
-
-
-
-    [SerializeField] List<HexTile> path = new List<HexTile>();
+    [SerializeField] private HexTile nextTile;
+    [SerializeField] private HexTile curTile;
+    [SerializeField] List<HexTile> path;
 
     public bool IsAttack; // 전체 체크 용
 
     [SerializeField] private bool attackLogic;
-    [SerializeField] private bool isAttackRange;
 
     public GameObject TargetChampion 
     {
@@ -78,7 +68,6 @@ public class ChampionAttackController : MonoBehaviour
         IsAttack = false;
         attackLogic = false;
         isUseSkill = false;
-
     }
 
     public void EndBattle()
@@ -86,8 +75,6 @@ public class ChampionAttackController : MonoBehaviour
         StopAllCoroutines();
         cBase.ChampionHpMpController.InitBattleEnd();
 
-        findCoroutine = null;
-        moveCoroutine = null;
         attackCoroutine = null;
 
         EnemyPlayer = null;
@@ -503,9 +490,6 @@ public class ChampionAttackController : MonoBehaviour
 
         if (cBase.Attack_Range > 1)
         {
-            // 원거리 공격 - 발사체 생성
-            isAttackRange = true;
-
             GameObject projectileObject = Manager.ObjectPool.GetGo("NormalProjectile");
             projectileObject.transform.position = shootPoint.position;
             NormalProjectile projectile = projectileObject.GetComponent<NormalProjectile>();
@@ -517,8 +501,6 @@ public class ChampionAttackController : MonoBehaviour
         }
         else 
         {
-            // 근접 공격
-            isAttackRange = false;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
             if (Manager.Stage.isCripRound)
