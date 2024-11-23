@@ -590,6 +590,7 @@ public class ChampionBase : MonoBehaviour
     private void InitAllStat()
     {
         champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP + Augmenter_MaxHP;
+        champion_CurHp = champion_MaxHp;
         champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana + Augmenter_MaxMana;
         Champion_CurMana = champion_CurMana + item_CurMana + Synergy_CurMana + Augmenter_CurMana;
         champion_Speed = speed + item_Speed + Synergy_Speed + Augmenter_Speed;
@@ -951,6 +952,7 @@ public class ChampionBase : MonoBehaviour
 
             ad_Power = data.Power;
             UpdateStatWithItem(equipItem);
+            InitAllStat();
         }
     }
 

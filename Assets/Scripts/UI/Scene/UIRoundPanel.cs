@@ -95,9 +95,9 @@ public class UIRoundPanel : UIBase
         else
         {
             if (isWin)
-                image_FirstStage[round - 1].color = Color.blue;
+                image_AfterStage[round - 1].color = Color.blue;
             else
-                image_FirstStage[round - 1].color = Color.red;
+                image_AfterStage[round - 1].color = Color.red;
         }
 
         Debug.Log($"플레이어 1이 이겼나요? : {isWin}");
