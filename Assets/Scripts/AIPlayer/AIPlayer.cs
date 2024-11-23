@@ -53,6 +53,8 @@ public class AIPlayer
         // 빈 타일 찾기
         HexTile emptyTile = FindEmptyRectTile(aiMapInfo);
 
+        
+
         if (emptyTile != null)
         {
             GameObject newChampionObject = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
@@ -196,6 +198,7 @@ public class AIPlayer
             emptyTile.championOnTile.Add(champion);
 
             // AI 플레이어의 리스트 업데이트
+            Manager.Champion.SettingAllChampion(aiUserData);
             Manager.Champion.SettingBattleChampion(aiUserData);
         }
         else

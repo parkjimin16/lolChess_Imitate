@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static MapGenerator;
@@ -111,6 +112,7 @@ public class StageManager
     #region 스테이지 로직
     private void StartStage(int stageNumber)
     {
+        currentStage = stageNumber;
         currentRound = 1;
 
         if (roundCoroutine != null)
@@ -162,7 +164,7 @@ public class StageManager
         {
             // 공동 선택 라운드 처리
             yield return CoroutineHelper.StartCoroutine(StartCarouselRound());
-            yield break; // 공동 선택 라운드는 별도의 흐름이므로 여기서 종료
+            //yield break; // 공동 선택 라운드는 별도의 흐름이므로 여기서 종료
         }
         else if (isCripRound)
         {
@@ -562,8 +564,8 @@ public class StageManager
         }
 
         // 모든 플레이어가 챔피언을 선택할 때까지 대기 (간단하게 일정 시간 대기하도록 설정)
-        float totalCarouselDuration = 30f; // 전체 공동 선택 라운드 시간
-        yield return new WaitForSeconds(totalCarouselDuration);
+        //float totalCarouselDuration = 6f; // 전체 공동 선택 라운드 시간
+        yield return new WaitForSeconds(intervalWaitTime);
 
         // 공동 선택 라운드 종료 처리
         EndCarouselRound();
@@ -630,6 +632,7 @@ public class StageManager
     }
     void EndCarouselRound()
     {
+        
         // 모든 플레이어들에게 공동 선택 라운드 종료를 알리고 원래 위치로 복귀
         foreach (GameObject playerObj in AllPlayers)
         {
@@ -640,31 +643,10 @@ public class StageManager
                 playerMove.EndCarouselRound();
             }
         }
+        _mapGenerator.DestroyChampion();
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
-        // 이후 라운드 진행 로직
-        // 다음 라운드로 이동
-        currentRound++;
 
-        int maxRounds = currentStage == 1 ? 3 : 7;
-
-        if (currentRound > maxRounds)
-        {
-            // 다음 스테이지로 이동
-            currentStage++;
-            if (currentStage > 8)
-            {
-                // 게임 종료
-                return;
-            }
-            StartStage(currentStage);
-        }
-        else
-        {
-            // 다음 라운드 시작
-            if (roundCoroutine != null)
-                CoroutineHelper.StopCoroutine(roundCoroutine);
-            roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
-        }
+        ProceedToNextRound();
     }
     #endregion
 
@@ -875,12 +857,18 @@ public class StageManager
             bool playerWon = survivingCrips == 0;
 
 
-            foreach (var kvp in userData.ChampionOriginState)
+            foreach (var kvp in userData.ChampionOriginState.ToList())
             {
                 GameObject champion = kvp.Key;
                 ChampionOriginalState originalState = kvp.Value;
 
- 
+                if (champion == null)
+                {
+                    userData.ChampionOriginState.Remove(champion);
+                    Debug.LogWarning("ChampionOriginState에 null 참조가 발견되어 제거되었습니다.");
+                    continue;
+                }
+
                 ChampionBase cBase = champion.GetComponent<ChampionBase>();
                 if (userData.BattleChampionObject.Contains(champion))
                 {

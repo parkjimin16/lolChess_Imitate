@@ -24,6 +24,8 @@ public class PlayerMove : MonoBehaviour
     private bool hasSelectedChampion = false;
     private GameObject selectedChampion = null;
 
+    private GameObject targetChampion = null; // 현재 타겟 챔피언
+
     private void Start()
     {
         originalPosition = transform.position;
@@ -38,6 +40,19 @@ public class PlayerMove : MonoBehaviour
 
         if (isInCarouselRound)
         {
+            if (player.UserData.PlayerType != PlayerType.Player1 && !hasSelectedChampion)
+            {
+                // 현재 타겟이 없거나 타겟이 더 이상 사용 가능하지 않은 경우 새로운 타겟 선택
+                if (targetChampion == null)
+                {
+                    MoveToRandomChampion();
+                }
+                else
+                {
+                    // 타겟 챔피언의 현재 위치를 지속적으로 업데이트
+                    targetPosition = targetChampion.transform.position;
+                }
+            }
             HandleCarouselMovement();
         }
         else
@@ -64,7 +79,9 @@ public class PlayerMove : MonoBehaviour
         isInCarouselRound = false;
         carouselMapTransform = null;
         carouselMapInfo = null;
-        AddCarouselChampion();
+        RandomChampion();
+        Destroy(selectedChampion);
+        //AddCarouselChampion();
     }
 
     private void HandleCarouselMovement()
@@ -180,7 +197,7 @@ public class PlayerMove : MonoBehaviour
         if (availableChampions.Count > 0)
         {
             // 무작위로 챔피언 선택
-            GameObject targetChampion = availableChampions[Random.Range(0, availableChampions.Count)];
+            targetChampion = availableChampions[Random.Range(0, availableChampions.Count)];
 
             // 챔피언 위치로 이동
             targetPosition = targetChampion.transform.position;
@@ -272,5 +289,13 @@ public class PlayerMove : MonoBehaviour
             }
         }
         return null;
+    }
+    private void RandomChampion()
+    {
+        if(selectedChampion == null)
+        {
+            List<GameObject> availableChampions = mapGenerator.GetAvailableChampions();
+            selectedChampion = availableChampions[Random.Range(0, availableChampions.Count)];
+        }
     }
 }

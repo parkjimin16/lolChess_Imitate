@@ -733,10 +733,19 @@ public class MapGenerator : MonoBehaviour
 
         return availableChampions;
     }
+
     public void RemoveChampion(GameObject champion)
     {
         ChampionsInCarousel.Remove(champion);
         //Destroy(champion);
     }
 
+    public void DestroyChampion()
+    {
+        foreach (GameObject champion in ChampionsInCarousel)
+        {
+            Destroy(champion);
+        }
+        ChampionsInCarousel.Clear();
+    }
 }

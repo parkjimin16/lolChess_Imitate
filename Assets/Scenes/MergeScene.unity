@@ -653,13 +653,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a5aeeba5813374a8b52b43a1c4bcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimapCamera: {fileID: 543521467}
-  gapBetweenTiles: -0.6
-  maxGoldSlots: 5
-  goldSlotSize: 1
-  goldSlotSpacing: 0.1
-  championsInCarousel: []
-  sharedSelectionMapTransform: {fileID: 0}
+  MinimapCamera: {fileID: 543521467}
+  GapBetweenTiles: 0.1
+  ChampionsInCarousel: []
+  SharedSelectionMapTransform: {fileID: 0}
 --- !u!114 &1033666892
 MonoBehaviour:
   m_ObjectHideFlags: 0

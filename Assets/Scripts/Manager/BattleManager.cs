@@ -39,7 +39,7 @@ public class BattleManager
         Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
         Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
 
-        //SaveOriginalChampions(player1);
+        SaveOriginalChampions(player1);
         //SaveOriginalChampions(player2);
 
         Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, player2));
@@ -438,7 +438,7 @@ public class BattleManager
         {
             int mirroredX = 8 - x;
             int mirroredY = -1;
-            Debug.Log($"{mirroredX}, {mirroredY}");
+            //Debug.Log($"{mirroredX}, {mirroredY}");
             if (playerMapInfo.RectDictionary.TryGetValue((mirroredX, mirroredY), out HexTile mirroredTile))
             {
                 return mirroredTile;
@@ -465,6 +465,13 @@ public class BattleManager
         {
             GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;
+
+            if (champion == null)
+            {
+                opponentData.ChampionOriginState.Remove(champion);
+                Debug.LogWarning("ChampionOriginState에 null 참조가 발견되어 제거되었습니다.");
+                continue;
+            }
 
             ChampionBase cBase = champion.GetComponent<ChampionBase>();
             cBase.ChampionAttackController.EndBattle();
@@ -496,6 +503,8 @@ public class BattleManager
 
         List<GameObject> opponentTotalBattleChampions = opponentData.TotalChampionObject;
 
+
+
         foreach (var champ in opponentData.TotalChampionObject)
         {
             champ.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -512,6 +521,12 @@ public class BattleManager
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionRotationReset();
 
+            if (opponentChampion == null)
+            {
+                opponentData.ChampionOriginState.Remove(opponentChampion);
+                Debug.LogWarning("ChampionOriginState에 null 참조가 발견되어 제거되었습니다.");
+                continue;
+            }
 
             if (opponentTile != null)
             {
