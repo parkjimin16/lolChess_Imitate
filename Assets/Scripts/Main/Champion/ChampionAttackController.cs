@@ -264,8 +264,15 @@ public class ChampionAttackController : MonoBehaviour
             yield break;
         }
 
+
         while (targetChampion != null && MergeScene.BatteStart && !tcBase.ChampionHpMpController.IsDie())
         {
+            if (CanAttack(targetChampion))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield break;
+            }
+
             HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
 
             path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
@@ -275,12 +282,6 @@ public class ChampionAttackController : MonoBehaviour
 
             nextTile = path[0];
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
-
-            if (CanAttack(targetChampion))
-            {
-                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                yield break;
-            }
         }
     }
 
@@ -298,13 +299,18 @@ public class ChampionAttackController : MonoBehaviour
         if (tcBase.IsDie && tcBase != null)
         {
             StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             yield break;
         }
 
         while (targetChampion != null && MergeScene.BatteStart && !tcBase.IsDie)
         {
+            if (CanAttack(targetChampion))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield break;
+            }
+
             HexTile curTile = Manager.Stage.FindNearestTile_Crip(gameObject, cBase.Player.UserData.UserId);
 
             path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
@@ -314,12 +320,6 @@ public class ChampionAttackController : MonoBehaviour
 
             nextTile = path[0];
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
-
-            if (CanAttack(targetChampion))
-            {
-                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
-                yield break;
-            }
         }
     }
 

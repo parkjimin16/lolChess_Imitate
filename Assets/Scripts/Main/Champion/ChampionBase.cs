@@ -776,7 +776,7 @@ public class ChampionBase : MonoBehaviour
                 List<string> champion = new List<string>();
 
                 item.Add(combinedItem.ItemId);
-                cap.InitCapsule(0, item, champion);
+                cap.InitCapsule(player.UserData, 0, item, champion);
             }
 
             player.UserData.TotalItemBlueprint.Remove(combineItem1);

@@ -257,7 +257,6 @@ public class PlayerMove : MonoBehaviour
     }
     private void AddCarouselChampion()
     {
-        //GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
         GameObject obj = Manager.ObjectPool.GetGo("Capsule");
         obj.transform.position = player.UserData.MapInfo.mapTransform.position;
         Capsule cap = obj.GetComponent<Capsule>();
@@ -275,7 +274,7 @@ public class PlayerMove : MonoBehaviour
             itemid.Add(itemid1.ItemId);
         }
 
-        cap.InitCapsule(0, itemid, champion);
+        cap.InitCapsule(player.UserData, 0, itemid, champion);
 
         Destroy(selectedChampion);
     }

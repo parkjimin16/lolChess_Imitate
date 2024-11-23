@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class ItemManager
 {
@@ -151,7 +152,7 @@ public class ItemManager
         return itemObj;
     }
 
-    public void StartCreatingItems(List<ItemBlueprint> itemList)
+    public void StartCreatingItems(UserData user, List<ItemBlueprint> itemList)
     {
         List<string> itemId = new List<string>();
         List<string> champ = new List<string>();
@@ -166,7 +167,7 @@ public class ItemManager
 
         if (cap != null)
         {
-            cap.InitCapsule(0, itemId, champ);
+            cap.InitCapsule(user, 0, itemId, champ);
         }
     }
 

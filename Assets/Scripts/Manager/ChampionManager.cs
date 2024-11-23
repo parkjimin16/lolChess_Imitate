@@ -218,7 +218,7 @@ public class ChampionManager
                 item.Add(cBase.EquipItem[i].ItemId);
             }
 
-            cap.InitCapsule(cBase.ChampionSellCost(Utilities.SetSlotCost(cBase.ChampionCost), cBase.ChampionLevel), item, champion);
+            cap.InitCapsule(cBase.Player.UserData, cBase.ChampionSellCost(Utilities.SetSlotCost(cBase.ChampionCost), cBase.ChampionLevel), item, champion);
         }
         else
         {
@@ -731,7 +731,7 @@ public class ChampionManager
 
         if (itemList.Count > 0)
         {
-            Manager.Item.StartCreatingItems(itemList);
+            Manager.Item.StartCreatingItems(userData, itemList);
         }
 
         itemList.Clear();
@@ -785,7 +785,7 @@ public class ChampionManager
 
         if (itemList.Count > 0)
         {
-            Manager.Item.StartCreatingItems(itemList);
+            Manager.Item.StartCreatingItems(userData, itemList);
         }
 
         itemList.Clear();
