@@ -42,10 +42,6 @@ public class ChampionStateController : MonoBehaviour
                     return;
                 }
 
-                if (cBase.ChampionAttackController.IsAttack)
-                {
-                    ChangeState(ChampionState.Attack, cBase);
-                }
 
                 break;
 
@@ -55,12 +51,6 @@ public class ChampionStateController : MonoBehaviour
                     return;
                 }
 
-
-
-                if (!cBase.ChampionAttackController.IsAttack)
-                {
-
-                }
                 break;
 
             case ChampionState.Die:

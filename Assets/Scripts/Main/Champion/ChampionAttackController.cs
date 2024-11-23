@@ -162,9 +162,11 @@ public class ChampionAttackController : MonoBehaviour
                 return;
             }
 
+
             Manager.Stage.SetNearestTile(gameObject);
             curTile = Manager.Stage.GetParentTileInHex(gameObject);
 
+            path.Clear();
             path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
 
 
@@ -294,6 +296,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             if (CanAttack(targetChampion))
             {
+                path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
@@ -306,6 +309,7 @@ public class ChampionAttackController : MonoBehaviour
                 yield break;
 
             nextTile = path[0];
+
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
         }
     }
@@ -398,6 +402,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (tcBase.ChampionHpMpController.IsDie())
             {
+                attackLogic = false;
+                path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 yield break;
             }
@@ -416,8 +422,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (cBase.ChampionHpMpController.IsManaFull())
             {
-                //Debug.Log("스킬 사용");
                 cBase.ChampionHpMpController.UseSkillMana();
+                CreateNormalAttack(targetChampion);
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())
@@ -446,8 +452,9 @@ public class ChampionAttackController : MonoBehaviour
 
             if (tcBase.IsDie || tcBase == null || !CanAttack(targetChampion))
             {
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 attackLogic = false;
+                path.Clear();
+                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 yield break;
             }
 
@@ -465,11 +472,8 @@ public class ChampionAttackController : MonoBehaviour
 
             if (cBase.ChampionHpMpController.IsManaFull())
             {
-                Debug.Log("스킬 사용");
                 cBase.ChampionHpMpController.UseSkillMana();
-
                 CreateNormalAttack(targetChampion);
-                cBase.ChampionHpMpController.NormalAttackMana();
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())
@@ -480,6 +484,7 @@ public class ChampionAttackController : MonoBehaviour
 
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
         }
+
         attackLogic = false;
     }
 

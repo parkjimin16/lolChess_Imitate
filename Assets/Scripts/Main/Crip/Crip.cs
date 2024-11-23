@@ -1,4 +1,5 @@
 using ChampionOwnedStates;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,30 @@ using static MapGenerator;
 
 public class Crip : MonoBehaviour
 {
+    [SerializeField] private HexTile currentTile;
+
     [SerializeField] private CripObjectData cripData;
 
     [SerializeField]private int currentHP;
-    public HexTile CurrentTile;
+
+    public Action<HexTile, HexTile> OnCurrentTileChanged;
+
+    public HexTile CurrentTile
+    {
+        get => currentTile;
+        set
+        {
+            if(currentTile != value)
+            {
+                OnCurrentTileChanged?.Invoke(currentTile, value);
+                currentTile = value;
+            }
+        }
+    }
+
+
+
+
     public MapGenerator.MapInfo PlayerMapInfo;
     public bool IsDie;
     [SerializeField] private HexTile targetTile;
@@ -60,7 +81,7 @@ public class Crip : MonoBehaviour
         obj.transform.position = this.transform.position + new Vector3(0, 1f, 0);
         Capsule cap = obj.GetComponent<Capsule>();
 
-        int randomGold = Random.Range(0, 7);
+        int randomGold = UnityEngine.Random.Range(0, 7);
 
         string itemId = Manager.Item.NormalItem[UnityEngine.Random.Range(0, Manager.Item.NormalItem.Count)].ItemId;
         List<string> randomItems = new List<string>();
@@ -68,21 +89,20 @@ public class Crip : MonoBehaviour
 
         List<string> championList = new List<string>();
 
-        cap.InitCapsule(this.PlayerMapInfo.playerData.UserData, randomGold, randomItems, championList);
+        cap.InitCapsule(PlayerMapInfo.playerData.UserData, randomGold, randomItems, championList);
 
         if (PlayerMapInfo != null)
         {
             Player playerComponent = PlayerMapInfo.playerData;
             if (playerComponent != null)
             {
-                playerComponent.UserData.CripObjectList.Remove(this.gameObject);
+                playerComponent.UserData.CripObjectList.Remove(gameObject);
             }
         }
         HexTile targetTile = gameObject.GetComponent<CripMovement>().GetTargetTile();
         if (targetTile != null)
         {
-            targetTile.championOnTile.Remove(this.gameObject);
-            Debug.Log("크립제거");
+            targetTile.championOnTile.Remove(gameObject);
         }
 
         PlayAnimation("Die");
@@ -92,7 +112,7 @@ public class Crip : MonoBehaviour
 
     private void DestroyObj()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public void Death()

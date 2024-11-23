@@ -8,7 +8,6 @@ public class CripMovement : MonoBehaviour
     public float moveInterval = 2f; // 이동 간격
     private float moveTimer;
     private MapGenerator.MapInfo playerMapInfo;
-    public HexTile currentTile;
 
     [SerializeField]private HexTile targetTile;
     private Vector3 targetPosition;
@@ -29,22 +28,21 @@ public class CripMovement : MonoBehaviour
 
         // 크립이 속한 맵 정보를 가져옵니다.
         playerMapInfo = gameObject.GetComponent<Crip>().PlayerMapInfo;
-        currentTile = GetCurrentTile();
+        crip.CurrentTile = GetCurrentTile();
 
         targetTile = null;
 
-        // 크립의 y-좌표를 고정하기 위해 현재 y-좌표에 +0.5f를 더한 값을 저장합니다.
         fixedYPosition = transform.position.y;
 
-        // 초기 위치의 y-좌표를 고정합니다.
         Vector3 startPosition = transform.position;
         startPosition.y = fixedYPosition;
         transform.position = startPosition;
 
-        lastTile = currentTile;
+        lastTile = crip.CurrentTile;
 
         transform.rotation = Quaternion.Euler(0,180,0);
 
+        crip.OnCurrentTileChanged += OnTileChanged;
     }
 
     void Update()
@@ -73,6 +71,13 @@ public class CripMovement : MonoBehaviour
             // 이동 중에 위치 기반으로 타일을 감지하고 상태를 업데이트
             //pdateTileUnderCrip();
         }
+
+        HexTile tile = GetTileUnderCrip();
+        if(tile != null && crip.CurrentTile != tile && crip.CurrentTile != targetTile)
+        {
+            crip.CurrentTile = tile;
+        }
+
     }
 
     private void MoveRandomly()
@@ -149,12 +154,12 @@ public class CripMovement : MonoBehaviour
         if (hitTile != null)
         {
             // 현재 타일과 다르다면
-            if (hitTile != currentTile)
+            if (hitTile != crip.CurrentTile)
             {
                 // 이전 타일에서 크립 제거
-                if (currentTile != null)
+                if (crip.CurrentTile != null)
                 {
-                    currentTile.championOnTile.Remove(this.gameObject);
+                    crip.CurrentTile.championOnTile.Remove(this.gameObject);
                 }
 
                 // 새로운 타일에 크립 추가
@@ -164,19 +169,19 @@ public class CripMovement : MonoBehaviour
                 }
 
                 // 현재 타일 업데이트
-                currentTile = hitTile;
-                crip.CurrentTile = currentTile;
-                crip.transform.SetParent(currentTile.transform);
+                crip.CurrentTile = hitTile;
+                crip.CurrentTile = crip.CurrentTile;
+                crip.transform.SetParent(crip.CurrentTile.transform);
             }
             // 현재 타일과 같다면 아무 작업도 하지 않음
         }
         else
         {
             // 아래에 타일이 감지되지 않는 경우, 현재 타일에서 크립 제거
-            if (currentTile != null)
+            if (crip.CurrentTile != null)
             {
-                currentTile.championOnTile.Remove(this.gameObject);
-                currentTile = null;
+                crip.CurrentTile.championOnTile.Remove(this.gameObject);
+                crip.CurrentTile = null;
             }
         }
     }
@@ -210,4 +215,19 @@ public class CripMovement : MonoBehaviour
     {
         return targetTile;
     }
+
+    public void OnTileChanged(HexTile cur ,HexTile next)
+    {
+        if(cur != null)
+        {
+            cur.championOnTile.Remove(gameObject);
+        }
+
+        if(next != null)
+        {
+            next.championOnTile.Add(gameObject);
+            gameObject.transform.SetParent(next.transform);
+        }
+    }
+
 }

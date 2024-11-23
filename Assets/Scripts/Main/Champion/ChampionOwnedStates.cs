@@ -59,7 +59,7 @@ namespace ChampionOwnedStates
         }
         public override void Exit(ChampionBase champion)
         {
-            //champion.ChampionAttackController.AttackLogicStop();
+
         }
     }
 
@@ -69,11 +69,11 @@ namespace ChampionOwnedStates
         public DieState(ChampionBase championBase) : base(championBase) { }
         public override void Enter(ChampionBase champion)
         {
-            
+            champion.ChampionAttackController.StopAllCoroutines();
         }
         public override void Execute(ChampionBase champion)
         {
-
+            champion.ChampionAttackController.StopAllCoroutines();
         }
         public override void Exit(ChampionBase champion)
         {
