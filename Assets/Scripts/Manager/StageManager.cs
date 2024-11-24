@@ -419,12 +419,12 @@ public class StageManager
                 {
                     ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
-                    cBase.ChampionAttackController.EnemyPlayer = null; // 상대 플레이어가 없으므로 null
+                    cBase.ChampionAttackController.EnemyPlayer = Manager.Battle._cloneplayer; // 상대 플레이어가 없으므로 null
                     cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
                 }
 
                 // 복제된 적 챔피언 설정
-                foreach (var clonedChampion in p1.UserData.CloneEnemyChampions)
+                foreach (var clonedChampion in Manager.Battle._cloneplayer.UserData.BattleChampionObject)
                 {
                     ChampionBase cBase = clonedChampion.GetComponent<ChampionBase>();
 

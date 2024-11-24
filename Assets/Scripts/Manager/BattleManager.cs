@@ -12,11 +12,33 @@ public class BattleManager
 
     public bool IsUserMove;
 
+    public GameObject clonePlayer;
+    public UserData cloneUserData;
+    public Player _cloneplayer;
+
     #region 초기화
 
     public void InitUserMove()
     {
         IsUserMove = false;
+    }
+
+    public void ClonePlayer()
+    {
+        // 임시 플레이어 생성
+        GameObject obj = GameObject.Find("User");
+        clonePlayer = Manager.Asset.InstantiatePrefab($"Player", obj.transform);
+        clonePlayer.transform.position = new Vector3(-10, -10, -10);
+
+
+        cloneUserData = new UserData();
+        cloneUserData.InitUserData(0, "박태영", 10);
+
+        PlayerData pData = Manager.Asset.GetBlueprint($"PlayerData_8") as PlayerData;
+        _cloneplayer = clonePlayer.GetComponent<Player>();
+        _cloneplayer.PlayerData = pData;
+
+        _cloneplayer.InitPlayer(cloneUserData);
     }
 
     #endregion
@@ -79,7 +101,7 @@ public class BattleManager
         else
         {
             float player1TotalHp = GetTotalHp(player1);
-            float player2TotalHp = (player2 != null) ? GetTotalHp(player2) : GetCloneTotalHp(player1);
+            float player2TotalHp = (player2 != null) ? GetTotalHp(player2) : GetCloneTotalHp(Manager.Battle.clonePlayer);
 
             if (player1TotalHp >= player2TotalHp)
             {
@@ -173,7 +195,7 @@ public class BattleManager
         {
             // 복제된 챔피언과의 전투인 경우
             Manager.Champion.UserChampionMerge_Total(p1.UserData);
-            RestoreClonedChampions(player1);
+            RestoreClonedChampions(Manager.Battle.clonePlayer);
         }
 
         Debug.Log("이동시작");
@@ -828,7 +850,7 @@ public class BattleManager
         Player playerComponent = player.GetComponent<Player>();
         float totalHp = 0f;
 
-        foreach (GameObject championObj in playerComponent.UserData.CloneEnemyChampions)
+        foreach (GameObject championObj in playerComponent.UserData.BattleChampionObject)
         {
             if (championObj.activeSelf)
             {
@@ -878,6 +900,8 @@ public class BattleManager
         MapInfo lastPlayerMapInfo = lastUserData.MapInfo;
         MapInfo matchedPlayerMapInfo = matchedUserData.MapInfo;
 
+        ClonePlayer();
+
         // 복제된 챔피언을 저장할 리스트
         List<GameObject> clonedChampions = new List<GameObject>();
 
@@ -920,6 +944,8 @@ public class BattleManager
                 // 타일 정보 업데이트
                 mirroredTile.championOnTile.Add(clonedChampion);
 
+                
+                _cloneplayer.UserData.BattleChampionObject.Add(clonedChampion);
                 // 클론된 챔피언 리스트에 추가
                 clonedChampions.Add(clonedChampion);
             }
@@ -930,9 +956,6 @@ public class BattleManager
                 GameObject.Destroy(clonedChampion);
             }
         }
-
-        // 나중에 정리할 수 있도록 클론된 챔피언을 lastUserData에 저장
-        lastUserData.CloneEnemyChampions = clonedChampions;
     }
     private void RestoreClonedChampions(GameObject player1)
     {
@@ -940,7 +963,7 @@ public class BattleManager
         UserData userData = playerComponent.UserData;
 
         // 복제된 챔피언 제거
-        foreach (GameObject clonedChampion in userData.CloneEnemyChampions)
+        foreach (GameObject clonedChampion in userData.BattleChampionObject)
         {
             HexTile tile = clonedChampion.GetComponentInParent<HexTile>();
             if (tile != null)
@@ -950,6 +973,6 @@ public class BattleManager
             GameObject.Destroy(clonedChampion);
         }
 
-        userData.CloneEnemyChampions.Clear();
+        userData.BattleChampionObject.Clear();
     }
 }

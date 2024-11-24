@@ -31,8 +31,6 @@ public class UserManager
 
             Manager.Game.PlayerListObject[i - 1] = newPlayer;
         }
-        
-
 
         for (int i = 0; i < obj.transform.childCount; i++)
         {
