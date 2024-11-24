@@ -172,6 +172,7 @@ public class UserData
     [SerializeField] private GoldDisplay goldDisplay;
     [SerializeField] private List<GameObject> CripObject;
     [SerializeField] private UISceneMain uiMain;
+    [SerializeField] private List<GameObject> clonedEnemyChampions;
 
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
@@ -183,6 +184,8 @@ public class UserData
 
     private Dictionary<GameObject, ChampionOriginalState> championOriginalStates;
     private Dictionary<GameObject, ItemOriginalState> itemOriginalStates;
+
+
 
     #region Property
 
@@ -416,6 +419,11 @@ public class UserData
         {
             uiMain = value;
         }
+    }
+    public List<GameObject> CloneEnemyChampions
+    {
+        get { return clonedEnemyChampions; }
+        set { clonedEnemyChampions = value;}
     }
     #endregion
 

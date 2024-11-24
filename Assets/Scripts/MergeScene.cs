@@ -123,5 +123,9 @@ public class MergeScene : MonoBehaviour
             Manager.Augmenter.ApplyWheneverAugmenter(Manager.User.GetHumanUserData());
 
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            Manager.Stage.ApplyDamage(Manager.Stage.AllPlayers[2], 5);
+        }
     }
 }

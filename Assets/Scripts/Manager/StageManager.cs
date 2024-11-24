@@ -28,7 +28,7 @@ public class StageManager
     private int normalWaitTime = 3; //라운드 전 대기시간
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
-    private int roundDuration = 20; //일반 라운드 진행시간
+    private int roundDuration = 3; //일반 라운드 진행시간
     private int cripDuration = 2; //크립 라운드 진행시간
 
 
@@ -318,9 +318,26 @@ public class StageManager
 
         // 플레이어 수에 따라 매칭을 생성합니다.
         int playerCount = players.Count;
+        int matchedPlayerCount = (playerCount / 2) * 2;
 
-        // 플레이어 수가 홀수인 경우 유령 플레이어 또는 바이(bye)를 처리해야 합니다.
-        for (int i = 0; i < playerCount - 1; i += 2)
+        // 플레이어 수가 홀수인 경우 마지막 플레이어를 먼저 처리
+        if (playerCount % 2 != 0)
+        {
+            GameObject lastPlayer = players[playerCount - 1];
+
+            // 이미 매칭된 플레이어 중에서 랜덤으로 하나 선택
+            int randomMatchedIndex = Random.Range(0, matchedPlayerCount);
+            GameObject matchedPlayer = players[randomMatchedIndex];
+
+            // BattleManager의 함수를 호출하여 챔피언 복제 및 배치
+            Manager.Battle.CloneAndPlaceChampionsForLastPlayer(lastPlayer, matchedPlayer);
+            
+            // 매치업에 추가 (player2를 `null`로 설정)
+            matchups.Add((lastPlayer, null));
+        }
+
+        // 그 다음 나머지 플레이어들끼리 매칭 및 이동 처리
+        for (int i = 0; i < matchedPlayerCount; i += 2)
         {
             GameObject player1 = players[i];
             GameObject player2 = players[i + 1];
@@ -328,17 +345,6 @@ public class StageManager
             Manager.Battle.MovePlayer(player1, player2);
         }
 
-        // 플레이어 수가 홀수인 경우 마지막 플레이어 처리
-        if (playerCount % 2 != 0)
-        {
-            GameObject lastPlayer = players[playerCount - 1];
-            // 유령 플레이어와 매칭하거나, 랜덤으로 다른 플레이어와 매칭
-            // 여기서는 간단히 랜덤 플레이어와 다시 매칭
-            int randomIndex = Random.Range(0, playerCount - 1);
-            GameObject randomPlayer = players[randomIndex];
-            matchups.Add((lastPlayer, randomPlayer));
-        }
-        
         AllPlayerStartBattle();
     }
 
@@ -385,22 +391,46 @@ public class StageManager
             ongoingBattles++;
 
             Player p1 = player1.GetComponent<Player>();
-            Player p2 = player2.GetComponent<Player>();
-
-            foreach(var champion in p1.UserData.BattleChampionObject)
+            if (player2 != null)
             {
-                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+                Player p2 = player2.GetComponent<Player>();
 
-                cBase.ChampionAttackController.EnemyPlayer = p2;
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                foreach (var champion in p1.UserData.BattleChampionObject)
+                {
+                    ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+                    cBase.ChampionAttackController.EnemyPlayer = p2;
+                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                }
+
+                foreach (var champion in p2.UserData.BattleChampionObject)
+                {
+                    ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+                    cBase.ChampionAttackController.EnemyPlayer = p1;
+                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                }
             }
-
-            foreach (var champion in p2.UserData.BattleChampionObject)
+            else
             {
-                ChampionBase cBase = champion.GetComponent<ChampionBase>();
+                // 복제된 챔피언들과의 전투 설정
+                // 플레이어1의 챔피언 설정
+                foreach (var champion in p1.UserData.BattleChampionObject)
+                {
+                    ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
-                cBase.ChampionAttackController.EnemyPlayer = p1;
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                    cBase.ChampionAttackController.EnemyPlayer = null; // 상대 플레이어가 없으므로 null
+                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                }
+
+                // 복제된 적 챔피언 설정
+                foreach (var clonedChampion in p1.UserData.CloneEnemyChampions)
+                {
+                    ChampionBase cBase = clonedChampion.GetComponent<ChampionBase>();
+
+                    cBase.ChampionAttackController.EnemyPlayer = p1.GetComponent<Player>();
+                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                }
             }
         }
     }
@@ -412,15 +442,24 @@ public class StageManager
         GameObject winningPlayer = player1Won ? player1 : player2;
 
         // 패배한 플레이어에게 데미지 적용
-        ApplyDamage(losingPlayer, survivingEnemyUnits);
-        // 플레이어의 체력이 0 이하인지 확인하고 탈락 처리
-        CheckPlayerElimination(losingPlayer);
+        if (losingPlayer != null)
+        {
+            ApplyDamage(losingPlayer, survivingEnemyUnits);
+            // 플레이어의 체력이 0 이하인지 확인하고 탈락 처리
+            CheckPlayerElimination(losingPlayer);
+        }
+
+        // 승리한 플레이어의 체력이 0 이하인지 확인하고 탈락 처리
+        if (winningPlayer != null)
+        {
+            CheckPlayerElimination(winningPlayer);
+        }
 
         // 진행 중인 전투 수 감소 (전투당 한 번만 감소)
         ongoingBattles--;
 
         Player p1 = player1.GetComponent<Player>();
-        Player p2 = player2.GetComponent<Player>();
+        Player p2 = player2 != null ? player2.GetComponent<Player>() : null;
 
         foreach (var champion in p1.UserData.BattleChampionObject)
         {
@@ -430,12 +469,15 @@ public class StageManager
             cBase.ChampionAttackController.EnemyPlayer = null;
         }
 
-        foreach (var champion in p2.UserData.BattleChampionObject)
+        if (p2 != null)
         {
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+            foreach (var champion in p2.UserData.BattleChampionObject)
+            {
+                ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
-            cBase.ChampionAttackController.EnemyPlayer = null;
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                cBase.ChampionAttackController.EnemyPlayer = null;
+            }
         }
 
         // 모든 전투가 종료되었는지 확인
@@ -445,6 +487,7 @@ public class StageManager
             // 라운드 증가 및 다음 라운드 진행s
             ProceedToNextRound();
             IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
+            DistributeExp();
         }
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
     }
@@ -459,7 +502,14 @@ public class StageManager
     #region 유저 로직
     private void CheckPlayerElimination(GameObject player)
     {
-        if (player.GetComponent<Player>().UserData.IsUserDie())
+        if (player == null)
+        {
+            // player가 null이면 함수를 종료합니다.
+            return;
+        }
+
+        Player playerComponent = player.GetComponent<Player>();
+        if (playerComponent != null && playerComponent.UserData.IsUserDie())
         {
             // 플레이어 탈락 처리
             // 탈락한 플레이어를 리스트에서 제거
@@ -467,15 +517,20 @@ public class StageManager
         }
     }
 
-    void ApplyDamage(GameObject player, int survivingEnemyUnits)
+    public void ApplyDamage(GameObject player, int survivingEnemyUnits)
     {
+        if (player == null)
+        {
+            // player가 null이면 데미지를 적용할 수 없으므로 함수를 종료합니다.
+            return;
+        }
+
         int index = currentStage - 1;
         int totalDamage = baseDamages[index] + (damagePerEnemyUnit[index] * survivingEnemyUnits);
 
         // 플레이어에게 데미지 적용
-        Player player_  = player.GetComponent<Player>();
+        Player player_ = player.GetComponent<Player>();
         player_.UserData.SetUserHealth(-totalDamage);
-
 
         // 체력바 업데이트
         Manager.UserHp.UpdateHealthBars();
@@ -483,8 +538,7 @@ public class StageManager
         // 게임 오버 체크
         if (player_.UserData.IsUserDie())
         {
-            // Debug.Log($"{player.GetComponent<Player>().PlayerName} 탈락!");
-            // 플레이어 탈락 처리
+            // 플레이어 탈락 처리 로직을 여기에 추가합니다.
         }
     }
 
@@ -652,6 +706,8 @@ public class StageManager
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
 
         ProceedToNextRound();
+
+        DistributeExp();
     }
     #endregion
 
@@ -796,7 +852,7 @@ public class StageManager
     }
 
     int GetNumberOfCripsToSpawn(int stage, int round)
-    {
+    { 
         // 스테이지와 라운드에 따라 생성할 크립의 수를 설정합니다.
 
         if (stage == 1)

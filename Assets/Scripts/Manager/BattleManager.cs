@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static ItemAttribute;
 using static MapGenerator;
@@ -27,20 +28,32 @@ public class BattleManager
             return;
 
         Player p1 = player1.GetComponent<Player>();
-        Player p2 = player2.GetComponent<Player>();
+        
 
         Manager.Synergy.ApplySynergy(p1.UserData);
-        Manager.Synergy.ApplySynergy(p2.UserData);
+        
 
         Manager.Augmenter.ApplyStartRoundAugmenter(p1.UserData);
-        Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
+        
 
         SaveOriginalChampions(player1);
         //SaveOriginalChampions(player2);
 
-        Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, player2));
-        battleCoroutines.Add(player1, battleCoroutine);
-        battleCoroutines.Add(player2, battleCoroutine);
+        if(player2 != null)
+        {
+            Player p2 = player2.GetComponent<Player>();
+            Manager.Synergy.ApplySynergy(p2.UserData);
+            Manager.Augmenter.ApplyStartRoundAugmenter(p2.UserData);
+
+            Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, player2));
+            battleCoroutines.Add(player1, battleCoroutine);
+            battleCoroutines.Add(player2, battleCoroutine);
+        }
+        else
+        {
+            Coroutine battleCoroutine = CoroutineHelper.StartCoroutine(BattleCoroutine(duration, player1, null));
+            battleCoroutines.Add(player1, battleCoroutine);
+        }
     }
 
     IEnumerator BattleCoroutine(int duration, GameObject player1, GameObject player2)
@@ -48,7 +61,7 @@ public class BattleManager
         yield return new WaitForSeconds(duration);
 
         int player1AliveChampions = CountAliveChampions(player1);
-        int player2AliveChampions = CountAliveChampions(player2);
+        int player2AliveChampions = (player2 != null) ? CountAliveChampions(player2) : CountAliveChampions(player1);
 
         bool player1Won;
         int survivingEnemyUnits;
@@ -66,7 +79,7 @@ public class BattleManager
         else
         {
             float player1TotalHp = GetTotalHp(player1);
-            float player2TotalHp = GetTotalHp(player2);
+            float player2TotalHp = (player2 != null) ? GetTotalHp(player2) : GetCloneTotalHp(player1);
 
             if (player1TotalHp >= player2TotalHp)
             {
@@ -89,19 +102,19 @@ public class BattleManager
         {
             battleCoroutines.Remove(player1);
         }
-        if (battleCoroutines.ContainsKey(player2))
+        if (player2 != null && battleCoroutines.ContainsKey(player2))
         {
             battleCoroutines.Remove(player2);
         }
 
         Player p1 = player1.GetComponent<Player>();
-        Player p2 = player2.GetComponent<Player>();
+        
 
         Manager.Synergy.UnApplySynergy(p1.UserData);
-        Manager.Synergy.UnApplySynergy(p2.UserData);
+        
 
         Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
-        Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);
+        
 
         foreach (var champ in p1.UserData.BattleChampionObject)
         {
@@ -112,35 +125,61 @@ public class BattleManager
             cBase.ResetChampionStats();
         }
 
-        foreach (var champ in p2.UserData.BattleChampionObject)
+        if (player2 != null)
         {
-            ChampionBase cBase = champ.GetComponent<ChampionBase>();
+            Player p2 = player2.GetComponent<Player>();
+            Manager.Synergy.UnApplySynergy(p2.UserData);
+            Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);
+            foreach (var champ in p2.UserData.BattleChampionObject)
+            {
+                ChampionBase cBase = champ.GetComponent<ChampionBase>();
 
-            cBase.ChampionRotationReset();
-            cBase.ChampionAttackController.EndBattle();
-            cBase.ResetChampionStats();
-        }
+                cBase.ChampionRotationReset();
+                cBase.ChampionAttackController.EndBattle();
+                cBase.ResetChampionStats();
+            }
 
-        if (p2.UserData == Manager.User.GetHumanUserData())
-        {
-            Player enemy = Manager.Stage.FindMyEnemy(p2.UserData).GetComponent<Player>();
+            if (p2.UserData == Manager.User.GetHumanUserData())
+            {
+                Player enemy = Manager.Stage.FindMyEnemy(p2.UserData).GetComponent<Player>();
 
-            Manager.Champion.UserChampionMerge_Total(p1.UserData);
-            Manager.Champion.UserChampionMerge_Total_MoveUser(p2.UserData, enemy.UserData);
+                Manager.Champion.UserChampionMerge_Total(p1.UserData);
+                Manager.Champion.UserChampionMerge_Total_MoveUser(p2.UserData, enemy.UserData);
+            }
+            else
+            {
+                Manager.Champion.UserChampionMerge_Total(p1.UserData);
+                Manager.Champion.UserChampionMerge_Total(p2.UserData);
+            }
+
+            RestoreOpponentPlayer(player2);
+            RestoreOpponentChampions2(player2, p1.UserData.MapInfo);
+            RestoreOpponentItems(player2);
+
+
+            if (p1.UserData == Manager.User.GetHumanUserData())
+            {
+                p1.UserData.UIMain.UIShopPanel.UpdateContinousBox(p1.UserData);
+                p1.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player1Won);
+            }
+            else if (p2.UserData == Manager.User.GetHumanUserData())
+            {
+                bool player2Won = !player1Won;
+                p2.UserData.UIMain.UIShopPanel.UpdateContinousBox(p2.UserData);
+                p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
+            }
         }
         else
         {
+            // 복제된 챔피언과의 전투인 경우
             Manager.Champion.UserChampionMerge_Total(p1.UserData);
-            Manager.Champion.UserChampionMerge_Total(p2.UserData);
+            RestoreClonedChampions(player1);
         }
+
         Debug.Log("이동시작");
         // Init player1
         RestoreOpponentChampions(player1);
 
-        // Init player2
-        RestoreOpponentPlayer(player2);
-        RestoreOpponentChampions2(player2, p1.UserData.MapInfo);
-        RestoreOpponentItems(player2);
         Debug.Log("이동 끝");
 
         if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
@@ -150,17 +189,7 @@ public class BattleManager
 
         SuccessiveWinLose(player1, player2, player1Won);
 
-        if(p1.UserData == Manager.User.GetHumanUserData())
-        {
-            p1.UserData.UIMain.UIShopPanel.UpdateContinousBox(p1.UserData);
-            p1.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player1Won);
-        }
-        else if (p2.UserData == Manager.User.GetHumanUserData())
-        {
-            bool player2Won = !player1Won;
-            p2.UserData.UIMain.UIShopPanel.UpdateContinousBox(p2.UserData);
-            p2.UserData.UIMain.UIRoundPanel.UpdateWinOrLose(Manager.Stage.currentStage, Manager.Stage.currentRound, player2Won);
-        }
+        
 
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         InitUserMove();
@@ -178,36 +207,63 @@ public class BattleManager
     private void SuccessiveWinLose(GameObject player1, GameObject player2, bool player1Won)
     {
         Player playerComponent1 = player1.GetComponent<Player>();
-        Player playerComponent2 = player2.GetComponent<Player>();
-        if (player1Won)
-        {
-            // 플레이어1 승리
-            if (playerComponent1.UserData.UserSuccessiveWin > 0)
-                playerComponent1.UserData.UserSuccessiveWin++;
-            else
-                playerComponent1.UserData.UserSuccessiveWin = 1;
-            playerComponent1.UserData.UserSuccessiveLose = 0;
 
-            if (playerComponent2.UserData.UserSuccessiveLose > 0)
-                playerComponent2.UserData.UserSuccessiveLose++;
+        if (player2 != null)
+        {
+            Player playerComponent2 = player2.GetComponent<Player>();
+
+            if (player1Won)
+            {
+                // 플레이어1 승리
+                if (playerComponent1.UserData.UserSuccessiveWin > 0)
+                    playerComponent1.UserData.UserSuccessiveWin++;
+                else
+                    playerComponent1.UserData.UserSuccessiveWin = 1;
+                playerComponent1.UserData.UserSuccessiveLose = 0;
+
+                if (playerComponent2.UserData.UserSuccessiveLose > 0)
+                    playerComponent2.UserData.UserSuccessiveLose++;
+                else
+                    playerComponent2.UserData.UserSuccessiveLose = 1;
+                playerComponent2.UserData.UserSuccessiveWin = 0;
+            }
             else
-                playerComponent2.UserData.UserSuccessiveLose = 1;
-            playerComponent2.UserData.UserSuccessiveWin = 0;
+            {
+                // 플레이어2 승리
+                if (playerComponent2.UserData.UserSuccessiveWin > 0)
+                    playerComponent2.UserData.UserSuccessiveWin++;
+                else
+                    playerComponent2.UserData.UserSuccessiveWin = 1;
+                playerComponent2.UserData.UserSuccessiveLose = 0;
+
+                if (playerComponent1.UserData.UserSuccessiveLose > 0)
+                    playerComponent1.UserData.UserSuccessiveLose++;
+                else
+                    playerComponent1.UserData.UserSuccessiveLose = 1;
+                playerComponent1.UserData.UserSuccessiveWin = 0;
+            }
         }
         else
         {
-            // 플레이어2 승리
-            if (playerComponent2.UserData.UserSuccessiveWin > 0)
-                playerComponent2.UserData.UserSuccessiveWin++;
+            // player2가 null인 경우 (클론된 챔피언과의 전투)
+            if (player1Won)
+            {
+                // 플레이어1 승리
+                if (playerComponent1.UserData.UserSuccessiveWin > 0)
+                    playerComponent1.UserData.UserSuccessiveWin++;
+                else
+                    playerComponent1.UserData.UserSuccessiveWin = 1;
+                playerComponent1.UserData.UserSuccessiveLose = 0;
+            }
             else
-                playerComponent2.UserData.UserSuccessiveWin = 1;
-            playerComponent2.UserData.UserSuccessiveLose = 0;
-
-            if (playerComponent1.UserData.UserSuccessiveLose > 0)
-                playerComponent1.UserData.UserSuccessiveLose++;
-            else
-                playerComponent1.UserData.UserSuccessiveLose = 1;
-            playerComponent1.UserData.UserSuccessiveWin = 0;
+            {
+                // 플레이어1 패배
+                if (playerComponent1.UserData.UserSuccessiveLose > 0)
+                    playerComponent1.UserData.UserSuccessiveLose++;
+                else
+                    playerComponent1.UserData.UserSuccessiveLose = 1;
+                playerComponent1.UserData.UserSuccessiveWin = 0;
+            }
         }
     }
 
@@ -767,6 +823,27 @@ public class BattleManager
         return totalHp;
     }
 
+    private float GetCloneTotalHp(GameObject player)
+    {
+        Player playerComponent = player.GetComponent<Player>();
+        float totalHp = 0f;
+
+        foreach (GameObject championObj in playerComponent.UserData.CloneEnemyChampions)
+        {
+            if (championObj.activeSelf)
+            {
+                ChampionBase cBase = championObj.GetComponent<ChampionBase>();
+                ChampionHpMpController hpMpController = championObj.GetComponent<ChampionHpMpController>();
+                if (hpMpController != null && !hpMpController.IsDie())
+                {
+                    totalHp += cBase.Champion_CurHp;
+                }
+            }
+        }
+
+        return totalHp;
+    }
+
     private void RemoveChampionFromAllTiles(GameObject champion, MapInfo playerMapInfo)
     {
         // Hex 타일에서 제거
@@ -788,5 +865,91 @@ public class BattleManager
                 tile.championOnTile.Remove(champion);
             }
         }
+    }
+
+    public void CloneAndPlaceChampionsForLastPlayer(GameObject lastPlayer, GameObject matchedPlayer)
+    {
+        Player lastPlayerComponent = lastPlayer.GetComponent<Player>();
+        UserData lastUserData = lastPlayerComponent.UserData;
+
+        Player matchedPlayerComponent = matchedPlayer.GetComponent<Player>();
+        UserData matchedUserData = matchedPlayerComponent.UserData;
+
+        MapInfo lastPlayerMapInfo = lastUserData.MapInfo;
+        MapInfo matchedPlayerMapInfo = matchedUserData.MapInfo;
+
+        // 복제된 챔피언을 저장할 리스트
+        List<GameObject> clonedChampions = new List<GameObject>();
+
+        // 매칭된 플레이어의 배틀 챔피언 복제
+        foreach (GameObject champion in matchedUserData.BattleChampionObject)
+        {
+            // 챔피언 복제
+            ChampionBlueprint cBlueprint = champion.GetComponent<ChampionBase>().ChampionBlueprint;
+            GameObject clonedChampion = Manager.Asset.InstantiatePrefab(cBlueprint.ChampionInstantiateName);
+            GameObject frame = Manager.ObjectPool.GetGo("ChampionFrame");
+            frame.transform.SetParent(clonedChampion.transform, false);
+
+            clonedChampion.name = champion.name + "_Clone";
+
+            // 클론된 챔피언의 소유자를 설정
+            ChampionBase clonedChampionBase = clonedChampion.GetComponent<ChampionBase>();
+            clonedChampionBase.BattleStageIndex = lastUserData.UserId;
+
+            ChampionBase cBase = clonedChampion.GetComponent<ChampionBase>();
+            ChampionFrame cFrame = frame.GetComponentInChildren<ChampionFrame>();
+
+            Player player = Manager.Game.PlayerListObject[matchedUserData.UserId].GetComponent<Player>();
+            cBase.SetChampion(cBlueprint, player);
+            cBase.InitChampion(cFrame);
+
+
+            // 원본 챔피언의 타일 가져오기
+            HexTile opponentTile = champion.GetComponentInParent<HexTile>();
+
+            // 마지막 플레이어의 맵에서 반전된 타일 찾기
+            HexTile mirroredTile = GetMirroredTile(opponentTile, lastPlayerMapInfo);
+
+            if (mirroredTile != null)
+            {
+                // 클론된 챔피언을 반전된 타일에 배치
+                clonedChampion.transform.position = mirroredTile.transform.position + new Vector3(0, 0.5f, 0);
+                clonedChampion.transform.SetParent(mirroredTile.transform);
+                clonedChampion.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+                // 타일 정보 업데이트
+                mirroredTile.championOnTile.Add(clonedChampion);
+
+                // 클론된 챔피언 리스트에 추가
+                clonedChampions.Add(clonedChampion);
+            }
+            else
+            {
+                // 반전된 타일을 찾지 못한 경우 처리
+                Debug.LogWarning("클론된 챔피언을 위한 반전된 타일을 찾을 수 없습니다.");
+                GameObject.Destroy(clonedChampion);
+            }
+        }
+
+        // 나중에 정리할 수 있도록 클론된 챔피언을 lastUserData에 저장
+        lastUserData.CloneEnemyChampions = clonedChampions;
+    }
+    private void RestoreClonedChampions(GameObject player1)
+    {
+        Player playerComponent = player1.GetComponent<Player>();
+        UserData userData = playerComponent.UserData;
+
+        // 복제된 챔피언 제거
+        foreach (GameObject clonedChampion in userData.CloneEnemyChampions)
+        {
+            HexTile tile = clonedChampion.GetComponentInParent<HexTile>();
+            if (tile != null)
+            {
+                tile.championOnTile.Remove(clonedChampion);
+            }
+            GameObject.Destroy(clonedChampion);
+        }
+
+        userData.CloneEnemyChampions.Clear();
     }
 }
