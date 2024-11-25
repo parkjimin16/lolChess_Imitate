@@ -12,7 +12,7 @@ public class CameraManager
 
     private float cameraHeight = 18f; // 카메라 높이
     private float cameraDistance = 26f; // 카메라 거리
-        
+
     public void Init(Camera cam, MapGenerator map, UISceneMain main, MinimapController mini)
     {
         mainCamera = cam;
@@ -32,6 +32,8 @@ public class CameraManager
 
             mainCamera.transform.position = cameraPosition;
             minimap.UpdateBoundaryColors(targetMap.mapId);
+
+            MovePlayerCharacterToMap(Manager.Stage.AllPlayers[0], targetMap);
         }
         else
         {
@@ -40,7 +42,19 @@ public class CameraManager
 
         uiMain.UISynergyPanel.UpdateSynergy(playerData.UserData);
     }
+    private void MovePlayerCharacterToMap(GameObject playerObject, MapInfo targetMap)
+    {
+        // 플레이어 캐릭터를 새로운 맵의 위치로 이동
+        Vector3 newPosition = targetMap.mapTransform.position + new Vector3(-12f, 0.8f, 6f);
+        playerObject.transform.position = newPosition;
 
+        PlayerMove playerMove = playerObject.GetComponent<PlayerMove>();
+        if (playerMove != null)
+        {
+            playerMove.SetCurrentMapInfo(targetMap);
+        }
+    }
+    
     public void MoveCameraToSharedSelectionMap()
     {
         if (mapGenerator.SharedSelectionMapTransform != null)

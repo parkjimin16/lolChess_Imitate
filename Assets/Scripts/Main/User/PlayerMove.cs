@@ -26,9 +26,12 @@ public class PlayerMove : MonoBehaviour
 
     private GameObject targetChampion = null; // 현재 타겟 챔피언
 
+    private MapInfo currentMapInfo;
+
     private void Start()
     {
         originalPosition = transform.position;
+        currentMapInfo = Manager.User.GetHumanUserData().MapInfo;
 
         player = gameObject.GetComponent<Player>();
         mapGenerator = GameObject.Find("Map").GetComponent<MapGenerator>();
@@ -137,12 +140,13 @@ public class PlayerMove : MonoBehaviour
 
                     Vector3 clickedPosition = hit.point;
 
-                    // 클릭한 위치를 자신의 맵의 경계선 내로 제한
-                    MapInfo playerMapInfo = mapGenerator.mapInfos[0]; // 플레이어1의 맵 정보
-                    float clampedX = Mathf.Clamp(clickedPosition.x, playerMapInfo.minX, playerMapInfo.maxX);
-                    float clampedZ = Mathf.Clamp(clickedPosition.z, playerMapInfo.minZ + 4f, playerMapInfo.maxZ);
-                    targetPosition = new Vector3(clampedX, transform.position.y, clampedZ);
-                    isMoving = true;
+                    if (currentMapInfo != null)
+                    {
+                        float clampedX = Mathf.Clamp(clickedPosition.x, currentMapInfo.minX, currentMapInfo.maxX);
+                        float clampedZ = Mathf.Clamp(clickedPosition.z, currentMapInfo.minZ, currentMapInfo.maxZ);
+                        targetPosition = new Vector3(clampedX, transform.position.y, clampedZ);
+                        isMoving = true;
+                    }
                 }
             }
         }
@@ -298,5 +302,9 @@ public class PlayerMove : MonoBehaviour
             List<GameObject> availableChampions = mapGenerator.GetAvailableChampions();
             selectedChampion = availableChampions[Random.Range(0, availableChampions.Count)];
         }
+    }
+    public void SetCurrentMapInfo(MapInfo mapInfo)
+    {
+        currentMapInfo = mapInfo;
     }
 }

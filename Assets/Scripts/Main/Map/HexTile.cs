@@ -17,6 +17,9 @@ public class HexTile : MonoBehaviour
     public GameObject itemOnTile;
 
     public List<GameObject> championOnTile;
+
+    public List<GameObject> capsuleOnTile;
+
     public bool isOccupied
     {
         get { return championOnTile.Count > 0; }

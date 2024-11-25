@@ -79,6 +79,9 @@ public class Crip : MonoBehaviour
         //GenerateItem(); 아이템 생성
         GameObject obj = Manager.ObjectPool.GetGo("Capsule");
         obj.transform.position = this.transform.position + new Vector3(0, 1f, 0);
+        obj.transform.SetParent(this.transform.parent);
+        currentTile.capsuleOnTile.Add(obj);
+        
         Capsule cap = obj.GetComponent<Capsule>();
 
         int randomGold = UnityEngine.Random.Range(0, 7);
@@ -104,6 +107,7 @@ public class Crip : MonoBehaviour
         {
             targetTile.championOnTile.Remove(gameObject);
         }
+        currentTile.championOnTile.Remove(gameObject);
 
         PlayAnimation("Die");
         Invoke("DestroyObj", 0.5f);
