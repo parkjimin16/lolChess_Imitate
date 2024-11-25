@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,15 +6,107 @@ using UnityEngine;
 public class ChampionManager
 {
     private GameDataBlueprint gameDataBlueprint;
+    private Dictionary<string, int> runtimeChampionCounts = new Dictionary<string, int>();
 
     #region 초기화
     public void Init(GameDataBlueprint gameDataBlueprint)
     {
         this.gameDataBlueprint = gameDataBlueprint;
+        runtimeChampionCounts.Clear();
+        InitializeRuntimeChampionCounts();
     }
+
+    private void InitializeRuntimeChampionCounts()
+    {
+        foreach (var countData in gameDataBlueprint.ChampionMaxCount)
+        {
+            foreach (var championName in GetChampionNamesByCost(countData.Cost))
+            {
+                string valueName = GetProcessedChampionName(championName);
+                if (!runtimeChampionCounts.ContainsKey(valueName))
+                {
+                    runtimeChampionCounts[valueName] = countData.MaxCount;
+                }
+            }
+        }
+        PrintRuntimeChampionCounts();
+    }
+
+    private void PrintRuntimeChampionCounts()
+    {
+        foreach (var kvp in runtimeChampionCounts)
+        {
+            Debug.Log($"Champion: {kvp.Key}, Count: {kvp.Value}");
+        }
+    }
+
+  
     #endregion
 
-    #region 챔피언 로직
+    #region 런타임 데이터 제어
+
+    /// <summary>
+    /// 챔피언 기물 개수를 줄임.
+    /// </summary>
+    /// <param name="championName">감소시킬 챔피언 이름</param>
+    /// <returns>감소 성공 여부</returns>
+    public void DecreaseChampionCount(string championName)
+    {
+        if (runtimeChampionCounts.ContainsKey(championName) && runtimeChampionCounts[championName] > 0)
+        {
+            runtimeChampionCounts[championName]--;
+        }
+    }
+
+    /// <summary>
+    /// 챔피언 기물 개수를 늘림.
+    /// </summary>
+    /// <param name="championName">증가시킬 챔피언 이름</param>
+    public void IncreaseChampionCount(string championName)
+    {
+        if (runtimeChampionCounts.ContainsKey(championName))
+        {
+            runtimeChampionCounts[championName]++;
+        }
+    }
+
+    /// <summary>
+    /// 챔피언 기물이 남아있는지 확인
+    /// </summary>
+    /// <param name="championName">확인할 챔피언 이름</param>
+    /// <returns>기물이 남아있으면 true</returns>
+    public bool HasAvailableChampion(string championName)
+    {
+        return runtimeChampionCounts.ContainsKey(championName) && runtimeChampionCounts[championName] > 0;
+    }
+
+    #endregion
+
+
+    #region 챔피언 상점 로직
+    public string GetProcessedChampionName(string championName)
+    {
+        int underscoreIndex = championName.IndexOf('_');
+
+        if (underscoreIndex >= 0)
+        {
+            return championName.Substring(underscoreIndex + 1);
+        }
+
+        return championName;
+    }
+    private string[] GetChampionNamesByCost(int cost)
+    {
+        foreach (var championData in gameDataBlueprint.ChampionDataList)
+        {
+            if (championData.Cost == cost)
+            {
+                return championData.Names;
+            }
+        }
+        return new string[0];
+    }
+
 
     /// <summary>
     /// 상점 챔피언 갱신
@@ -26,6 +119,31 @@ public class ChampionManager
 
         ChampionRandomData currentData = gameDataBlueprint.ChampionRandomDataList[level - 1];
 
+        while (selectedChampions.Count < 5)
+        {
+            int costIndex = GetCostIndex(currentData.Probability);
+            int cost = costIndex + 1;
+
+            ChampionData costChampionData = GetChampionDataByCost(cost);
+            if (costChampionData != null && costChampionData.Names.Length > 0)
+            {
+                string candidate = costChampionData.Names[UnityEngine.Random.Range(0, costChampionData.Names.Length)];
+                string valueName = GetProcessedChampionName(candidate);
+                // 기물이 남아있는 챔피언만 추가
+                if (HasAvailableChampion(valueName) && !selectedChampions.Contains(candidate))
+                {
+                    selectedChampions.Add(candidate);
+                }
+            }
+        }
+
+        if (selectedChampions.Count < 5)
+        {
+            Debug.LogWarning("Unable to fill all champion slots. Check available data and probabilities.");
+        }
+
+
+        /*
         for (int i = 0; i < 5; i++)
         {
             int costIndex = GetCostIndex(currentData.Probability);
@@ -36,9 +154,10 @@ public class ChampionManager
                 selectedChampions.Add(selectedChampion);
             }
         }
-
+        */
         return selectedChampions;
     }
+
 
     private int GetCostIndex(float[] probabilities)
     {
@@ -50,7 +169,7 @@ public class ChampionManager
             cumulativeProbabilities[i] = cumulativeProbabilities[i - 1] + probabilities[i];
         }
 
-        float randomValue = Random.Range(0f, 1f);
+        float randomValue = UnityEngine.Random.Range(0f, 1f);
 
         for (int i = 0; i < cumulativeProbabilities.Length; i++)
         {
@@ -62,6 +181,12 @@ public class ChampionManager
 
         return probabilities.Length - 1;
     }
+    #endregion
+
+    #region 챔피언 로직
+
+
+
 
     private ChampionData GetChampionDataByCost(int cost)
     {
@@ -110,7 +235,7 @@ public class ChampionManager
         string newChampion = string.Empty;
 
         int count =  gameDataBlueprint.ChampionDataList[cost - 1].Names.Length;
-        int randomIndex = Random.Range(0, count);
+        int randomIndex = UnityEngine.Random.Range(0, count);
         newChampion = gameDataBlueprint.ChampionDataList[cost - 1].Names[randomIndex];
 
         return newChampion;
@@ -247,6 +372,8 @@ public class ChampionManager
         {
             user.ChampionOriginState.Remove(targetChampion);
         }
+
+        IncreaseChampionCount(cBase.ChampionBlueprint.ChampionInstantiateName);
 
         Manager.Synergy.UpdateSynergies(user);
     }

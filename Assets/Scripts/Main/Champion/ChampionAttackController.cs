@@ -542,7 +542,7 @@ public class ChampionAttackController : MonoBehaviour
         Debug.Log(" 스킬 사용 ");
         isUseSkill = true;
         cBase.ChampionHpMpController.UseSkillMana();
-
+            
         yield return new WaitForSeconds(3.0f);
 
         Debug.Log(" 스킬 끝 ");

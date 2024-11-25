@@ -1,74 +1,214 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager
 {
-    // UI 요소 참조
-    public TextMeshProUGUI stageRoundText;
-    public TextMeshProUGUI timerText;
+    #region Fields
+    private int sceneOrder = 10;
+    private int popupOrder = 50;
 
-    // 타이머 코루틴을 제어하기 위한 변수
-    private Coroutine timerCoroutine;
+    private readonly Stack<UIScene> sceneStack = new();
+    private readonly Stack<UIPopup> popupStack = new();
+    #endregion
 
-    // 싱글톤 패턴을 사용하여 다른 스크립트에서 쉽게 접근할 수 있도록 합니다.
-    public static UIManager Instance { get; private set; }
+    #region Property
 
-    void Awake()
+    public GameObject UIRoot
     {
-        // 싱글톤 인스턴스 설정
-        if (Instance == null)
+        get
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            GameObject root = GameObject.Find("@UIRoot") ?? new GameObject("@UIRoot");
+            return root;
         }
     }
 
-    // 스테이지와 라운드 UI 업데이트
-    public void UpdateStageRoundUI(int stage, int round)
+    public UITopScene Top { get; private set; }
+    public UIScene CurrentScene { get; private set; }
+    public UIScene CurrentSubScene { get; private set; }
+    public UIPopup CurrentPopup { get; private set; }
+    #endregion
+
+    #region Init
+
+
+    /// <summary>
+    /// 씬의 Canvas 설정
+    /// </summary>
+    /// <param name="uiObject"></param>
+    public void SetCanvasScene(GameObject uiObject)
     {
-        stageRoundText.text = $"Stage {stage} - {round}";
+        var canvas = Utilities.GetOrAddComponent<Canvas>(uiObject);
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = sceneOrder++;
+
+
+        var canvasScaler = Utilities.GetOrAddComponent<CanvasScaler>(uiObject);
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(1920, 1080);
     }
 
-    // 타이머 시작
-    public void StartTimer(int duration)
+    /// <summary>
+    /// 팝업의 씬 설정
+    /// </summary>
+    /// <param name="uiObject"></param>
+    public void SetCanvasPopup(GameObject uiObject)
     {
-        if (timerCoroutine != null)
-            StopCoroutine(timerCoroutine);
-        timerCoroutine = StartCoroutine(TimerCoroutine(duration));
+        var canvas = Utilities.GetOrAddComponent<Canvas>(uiObject);
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = popupOrder++; // 팝업의 정렬 순서를 증가
+
+        // Canvas Scaler 설정
+        var canvasScaler = Utilities.GetOrAddComponent<CanvasScaler>(uiObject);
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(1920, 1080);
+    }
+    #endregion
+
+    #region Scene
+    public void InitTop(UITopScene uITopMain)
+    {
+        Top = uITopMain;
     }
 
-    // 타이머 코루틴
-    IEnumerator TimerCoroutine(int duration)
+    public T ShowScene<T>(string sceneName = null) where T : UIScene
     {
-        int remainingTime = duration;
-        while (remainingTime > 0)
-        {
-            UpdateTimerUI(remainingTime);
-            yield return new WaitForSeconds(1f);
-            remainingTime--;
-        }
-        UpdateTimerUI(0); // 타이머가 끝났을 때 0으로 표시
+        if (string.IsNullOrEmpty(sceneName)) sceneName = typeof(T).Name;
+
+        GameObject obj = Manager.Asset.InstantiatePrefab(sceneName, UIRoot.transform);
+        T scene = Utilities.GetOrAddComponent<T>(obj);
+        CurrentScene = scene;
+
+        return scene;
     }
 
-    // 타이머 UI 업데이트
-    void UpdateTimerUI(int time)
+    public T ShowSubScene<T>(string sceneName = null) where T : UIScene
     {
-        timerText.text = $"{time}s";
+        if (string.IsNullOrEmpty(sceneName)) sceneName = typeof(T).Name;
 
-        // 예시: 남은 시간이 5초 이하일 때 텍스트 색상 변경
-        if (time <= 5)
+        if (CurrentSubScene != null)
         {
-            timerText.color = Color.red;
+            CloseSubScene();
         }
-        else
+
+        GameObject obj = Manager.Asset.InstantiatePrefab(sceneName, UIRoot.transform);
+        T scene = Utilities.GetOrAddComponent<T>(obj);
+        CurrentSubScene = scene;
+        sceneStack.Push(scene);
+
+        return scene;
+    }
+
+    public void CloseSubScene()
+    {
+        if (sceneStack.Count == 0) return;
+
+        UIScene scene = sceneStack.Pop();
+        Destroy(scene.gameObject);
+        sceneOrder--;
+    }
+
+    public bool CheckSceneStack()
+    {
+        return sceneStack.Count != 0;
+    }
+    #endregion
+
+    #region Popup
+
+    public T ShowPopup<T>(string popupName = null) where T : UIPopup
+    {
+        if (string.IsNullOrEmpty(popupName)) popupName = typeof(T).Name;
+
+        for (int i = popupStack.Count - 1; i >= 0; i--)
         {
-            timerText.color = Color.white;
+            var _popup = popupStack.Peek();
+            if (_popup.name == popupName)
+            {
+                Destroy(_popup.gameObject);
+                popupStack.Pop();
+            }
+            else
+            {
+                break;
+            }
         }
-    } 
+
+        GameObject obj = Manager.Asset.InstantiatePrefab(popupName, UIRoot.transform);
+        T popup = Utilities.GetOrAddComponent<T>(obj);
+        CurrentPopup = popup;
+        popupStack.Push(popup);
+
+        return popup;
+    }
+
+    public void ClosePopup()
+    {
+        if (popupStack.Count == 0) return;
+
+        UIPopup popup = popupStack.Pop();
+        Destroy(popup.gameObject);
+        popupOrder--;
+    }
+
+    public void ClosePopup(string target)
+    {
+        if (popupStack.Count == 0) return;
+
+        UIPopup popup = popupStack.Pop();
+
+        if(popup.gameObject.name == target)
+        {
+            popupStack.Push(popup);
+            return;
+        }
+
+        Destroy(popup.gameObject);
+        popupOrder--;
+    }
+    public void CloseAllPopupUI()
+    {
+        while (popupStack.Count > 0)
+        {
+            ClosePopup();
+        }
+    }
+
+    public void CloseAllPopupUIExcept(string name)
+    {
+        int count = popupStack.Count;
+        for(int i=0;i < count; i++)
+        {
+            ClosePopup(name);
+        }
+    }
+
+    public bool CheckPopupStack()
+    {
+        return popupStack.Count != 0;
+    }
+
+    #endregion
+
+    #region Elements
+
+    public T AddElement<T>(string elementName = null) where T : UIBase
+    {
+        if (string.IsNullOrEmpty(elementName)) elementName = typeof(T).Name;
+
+        GameObject obj = Manager.Asset.InstantiatePrefab(elementName, UIRoot.transform);
+        T element = Utilities.GetOrAddComponent<T>(obj);
+
+        return element;
+    }
+
+    private void Destroy(GameObject obj)
+    {
+        if (obj == null) return;
+        UnityEngine.Object.Destroy(obj);
+    }
+    #endregion
 }
-

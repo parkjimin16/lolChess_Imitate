@@ -33,8 +33,7 @@ public class AIPlayer
         shopChampionList = Manager.Champion.GetRandomChampions(1);
         string selectedChampionName = shopChampionList[Random.Range(0, shopChampionList.Count)];
 
-        //ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
-        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint("ChampionBlueprint_Zoe") as ChampionBlueprint;
+        ChampionBlueprint championBlueprint = Manager.Asset.GetBlueprint(selectedChampionName) as ChampionBlueprint;
 
         InstantiateAIChampion(championBlueprint, aiPlayer);
     }

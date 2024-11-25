@@ -104,6 +104,7 @@ public class UIShopPanel : UIBase
             return;
 
         HideSlot(obj);
+        Manager.Champion.DecreaseChampionCount(Manager.Champion.GetProcessedChampionName(cBlueprint.ChampionInstantiateName));
         Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
     }
     public void UpdateChampionSlot(PointerEventData enterEvent)
