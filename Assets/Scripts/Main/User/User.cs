@@ -475,7 +475,6 @@ public class User : MonoBehaviour
             {
                 HexTile tile = currentTile.GetComponent<HexTile>();
                 tile.isItemTile = false;
-                tile.championOnTile = null;
             }
         }
         else

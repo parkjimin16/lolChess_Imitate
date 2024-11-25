@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime;
 using UnityEngine;
 
 public class Capsule : ObjectPoolable
@@ -62,6 +63,7 @@ public class Capsule : ObjectPoolable
             if (player.UserData == ownerData && player != null && player.UserData.MapInfo.ItemTile[0].EmptyTileCount() >= ItemContainer.Count 
                 && Manager.Champion.GetEmptyTileCount(player.UserData) >= championContainer.Count)
             {
+                gameObject.transform.parent.GetComponent<HexTile>().capsuleOnTile.Remove(gameObject);
                 Manager.User.UserCrushWithCapsule(player.UserData, gold, ItemContainer, championContainer);
                 
                 ReleaseObject();

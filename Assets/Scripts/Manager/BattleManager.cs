@@ -312,6 +312,11 @@ public class BattleManager
 
         if(playerComponent2.UserData.PlayerType == PlayerType.Player1)
         {
+            PlayerMove playerMove = playerComponent2.GetComponent<PlayerMove>();
+            if (playerMove != null)
+            {
+                playerMove.SetCurrentMapInfo(playerComponent1.UserData.MapInfo);
+            }
             Manager.Cam.MoveCameraToPlayer(playerComponent1);
         }
 
