@@ -230,8 +230,11 @@ public class ChampionAttackController : MonoBehaviour
 
             path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
-            StopAllCoroutines();
-            StartCoroutine(StartMoveAndCheck());
+            if (targetChampion != null)
+            {
+                StopAllCoroutines();
+                StartCoroutine(StartMoveAndCheck());
+            }
         }  
     }
     #endregion
@@ -248,7 +251,6 @@ public class ChampionAttackController : MonoBehaviour
         if (tcBase.ChampionHpMpController.IsDie() && tcBase != null)
         {
             StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
             yield break;
         }
@@ -258,6 +260,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             if (CanAttack(targetChampion))
             {
+                path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
@@ -400,7 +403,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-            if (tcBase.ChampionHpMpController.IsDie())
+            if (tcBase.ChampionHpMpController.IsDie() && targetChampion.activeInHierarchy)
             {
                 attackLogic = false;
                 path.Clear();
