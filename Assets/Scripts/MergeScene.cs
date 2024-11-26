@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MergeScene : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class MergeScene : MonoBehaviour
     public static bool BatteStart;
 
 
-
     [SerializeField] private UISceneMain mainScene;
     [SerializeField] private GameDataBlueprint gameDataBlueprint;
     [SerializeField] private SymbolDataBlueprint symbolDataBlueprint;
@@ -23,13 +23,28 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private Camera mainCam;
     [SerializeField] private User user;
+    [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private Slider loadingSlider;
+
     public int Level = 1;
 
     private void Start()
     {
+        GameStart = false;
+        loadingPanel.SetActive(true);
+
+        if (loadingSlider != null)
+        {
+            loadingSlider.value = 0f;
+        }
+
         Manager.Asset.LoadAllAsync((count, totalCount) =>
         {
-            GameStart = false;
+            if (loadingSlider != null && totalCount > 0)
+            {
+                float progress = (float)count / totalCount;
+                loadingSlider.value = progress;
+            }
 
             if (count >= totalCount)
             {
@@ -67,7 +82,7 @@ public class MergeScene : MonoBehaviour
                 mainScene.UIShopPanel.UpdateChampionSlot(null);
                 mainScene.UISynergyPanel.UpdateSynergy(Manager.User.GetHumanUserData());
 
-
+                loadingPanel.SetActive(false);
             }
         });
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ChampionStateController : MonoBehaviour
 {
-    private FSMManager fsm;
+    private StateManager state;
     private ChampionBase cBase;
 
     [SerializeField] private ChampionState curState;
@@ -25,45 +25,13 @@ public class ChampionStateController : MonoBehaviour
         cBase = championBase;
 
         curState = ChampionState.Idle;
-        fsm = new FSMManager(new IdleState(cBase));
+        state = new StateManager(new IdleState(cBase));
     }
 
 
     private void Update()
     {
-        switch (curState)
-        {
-            case ChampionState.Idle:
-                break;
-
-            case ChampionState.Move:
-                if (!MergeScene.BatteStart)
-                {
-                    return;
-                }
-
-
-                break;
-
-            case ChampionState.Attack:
-                if (!MergeScene.BatteStart)
-                {
-                    return;
-                }
-
-                break;
-
-            case ChampionState.Die:
-                if (!MergeScene.BatteStart)
-                {
-                    return;
-                }
-
-
-                break;
-        }
-
-        fsm.UpdateState(cBase);
+        state.UpdateState(cBase);
     }
 
     public void ChangeState(ChampionState newState, ChampionBase cBase)
@@ -73,16 +41,16 @@ public class ChampionStateController : MonoBehaviour
         switch(curState)
         {
             case ChampionState.Idle:
-                fsm.ChangeState(new IdleState(cBase), cBase);
+                state.ChangeState(new IdleState(cBase), cBase);
                 break;
             case ChampionState.Move:
-                fsm.ChangeState(new MoveState(cBase), cBase);
+                state.ChangeState(new MoveState(cBase), cBase);
                 break;
             case ChampionState.Attack:
-                fsm.ChangeState(new AttackState(cBase), cBase);
+                state.ChangeState(new AttackState(cBase), cBase);
                 break;
             case ChampionState.Die:
-                fsm.ChangeState(new DieState(cBase), cBase);
+                state.ChangeState(new DieState(cBase), cBase);
                 break;
         }
 

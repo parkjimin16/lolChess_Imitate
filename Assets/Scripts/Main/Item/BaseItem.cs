@@ -21,7 +21,6 @@ public class BaseItem : MonoBehaviour
 
     #endregion
 
-
     #region Properity
 
     public Sprite Icon => icon;
@@ -37,6 +36,7 @@ public class BaseItem : MonoBehaviour
 
     #endregion
 
+    #region 초기화
     public virtual void Initialize(ItemBlueprint blueprint)
     {
         icon = blueprint.Icon;
@@ -54,7 +54,9 @@ public class BaseItem : MonoBehaviour
 
         equipChampionBase = champion.GetComponent<ChampionBase>();
     }
-    
+
+    #endregion
+
     /// <summary>
     /// 공격 할때마다 호출
     /// </summary>

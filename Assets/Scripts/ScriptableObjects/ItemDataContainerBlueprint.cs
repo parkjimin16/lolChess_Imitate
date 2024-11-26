@@ -60,6 +60,7 @@ public class ItemBlueprint
     [SerializeField] private ChampionLine championLine;
     [SerializeField] private ChampionJob championJob;
 
+    #region 프로퍼티
     public Material Material => material;
     public Sprite Icon => icon;
     public string ItemId => itemId;
@@ -70,6 +71,8 @@ public class ItemBlueprint
     public BaseItem BaseItem => baseItem;
     public ChampionLine ChampionLine => championLine;
     public ChampionJob ChampionJob => championJob;
+
+    #endregion
 
     public void InitBaseItem()
     {

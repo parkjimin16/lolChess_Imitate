@@ -42,34 +42,6 @@ public class AugmenterBlueprint : ScriptableObject
         return augmentList.OrderBy(x => Random.value).Take(6).ToList();
     }
     #endregion
-
-    // 응당한 대가 전용
-    public List<AugmenterData> GetAugmentsWithIndex(int index, List<AugmenterData> augmentList)
-    {
-        if (index < 0 || index >= augmentList.Count)
-        {
-            Debug.LogWarning("유효하지 않은 인덱스입니다.");
-            return null;
-        }
-
-        var selectedAugment = augmentList[index];
-        var resultList = new List<AugmenterData>();
-
-        for (int i = 0; i < 6; i++)
-        {
-            resultList.Add(selectedAugment);
-        }
-
-        return resultList;
-    }
-
-    
-    // 디버깅
-    public AugmenterData GetAugmentByName(string name)
-    {
-        var allAugmenters = silverAugmenter.Concat(goldAugmenter).Concat(platinumAugmenter);
-        return allAugmenters.FirstOrDefault(augment => augment.AugmenterName == name);
-    }
 }
 
 
