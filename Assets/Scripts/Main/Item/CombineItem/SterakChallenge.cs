@@ -29,7 +29,6 @@ public class SterakChallenge : BaseItem
 
     public override void ResetItem()
     {
-        Debug.Log("Reset Item");
         count = 0;
         hpItemAttribute.InitItemAttributeValue();
         adPowerItemAttribute.InitItemAttributeValue();
@@ -46,9 +45,7 @@ public class SterakChallenge : BaseItem
     private void CheckChampionHp()
     {
         if (EquipChampion == null || EquipChampionBase == null)
-        {
             return;
-        }
 
 
         if (EquipChampionBase.Champion_CurHp / EquipChampionBase.Champion_MaxHp <= 0.6f)

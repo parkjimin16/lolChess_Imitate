@@ -19,9 +19,15 @@ public class Augmenter_LevelUp : BaseAugmenter
     {
 
     }
+
     public override void ApplyWhenever(UserData user)
     {
 
     }
     #endregion
+
+    public override void ApplyLevelUp(UserData user)
+    {
+        user.UserExp += 2;
+    }
 }

@@ -67,19 +67,4 @@ public abstract class BaseAugmenter : MonoBehaviour
 
         return list;
     }
-
-    public List<ChampionBase> GetEnemyChampions(UserData user)
-    {
-        var list = new List<ChampionBase>();
-
-        foreach (var champion in user.BattleChampionObject)
-        {
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-            if (cBase != null)
-                list.Add(cBase);
-        }
-
-        return list;
-    }
 }
