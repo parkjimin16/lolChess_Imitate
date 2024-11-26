@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using static MapGenerator;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -126,6 +127,8 @@ public class MapGenerator : MonoBehaviour
         public List<ItemTile> ItemTile = new List<ItemTile>();
         public GoldDisplay goldDisplay; // GoldDisplay 참조 추가
 
+        public Transform PlayerAugmenterPosition;
+        public Transform EnemyAugmenterPosition;
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();
@@ -207,7 +210,7 @@ public class MapGenerator : MonoBehaviour
 
                     GenerateMap(userMap.transform, mapInfo);
                     CreateMapBoundary(userMap.transform, userIndex, mapInfo);
-
+                    CreateAugmenterPositions(userMap.transform, mapInfo);
                     userIndex++;
                 }
             }
@@ -394,6 +397,40 @@ public class MapGenerator : MonoBehaviour
             rightEmptyObject.tag = "EnemySugar";
         }
         
+    }
+
+    private void CreateAugmenterPositions(Transform parent, MapInfo mapInfo)
+    {
+        // 맵의 가로 크기를 가져옵니다.
+        float mapWidth = mapWidthSize + rectWidthSize * 2f;
+        float xOffset = mapWidth / 2f - rectWidthSize; // rectWidthSize는 타일의 너비입니다.
+
+        // 플레이어 Augmenter 위치 계산 (왼쪽 중앙)
+        float playerXPos = parent.position.x - xOffset - 5.4f;
+        float playerZPos = parent.position.z;
+        Vector3 playerAugmenterPosition = new Vector3(playerXPos, 0, playerZPos);
+
+        // 적 Augmenter 위치 계산 (오른쪽 중앙)
+        float enemyXPos = parent.position.x + xOffset + 5.4f;
+        float enemyZPos = parent.position.z;
+        Vector3 enemyAugmenterPosition = new Vector3(enemyXPos, 0, enemyZPos);
+
+        // 빈 오브젝트 생성 및 부모 설정
+        GameObject playerAugmenter = new GameObject("PlayerAugmenterPosition");
+        playerAugmenter.transform.position = playerAugmenterPosition;
+        playerAugmenter.transform.SetParent(parent);
+
+        GameObject enemyAugmenter = new GameObject("EnemyAugmenterPosition");
+        enemyAugmenter.transform.position = enemyAugmenterPosition;
+        enemyAugmenter.transform.SetParent(parent);
+
+        // 필요한 경우 태그나 레이어 설정
+        //playerAugmenter.tag = "PlayerAugmenter";
+        //enemyAugmenter.tag = "EnemyAugmenter";
+
+        // MapInfo에 저장 (필요하다면)
+        mapInfo.PlayerAugmenterPosition = playerAugmenter.transform;
+        mapInfo.EnemyAugmenterPosition = enemyAugmenter.transform;
     }
 
     private void AdjustCamera()

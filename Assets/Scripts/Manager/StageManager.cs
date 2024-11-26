@@ -147,6 +147,24 @@ public class StageManager
 
         reRollCount++;
 
+        if (isAugmentRound)
+        {
+            var augPopup = Manager.UI.ShowPopup<UIPopupAugmenter>();
+
+            if (currentStage == 2 && currentRound == 1)
+            {
+                augPopup.InitAugmenterSilverPopup();
+            }
+            else if (currentStage == 3 && currentRound == 2)
+            {
+                augPopup.InitAugmenterGoldPopup();
+            }
+            else if (currentStage == 4 && currentRound == 2)
+            {
+                augPopup.InitAugmenterPlatinumPopup();
+            }
+        }
+
         // **1. 라운드 전 대기시간**
 
         // 라운드 전 대기시간 타이머 시작
