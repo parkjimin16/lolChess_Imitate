@@ -163,7 +163,13 @@ public class ItemManager
 
         GameObject itemObj = Manager.ObjectPool.GetGo("Capsule");
         Capsule cap = itemObj.GetComponent<Capsule>();
-        itemObj.transform.position = new Vector3(0, 1, 0);
+
+        HexTile capHextile = new HexTile();
+        user.MapInfo.HexDictionary.TryGetValue((3, 3), out capHextile);
+        itemObj.transform.position = capHextile.transform.position + new Vector3(0, 1f, 0);
+        itemObj.transform.SetParent(capHextile.transform);
+        capHextile.capsuleOnTile.Add(itemObj);
+        itemObj.transform.position = user.MapInfo.mapTransform.position + new Vector3(0, 1f, 0);
 
         if (cap != null)
         {

@@ -19,17 +19,22 @@ public class Salvation : BaseItem
 
             iAttribute.InitItemAttributeValue();
         }
+        if(totalDefItemAttribute == null)
+        {
+            Debug.Log("구우ㅝㄴ오류");
+        }
     }
 
     public override void ResetItem()
     {
         isCoroutineRunning = false;
+        StopAllCoroutines();
         totalDefItemAttribute.InitItemAttributeValue();
     }
 
     public override void InitTargetObject(GameObject targetChampion)
     {
-        if (isCoroutineRunning || EquipChampion == null)
+        if (isCoroutineRunning || EquipChampion == null || Manager.Stage.isCripRound)
             return;
 
         List<GameObject> target = Manager.Stage.GetChampionsWithinOneTile(EquipChampion, Player.UserData);
@@ -44,7 +49,7 @@ public class Salvation : BaseItem
 
             targetChampionBase.Add(cBase);
         }
-
+         
         CoroutineHelper.StartCoroutine(ResetHealHpValueAfterDelay(targetChampionBase, 5.0f));
     }
 

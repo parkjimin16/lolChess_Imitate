@@ -98,7 +98,7 @@ public class MergeScene : MonoBehaviour
             List<string> item = new List<string>();
             List<string> champion = new List<string>();
 
-            item.Add("C017");
+            item.Add("B032");
             item.Add("C018");
 
             

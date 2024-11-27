@@ -25,10 +25,10 @@ public class SunfireCloak : BaseItem
     {
         if (currentCoroutine != null)
         {
-            StopCoroutine(currentCoroutine);
+            CoroutineHelper.StopCoroutine(currentCoroutine);
         }
 
-        if (EquipChampion == null)
+        if (EquipChampion == null || targetChampion == null || Manager.Stage.isCripRound)
             return;
 
         UserData targetUser = targetChampion.GetComponent<ChampionBase>().Player.UserData;
@@ -51,7 +51,7 @@ public class SunfireCloak : BaseItem
             CoroutineHelper.StartCoroutine(ResetHealHpValueAfterDelay(targetChampionBase, 2.0f));
         }
 
-        currentCoroutine = StartCoroutine(ResetHealHpValueAfterDelay(targetChampionBase, 2.0f));
+        currentCoroutine = CoroutineHelper.StartCoroutine(ResetHealHpValueAfterDelay(targetChampionBase, 2.0f));
     }
 
     private IEnumerator ResetHealHpValueAfterDelay(List<ChampionBase> target, float delay)

@@ -768,7 +768,13 @@ public class ChampionBase : MonoBehaviour
             else
             {
                 GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
-                obj.transform.position = new Vector3(0, 0, 0);
+                
+                HexTile capHextile = new HexTile();
+                player.UserData.MapInfo.HexDictionary.TryGetValue((3, 3), out capHextile);
+                obj.transform.position = capHextile.transform.position + new Vector3(0, 1f, 0);
+                obj.transform.SetParent(capHextile.transform);
+                capHextile.capsuleOnTile.Add(obj);
+
                 Capsule cap = obj.GetComponent<Capsule>();
                 List<string> item = new List<string>();
                 List<string> champion = new List<string>();

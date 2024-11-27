@@ -12,7 +12,7 @@ public class Crip : MonoBehaviour
     [SerializeField] private CripObjectData cripData;
 
     [SerializeField]private int currentHP;
-
+    [SerializeField] private int count;
     public Action<HexTile, HexTile> OnCurrentTileChanged;
 
     public HexTile CurrentTile
@@ -51,6 +51,7 @@ public class Crip : MonoBehaviour
         IsDie = false;
         currentHP = cripData.HP;
         anim = GetComponentInChildren<Animator>();
+        count = 1;
     }
 
 
@@ -59,6 +60,7 @@ public class Crip : MonoBehaviour
         IsDie = false;
         currentHP = cripData.HP;
         anim = GetComponentInChildren<Animator>();
+        count = 1;
     }
 
 
@@ -76,6 +78,11 @@ public class Crip : MonoBehaviour
 
     public void OnDeath()
     {
+        if(count != 1)
+        {
+            return;
+        }
+        count--;
         //GenerateItem(); 아이템 생성
         GameObject obj = Manager.ObjectPool.GetGo("Capsule");
         obj.transform.position = this.transform.position + new Vector3(0, 1f, 0);
@@ -151,20 +158,6 @@ public class Crip : MonoBehaviour
         else
         {
             Debug.LogError("Animator is not assigned.");
-        }
-    }
-    void GenerateItem()
-    {
-        // 크립이 속한 맵의 ItemTile을 찾습니다.
-        ItemTile itemTile = FindItemTileInMap();
-
-        if (itemTile != null)
-        {
-            itemTile.GenerateItem();
-        }
-        else
-        {
-            Debug.LogWarning("ItemTile을 찾을 수 없습니다.");
         }
     }
 
