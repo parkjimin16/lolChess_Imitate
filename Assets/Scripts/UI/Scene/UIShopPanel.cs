@@ -51,7 +51,6 @@ public class UIShopPanel : UIBase
 
         SetUI<Button>();
 
-        // 유저 경험치 버튼
         SetButtonEvent("Btn_Exp", UIEventType.Click, UpdateExpBtn);
         SetButtonEvent("Btn_Reroll", UIEventType.Click, UpdateChampionSlot);
         SetButtonEvent("Btn_Reroll_Lock", UIEventType .Click, Btn_ReRoll_Lock);
