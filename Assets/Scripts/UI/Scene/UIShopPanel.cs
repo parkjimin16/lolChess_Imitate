@@ -85,26 +85,40 @@ public class UIShopPanel : UIBase
     #region √®««æ ±∏¿‘
     private void InstantiateChampion(ChampionBlueprint cBlueprint, GameObject obj)
     {
-        HexTile hextile = null;
-        Transform tileTransform = null;
+        int championCost = Utilities.SetSlotCost(cBlueprint.ChampionCost);
 
-        foreach (Transform pos in championPos)
+        if (Manager.User.GetHumanUserData().UserGold >= championCost)
         {
-            HexTile tile = pos.GetComponent<HexTile>();
-            if (!tile.isOccupied)
+            Manager.User.GetHumanUserData().UserGold -= championCost;
+
+            UpdatePlayerGold(Manager.User.GetHumanUserData());
+
+            HexTile hextile = null;
+            Transform tileTransform = null;
+
+            foreach (Transform pos in championPos)
             {
-                hextile = tile;
-                tileTransform = pos;
-                break;
+                HexTile tile = pos.GetComponent<HexTile>();
+                if (!tile.isOccupied)
+                {
+                    hextile = tile;
+                    tileTransform = pos;
+                    break;
+                }
             }
+
+            if (hextile == null)
+                return;
+
+            HideSlot(obj);
+
+            Manager.Champion.DecreaseChampionCount(Manager.Champion.GetProcessedChampionName(cBlueprint.ChampionInstantiateName));
+            Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
         }
-
-        if (hextile == null)
-            return;
-
-        HideSlot(obj);
-        Manager.Champion.DecreaseChampionCount(Manager.Champion.GetProcessedChampionName(cBlueprint.ChampionInstantiateName));
-        Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, hextile, tileTransform);
+        else
+        {
+            Debug.Log($"∞ÒµÂ∫Œ¡∑");
+        }
     }
     public void UpdateChampionSlot(PointerEventData enterEvent)
     {
