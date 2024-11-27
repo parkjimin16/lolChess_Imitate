@@ -41,8 +41,6 @@ public class UIBase : MonoBehaviour
     {
         T[] objects = parent.GetComponentsInChildren<T>(true);
 
-        // 중복된 이름을 가진 컴포넌트들을 하나의 키로 묶기
-        // 각 그룹에서 첫 번째로 등장하는 컴포넌트를 선택하여 딕셔너리에 저장
         Dictionary<string, UnityEngine.Object> objectDict = objects
             .GroupBy(comp => comp.name)
             .ToDictionary(group => group.Key, group => group.First() as UnityEngine.Object);
@@ -52,26 +50,21 @@ public class UIBase : MonoBehaviour
     }
 
     /// <summary>
-    /// parent 내에서 컴포넌트의 이름과 일치하는 컴포넌트가 없는 경우, 
-    /// 해당 자식을 찾아서 _objects 딕셔너리에 있는 컴포넌트들을 할당
+    /// 자식에서 찾아서 _objects 딕셔너리에 있는 컴포넌트들을 할당
     /// </summary>
     /// <typeparam name="T">컴포넌트</typeparam>
     private void AssignComponentsDirectChild<T>(GameObject parent) where T : UnityEngine.Object
     {
         if (!_objects.TryGetValue(typeof(T), out var objects)) return;
 
-        // 각 컴포넌트에 대해 반복
         foreach (var key in objects.Keys.ToList())
         {
-            // 이미 할당된 경우 스킵
             if (objects[key] != null) continue;
 
-            // GameObject 타입인지 확인 후, 적절한 FindComponent 메서드 호출
             UnityEngine.Object component = typeof(T) == typeof(GameObject)
                 ? FindComponentDirectChild<GameObject>(parent, key)
                 : FindComponentDirectChild<T>(parent, key);
 
-            // 찾은 컴포넌트가 null이 아니라면 할당하고, 그렇지 않다면 실패 로그 출력
             if (component != null)
             {
                 objects[key] = component;
