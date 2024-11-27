@@ -129,6 +129,9 @@ public class MapGenerator : MonoBehaviour
 
         public Transform PlayerAugmenterPosition;
         public Transform EnemyAugmenterPosition;
+
+        public GameObject PlayerAugBox;
+        public GameObject EnemyAugBox;
     }
 
     public List<MapInfo> mapInfos = new List<MapInfo>();

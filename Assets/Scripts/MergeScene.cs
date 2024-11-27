@@ -63,6 +63,7 @@ public class MergeScene : MonoBehaviour
 
                 mapGenerator.InitMapGenerator(gameDataBlueprint);
                 Manager.User.InitMap(mapGenerator);
+
                 mainScene.InitPanel(gameDataBlueprint, symbolDataBlueprint);
                
 

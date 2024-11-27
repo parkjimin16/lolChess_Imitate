@@ -40,7 +40,7 @@ public class AugmenterManager
         if (Manager.UI.CheckPopupStack())
             Manager.UI.CloseAllPopupUI();
 
-
+        user.MapInfo.PlayerAugBox.GetComponent<AugmenterCube>().Init(user.UserAugmenter);
     }
     #endregion
 

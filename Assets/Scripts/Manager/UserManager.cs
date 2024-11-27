@@ -38,7 +38,6 @@ public class UserManager
             user.InitUserData(20, "박태영", i);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
-
             player.InitPlayer(user);
             userDatas.Add(user);
         }
@@ -116,6 +115,11 @@ public class UserManager
             user.MapInfo = mapGenerator.mapInfos.FirstOrDefault(mapInfo => mapInfo.mapId == user.UserId);
             user.SugarCraftPosition = user.MapInfo.SugarcraftPosition;
             user.PortalPosition = user.MapInfo.PortalPosition;
+
+            GameObject augObj = Manager.Asset.InstantiatePrefab("Augmenter_Cube");
+            user.MapInfo.PlayerAugBox = augObj;
+            augObj.transform.position = user.MapInfo.PlayerAugmenterPosition.position;
+
 
             // GoldDisplay 초기화 및 설정
             user.GoldDisplay = new GoldDisplay(user);
