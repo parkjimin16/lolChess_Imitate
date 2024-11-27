@@ -217,7 +217,6 @@ MonoBehaviour:
   path: []
   IsAttack: 0
   attackLogic: 0
-  isAttackRange: 0
 --- !u!114 &5138671916796917089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea17c543f4baaf44b5c05d7da483ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Anim: {fileID: 0}
+  Anim: {fileID: 2708222396345006140}
 --- !u!114 &4551747180640086549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +388,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eb55238881e5ed40bc96157af690dcc, type: 3}
+--- !u!95 &2708222396345006140 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8817364304930114934, guid: 9eb55238881e5ed40bc96157af690dcc, type: 3}
+  m_PrefabInstance: {fileID: 6901797171255260490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2796194259705844347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8720666698567903025, guid: 9eb55238881e5ed40bc96157af690dcc, type: 3}
