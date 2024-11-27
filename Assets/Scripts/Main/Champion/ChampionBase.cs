@@ -767,8 +767,8 @@ public class ChampionBase : MonoBehaviour
             }
             else
             {
-                GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
-                
+                //GameObject obj = Manager.Asset.InstantiatePrefab("Capsule");
+                GameObject obj = Manager.ObjectPool.GetGo("Capsule");
                 HexTile capHextile = new HexTile();
                 player.UserData.MapInfo.HexDictionary.TryGetValue((3, 3), out capHextile);
                 obj.transform.position = capHextile.transform.position + new Vector3(0, 1f, 0);

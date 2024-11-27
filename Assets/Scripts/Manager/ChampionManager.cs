@@ -333,8 +333,14 @@ public class ChampionManager
         if (cBase.EquipItem.Count > 0)
         {
             GameObject obj = Manager.ObjectPool.GetGo("Capsule");
-            obj.transform.position = new Vector3(0, 1, 0);
+            obj.transform.position = user.MapInfo.mapTransform.position + new Vector3(0, 1, 0);
             Capsule cap = obj.GetComponent<Capsule>();
+            HexTile capHextile = new HexTile();
+            user.MapInfo.HexDictionary.TryGetValue((3, 3), out capHextile);
+            obj.transform.position = capHextile.transform.position + new Vector3(0, 1f, 0);
+            obj.transform.SetParent(capHextile.transform);
+            capHextile.capsuleOnTile.Add(obj);
+
             List<string> item = new List<string>();
             List<string> champion = new List<string>();
 
