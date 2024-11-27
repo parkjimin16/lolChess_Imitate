@@ -10,8 +10,18 @@ public class Salvation : BaseItem
     {
         isCoroutineRunning = false;
 
+        ItemBlueprint.InitAttribute();
+
+        if (ItemAttributes.Count == 0)
+        {
+            Debug.Log("¿À·ù³µÀ½");
+        }
+
         foreach (ItemAttribute iAttribute in ItemAttributes)
         {
+            Debug.Log("iArrtirubte :: " + iAttribute.ToString());
+
+
             if (iAttribute.ItemAttributeType == ItemAttributeType.TotalDefense)
             {
                 totalDefItemAttribute = iAttribute;
@@ -55,6 +65,11 @@ public class Salvation : BaseItem
 
     private IEnumerator ResetHealHpValueAfterDelay(List<ChampionBase> target, float delay)
     {
+        if (totalDefItemAttribute == null)
+        {
+            StopAllCoroutines();
+        }
+
         isCoroutineRunning = true;
 
         totalDefItemAttribute.SetAttributeValue(0.1f);

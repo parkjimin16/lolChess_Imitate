@@ -609,7 +609,7 @@ public class SynergyManager
             }
             else
             {
-                Debug.Log("아직 구현 안함");
+                Debug.Log("아직 구현 안함  : " + synergyName);
             }
 
 

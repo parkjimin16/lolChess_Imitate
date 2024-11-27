@@ -17,7 +17,8 @@ public class BaseItem : MonoBehaviour
     [SerializeField] private ChampionBase equipChampionBase;
 
     [SerializeField] private Player player;
-
+    [SerializeField] private ItemBlueprint itemBlueprint;
+    
 
     #endregion
 
@@ -33,12 +34,14 @@ public class BaseItem : MonoBehaviour
     public ChampionBase EquipChampionBase => equipChampionBase;
 
     public Player Player => player;
+    public ItemBlueprint ItemBlueprint => itemBlueprint;
 
     #endregion
 
     #region √ ±‚»≠
     public virtual void Initialize(ItemBlueprint blueprint)
     {
+        itemBlueprint = blueprint;
         icon = blueprint.Icon;
         itemId = blueprint.ItemId;
         itemName = blueprint.ItemName;

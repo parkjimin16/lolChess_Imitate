@@ -9,6 +9,11 @@ public class BlueSentinel : BaseItem
 
     public override void InitItemSkill()
     {
+        if(ItemAttributes.Count == 0)
+        {
+            Debug.Log("Null");
+        }
+
         foreach (ItemAttribute iAttribute in ItemAttributes)
         {
             if (iAttribute.ItemAttributeType == ItemAttributeType.TotalPower)

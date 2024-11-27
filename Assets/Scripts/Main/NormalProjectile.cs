@@ -23,6 +23,7 @@ public class NormalProjectile : ObjectPoolable
     {
         if (target == null || !Manager.Stage.IsBattleOngoing)
         {
+            target = null;
             ReleaseObject();
             ObjectOff();
             return;
@@ -36,6 +37,14 @@ public class NormalProjectile : ObjectPoolable
     {
         if (target.gameObject.CompareTag($"{other.gameObject.tag}")) 
         {
+            if(target == null)
+            {
+                ReleaseObject();
+                ObjectOff();
+                return;
+            }
+
+
             if (Manager.Stage.isCripRound)
             {
                 Crip crip = target.GetComponent<Crip>();
