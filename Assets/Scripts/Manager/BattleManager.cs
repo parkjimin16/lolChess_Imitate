@@ -327,6 +327,12 @@ public class BattleManager
         {
             playerComponent1.UserData.MapInfo.goldDisplay.SetEnemyGold(playerComponent2.UserData.UserGold);
         }
+
+        if (playerComponent2.UserData.MapInfo.PlayerAugBox != null)
+        {
+            // 증강 큐브를 플레이어1의 맵의 EnemyAugmenterPosition으로 이동
+            playerComponent2.UserData.MapInfo.PlayerAugBox.transform.position = playerComponent1.UserData.MapInfo.EnemyAugmenterPosition.position;
+        }
     }
     private void RestoreOpponentPlayer(GameObject opponent)
     {
@@ -343,6 +349,15 @@ public class BattleManager
         {
             // 플레이어를 원래 위치로 복귀
             opponent.transform.position = opponentComponent.UserData.MapInfo.mapTransform.position + new Vector3(-13.5f, 0.8f, -5f);
+        }
+
+        if (opponentComponent.UserData.MapInfo.PlayerAugBox != null)
+        {
+            // 증강 큐브를 플레이어의 맵의 PlayerAugmenterPosition으로 이동
+            opponentComponent.UserData.MapInfo.PlayerAugBox.transform.position = opponentComponent.UserData.MapInfo.PlayerAugmenterPosition.position;
+
+            // 필요하다면 회전도 조정
+            opponentComponent.UserData.MapInfo.PlayerAugBox.transform.rotation = opponentComponent.UserData.MapInfo.PlayerAugmenterPosition.rotation;
         }
     }
     #endregion

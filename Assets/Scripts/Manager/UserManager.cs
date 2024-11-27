@@ -120,7 +120,6 @@ public class UserManager
             user.MapInfo.PlayerAugBox = augObj;
             augObj.transform.position = user.MapInfo.PlayerAugmenterPosition.position;
 
-
             // GoldDisplay 초기화 및 설정
             user.GoldDisplay = new GoldDisplay(user);
             user.MapInfo.goldDisplay = user.GoldDisplay;

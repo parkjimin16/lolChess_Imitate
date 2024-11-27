@@ -28,6 +28,12 @@ public class AIPlayer
 
     public void PerformActions(Player aiPlayer)
     {
+        if (!aiPlayer.gameObject.activeInHierarchy)
+        {
+            Debug.Log($"AI 플레이어 {aiPlayer.UserData.UserName}는 비활성화되어 있어 행동을 진행하지 않습니다.");
+            return;
+        }
+
         if (ShouldLevelUp())
         {
             BuyExperience(aiPlayer);

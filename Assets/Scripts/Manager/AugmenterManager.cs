@@ -33,11 +33,11 @@ public class AugmenterManager
         return augmenterBlueprint.GetRandomPlatinumAugments();
     }
 
-    public void SetAugmenter(UserData user, AugmenterData augData)
+    public void SetAugmenter(UserData user, AugmenterData augData, bool closePopup = true)
     {
         user.UserAugmenter.Add(augData);
 
-        if (Manager.UI.CheckPopupStack())
+        if (closePopup && Manager.UI.CheckPopupStack())
             Manager.UI.CloseAllPopupUI();
 
         user.MapInfo.PlayerAugBox.GetComponent<AugmenterCube>().Init(user.UserAugmenter);

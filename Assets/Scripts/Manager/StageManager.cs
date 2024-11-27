@@ -29,7 +29,7 @@ public class StageManager
     private int augmentWaitTime = 5; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 3; //일반 라운드 진행시간
-    private int cripDuration = 10; //크립 라운드 진행시간
+    private int cripDuration = 3; //크립 라운드 진행시간
 
 
 
@@ -162,6 +162,36 @@ public class StageManager
             else if (currentStage == 4 && currentRound == 2)
             {
                 augPopup.InitAugmenterPlatinumPopup();
+            }
+
+            // AI 플레이어들에게 증강 적용
+            foreach (AIPlayer aiPlayer in aiPlayers)
+            {
+                UserData aiUserData = aiPlayer.AiPlayerComponent.UserData;
+                List<AugmenterData> availableAugments = null;
+
+                if (currentStage == 2 && currentRound == 1)
+                {
+                    availableAugments = Manager.Augmenter.GetSilverAugmenters();
+                }
+                else if (currentStage == 3 && currentRound == 2)
+                {
+                    availableAugments = Manager.Augmenter.GetGoldAugmenters();
+                }
+                else if (currentStage == 4 && currentRound == 2)
+                {
+                    availableAugments = Manager.Augmenter.GetPlatinumAugmenters();
+                }
+
+                if (availableAugments != null && availableAugments.Count > 0)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, availableAugments.Count);
+                    AugmenterData selectedAugment = availableAugments[randomIndex];
+
+                    // 증강 적용
+                    Manager.Augmenter.SetAugmenter(aiUserData, selectedAugment, false);
+                    Manager.Augmenter.ApplyFirstAugmenter(aiUserData, selectedAugment.BaseAugmenter);
+                }
             }
         }
 
@@ -532,6 +562,13 @@ public class StageManager
             // 플레이어 탈락 처리
             // 탈락한 플레이어를 리스트에서 제거
             players.Remove(player);
+            Debug.Log(playerComponent.UserData.TotalChampionObject.Count);
+            foreach (var champion in playerComponent.UserData.TotalChampionObject)
+            {
+                champion.SetActive(false);
+            }
+            player.SetActive(false);
+            
         }
     }
 
@@ -607,6 +644,11 @@ public class StageManager
         // 모든 플레이어의 움직임을 일시적으로 비활성화
         DisableAllPlayerMovement();
 
+        _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.SharedSelectionMapTransform);
+        _mapGenerator.PlaceChampionsInSharedMap();
+        Manager.Cam.MoveCameraToSharedSelectionMap();
+
+
         foreach (GameObject playerObj in AllPlayers)
         {
             PlayerMove playerMove = playerObj.GetComponent<PlayerMove>();
@@ -653,10 +695,6 @@ public class StageManager
         // 2스테이지부터 매 4라운드마다 공동 선택 라운드
         if (stage >= 2 && round % 4 == 0)
         {
-            DisableAllPlayerMovement();
-            _mapGenerator.PlacePlayersInSharedMap(_mapGenerator.SharedSelectionMapTransform);
-            _mapGenerator.PlaceChampionsInSharedMap();
-            Manager.Cam.MoveCameraToSharedSelectionMap();
             return true;
         }
         return false;
