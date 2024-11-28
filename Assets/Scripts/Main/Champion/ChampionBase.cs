@@ -716,6 +716,9 @@ public class ChampionBase : MonoBehaviour
         championFrame.SetEquipItemImage(equipItem);
         EquipItemChampionSetting();
         UpdateStatWithItem(equipItem);
+
+        Manager.Synergy.UpdateSynergies(player.UserData);
+        player.UserData.UIMain.UISynergyPanel.UpdateSynergy(player.UserData);
     }
 
     private void EquipItemChampionSetting()
