@@ -630,6 +630,10 @@ public class BattleManager
             GameObject champion = kvp.Key;
             ChampionOriginalState originalState = kvp.Value;
 
+            if (!champion.activeSelf)
+            {
+                champion.SetActive(true);
+            }
             if (champion == null)
             {
                 opponentData.ChampionOriginState.Remove(champion);
@@ -677,6 +681,11 @@ public class BattleManager
 
         foreach(GameObject opponentChampion in opponentTotalBattleChampions)
         {
+            if (!opponentChampion.activeSelf)
+            {
+                opponentChampion.SetActive(true);
+            }
+
             HexTile opponentTile = opponentChampion.GetComponentInParent<HexTile>();
             HexTile mirroredTile = GetMirroredRectTile(opponentTile, opponentData.MapInfo);
 
@@ -721,8 +730,6 @@ public class BattleManager
                 }
             }
         }
-
-
         // 원래 상태 정보 초기화
         opponentData.ChampionOriginState.Clear();
     }
