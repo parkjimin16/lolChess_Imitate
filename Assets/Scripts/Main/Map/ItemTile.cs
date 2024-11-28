@@ -106,8 +106,7 @@ public class ItemTile : MonoBehaviour
             }
             else
             {
-                // 모든 타일이 가득 찼을 경우
-                Debug.Log("생성불가");
+
             }
         }
     }

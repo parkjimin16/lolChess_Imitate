@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 1207459071436404769}
   - component: {fileID: 6264907634751588624}
   m_Layer: 5
-  m_Name: Item_Image
+  m_Name: Item2_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 8386734042528091211}
   - component: {fileID: 2092831259941223451}
   m_Layer: 5
-  m_Name: Item_Image
+  m_Name: Item3_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1293,7 +1293,7 @@ GameObject:
   - component: {fileID: 6897847355065404577}
   - component: {fileID: 2089065195495595934}
   m_Layer: 5
-  m_Name: Item_Image
+  m_Name: Item1_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2777,6 +2777,10 @@ MonoBehaviour:
   - {fileID: 6897847355065404577}
   - {fileID: 1207459071436404769}
   - {fileID: 8386734042528091211}
+  btn_Item:
+  - {fileID: 2089065195495595934}
+  - {fileID: 6264907634751588624}
+  - {fileID: 2092831259941223451}
   txt_AD_Power: {fileID: 8462963206268705912}
   txt_AP_Power: {fileID: 7729789995700120935}
   txt_AD_Def: {fileID: 7252578138056679022}
