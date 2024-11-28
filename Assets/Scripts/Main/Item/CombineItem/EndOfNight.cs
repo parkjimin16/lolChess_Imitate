@@ -45,7 +45,6 @@ public class EndOfNight : BaseItem
 
     private void CheckChampionHp()
     {
-        Debug.Log($"Use Skill : {useSkill}");
 
         if (EquipChampion == null || EquipChampionBase == null)
         {
@@ -69,7 +68,5 @@ public class EndOfNight : BaseItem
 
         equipChampion.tag = originalTag;
         useSkill = true;
-
-        Debug.Log($"Use Skill End : {useSkill}");
     }
 }

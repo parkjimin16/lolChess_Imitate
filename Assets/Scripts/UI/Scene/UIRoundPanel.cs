@@ -112,8 +112,6 @@ public class UIRoundPanel : UIBase
             else
                 image_AfterStage[round - 1].color = Color.red;
         }
-
-        Debug.Log($"플레이어 1이 이겼나요? : {isWin}");
     }
 
     #endregion

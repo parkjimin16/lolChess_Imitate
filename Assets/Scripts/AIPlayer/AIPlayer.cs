@@ -91,7 +91,6 @@ public class AIPlayer
                 else
                 {
                     // 리롤하지 않거나 골드가 부족하면 구매하지 않고 종료
-                    Debug.Log($"AI {aiUserData.UserName}는 시너지에 맞는 챔피언을 찾지 못했습니다.");
                     break;
                 }
             }
@@ -220,8 +219,6 @@ public class AIPlayer
             chosenSynergies.Add(allSynergies[randomIndex]);
             allSynergies.RemoveAt(randomIndex);
         }
-
-        Debug.Log($"AI {aiUserData.UserName}가 선택한 시너지: {string.Join(", ", chosenSynergies)}");
     }
     private List<string> GetAllAvailableSynergies()
     {

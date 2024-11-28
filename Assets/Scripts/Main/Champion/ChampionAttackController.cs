@@ -203,7 +203,7 @@ public class ChampionAttackController : MonoBehaviour
         {
             if (EnemyPlayer == null || EnemyPlayer.UserData.BattleChampionObject.Count <= 0)
             {
-                Debug.Log("SetTargetEnemy: EnemyPlayer가 null이거나 적 챔피언이 없습니다.");
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 return;
             }
 
@@ -224,7 +224,6 @@ public class ChampionAttackController : MonoBehaviour
 
                 aliveCount++;
 
-                // 거리 계산
                 float distance = Vector3.Distance(currentPosition, champion.transform.position);
                 if (distance < minDistance)
                 {
@@ -250,14 +249,13 @@ public class ChampionAttackController : MonoBehaviour
             Manager.Stage.SetNearestTile(gameObject);
             curTile = Manager.Stage.GetParentTileInHex(gameObject);
 
+            path.Clear();
             path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
-            if (targetChampion != null)
-            {
-                StopAllCoroutines();
-                StartCoroutine(StartMoveAndCheck());
-            }
-        }  
+
+            StopAllCoroutines();
+            StartCoroutine(StartMoveAndCheck());
+        }
     }
     #endregion
 
@@ -266,11 +264,15 @@ public class ChampionAttackController : MonoBehaviour
     private IEnumerator StartMoveAndCheck()
     {
         if (targetChampion == null)
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             yield break;
+        }
+
 
         ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-        if (tcBase.ChampionHpMpController.IsDie() && tcBase != null)
+        if (tcBase == null)
         {
             StopAllCoroutines();
             FindPathToTarget();
@@ -278,23 +280,31 @@ public class ChampionAttackController : MonoBehaviour
         }
 
 
-        while (targetChampion != null && MergeScene.BatteStart && !tcBase.ChampionHpMpController.IsDie())
+        while (targetChampion != null && MergeScene.BatteStart && path.Count > 0)
         {
             if (CanAttack(targetChampion))
-            {   
+            {
+                StopAllCoroutines();
                 path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
+            else
+            {
+                HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
 
-            HexTile curTile = Manager.Stage.FindNearestTile(gameObject, cBase.BattleStageIndex);
+                path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
 
-            path = Manager.Stage.FindShortestPath(gameObject, targetChampion);
+                if (path.Count == 0)
+                {
+                    cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                    yield break;
+                }
 
-            if (path == null || path.Count == 0)
-                yield break;
+                nextTile = path[0];
+            }
 
-            nextTile = path[0];
+           
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
         }
     }
@@ -441,7 +451,7 @@ public class ChampionAttackController : MonoBehaviour
 
         attackLogic = true;
 
-        while (targetChampion != null)
+        while (targetChampion != null && targetChampion.activeInHierarchy)
         {
             if (!CanAttack(targetChampion))
             {
@@ -452,7 +462,7 @@ public class ChampionAttackController : MonoBehaviour
 
             ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
-            if (tcBase.ChampionHpMpController.IsDie() && targetChampion.activeInHierarchy)
+            if (tcBase.ChampionHpMpController.IsDie() || !CanAttack(targetChampion))
             {
                 attackLogic = false;
                 path.Clear();
@@ -500,16 +510,17 @@ public class ChampionAttackController : MonoBehaviour
 
         while (targetChampion != null && targetChampion.activeInHierarchy)
         {
-            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-                Debug.Log("While문 도는 중");
+            if (!CanAttack(targetChampion))
+            {
+                StopAllCoroutines();
+                path.Clear();
+                FindPathToTarget();
+            }
 
             Crip tcBase = targetChampion.GetComponent<Crip>();
 
             if (tcBase == null || !CanAttack(targetChampion))
             {
-                if(cBase.Player.UserData == Manager.User.GetHumanUserData())
-                   Debug.Log("공격에서 이동으로");
-    
                 attackLogic = false;
                 path.Clear();
                 FindPathToTarget();
@@ -542,9 +553,6 @@ public class ChampionAttackController : MonoBehaviour
 
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
         }
-
-
-        Debug.Log("공격 코루틴 끝");
 
         attackLogic = false;
     }

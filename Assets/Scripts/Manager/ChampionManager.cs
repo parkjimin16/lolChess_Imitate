@@ -29,16 +29,9 @@ public class ChampionManager
                 }
             }
         }
-        PrintRuntimeChampionCounts();
     }
 
-    private void PrintRuntimeChampionCounts()
-    {
-        foreach (var kvp in runtimeChampionCounts)
-        {
-            Debug.Log($"Champion: {kvp.Key}, Count: {kvp.Value}");
-        }
-    }
+
 
   
     #endregion
