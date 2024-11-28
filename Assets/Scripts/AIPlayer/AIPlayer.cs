@@ -76,7 +76,7 @@ public class AIPlayer
                 {
                     aiUserData.UserGold -= championCost;
                     InstantiateAIChampion(championBlueprint, aiPlayer);
-                    Debug.Log($"AI {aiUserData.UserName}가 {championCost} 골드를 사용하여 시너지에 맞는 챔피언 {selectedChampionName}을 구매했습니다. 남은 골드: {aiUserData.UserGold}");
+                    //Debug.Log($"AI {aiUserData.UserName}가 {championCost} 골드를 사용하여 시너지에 맞는 챔피언 {selectedChampionName}을 구매했습니다. 남은 골드: {aiUserData.UserGold}");
                     break; // 구매 후 반복문 종료
                 }
             }
@@ -413,7 +413,7 @@ public class AIPlayer
             // 새로운 챔피언 리스트 생성
             shopChampionList = Manager.Champion.GetRandomChampions(aiUserData.UserLevel);//GetRandomChampions(aiUserData.UserLevel);
 
-            Debug.Log($"AI {aiUserData.UserName}가 2 골드를 사용하여 챔피언 슬롯을 리롤했습니다. 남은 골드: {aiUserData.UserGold}");
+            //Debug.Log($"AI {aiUserData.UserName}가 2 골드를 사용하여 챔피언 슬롯을 리롤했습니다. 남은 골드: {aiUserData.UserGold}");
         }
         else
         {
@@ -439,7 +439,7 @@ public class AIPlayer
             Manager.Level.AddExperience(aiUserData, experienceAmount);
             // 또는 LevelManager.Instance.AddExperience(aiUserData, experienceAmount);
 
-            Debug.Log($"AI {aiUserData.UserName}가 {experienceCost} 골드를 사용하여 {experienceAmount} EXP를 구매했습니다. 남은 골드: {aiUserData.UserGold}");
+            //Debug.Log($"AI {aiUserData.UserName}가 {experienceCost} 골드를 사용하여 {experienceAmount} EXP를 구매했습니다. 남은 골드: {aiUserData.UserGold}");
         }
         else
         {
@@ -573,7 +573,7 @@ public class AIPlayer
             // 챔피언에게 아이템 적용
             championBase.GetItem(itemBlueprint);
 
-            Debug.Log($"AI 플레이어 {aiUserData.UserName}가 {championBase.ChampionName}에게 아이템 {itemBlueprint.ItemName}을(를) 장착했습니다.");
+            //Debug.Log($"AI 플레이어 {aiUserData.UserName}가 {championBase.ChampionName}에게 아이템 {itemBlueprint.ItemName}을(를) 장착했습니다.");
         }
     }
 

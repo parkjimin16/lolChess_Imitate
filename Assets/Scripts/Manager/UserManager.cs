@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static ItemAttribute;
+using static SugarCraftCake;
 
 public class UserManager
 {
@@ -174,7 +175,6 @@ public class UserData
     [SerializeField] private List<GameObject> CripObject;
     [SerializeField] private UISceneMain uiMain;
     [SerializeField] private List<GameObject> clonedEnemyChampions;
-
     private Dictionary<string, int> synergies_Line;
     private Dictionary<string, int> synergies_Job;
     private Dictionary<string, int> totalSynergies;
@@ -186,7 +186,7 @@ public class UserData
     private Dictionary<GameObject, ChampionOriginalState> championOriginalStates;
     private Dictionary<GameObject, ItemOriginalState> itemOriginalStates;
 
-
+    private SugarCakeOriginalState sugarCakeOriginState;
 
     #region Property
 
@@ -425,6 +425,12 @@ public class UserData
     {
         get { return clonedEnemyChampions; }
         set { clonedEnemyChampions = value;}
+    }
+
+    public SugarCakeOriginalState SugarCakeOriginalState
+    {
+        get { return sugarCakeOriginState; }
+        set {  sugarCakeOriginState = value; }
     }
     #endregion
 

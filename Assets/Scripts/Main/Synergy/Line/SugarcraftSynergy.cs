@@ -13,8 +13,6 @@ public class SugarcraftSynergy : SynergyBase
     private float spellPower;
     private int totalSugarCount;
 
-
-
     // ´ŞÄŞ¼ú»ç ·ÎÁ÷ º¯¼ö
     private int cakeStack; // ÄÉÀÌÅ© Ãş ¼ö
     private Transform sugarCakePosition;
@@ -47,8 +45,11 @@ public class SugarcraftSynergy : SynergyBase
 
             sugarCake = Manager.Asset.InstantiatePrefab("SugarCraftCake");
             sugarCake.transform.position = sugarCakePosition.position;
+            sugarCake.transform.SetParent(sugarCakePosition);
             sugarCraftCake = sugarCake.GetComponent<SugarCraftCake>();
+            sugarCraftCake.OwnerUserData = user;
             sugarCake.SetActive(false);
+            Debug.Log("²¨Áü");
         }
 
 

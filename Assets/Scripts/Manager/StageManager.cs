@@ -306,7 +306,7 @@ public class StageManager
     private void ProceedToNextRound()
     {
         currentRound++;
-        Debug.Log($"ProceedToNextRound 호출됨: Stage {currentStage}, Round {currentRound}");
+        //Debug.Log($"ProceedToNextRound 호출됨: Stage {currentStage}, Round {currentRound}");
 
         int maxRounds = currentStage == 1 ? 3 : 7;
 
@@ -314,7 +314,7 @@ public class StageManager
         {
             // 다음 스테이지로 이동
             currentStage++;
-            Debug.Log($"다음 스테이지로 이동: Stage {currentStage}");
+            //Debug.Log($"다음 스테이지로 이동: Stage {currentStage}");
             if (currentStage > 8)
             {
                 // 게임 종료

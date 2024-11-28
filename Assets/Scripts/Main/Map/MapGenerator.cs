@@ -377,12 +377,12 @@ public class MapGenerator : MonoBehaviour
         }
 
         // 빈 오브젝트 생성
-        GameObject leftEmptyObject = new GameObject($"Empty_Left_{row}");
+        GameObject leftEmptyObject = new GameObject($"PortalPotion_{row}");
         leftEmptyObject.transform.position = leftPosition;
         leftEmptyObject.transform.SetParent(parent);
         mapInfo.PortalPosition.Add(leftEmptyObject.transform);
 
-        GameObject rightEmptyObject = new GameObject($"Empty_Right_{row}");
+        GameObject rightEmptyObject = new GameObject($"SugarcraftPosition_{row}");
         rightEmptyObject.transform.position = rightPosition;
         rightEmptyObject.transform.SetParent(parent);
         mapInfo.SugarcraftPosition.Add(rightEmptyObject.transform);

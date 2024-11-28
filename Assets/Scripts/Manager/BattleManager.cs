@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static ItemAttribute;
 using static MapGenerator;
+using static SugarCraftCake;
 
 public class BattleManager
 {
@@ -306,6 +307,34 @@ public class BattleManager
         playerComponent1.SetBattleStageIndex(playerComponent1.UserData.UserId);
         playerComponent2.SetBattleStageIndex(playerComponent1.UserData.UserId);
 
+        Transform player2SugarPosition = playerComponent2.UserData.MapInfo.SugarcraftPosition
+        .FirstOrDefault(t => t.CompareTag("PlayerSugar"));
+
+        if (player2SugarPosition != null && player2SugarPosition.childCount > 0)
+        {
+            Transform sugarCake = player2SugarPosition.GetChild(0);
+
+            // **sugarCake의 원래 위치와 부모를 저장**
+            SugarCakeOriginalState originalState = new SugarCakeOriginalState
+            {
+                originalPosition = sugarCake.position,
+                originalParent = sugarCake.parent,
+                wasActive = sugarCake.gameObject.activeSelf
+            };
+            playerComponent2.UserData.SugarCakeOriginalState = originalState;
+
+            // 플레이어1의 맵에서 EnemySugar 위치를 가져옵니다.
+            Transform enemySugarPosition = playerComponent1.UserData.MapInfo.SugarcraftPosition
+                .FirstOrDefault(t => t.CompareTag("EnemySugar"));
+
+            if (enemySugarPosition != null)
+            {
+                // **sugarCake를 EnemySugar 위치로 이동**
+                sugarCake.SetParent(enemySugarPosition, false);
+                sugarCake.position = enemySugarPosition.position;
+            }
+        }
+
         // 플레이어2를 플레이어1의 맵으로 이동시킵니다.
         Transform player1MapTransform = playerComponent1.UserData.MapInfo.mapTransform;
         Vector3 opponentPlayerPosition = player1MapTransform.position + new Vector3(13.5f, 0.8f, 5f);
@@ -338,7 +367,43 @@ public class BattleManager
     {
         Player opponentComponent = opponent.GetComponent<Player>();
 
-        if(opponentComponent.UserData == Manager.User.GetHumanUserData())
+        Transform playerSugarPosition = opponentComponent.UserData.MapInfo.SugarcraftPosition
+        .FirstOrDefault(t => t.CompareTag("PlayerSugar"));
+
+        if (playerSugarPosition != null)
+        {
+            // 모든 맵의 EnemySugar 위치를 검색하여 sugarCake를 찾습니다.
+            Transform sugarCake = null;
+
+            foreach (var userData in Manager.User.UserDatas)
+            {
+                MapInfo mapInfo = userData.MapInfo;
+                Transform enemySugarPosition = mapInfo.SugarcraftPosition
+                    .FirstOrDefault(t => t.CompareTag("EnemySugar"));
+
+                if (enemySugarPosition != null && enemySugarPosition.childCount > 0)
+                {
+                    Transform possibleSugarCake = enemySugarPosition.GetChild(0);
+
+                    // sugarCake의 소유자가 현재 opponent인지 확인합니다.
+                    SugarCraftCake sugarCakeComponent = possibleSugarCake.GetComponent<SugarCraftCake>();
+                    if (sugarCakeComponent != null && sugarCakeComponent.OwnerUserData == opponentComponent.UserData)
+                    {
+                        sugarCake = possibleSugarCake;
+                        break;
+                    }
+                }
+            }
+
+            if (sugarCake != null)
+            {
+                // sugarCake를 PlayerSugar 위치로 이동
+                sugarCake.SetParent(playerSugarPosition, false);
+                sugarCake.position = playerSugarPosition.position;
+            }
+        }
+
+        if (opponentComponent.UserData == Manager.User.GetHumanUserData())
         {
             GameObject shop = GameObject.Find("ShopPanel");
             UIShopPanel uIShop = shop.GetComponent<UIShopPanel>();
@@ -359,6 +424,8 @@ public class BattleManager
             // 필요하다면 회전도 조정
             opponentComponent.UserData.MapInfo.PlayerAugBox.transform.rotation = opponentComponent.UserData.MapInfo.PlayerAugmenterPosition.rotation;
         }
+
+        
     }
     #endregion
 
