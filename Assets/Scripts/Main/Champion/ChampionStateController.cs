@@ -37,23 +37,39 @@ public class ChampionStateController : MonoBehaviour
     public void ChangeState(ChampionState newState, ChampionBase cBase)
     {
         curState = newState;
-
-        switch(curState)
+        
+        switch (curState)
         {
             case ChampionState.Idle:
+                if(cBase.Player.UserData == Manager.User.GetHumanUserData())
+                {
+                    Debug.Log("Idle ภฬ ตส");
+                }
                 state.ChangeState(new IdleState(cBase), cBase);
                 break;
             case ChampionState.Move:
+                if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                {
+                    Debug.Log("Move ภฬ ตส");
+                }
                 state.ChangeState(new MoveState(cBase), cBase);
                 break;
             case ChampionState.Attack:
+                if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                {
+                    Debug.Log("Attack ภฬ ตส");
+                }
                 state.ChangeState(new AttackState(cBase), cBase);
                 break;
             case ChampionState.Die:
+                if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                {
+                    Debug.Log("Die ภฬ ตส");
+                }
                 state.ChangeState(new DieState(cBase), cBase);
                 break;
         }
-
+        
         OnStateChanged?.Invoke(newState); 
     }
 }

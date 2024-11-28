@@ -91,14 +91,42 @@ public class ChampionAttackController : MonoBehaviour
 
     private void Update()
     {
-        if (targetChampion == null && Manager.Stage.IsBattleOngoing && 
-            cBase.Player.UserData.CripObjectList.Count != 0 && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
+        if (Manager.Stage.isCripRound)
         {
-            targetChampion = null;
-            AttackLogicStop();
-            StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+            if(!Manager.Stage.IsBattleOngoing)
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+
+            if (targetChampion == null && Manager.Stage.IsBattleOngoing &&
+           cBase.Player.UserData.CripObjectList.Count != 0 && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
+            {
+                targetChampion = null;
+                AttackLogicStop();
+                StopAllCoroutines();
+
+                SetTargetEnemy();
+            }
+            else if (cBase.Player.UserData.CripObjectList.Count == 0 && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            }
         }
+        else
+        {
+            if (targetChampion == null && Manager.Stage.IsBattleOngoing &&
+           cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
+            {
+                targetChampion = null;
+                AttackLogicStop();
+                StopAllCoroutines();
+
+                SetTargetEnemy();
+            }
+            else if (targetChampion == null && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
+            {
+                cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+            }
+        }
+       
     }
 
     #endregion
@@ -114,8 +142,11 @@ public class ChampionAttackController : MonoBehaviour
     {
         if (Manager.Stage.isCripRound)
         {
-            // 플레이어의 UserData 가져오기
-            UserData userData = cBase.Player.UserData;
+            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                Debug.Log("타겟 추적");
+
+                // 플레이어의 UserData 가져오기
+                UserData userData = cBase.Player.UserData;
 
             if (userData == null || userData.CripObjectList.Count == 0)
             {
@@ -259,7 +290,7 @@ public class ChampionAttackController : MonoBehaviour
         while (targetChampion != null && MergeScene.BatteStart && !tcBase.ChampionHpMpController.IsDie())
         {
             if (CanAttack(targetChampion))
-            {
+            {   
                 path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
@@ -283,8 +314,15 @@ public class ChampionAttackController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartMoveAndCheck_Crip()
     {
+        if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+            Debug.Log("이동 코루틴");
+
         if (targetChampion == null)
+        {
+            cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             yield break;
+        }
+
 
         Crip tcBase = targetChampion.GetComponent<Crip>();
 
@@ -295,23 +333,36 @@ public class ChampionAttackController : MonoBehaviour
             yield break;
         }
 
-        while (targetChampion != null && MergeScene.BatteStart && !tcBase.IsDie)
+        while (targetChampion != null && MergeScene.BatteStart && !tcBase.IsDie && path.Count > 0)
         {
             if (CanAttack(targetChampion))
             {
+                if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                    Debug.Log("공격합니다?");
+
+                StopAllCoroutines();
                 path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
                 yield break;
             }
+            else
+            {
+                HexTile curTile = Manager.Stage.FindNearestTile_Crip(gameObject, cBase.Player.UserData.UserId);
 
-            HexTile curTile = Manager.Stage.FindNearestTile_Crip(gameObject, cBase.Player.UserData.UserId);
+                path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
 
-            path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
+                if (path == null || path.Count == 0)
+                {
+                    cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
+                    yield break;
+                }
 
-            if (path == null || path.Count == 0)
-                yield break;
 
-            nextTile = path[0];
+                nextTile = path[0];
+            }
+
+            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                Debug.Log("움직임 While 문");
 
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
         }
@@ -451,10 +502,16 @@ public class ChampionAttackController : MonoBehaviour
 
         while (targetChampion != null && targetChampion.activeInHierarchy)
         {
+            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
+                Debug.Log("While문 도는 중");
+
             Crip tcBase = targetChampion.GetComponent<Crip>();
 
-            if (tcBase.IsDie || tcBase == null || !CanAttack(targetChampion))
+            if (tcBase == null || !CanAttack(targetChampion))
             {
+                if(cBase.Player.UserData == Manager.User.GetHumanUserData())
+                   Debug.Log("공격에서 이동으로");
+    
                 attackLogic = false;
                 path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
@@ -487,6 +544,9 @@ public class ChampionAttackController : MonoBehaviour
 
             yield return new WaitForSeconds(cBase.Champion_Atk_Spd);
         }
+
+
+        Debug.Log("공격 코루틴 끝");
 
         attackLogic = false;
     }
