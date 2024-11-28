@@ -88,7 +88,7 @@ public class EldritchSynergy : SynergyBase
 
         if (eldritchLogicCoroutine == null)
         {
-            eldritchLogicCoroutine = CoroutineHelper.StartCoroutine(EldritchLogicCoroutine(user));
+            //eldritchLogicCoroutine = CoroutineHelper.StartCoroutine(EldritchLogicCoroutine(user));
         }
     }
 

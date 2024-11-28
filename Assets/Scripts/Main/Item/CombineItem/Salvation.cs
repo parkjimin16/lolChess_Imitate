@@ -13,15 +13,10 @@ public class Salvation : BaseItem
         ItemBlueprint.InitAttribute();
 
         if (ItemAttributes.Count == 0)
-        {
-            Debug.Log("오류났음");
-        }
+            return;
 
         foreach (ItemAttribute iAttribute in ItemAttributes)
         {
-            Debug.Log("iArrtirubte :: " + iAttribute.ToString());
-
-
             if (iAttribute.ItemAttributeType == ItemAttributeType.TotalDefense)
             {
                 totalDefItemAttribute = iAttribute;
@@ -29,10 +24,7 @@ public class Salvation : BaseItem
 
             iAttribute.InitItemAttributeValue();
         }
-        if(totalDefItemAttribute == null)
-        {
-            Debug.Log("구우ㅝㄴ오류");
-        }
+
     }
 
     public override void ResetItem()
@@ -44,7 +36,7 @@ public class Salvation : BaseItem
 
     public override void InitTargetObject(GameObject targetChampion)
     {
-        if (isCoroutineRunning || EquipChampion == null || Manager.Stage.isCripRound)
+        if (isCoroutineRunning || EquipChampion == null || Manager.Stage.isCripRound || totalDefItemAttribute == null)
             return;
 
         List<GameObject> target = Manager.Stage.GetChampionsWithinOneTile(EquipChampion, Player.UserData);

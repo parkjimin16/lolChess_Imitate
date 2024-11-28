@@ -135,6 +135,8 @@ public class SugarcraftSynergy : SynergyBase
         int gainedSugar = totalItemCount * sugarCount;
         totalSugarCount += gainedSugar;
 
+        sugarCake.SetActive(true);
+
         UpdateCakeStack();
         UpdateSynergyDataForChampion(user);
         //Debug.Log($"æ∆¿Ã≈€ {totalItemCount}∞≥∑Œ º≥≈¡ {gainedSugar}∞≥ »πµÊ. √— º≥≈¡: {totalSugarCount}");
