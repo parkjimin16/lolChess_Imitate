@@ -26,7 +26,7 @@ public class StageManager
 
     // 라운드 대기시간 설정
     private int normalWaitTime = 3; //라운드 전 대기시간
-    private int augmentWaitTime = 5; //증강 선택 라운드 시간
+    private int augmentWaitTime = 3; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 3; //일반 라운드 진행시간
     private int cripDuration = 3; //크립 라운드 진행시간
@@ -92,7 +92,6 @@ public class StageManager
     {
         // 자기 자신과 상대 플레이어 분리
         // 여기서는 첫 번째 플레이어를 자기 자신으로 가정
-
         players = new List<GameObject>(AllPlayers);
 
         // AI 플레이어 초기화
@@ -117,6 +116,19 @@ public class StageManager
 
         if (roundCoroutine != null)
             CoroutineHelper.StopCoroutine(roundCoroutine);
+
+        if (currentStage >= 3)
+        {
+            normalWaitTime = 5;
+            roundDuration = 5;
+            cripDuration = 5;
+        }
+        /*else
+        {
+            normalWaitTime = 20;
+            roundDuration = 20;
+            cripDuration = 20;
+        }*/
 
         roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
     }
@@ -570,6 +582,24 @@ public class StageManager
             player.SetActive(false);
             
         }
+
+        if (playerComponent.UserData.PlayerType == PlayerType.Player1)
+        {
+            Debug.Log("패배");
+        }
+
+        else
+        {
+            if (players.Count == 1)
+            {
+                GameObject remainingPlayer = players[0];
+                Player remainingPlayerComponent = remainingPlayer.GetComponent<Player>();
+                if (remainingPlayerComponent != null && remainingPlayerComponent.UserData.PlayerType == PlayerType.Player1)
+                {
+                    Debug.Log("승리");
+                }
+            }
+        }
     }
 
     public void ApplyDamage(GameObject player, int survivingEnemyUnits)
@@ -664,8 +694,8 @@ public class StageManager
         int playersPerInterval = 2; // 한 번에 움직일 수 있는 플레이어 수
         int intervalWaitTime = 6;   // 다음 그룹이 움직이기까지의 대기 시간
 
-        // 플레이어들을 공동 선택 맵 위치로 이동
-        
+        UserData user = Manager.User.GetHumanUserData();
+        user.UIMain.UIRoundPanel.StartTimer(currentStage, intervalWaitTime);
 
         for (int i = 0; i < sortedPlayers.Count; i += playersPerInterval)
         {
@@ -678,12 +708,14 @@ public class StageManager
             // 대기 시간
             if (i + playersPerInterval < sortedPlayers.Count)
             {
+                user.UIMain.UIRoundPanel.StartTimer(currentStage, intervalWaitTime);
                 yield return new WaitForSeconds(intervalWaitTime);
             }
         }
 
         // 모든 플레이어가 챔피언을 선택할 때까지 대기 (간단하게 일정 시간 대기하도록 설정)
         //float totalCarouselDuration = 6f; // 전체 공동 선택 라운드 시간
+        user.UIMain.UIRoundPanel.StartTimer(currentStage, intervalWaitTime);
         yield return new WaitForSeconds(intervalWaitTime);
 
         // 공동 선택 라운드 종료 처리

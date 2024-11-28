@@ -142,7 +142,7 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            Manager.Stage.ApplyDamage(Manager.Stage.AllPlayers[2], 5);
+            Manager.Stage.ApplyDamage(Manager.Stage.AllPlayers[0], 5);
         }
     }
 }
