@@ -85,6 +85,45 @@ public class UserManager
     #endregion
 
     #region 유저 로직
+    public void UpdateMaxChampion(UserData user)
+    {
+        int count = 0;
+
+        for (int i =0;i < user.UserAugmenter.Count; i++)
+        {
+            if (user.UserAugmenter[i].AugmenterName == "신병")
+            {
+                count++;
+            }
+        }
+
+        foreach (var item in user.TotalItemBlueprint)
+        {
+            if (item.ItemId == "C019" || item.ItemId == "C018" || item.ItemId == "C017")
+            {
+                count++;
+            }
+        }
+        
+        /*
+        foreach (var champion in user.TotalChampionObject)
+        {
+            ChampionBase cBase = champion.GetComponent<ChampionBase>();
+
+            for (int i = 0; i < cBase.EquipItem.Count; i++)
+            {
+                if (cBase.EquipItem[i].ItemId == "C019" || cBase.EquipItem[i].ItemId == "C018" || cBase.EquipItem[i].ItemId == "C017")
+                {
+                    count++;
+                }
+            }
+        }
+        */
+
+        user.MaxPlaceChampion = user.UserLevel + count;
+    }
+
+
     public bool CheckChamipon(UserData user, string championName)
     {
         return user.BattleChampionObject.Any(championObject =>

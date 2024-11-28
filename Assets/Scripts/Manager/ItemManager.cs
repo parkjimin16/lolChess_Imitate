@@ -159,6 +159,7 @@ public class ItemManager
         for (int i = 0; i < itemList.Count; i++)
         {
             itemId.Add(itemList[i].ItemId);
+            user.TotalItemBlueprint.Remove(itemList[i]);
         }
 
         GameObject itemObj = Manager.ObjectPool.GetGo("Capsule");

@@ -340,6 +340,7 @@ public class ChampionManager
             for (int i = 0; i < cBase.EquipItem.Count; i++)
             {
                 item.Add(cBase.EquipItem[i].ItemId);
+                user.TotalItemBlueprint.Remove(cBase.EquipItem[i]);
             }
 
             cap.InitCapsule(cBase.Player.UserData, cBase.ChampionSellCost(Utilities.SetSlotCost(cBase.ChampionCost), cBase.ChampionLevel), item, champion);

@@ -53,16 +53,13 @@ public class DragonClaws : BaseItem
     {
         while (true)
         {
-            Debug.Log("Heal");
             healAmount = (int)(EquipChampionBase.Champion_MaxHp * healPercent);
             EquipChampionBase.ChampionHpMpController.AddHealth(healAmount, 1.0f);
 
             yield return new WaitForSeconds(2);
 
-            Debug.Log("Wait");
             if (!isStart)
             {
-                Debug.Log("코루틴 끝");
                 coroutineInstance = null; 
                 yield break;
             }

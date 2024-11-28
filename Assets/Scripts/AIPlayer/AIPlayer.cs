@@ -556,7 +556,6 @@ public class AIPlayer
 
         if (battleChampions.Count == 0)
         {
-            Debug.Log($"AI 플레이어 {aiUserData.UserName}의 배틀 챔피언이 없습니다.");
             return;
         }
 

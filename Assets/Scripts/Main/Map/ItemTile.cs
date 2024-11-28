@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemTile : MonoBehaviour
 {
     [SerializeField] private GameObject itemTile;
-    [SerializeField] private List<GameObject> _items = new List<GameObject>(10);
+    [SerializeField] private List<GameObject> items = new List<GameObject>(10);
 
     public ItemOwner TileType1;
     public MapGenerator.MapInfo MapInfo;
@@ -20,9 +20,9 @@ public class ItemTile : MonoBehaviour
             {
                 GameObject child = itemTile.transform.GetChild(i).gameObject;
 
-                if (_items.Count < 10)
+                if (items.Count < 10)
                 {
-                    _items.Add(child);
+                    items.Add(child);
                 }
             }
         }
@@ -34,7 +34,7 @@ public class ItemTile : MonoBehaviour
 
     }
 
-    public List<GameObject> _Items { get { return _items; } }
+    public List<GameObject> Items { get { return items; } }
 
     // Update is called once per frame
     void Update()
@@ -71,7 +71,7 @@ public class ItemTile : MonoBehaviour
             List<GameObject> emptyTiles = new List<GameObject>();
 
             // 모든 타일을 검사하여 빈 타일을 수집
-            foreach (GameObject tileObj in _items)
+            foreach (GameObject tileObj in items)
             {
                 HexTile tile = tileObj.GetComponent<HexTile>();
                 if (tile != null && tile.isItemTile == false)
@@ -118,7 +118,7 @@ public class ItemTile : MonoBehaviour
         {
             List<GameObject> emptyTiles = new List<GameObject>();
 
-            foreach (GameObject tileObj in _items)
+            foreach (GameObject tileObj in items)
             {
                 HexTile tile = tileObj.GetComponent<HexTile>();
                 if (tile != null && tile.isItemTile == false)
@@ -158,7 +158,7 @@ public class ItemTile : MonoBehaviour
     {
         int count = 0;
 
-        foreach (GameObject tileObj in _items)
+        foreach (GameObject tileObj in items)
         {
             HexTile tile = tileObj.GetComponent<HexTile>();
             if (tile != null && tile.isItemTile == false)

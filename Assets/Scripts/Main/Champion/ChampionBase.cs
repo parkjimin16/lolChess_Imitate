@@ -680,7 +680,6 @@ public class ChampionBase : MonoBehaviour
     {
         if (!CanGetItem())
         {
-            Debug.Log("Item Full");
             return;
         }
             
@@ -697,7 +696,6 @@ public class ChampionBase : MonoBehaviour
             }
             else
             {
-                Debug.Log("Inventory is full!");
             }
         }
         else
@@ -712,11 +710,9 @@ public class ChampionBase : MonoBehaviour
                     CombineItem();
                 }
             }
-            else
-            {
-                Debug.Log("Cannot add CombinedItem or inventory is full!");
-            }
         }
+
+        Manager.User.UpdateMaxChampion(player.UserData);
 
         championFrame.SetEquipItemImage(equipItem);
         EquipItemChampionSetting();

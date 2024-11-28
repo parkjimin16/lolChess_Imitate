@@ -826,9 +826,9 @@ public class BattleManager
             }
 
             // 현재 플레이어의 아이템 타일에서 동일한 인덱스의 타일을 가져옵니다.
-            if (playerItemTile._Items.Count > originalTileIndex)
+            if (playerItemTile.Items.Count > originalTileIndex)
             {
-                GameObject playerTileObj = playerItemTile._Items[originalTileIndex];
+                GameObject playerTileObj = playerItemTile.Items[originalTileIndex];
                 HexTile playerHexTile = playerTileObj.GetComponent<HexTile>();
 
                 // 아이템을 이동시킵니다.
