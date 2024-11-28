@@ -461,7 +461,7 @@ public class StageManager
                     ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
                     cBase.ChampionAttackController.EnemyPlayer = p2;
-                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                    cBase.ChampionAttackController.FindPathToTarget();
                 }
 
                 foreach (var champion in p2.UserData.BattleChampionObject)
@@ -469,7 +469,7 @@ public class StageManager
                     ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
                     cBase.ChampionAttackController.EnemyPlayer = p1;
-                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                    cBase.ChampionAttackController.FindPathToTarget();
                 }
             }
             else
@@ -481,7 +481,7 @@ public class StageManager
                     ChampionBase cBase = champion.GetComponent<ChampionBase>();
 
                     cBase.ChampionAttackController.EnemyPlayer = Manager.Battle._cloneplayer; // 상대 플레이어가 없으므로 null
-                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                    cBase.ChampionAttackController.FindPathToTarget();
                 }
 
                 // 복제된 적 챔피언 설정
@@ -490,7 +490,7 @@ public class StageManager
                     ChampionBase cBase = clonedChampion.GetComponent<ChampionBase>();
 
                     cBase.ChampionAttackController.EnemyPlayer = p1.GetComponent<Player>();
-                    cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                    cBase.ChampionAttackController.FindPathToTarget();
                 }
             }
         }
@@ -850,7 +850,7 @@ public class StageManager
                     userData.ChampionOriginState[champion] = originalState;
                 }
                 ChampionBase cBase = champion.GetComponent<ChampionBase>();
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                cBase.ChampionAttackController.FindPathToTarget();
             }
         }
     }

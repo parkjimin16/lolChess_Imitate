@@ -102,7 +102,6 @@ public class ChampionAttackController : MonoBehaviour
                 targetChampion = null;
                 AttackLogicStop();
                 StopAllCoroutines();
-
                 SetTargetEnemy();
             }
             else if (cBase.Player.UserData.CripObjectList.Count == 0 && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
@@ -118,7 +117,6 @@ public class ChampionAttackController : MonoBehaviour
                 targetChampion = null;
                 AttackLogicStop();
                 StopAllCoroutines();
-
                 SetTargetEnemy();
             }
             else if (targetChampion == null && Manager.Stage.IsBattleOngoing && cBase.Player.UserData.BattleChampionObject.Contains(this.gameObject))
@@ -142,18 +140,14 @@ public class ChampionAttackController : MonoBehaviour
     {
         if (Manager.Stage.isCripRound)
         {
-            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-                Debug.Log("타겟 추적");
-
-                // 플레이어의 UserData 가져오기
-                UserData userData = cBase.Player.UserData;
+            UserData userData = cBase.Player.UserData;
 
             if (userData == null || userData.CripObjectList.Count == 0)
             {
                 cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 return;
             }
-            
+
             int aliveCount = 0;
             GameObject closestCrip = null;
             float minDistance = float.MaxValue;
@@ -201,12 +195,9 @@ public class ChampionAttackController : MonoBehaviour
             path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
 
 
-            if(targetChampion != null)
-            {
-                StopAllCoroutines();
-                StartCoroutine(StartMoveAndCheck_Crip());
-            }
 
+            StopAllCoroutines();
+            StartCoroutine(StartMoveAndCheck_Crip());
         }
         else
         {
@@ -282,7 +273,7 @@ public class ChampionAttackController : MonoBehaviour
         if (tcBase.ChampionHpMpController.IsDie() && tcBase != null)
         {
             StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+            FindPathToTarget();
             yield break;
         }
 
@@ -314,32 +305,26 @@ public class ChampionAttackController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartMoveAndCheck_Crip()
     {
-        if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-            Debug.Log("이동 코루틴");
-
         if (targetChampion == null)
         {
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             yield break;
         }
 
-
         Crip tcBase = targetChampion.GetComponent<Crip>();
 
-        if (tcBase.IsDie && tcBase != null)
+        if (tcBase == null)
         {
             StopAllCoroutines();
-            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+            FindPathToTarget();
             yield break;
         }
 
-        while (targetChampion != null && MergeScene.BatteStart && !tcBase.IsDie && path.Count > 0)
+
+        while (targetChampion != null && MergeScene.BatteStart && path.Count > 0)
         {
             if (CanAttack(targetChampion))
             {
-                if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-                    Debug.Log("공격합니다?");
-
                 StopAllCoroutines();
                 path.Clear();
                 cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
@@ -351,18 +336,14 @@ public class ChampionAttackController : MonoBehaviour
 
                 path = Manager.Stage.FindShortestPath_Crip(gameObject, targetChampion);
 
-                if (path == null || path.Count == 0)
+                if (path.Count == 0)
                 {
                     cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                     yield break;
                 }
-
-
-                nextTile = path[0];
             }
 
-            if (cBase.Player.UserData == Manager.User.GetHumanUserData())
-                Debug.Log("움직임 While 문");
+            
 
             yield return StartCoroutine(MoveOneStepAlongPath(curTile));
         }
@@ -378,8 +359,8 @@ public class ChampionAttackController : MonoBehaviour
         Vector3 targetPosition = nextTile.transform.position;
 
         curTile.championOnTile.Remove(gameObject);
-        curTile = null;
         nextTile.championOnTile.Add(gameObject);
+        this.curTile = nextTile;
         gameObject.transform.SetParent(nextTile.transform);
 
 
@@ -389,7 +370,6 @@ public class ChampionAttackController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
         {
- 
             path.RemoveAt(0);
         }
     }
@@ -398,6 +378,17 @@ public class ChampionAttackController : MonoBehaviour
     {
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
+            if(CanAttack(targetChampion) && targetChampion != null)
+            {
+                //transform.position = targetPosition;
+                path.Clear();
+                StopAllCoroutines();
+                cBase.ChampionStateController.ChangeState(ChampionState.Attack, cBase);
+                yield return null;
+            }
+
+            cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+
             Vector3 direction = (targetPosition - transform.position).normalized;
 
             if (direction != Vector3.zero)
@@ -452,13 +443,20 @@ public class ChampionAttackController : MonoBehaviour
 
         while (targetChampion != null)
         {
+            if (!CanAttack(targetChampion))
+            {
+                StopAllCoroutines();
+                path.Clear();
+                FindPathToTarget();
+            }
+
             ChampionBase tcBase = targetChampion.GetComponent<ChampionBase>();
 
             if (tcBase.ChampionHpMpController.IsDie() && targetChampion.activeInHierarchy)
             {
                 attackLogic = false;
                 path.Clear();
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                FindPathToTarget();
                 yield break;
             }
 
@@ -514,7 +512,7 @@ public class ChampionAttackController : MonoBehaviour
     
                 attackLogic = false;
                 path.Clear();
-                cBase.ChampionStateController.ChangeState(ChampionState.Move, cBase);
+                FindPathToTarget();
                 yield break;
             }
 
