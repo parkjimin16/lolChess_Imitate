@@ -35,16 +35,15 @@ public class NormalProjectile : ObjectPoolable
 
     private void OnTriggerEnter(Collider other)
     {
+        if (target == null)
+        {
+            ReleaseObject();
+            ObjectOff();
+            return;
+        }
+
         if (target.gameObject.CompareTag($"{other.gameObject.tag}")) 
         {
-            if(target == null)
-            {
-                ReleaseObject();
-                ObjectOff();
-                return;
-            }
-
-
             if (Manager.Stage.isCripRound)
             {
                 Crip crip = target.GetComponent<Crip>();

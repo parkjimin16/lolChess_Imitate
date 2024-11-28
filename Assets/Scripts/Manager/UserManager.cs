@@ -36,9 +36,10 @@ public class UserManager
         for (int i = 0; i < obj.transform.childCount; i++)
         {
             UserData user = new UserData();
-            user.InitUserData(20, "박태영", i);
+            user.InitUserData(3, "박태영", i);
             Transform child = obj.transform.GetChild(i);
             Player player = child.GetComponent<Player>();
+            user.Player = player;
             player.InitPlayer(user);
             userDatas.Add(user);
         }
@@ -51,7 +52,6 @@ public class UserManager
     {
         // 골드
         user.UserGold += gold;
-        
 
         if (itemList.Count > 0)
         {
@@ -148,6 +148,7 @@ public class UserManager
 [System.Serializable]
 public class UserData
 {
+    [SerializeField] private Player player;
     [SerializeField] private int gold;
     [SerializeField] private string userName;
     [SerializeField] private int userHealthMax;
@@ -189,6 +190,12 @@ public class UserData
     private SugarCakeOriginalState sugarCakeOriginState;
 
     #region Property
+
+    public Player Player
+    {
+        get { return player; }
+        set { player = value; }
+    }
 
     public int UserGold
     {

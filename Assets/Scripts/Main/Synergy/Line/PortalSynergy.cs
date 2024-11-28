@@ -26,6 +26,7 @@ public class PortalSynergy : SynergyBase
     {
         level = _level;
 
+        /*
         if (portalObj == null)
         {
             foreach (var trans in user.PortalPosition)
@@ -39,7 +40,7 @@ public class PortalSynergy : SynergyBase
             portalGate = portalObj.GetComponent<PortalGate>();
             portalObj.SetActive(false);
         }
-
+        */
 
         if (level < 3)
         {
@@ -68,7 +69,7 @@ public class PortalSynergy : SynergyBase
         }
 
 
-        portalObj.SetActive(true);
+        //portalObj.SetActive(true);
 
         //Debug.Log($"[차원문] 레벨 {level} 적용");
     }
@@ -91,7 +92,7 @@ public class PortalSynergy : SynergyBase
         }
 
 
-        portalObj.SetActive(false);
+        //portalObj.SetActive(false);
 
         //Debug.Log($"{Name} 시너지가 비활성화되었습니다.");
     }
@@ -101,7 +102,7 @@ public class PortalSynergy : SynergyBase
         if (level < 3)
             return;
 
-        PortalLogic(user);
+        //PortalLogic(user);
     }
 
 

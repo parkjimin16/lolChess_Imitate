@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerData playerData;
     [SerializeField] private UserData userData;
     [SerializeField] private TextMeshPro text_ChampionName;
+    [SerializeField] private TextMeshPro text_ChampionLevel;
     [SerializeField] private Player enemyUser;
 
 
@@ -49,6 +50,12 @@ public class Player : MonoBehaviour
         userData.PlayerType = playerData.PlayerType;
 
         text_ChampionName.text = userData.UserName;
+        SetPlayerLevelText(userData.UserLevel);
+    }
+
+    public void SetPlayerLevelText(int level)
+    {
+        text_ChampionLevel.text = level.ToString();
     }
 
     public void SetBattleUser()
@@ -66,43 +73,5 @@ public class Player : MonoBehaviour
 
             cBase.BattleStageIndex = index;
         }
-    }
-
-
-    public List<ChampionBase> GetBattleChampion()
-    {
-        if (enemyUser == null)
-            return null;
-
-        var list = new List<ChampionBase>();
-
-        foreach (var champion in enemyUser.UserData.BattleChampionObject)
-        {
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-            if (cBase != null)
-                list.Add(cBase);
-        }
-
-        return list;
-    }
-
-    public List<ChampionBase> GetEnemyUserBattleChampion()
-    {
-        if (userData == null)
-            return null;
-
-        var list = new List<ChampionBase>();
-
-        foreach (var champion in userData.BattleChampionObject)
-        {
-            ChampionBase cBase = champion.GetComponent<ChampionBase>();
-
-            if (cBase != null)
-                list.Add(cBase);
-        }
-
-        return list;
-
     }
 }

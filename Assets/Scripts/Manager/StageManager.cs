@@ -21,12 +21,13 @@ public class StageManager
     public int currentRound = 1;
 
     // 스테이지별 기본 피해량과 생존한 적 유닛당 피해량
-    public int[] baseDamages = new int[] { 0, 2, 5, 8, 10, 12, 17 }; // 인덱스는 스테이지 번호 - 1
+    //public int[] baseDamages = new int[] { 0, 2, 5, 8, 10, 12, 17 }; // 인덱스는 스테이지 번호 - 1
+    public int[] baseDamages = new int[] { 0, 4, 10, 16, 20, 24, 28 };
     public int[] damagePerEnemyUnit = new int[] { 1, 2, 3, 4, 5, 6, 7 }; // 인덱스는 스테이지 번호 - 1
 
     // 라운드 대기시간 설정
     private int normalWaitTime = 3; //라운드 전 대기시간
-    private int augmentWaitTime = 3; //증강 선택 라운드 시간
+    private int augmentWaitTime = 15; //증강 선택 라운드 시간
     private int postMatchWaitTime = 3; //매치 후 대기시간
     private int roundDuration = 3; //일반 라운드 진행시간
     private int cripDuration = 3; //크립 라운드 진행시간
@@ -123,12 +124,12 @@ public class StageManager
             roundDuration = 5;
             cripDuration = 5;
         }
-        /*else
+        else
         {
-            normalWaitTime = 20;
-            roundDuration = 20;
-            cripDuration = 20;
-        }*/
+            normalWaitTime = 7;
+            roundDuration = 15;
+            cripDuration = 15;
+        }
 
         roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
     }

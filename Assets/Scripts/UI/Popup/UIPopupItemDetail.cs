@@ -22,8 +22,7 @@ public class UIPopupItemDetail : UIPopup
     // Middle
     private TextMeshProUGUI txt_ItemDesc;
 
-    // Bottom
-    [SerializeField] private GameObject combineContainer;
+
     [SerializeField] private GameObject normalContainer;
 
     private Image image_FirstItem, image_SecondItem;
@@ -88,20 +87,7 @@ public class UIPopupItemDetail : UIPopup
 
 
         // bottom
-        switch (itemData.ItemType)
-        {
-            case ItemType.Normal:
-                normalContainer.SetActive(true);
-                combineContainer.SetActive(false);
-
-                // 아이템 조합 이미지 매핑해서 가져와야함
-                break;
-
-            case ItemType.Combine:
-                normalContainer.SetActive(false);
-                combineContainer.SetActive(true);
-                break;
-        }
+        normalContainer.SetActive(true);
     }
 
     private void UpdateAttributeElement(GameObject attributeSlot, ItemAttribute itemAttribute)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PortalBomb : MonoBehaviour
 {
     private GameObject target;
-    private float speed = 5f;
+    private float speed = 10f;
     private float power;
 
     public void SetTarget(float damage, GameObject target)
@@ -16,6 +16,9 @@ public class PortalBomb : MonoBehaviour
 
     private void Update()
     {
+        if(!Manager.Stage.IsBattleOngoing)
+            Destroy(gameObject);
+
         if (target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);

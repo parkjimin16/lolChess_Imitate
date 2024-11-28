@@ -45,6 +45,7 @@ public class ChampionAnimController : MonoBehaviour
         if (Anim != null)
         {
             Anim.Play(animationName);
+            Anim.Update(0);
         }
         else
         {
@@ -60,4 +61,5 @@ public class ChampionAnimController : MonoBehaviour
             cBase.ChampionStateController.OnStateChanged -= HandleStateChange;
         }
     }
+
 }

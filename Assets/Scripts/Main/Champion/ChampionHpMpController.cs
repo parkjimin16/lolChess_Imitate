@@ -22,7 +22,8 @@ public class ChampionHpMpController : MonoBehaviour
             isDieCoroutineRunning = true;
             cBase.ChampionStateController.ChangeState(ChampionState.Die, cBase);
             HexTile hex = Manager.Stage.GetParentTileInHex(gameObject);
-            hex.championOnTile.Clear();
+            hex.championOnTile.Remove(gameObject);
+            //hex.championOnTile.Clear();
             StartCoroutine(WaitForAnimationToEnd());
         }
     }
@@ -130,7 +131,7 @@ public class ChampionHpMpController : MonoBehaviour
 
     private IEnumerator WaitForAnimationToEnd()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 }

@@ -123,7 +123,6 @@ MonoBehaviour:
   - {fileID: 2373931838679616459}
   - {fileID: 6625940680828555715}
   - {fileID: 7716127582375565831}
-  combineContainer: {fileID: 2766740579821122947}
   normalContainer: {fileID: 3861857760639398257}
 --- !u!1 &1560944255938238859
 GameObject:
@@ -332,7 +331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3432607818183557524
 RectTransform:
   m_ObjectHideFlags: 0

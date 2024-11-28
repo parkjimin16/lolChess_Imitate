@@ -30,6 +30,8 @@ public class LevelManager
             {
                 user.UIMain.UIShopPanel.UpdateChampionPercent(user);
             }
+
+            user.Player.SetPlayerLevelText(user.UserLevel);
         }
     }
 

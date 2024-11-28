@@ -26,6 +26,8 @@ public class MergeScene : MonoBehaviour
     [SerializeField] private GameObject loadingPanel;
     [SerializeField] private Slider loadingSlider;
 
+    [SerializeField] private GameObject endPanel;
+
     public int Level = 1;
 
     private void Start()
@@ -53,7 +55,7 @@ public class MergeScene : MonoBehaviour
                 augmenterBlueprint = Manager.Asset.GetBlueprint("AugmenterBlueprint") as AugmenterBlueprint;
                 GameStart = true;
                 BatteStart = false;
-
+                endPanel.SetActive(false);
 
                 Manager.Game.InitGameManager();
                 Manager.User.Init();
@@ -116,9 +118,7 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X)) // 증강 팝업
         {
-            var augPopup = Manager.UI.ShowPopup<UIPopupAugmenter>();
-
-            augPopup.InitAugmenterGoldPopup();
+            endPanel.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.J)) // 증강 시작
         {

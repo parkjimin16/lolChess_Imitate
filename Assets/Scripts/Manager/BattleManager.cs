@@ -131,11 +131,8 @@ public class BattleManager
         }
 
         Player p1 = player1.GetComponent<Player>();
-        
-
+       
         Manager.Synergy.UnApplySynergy(p1.UserData);
-        
-
         Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
         
 
@@ -146,6 +143,8 @@ public class BattleManager
             cBase.ChampionRotationReset();
             cBase.ChampionAttackController.EndBattle();
             cBase.ResetChampionStats();
+
+            champ.SetActive(true);
         }
 
         if (player2 != null)
@@ -153,13 +152,16 @@ public class BattleManager
             Player p2 = player2.GetComponent<Player>();
             Manager.Synergy.UnApplySynergy(p2.UserData);
             Manager.Augmenter.ApplyEndRoundAugmenter(p2.UserData);
+
             foreach (var champ in p2.UserData.BattleChampionObject)
             {
-                ChampionBase cBase = champ.GetComponent<ChampionBase>();
+                ChampionBase cBase = champ.GetComponent<ChampionBase>();                
 
                 cBase.ChampionRotationReset();
                 cBase.ChampionAttackController.EndBattle();
                 cBase.ResetChampionStats();
+
+                champ.SetActive(true);
             }
 
             if (p2.UserData == Manager.User.GetHumanUserData())
