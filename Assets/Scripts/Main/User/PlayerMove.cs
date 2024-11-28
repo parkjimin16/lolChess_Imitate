@@ -265,6 +265,12 @@ public class PlayerMove : MonoBehaviour
         obj.transform.position = player.UserData.MapInfo.mapTransform.position;
         Capsule cap = obj.GetComponent<Capsule>();
 
+        HexTile capHextile = new HexTile();
+        player.UserData.MapInfo.HexDictionary.TryGetValue((3, 3), out capHextile);
+        obj.transform.position = capHextile.transform.position + new Vector3(0, 1f, 0);
+        obj.transform.SetParent(capHextile.transform);
+        capHextile.capsuleOnTile.Add(obj);
+
         List<ItemBlueprint> item = new List<ItemBlueprint>();
         List<string> itemid = new List<string>();
         List<string> champion = new List<string>();
