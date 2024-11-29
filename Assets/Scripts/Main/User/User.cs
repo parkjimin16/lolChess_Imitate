@@ -494,6 +494,9 @@ public class User : MonoBehaviour
         else if (_movableObjectType == MovableObjectType.Champion)
         {
             hitTile.championOnTile.Add(_movableObj);
+            ChampionBase cBase = _movableObj.GetComponent<ChampionBase>();
+            cBase.BattleChampionStat();
+
             if (currentTile != null && currentTile != hitTile.gameObject)
             {
                 HexTile previousTile = currentTile.GetComponent<HexTile>();

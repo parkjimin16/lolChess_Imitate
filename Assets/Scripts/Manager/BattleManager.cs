@@ -201,11 +201,9 @@ public class BattleManager
             RestoreClonedChampions(Manager.Battle.clonePlayer);
         }
 
-        Debug.Log("이동시작");
         // Init player1
         RestoreOpponentChampions(player1);
 
-        Debug.Log("이동 끝");
 
         if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
         {

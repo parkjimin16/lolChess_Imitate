@@ -44,10 +44,10 @@ public class PortalSynergy : SynergyBase
 
         if (level < 3)
         {
-            enemyChampion = new List<GameObject>();
-            enemyChampionBase = new List<ChampionBase>();
+            //enemyChampion = new List<GameObject>();
+            //enemyChampionBase = new List<ChampionBase>();
             maxHp = 0;
-
+            //portalObj.SetActive(false);
             Deactivate(user);
             return;
         }

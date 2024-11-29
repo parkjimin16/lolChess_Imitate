@@ -129,7 +129,6 @@ public class MeadistSynergy : SynergyBase
             if (cBase == null)
                 continue;
 
-            Debug.Log(cBase.ChampionName);
 
             if (cBase.ChampionLine_First != ChampionLine.Meadist && cBase.ChampionLine_Second != ChampionLine.Meadist)
                 continue;

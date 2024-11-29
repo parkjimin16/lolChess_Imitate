@@ -49,7 +49,6 @@ public class SugarcraftSynergy : SynergyBase
             sugarCraftCake = sugarCake.GetComponent<SugarCraftCake>();
             sugarCraftCake.OwnerUserData = user;
             sugarCake.SetActive(false);
-            Debug.Log("²¨Áü");
         }
 
 

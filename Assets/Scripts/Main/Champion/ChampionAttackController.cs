@@ -486,6 +486,7 @@ public class ChampionAttackController : MonoBehaviour
             {
                 cBase.ChampionHpMpController.UseSkillMana();
                 CreateNormalAttack(targetChampion);
+                cBase.ChampionHpMpController.NormalAttackMana();
                 //CoroutineHelper.StartCoroutine(UseSkillCoroutine());
             }
             else if (!cBase.ChampionHpMpController.IsManaFull())

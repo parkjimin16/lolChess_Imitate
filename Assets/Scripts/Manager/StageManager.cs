@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static MapGenerator;
@@ -120,7 +121,7 @@ public class StageManager
 
         if (currentStage >= 3)
         {
-            normalWaitTime = 5;
+            normalWaitTime = 3;
             roundDuration = 5;
             cripDuration = 5;
         }
@@ -442,7 +443,6 @@ public class StageManager
 
         foreach (var matchup in matchups)
         {
-
             GameObject player1 = matchup.Item1;
             GameObject player2 = matchup.Item2;
 
@@ -452,6 +452,7 @@ public class StageManager
             ongoingBattles++;
 
             Player p1 = player1.GetComponent<Player>();
+
             if (player2 != null)
             {
                 Player p2 = player2.GetComponent<Player>();
@@ -462,6 +463,7 @@ public class StageManager
 
                     cBase.ChampionAttackController.EnemyPlayer = p2;
                     cBase.ChampionAttackController.FindPathToTarget();
+                    cBase.BattleChampionStat();
                 }
 
                 foreach (var champion in p2.UserData.BattleChampionObject)
@@ -470,6 +472,7 @@ public class StageManager
 
                     cBase.ChampionAttackController.EnemyPlayer = p1;
                     cBase.ChampionAttackController.FindPathToTarget();
+                    cBase.BattleChampionStat();
                 }
             }
             else
@@ -528,6 +531,7 @@ public class StageManager
 
             cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
             cBase.ChampionAttackController.EnemyPlayer = null;
+            cBase.BattleChampionStat();
         }
 
         if (p2 != null)
@@ -538,6 +542,7 @@ public class StageManager
 
                 cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                 cBase.ChampionAttackController.EnemyPlayer = null;
+                cBase.BattleChampionStat();
             }
         }
 
@@ -583,22 +588,12 @@ public class StageManager
             player.SetActive(false);
             
         }
-
-        if (playerComponent.UserData.PlayerType == PlayerType.Player1)
-        {
-            Debug.Log("패배");
-        }
-
         else
         {
             if (players.Count == 1)
             {
                 GameObject remainingPlayer = players[0];
                 Player remainingPlayerComponent = remainingPlayer.GetComponent<Player>();
-                if (remainingPlayerComponent != null && remainingPlayerComponent.UserData.PlayerType == PlayerType.Player1)
-                {
-                    Debug.Log("승리");
-                }
             }
         }
     }
@@ -817,7 +812,7 @@ public class StageManager
     }
     #endregion
 
-    #region 크립라운드
+    #region 크립 라운드
     bool IsCripRound(int stage, int round)
     {
         // 스테이지 1의 1, 2, 3 라운드와 2스테이지부터 매 7라운드마다 크립 라운드
@@ -1024,6 +1019,7 @@ public class StageManager
                     cBase.ResetChampionStats();
                     cBase.ChampionStateController.ChangeState(ChampionState.Idle, cBase);
                     cBase.ChampionRotationReset();
+                    cBase.BattleChampionStat();
                     // 챔피언이 현재 속한 모든 타일에서 제거
                     RemoveChampionFromAllTiles(champion, playerMapInfo);
 

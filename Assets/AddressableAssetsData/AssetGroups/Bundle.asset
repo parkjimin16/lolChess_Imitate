@@ -2243,6 +2243,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Bundle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f6175f56c68a844c963636c37529307
+    m_Address: Assets/@Resources/Prefab/UI/Element/Slot/Augmenter_Slot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0fa96a23e781104d8273a4cdfc17ef5
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupAugmenterDetail.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ae4a3e441067f54b86c22d3f789c7d7
+    m_Address: Assets/@Resources/Prefab/UI/Popup/UIPopupItemCombineDesk.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Bundle
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 007dbb8dc11547a489b17ea49f471f1a, type: 2}
   m_SchemaSet:

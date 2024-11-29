@@ -71,12 +71,10 @@ public class GuardianOath : BaseItem
     {
         hasShieldActivated = true;
         EquipChampionBase.SetShield(shieldAmount);
-        Debug.Log("shield Start");
 
         yield return new WaitForSeconds(5);
 
         adDefItemAttribute.SetAttributeValue(40);
         apDefItemAttribute.SetAttributeValue(20);
-        Debug.Log("shield Done");
     }
 }

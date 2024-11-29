@@ -235,7 +235,6 @@ public class PlayerMove : MonoBehaviour
         hasSelectedChampion = true;
         selectedChampion = champion;
         mapGenerator.RemoveChampion(selectedChampion);
-        Debug.Log($"{player.UserData.UserName}이(가) {selectedChampion.name}을(를) 선택했습니다.");
 
         // 챔피언이 플레이어를 따라오도록 설정
         selectedChampion.transform.SetParent(transform);

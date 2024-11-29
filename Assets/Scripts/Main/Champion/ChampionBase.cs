@@ -711,14 +711,34 @@ public class ChampionBase : MonoBehaviour
             }
         }
 
-        Manager.User.UpdateMaxChampion(player.UserData);
-
         championFrame.SetEquipItemImage(equipItem);
         EquipItemChampionSetting();
         UpdateStatWithItem(equipItem);
 
+        if (player == null)
+            return;
+
+
+        Manager.User.UpdateMaxChampion(player.UserData);
         Manager.Synergy.UpdateSynergies(player.UserData);
-        player.UserData.UIMain.UISynergyPanel.UpdateSynergy(player.UserData);
+        
+        foreach(var att in item.Attribute)
+        {
+            if(att.ItemAttributeType == ItemAttributeType.HP)
+            {
+                ChampionHpMpController.AddHealth((int)att.AttributeValue, 1);
+            }
+
+            if(att.ItemAttributeType == ItemAttributeType.Mana)
+            {
+                champion_CurMana += (int)att.AttributeValue;
+            }
+        }
+
+        if(player.UserData == Manager.User.GetHumanUserData()) 
+        {
+            player.UserData.UIMain.UISynergyPanel.UpdateSynergy(player.UserData);
+        }
     }
 
     private void EquipItemChampionSetting()
@@ -802,7 +822,6 @@ public class ChampionBase : MonoBehaviour
         if (symbol.CompareLine(line_First) || symbol.CompareLine(line_Second) ||
             symbol.CompareJob(job_First) || symbol.CompareJob(job_Second))
         {
-            Debug.Log("Error");
             return false;
         }
 
@@ -833,7 +852,7 @@ public class ChampionBase : MonoBehaviour
         foreach (ItemBlueprint blueprint in equipItem)
         {
             if (blueprint.ItemType == ItemType.Symbol)
-                continue;
+                continue;   
 
             ItemSkillUpdate(blueprint);
 
@@ -929,6 +948,32 @@ public class ChampionBase : MonoBehaviour
         display_Shield = champion_Shield;
     }
 
+    public void BattleChampionStat()
+    {
+        UpdateItemStats(equipItem);
+
+        champion_MaxHp = maxHp + item_MaxHP + Synergy_MaxHP + Augmenter_MaxHP;
+        champion_CurHp = champion_MaxHp;
+        champion_MaxMana = maxMana + item_MaxMana + Synergy_MaxMana + Augmenter_MaxMana;
+        champion_CurMana = curMana + item_CurMana;
+        champion_Speed = speed + item_Speed + Synergy_Speed + Augmenter_Speed;
+        champion_AD_Power = ad_Power + item_AD_Power + Synergy_AD_Power + Augmenter_AD_Power;
+        champion_AP_Power = ap_Power + item_AP_Power + Synergy_AP_Power + Augmenter_AP_Power;
+        champion_AD_Def = ad_Defense + item_AD_Def + Synergy_AD_Def + Augmenter_AP_Def;
+        champion_AP_Def = ap_Defense + item_AP_Def + Synergy_AP_Def + Augmenter_AP_Def;
+        champion_Atk_Spd = attack_Speed + item_Atk_Spd + Synergy_Atk_Spd + Augmenter_Atk_Spd;
+        champion_Critical_Percent = critical_Percent + item_Critical_Percent + Synergy_Critical_Percent + Augmenter_Critical_Percent;
+        champion_Critical_Power = critical_Power + item_Critical_Power + Synergy_Critical_Power + Augmenter_Critical_Power;
+        champion_Blood_Suck = blood_Suck + item_Blood_Suck + Synergy_Blood_Suck + Augmenter_Blood_Suck;
+        champion_Power_Upgrade = power_Upgrade + item_Power_Upgrade + Synergy_Power_Upgrade + Augmenter_Power_Upgrade;
+        champion_Total_Def = total_Defense + item_Total_Def + Synergy_Total_Def + Augmenter_Total_Def;
+        champion_Shield = 0;
+
+        SetTotalDamage(GetDamage());
+
+        UpdateDisplayStat();
+        InitSlider();
+    }
 
 
     public void ChampionLevelUp()

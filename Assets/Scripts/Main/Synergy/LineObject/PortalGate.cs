@@ -28,10 +28,7 @@ public class PortalGate : MonoBehaviour
 
             if (bombObject != null && target != null)
             {
-                Debug.Log("Â÷¿ø¹® ÆøÅº");
-
                 GameObject bomb = Instantiate(bombObject, transform.position, Quaternion.identity);
-
                 PortalBomb portalBomb = bomb.GetComponent<PortalBomb>();
                 if (portalBomb != null)
                 {

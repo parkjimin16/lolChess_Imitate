@@ -102,11 +102,13 @@ public class ChampionHpMpController : MonoBehaviour
     public void UseSkillMana()
     {
         cBase.Champion_CurMana = 0;
+        cBase.UpdateChampmionStat();
     }
 
     public void NormalAttackMana()
     {
         cBase.Champion_CurMana += 5;
+        cBase.UpdateChampmionStat();
     }
 
     public void ManaPlus(int mana)

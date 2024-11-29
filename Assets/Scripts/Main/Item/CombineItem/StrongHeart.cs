@@ -37,7 +37,6 @@ public class StrongHeart : BaseItem
 
         if (curHp / maxHp > 0.5f)
         {
-            Debug.Log("Return");
             return;
         }
 
