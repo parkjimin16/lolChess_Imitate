@@ -30,6 +30,8 @@ public class AIPlayer
         aiUserData = player.UserData;
         gameDataBlueprint = gameData;
 
+        aiUserData.MapInfo = player.UserData.MapInfo;
+
         chosenSynergies = new List<string>();
         ChooseSynergies();
     }
@@ -91,8 +93,8 @@ public class AIPlayer
                 if (championBlueprint != null && aiUserData.UserGold >= championCost)
                 {
                     aiUserData.UserGold -= championCost;
-                    Manager.Champion.InstantiateChampion(aiPlayer.UserData, championBlueprint, emptyTile, emptyTile.transform);
-                    //InstantiateAIChampion(championBlueprint, aiPlayer);
+                    //Manager.Champion.InstantiateChampion(aiPlayer.UserData, championBlueprint, emptyTile, emptyTile.transform);
+                    InstantiateAIChampion(championBlueprint, aiPlayer);
                     //Debug.Log($"AI {aiUserData.UserName}가 {championCost} 골드를 사용하여 시너지에 맞는 챔피언 {selectedChampionName}을 구매했습니다. 남은 골드: {aiUserData.UserGold}");
                     break; // 구매 후 반복문 종료
                 }
@@ -317,7 +319,7 @@ public class AIPlayer
     {
         // AI 플레이어의 맵 정보를 가져옵니다.
         MapGenerator.MapInfo aiMapInfo = aiUserData.MapInfo;
-
+        //Debug.Log(aiMapInfo.mapId);
         if (aiMapInfo == null)
         {
             Debug.LogWarning($"AI 플레이어 {aiUserData.UserName}의 MapInfo를 찾을 수 없습니다.");
