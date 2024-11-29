@@ -101,8 +101,8 @@ public class FrostSynergy : SynergyBase
             return;
 
         isActive = true;
-        SetFrostChampion(user);
-        CoroutineHelper.StartCoroutine(CheckAndSpawnFrostWarrior());
+        //SetFrostChampion(user);
+        //CoroutineHelper.StartCoroutine(CheckAndSpawnFrostWarrior());
     }
 
     public override void Deactivate(UserData user)
