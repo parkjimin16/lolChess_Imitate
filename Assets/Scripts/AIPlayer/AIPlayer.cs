@@ -312,37 +312,6 @@ public class AIPlayer
 
         return score;
     }
-    private void AutoPlaceAIChampions()
-    {
-        // 현재 배틀필드에 배치된 챔피언 수 확인
-        int currentBattleChampions = aiUserData.CurrentPlaceChampion;
-
-        // AI 플레이어의 최대 배치 가능 챔피언 수
-        int maxBattleChampions = aiUserData.MaxPlaceChampion;
-
-        // 배치 가능한 슬롯 수 계산
-        int availableSlots = maxBattleChampions - currentBattleChampions;
-
-        if (availableSlots <= 0)
-        {
-            // 배치 가능한 슬롯이 없으면 반환
-            return;
-        }
-
-        // NonBattleChampionObject 리스트에서 챔피언을 가져옵니다.
-        List<GameObject> championsOnBench = new List<GameObject>(aiUserData.NonBattleChampionObject);
-
-        // 배치 가능한 수만큼 챔피언 선택
-        for (int i = 0; i < availableSlots && championsOnBench.Count > 0; i++)
-        {
-            // 랜덤 챔피언 선택
-            int randomIndex = UnityEngine.Random.Range(0, championsOnBench.Count);
-            GameObject championToPlace = championsOnBench[randomIndex];
-
-            PlaceChampionOnHexTile(championToPlace);
-            championsOnBench.RemoveAt(randomIndex);
-        }
-    }
 
     private void PlaceChampionOnHexTile(GameObject champion)
     {
@@ -497,7 +466,7 @@ public class AIPlayer
             // 캡슐을 순서대로 처리하기 위해 큐에 넣습니다.
             Queue<GameObject> capsuleQueue = new Queue<GameObject>(capsulesToCollect);
 
-            var coroutine = aiPlayer.StartCoroutine(PickUpCapsulesSequentially(capsuleQueue, aiPlayer));
+            var coroutine = CoroutineHelper.StartCoroutine(PickUpCapsulesSequentially(capsuleQueue, aiPlayer));
             activeCoroutines.Add(coroutine);
         }
     }
@@ -517,13 +486,8 @@ public class AIPlayer
                 continue;
 
             // 캡슐의 위치로 이동합니다.
-            yield return aiPlayer.StartCoroutine(MoveToPosition(aiPlayer.transform, capsule.transform.position));
+            yield return CoroutineHelper.StartCoroutine(MoveToPosition(aiPlayer.transform, capsule.transform.position));
 
-            // 캡슐과 충돌하여 아이템을 획득합니다.
-            // 충돌 처리는 OnTriggerEnter 또는 OnCollisionEnter를 통해 처리되었다고 가정합니다.
-            // 만약 그렇지 않다면, 여기서 캡슐의 아이템 획득 로직을 직접 호출해야 합니다.
-
-            // 잠시 대기하여 다음 캡슐로 이동하기 전에 시간을 줍니다.
             yield return new WaitForSeconds(0.2f);
         }
     }
