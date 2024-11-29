@@ -142,7 +142,6 @@ public class Crip : MonoBehaviour
         if(targetTile != null)
         {
             targetTile.championOnTile.Remove(this.gameObject);
-            Debug.Log("크립제거");
         }
 
         PlayAnimation("Die");

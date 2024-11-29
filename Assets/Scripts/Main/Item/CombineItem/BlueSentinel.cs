@@ -11,7 +11,7 @@ public class BlueSentinel : BaseItem
     {
         if(ItemAttributes.Count == 0)
         {
-            Debug.Log("Null");
+            return;
         }
 
         foreach (ItemAttribute iAttribute in ItemAttributes)

@@ -829,6 +829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIHealthBarPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3387492436329263272, guid: a52ab0b6042531b4684b664b383dc5c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -43.923
+      objectReference: {fileID: 0}
     - target: {fileID: 3665012975043006550, guid: a52ab0b6042531b4684b664b383dc5c7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2857,7 +2861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413717558877255513, guid: b9c82e37394addb459a20a9745cb2969, type: 3}
       propertyPath: m_fontSize
-      value: 15.5
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

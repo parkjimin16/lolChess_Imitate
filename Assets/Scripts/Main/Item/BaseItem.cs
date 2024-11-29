@@ -66,7 +66,6 @@ public class BaseItem : MonoBehaviour
     /// <param name="targetChampion"></param>
     public virtual void InitTargetObject(GameObject targetChampion)
     {
-        Debug.Log("Base Item Init");
     }
 
     public virtual void CheckHp(int curHp, int maxHp)

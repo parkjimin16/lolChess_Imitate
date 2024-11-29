@@ -15,12 +15,10 @@ public class SugarCraftCake : MonoBehaviour
             if( i <= count)
             {
                 cake[i].SetActive(true);
-                Debug.Log("ÄÑÁü");
             }
             else
             {
                 cake[i].SetActive(false);
-                Debug.Log("²¨Áü2");
             }
         }
     }

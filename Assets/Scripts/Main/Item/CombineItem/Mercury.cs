@@ -43,11 +43,9 @@ public class Mercury : BaseItem
         adSpd = 0.6f;
         adSpeedItemAttribute.SetAttributeValue(adSpd);
 
-        Debug.Log("SPD");
 
         yield return new WaitForSeconds(delay);
 
-        Debug.Log("SPED END");
         adSpeedItemAttribute.InitItemAttributeValue();
     }
 }

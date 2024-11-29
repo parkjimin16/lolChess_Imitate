@@ -50,7 +50,6 @@ public class ChampionHpMpController : MonoBehaviour
         int hpValue = (int)(hp * value);
         if(cBase.Champion_CurHp + hpValue >= cBase.Champion_MaxHp)
         {
-            Debug.Log($"최대 체력입니다 => CurHP : {cBase.Champion_CurHp} = MaxHP : {cBase.Champion_MaxHp} ");
             cBase.Champion_CurHp = cBase.Champion_MaxHp;
         }
         else

@@ -1,4 +1,3 @@
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -680,7 +679,6 @@ public class ChampionBase : MonoBehaviour
     {
         if (!CanGetItem())
         {
-            Debug.Log("Item Full");
             return;
         }
             
@@ -697,7 +695,6 @@ public class ChampionBase : MonoBehaviour
             }
             else
             {
-                Debug.Log("Inventory is full!");
             }
         }
         else
@@ -712,15 +709,16 @@ public class ChampionBase : MonoBehaviour
                     CombineItem();
                 }
             }
-            else
-            {
-                Debug.Log("Cannot add CombinedItem or inventory is full!");
-            }
         }
+
+        Manager.User.UpdateMaxChampion(player.UserData);
 
         championFrame.SetEquipItemImage(equipItem);
         EquipItemChampionSetting();
         UpdateStatWithItem(equipItem);
+
+        Manager.Synergy.UpdateSynergies(player.UserData);
+        player.UserData.UIMain.UISynergyPanel.UpdateSynergy(player.UserData);
     }
 
     private void EquipItemChampionSetting()

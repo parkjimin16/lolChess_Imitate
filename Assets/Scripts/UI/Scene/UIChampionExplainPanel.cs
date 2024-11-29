@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -38,6 +37,8 @@ public class UIChampionExplainPanel : UIBase
 
     [Header("Champion Item")]
     [SerializeField] private List<Image> image_Item;
+    [SerializeField] private List<Button> btn_Item;
+    [SerializeField] private List<ItemBlueprint> item_Blueprint;
 
     [Header("Champion Stats")]
     [SerializeField] private TextMeshProUGUI txt_AD_Power;
@@ -57,6 +58,12 @@ public class UIChampionExplainPanel : UIBase
         symbolData = symbol;
 
         btn_Skill.onClick.AddListener(OnSkillButtonClick);
+
+        for (int i = 0; i < btn_Item.Count; i++)
+        {
+            int index = i;
+            btn_Item[i].onClick.AddListener(() => ShowItemPopupUI(index));
+        }
     }
 
     public void UpdateChampionExplainPanel(ChampionBase cBase)
@@ -161,15 +168,19 @@ public class UIChampionExplainPanel : UIBase
     }
     private void InitChampionItem() 
     {
+        item_Blueprint = championBase.EquipItem;
+
         for(int i=0;i < image_Item.Count; i++)
         {
             if(i < championBase.EquipItem.Count)
             {
                 image_Item[i].sprite = championBase.EquipItem[i].Icon;
+                 btn_Item[i].interactable = true;
             }
             else
             {
                 image_Item[i].sprite = null;
+                btn_Item[i].interactable = false;
             }
         }
     }
@@ -249,6 +260,20 @@ public class UIChampionExplainPanel : UIBase
             return;
 
         skillDetailPopup.InitSkillDetailPopup(skillBlueprint, championBase);
+    }
+
+    private void ShowItemPopupUI(int index)
+    {
+        if (item_Blueprint[index].ItemId == "C019" || item_Blueprint[index].ItemId == "C018" || item_Blueprint[index].ItemId == "C017")
+            return;
+
+        var itemInfoUIPopup = Manager.UI.ShowPopup<UIPopupItemDetail>();
+
+        Vector2 mousePosition = Input.mousePosition + new Vector3(-600,0,0);
+        itemInfoUIPopup.SetPosition(mousePosition);
+
+        UIPopupItemDetail uiItemDetail = itemInfoUIPopup.GetComponent<UIPopupItemDetail>();
+        uiItemDetail.SetItemData(item_Blueprint[index]);
     }
     #endregion
 }

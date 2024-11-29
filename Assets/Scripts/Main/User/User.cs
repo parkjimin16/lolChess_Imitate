@@ -164,8 +164,11 @@ public class User : MonoBehaviour
                 {
                     if (hitObj.CompareTag("Champion"))
                     {
-                        HandleGiveItemToChampion(hitObj);
-                        return;
+                        if(hitObj.GetComponent<ChampionBase>().CanGetItem())
+                        {
+                            HandleGiveItemToChampion(hitObj);
+                            return;
+                        }
                     }
                 }
             }
@@ -244,17 +247,15 @@ public class User : MonoBehaviour
                     {
                         if (user1.BattleChampionObject.Contains(hitObject))
                         {
-                            Debug.Log("BattleChampionObject에 포함된 챔피언입니다. 선택 불가.");
                             return null;
                         }
                         else if (user1.NonBattleChampionObject.Contains(hitObject))
                         {
-                            Debug.Log("NonBattleChampionObject에 포함된 챔피언입니다. 선택 가능.");
                             return hitObject;
                         }
                         else if (user1.TotalChampionObject.Contains(hitObject))
                         {
-                            Debug.Log("TotalChampionObject에 포함된 챔피언입니다. 선택 가능.");
+
                             return hitObject;
                         }
                     }
@@ -262,7 +263,6 @@ public class User : MonoBehaviour
                     {
                         if (user1.TotalChampionObject.Contains(hitObject))
                         {
-                            Debug.Log("TotalChampionObject에 포함된 챔피언입니다. 선택 가능.");
                             return hitObject;
                         }
                     }
@@ -370,7 +370,6 @@ public class User : MonoBehaviour
                     else
                     {
                         StartReturningObject();
-                        Debug.Log("최대 배치 가능한 챔피언 수에 도달했습니다.");
                     }
                 }
                 else
@@ -382,7 +381,6 @@ public class User : MonoBehaviour
                     else
                     {
                         StartReturningObject();
-                        Debug.Log("최대 배치 가능한 챔피언 수에 도달했습니다.");
                     }
                 }
                 return;
