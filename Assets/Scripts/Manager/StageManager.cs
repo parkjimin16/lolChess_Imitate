@@ -100,7 +100,7 @@ public class StageManager
         foreach (GameObject playerObj in players)
         {
             Player playerComponent = playerObj.GetComponent<Player>();
-            if (playerComponent != null && playerComponent.UserData.PlayerType != PlayerType.Player1)
+            if (playerComponent != null && playerComponent.UserData.UserId != Manager.User.GetHumanUserData().UserId)
             {
                 AIPlayer aiPlayer = new AIPlayer();
                 aiPlayer.InitAIPlayer(playerComponent, gameDataBlueprint);
