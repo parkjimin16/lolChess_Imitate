@@ -134,7 +134,9 @@ public class BattleManager
        
         Manager.Synergy.UnApplySynergy(p1.UserData);
         Manager.Augmenter.ApplyEndRoundAugmenter(p1.UserData);
-        
+
+        // Init player1
+        RestoreOpponentChampions(player1);
 
         foreach (var champ in p1.UserData.BattleChampionObject)
         {
@@ -201,9 +203,6 @@ public class BattleManager
             RestoreClonedChampions(Manager.Battle.clonePlayer);
         }
 
-        // Init player1
-        RestoreOpponentChampions(player1);
-
 
         if (player1.GetComponent<Player>().UserData.MapInfo.goldDisplay != null)
         {
@@ -211,8 +210,6 @@ public class BattleManager
         }
 
         SuccessiveWinLose(player1, player2, player1Won);
-
-        
 
         Manager.Stage.OnBattleEnd(player1, player2, player1Won, survivingEnemyUnits);
         InitUserMove();

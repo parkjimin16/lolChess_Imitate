@@ -28,6 +28,8 @@ public class PlayerMove : MonoBehaviour
 
     private MapInfo currentMapInfo;
 
+    private Coroutine moveCoroutine; // 이동을 위한 코루틴
+
     private void Start()
     {
         originalPosition = transform.position;
@@ -77,6 +79,8 @@ public class PlayerMove : MonoBehaviour
         carouselMapTransform = carouselTransform;
         carouselMapInfo = carouselInfo;
         startPosition = transform.position;
+
+        StopAllMovement();
     }
 
     public void EndCarouselRound()
@@ -87,6 +91,8 @@ public class PlayerMove : MonoBehaviour
         RandomChampion();
         //Destroy(selectedChampion);
         AddCarouselChampion();
+
+        SetCanMove(true);
     }
 
     private void HandleCarouselMovement()
@@ -162,6 +168,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (isMoving)
         {
+            if (moveCoroutine == null)
+            {
+                moveCoroutine = StartCoroutine(MoveTowardsTargetCoroutine());
+            }
+        }
+    }
+
+    IEnumerator MoveTowardsTargetCoroutine()
+    {
+        while (isMoving)
+        {
             Vector3 direction = (targetPosition - transform.position).normalized;
 
             // 이동 방향으로 회전
@@ -179,20 +196,12 @@ public class PlayerMove : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isMoving = false;
+                moveCoroutine = null;
 
-                // 챔피언을 선택한 후 원래 위치로 돌아왔을 경우
-                if (hasSelectedChampion && isInCarouselRound)
-                {
-                    // 챔피언의 부모를 해제
-                    //selectedChampion.transform.SetParent(null);
-
-                    // 추가 로직 (예: 인벤토리에 추가)
-                    // ...
-
-                    // 이 플레이어의 공동 선택 라운드 종료
-                    //canMove = false;
-                }
+                // 추가 로직 생략...
             }
+
+            yield return null;
         }
     }
     public void MoveToRandomChampion()
@@ -311,5 +320,15 @@ public class PlayerMove : MonoBehaviour
     public void SetCurrentMapInfo(MapInfo mapInfo)
     {
         currentMapInfo = mapInfo;
+    }
+
+    public void StopAllMovement()
+    {
+        isMoving = false;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
     }
 }

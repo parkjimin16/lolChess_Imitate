@@ -42,7 +42,7 @@ public class Augmenter_ThreeMusketeers : BaseAugmenter
 
         ChampionBlueprint cBlueprint = Manager.Asset.GetBlueprint(championName) as ChampionBlueprint;
 
-        Manager.Champion.InstantiateChampion(Manager.User.GetHumanUserData(), cBlueprint, tile, transform);
+        Manager.Champion.InstantiateChampion(user, cBlueprint, tile, transform);
     }
 
 

@@ -13,7 +13,16 @@ public class AIPlayer
 
     private List<string> chosenSynergies;
 
+    // AIPlayer 클래스에 공동 선택 라운드 여부를 저장하는 변수 추가
+    private bool isInCarouselRound = false;
+
+    // 진행 중인 코루틴을 관리하기 위한 리스트 추가
+    private List<Coroutine> activeCoroutines = new List<Coroutine>();
+
     public Player AiPlayerComponent => aiPlayerComponent;
+
+    // AI의 행동을 제어하는 플래그
+    private bool isPaused = false;
 
     public void InitAIPlayer(Player player, GameDataBlueprint gameData)
     {
@@ -25,12 +34,17 @@ public class AIPlayer
         ChooseSynergies();
     }
 
-
     public void PerformActions(Player aiPlayer)
     {
         if (!aiPlayer.gameObject.activeInHierarchy)
         {
             Debug.Log($"AI 플레이어 {aiPlayer.UserData.UserName}는 비활성화되어 있어 행동을 진행하지 않습니다.");
+            return;
+        }
+
+        if (isPaused)
+        {
+            // 행동이 일시 중지된 상태이므로 행동을 수행하지 않음
             return;
         }
 
@@ -64,6 +78,8 @@ public class AIPlayer
 
             List<string> preferredChampions = FindPreferredChampions();
 
+            HexTile emptyTile = FindEmptyRectTile(aiPlayer.UserData.MapInfo);
+
             if (preferredChampions.Count > 0)
             {
                 // 시너지에 맞는 챔피언이 있으면 구매
@@ -75,7 +91,8 @@ public class AIPlayer
                 if (championBlueprint != null && aiUserData.UserGold >= championCost)
                 {
                     aiUserData.UserGold -= championCost;
-                    InstantiateAIChampion(championBlueprint, aiPlayer);
+                    Manager.Champion.InstantiateChampion(aiPlayer.UserData, championBlueprint, emptyTile, emptyTile.transform);
+                    //InstantiateAIChampion(championBlueprint, aiPlayer);
                     //Debug.Log($"AI {aiUserData.UserName}가 {championCost} 골드를 사용하여 시너지에 맞는 챔피언 {selectedChampionName}을 구매했습니다. 남은 골드: {aiUserData.UserGold}");
                     break; // 구매 후 반복문 종료
                 }
@@ -156,8 +173,6 @@ public class AIPlayer
 
         // 빈 타일 찾기
         HexTile emptyTile = FindEmptyRectTile(aiMapInfo);
-
-        
 
         if (emptyTile != null)
         {
@@ -448,6 +463,12 @@ public class AIPlayer
     #region 캡슐 탐지 로직
     private void CollectCapsules(Player aiPlayer)
     {
+        // 공동 선택 라운드 중이면 캡슐 수집을 하지 않음
+        if (isInCarouselRound)
+        {
+            return;
+        }
+
         // AI 플레이어의 맵 정보를 가져옵니다.
         MapInfo aiMapInfo = aiPlayer.UserData.MapInfo;
 
@@ -476,14 +497,20 @@ public class AIPlayer
             // 캡슐을 순서대로 처리하기 위해 큐에 넣습니다.
             Queue<GameObject> capsuleQueue = new Queue<GameObject>(capsulesToCollect);
 
-            // 캡슐을 하나씩 처리하는 코루틴을 시작합니다.
-            aiPlayer.StartCoroutine(PickUpCapsulesSequentially(capsuleQueue, aiPlayer));
+            var coroutine = aiPlayer.StartCoroutine(PickUpCapsulesSequentially(capsuleQueue, aiPlayer));
+            activeCoroutines.Add(coroutine);
         }
     }
     private IEnumerator PickUpCapsulesSequentially(Queue<GameObject> capsuleQueue, Player aiPlayer)
     {
         while (capsuleQueue.Count > 0)
         {
+            if (isPaused)
+            {
+                yield return null; // 일시 중지 상태면 대기
+                continue;
+            }
+
             GameObject capsule = capsuleQueue.Dequeue();
 
             if (capsule == null)
@@ -506,6 +533,12 @@ public class AIPlayer
 
         while (Vector3.Distance(aiTransform.position, targetPosition) > 0.1f)
         {
+            if (isPaused)
+            {
+                yield return null; // 일시 중지 상태면 대기
+                continue;
+            }
+
             Vector3 direction = (targetPosition - aiTransform.position).normalized;
             aiTransform.position = Vector3.MoveTowards(aiTransform.position, targetPosition, moveSpeed * Time.deltaTime);
             aiTransform.rotation = Quaternion.LookRotation(direction);
@@ -643,4 +676,39 @@ public class AIPlayer
     private int desiredSynergyThreshold = 3; // 원하는 시너지 수 설정
     #endregion
 
+    public void StartCarouselRound()
+    {
+        isInCarouselRound = true;
+
+        // 진행 중인 모든 코루틴 중지
+        StopAllActions();
+    }
+
+    // 공동 선택 라운드 종료 시 호출되는 메서드
+    public void EndCarouselRound()
+    {
+        isInCarouselRound = false;
+    }
+
+    // 진행 중인 모든 코루틴을 중지하는 메서드
+    public void StopAllActions()
+    {
+        foreach (var coroutine in activeCoroutines)
+        {
+            CoroutineHelper.StopCoroutine(coroutine);
+        }
+        activeCoroutines.Clear();
+    }
+    public void PauseActions()
+    {
+        isPaused = true;
+        StopAllActions();
+    }
+
+    // AI의 행동을 다시 시작하는 메서드
+    public void ResumeActions()
+    {
+        isPaused = false;
+        PerformActions(aiPlayerComponent);
+    }
 }

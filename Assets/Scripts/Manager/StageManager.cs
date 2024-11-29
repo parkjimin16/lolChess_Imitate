@@ -127,9 +127,9 @@ public class StageManager
         }
         else
         {
-            normalWaitTime = 7;
-            roundDuration = 15;
-            cripDuration = 15;
+            normalWaitTime = 3;
+            roundDuration = 3;
+            cripDuration = 3;
         }
 
         roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
@@ -178,35 +178,7 @@ public class StageManager
                 augPopup.InitAugmenterPlatinumPopup();
             }
 
-            // AI 플레이어들에게 증강 적용
-            foreach (AIPlayer aiPlayer in aiPlayers)
-            {
-                UserData aiUserData = aiPlayer.AiPlayerComponent.UserData;
-                List<AugmenterData> availableAugments = null;
-
-                if (currentStage == 2 && currentRound == 1)
-                {
-                    availableAugments = Manager.Augmenter.GetSilverAugmenters();
-                }
-                else if (currentStage == 3 && currentRound == 2)
-                {
-                    availableAugments = Manager.Augmenter.GetGoldAugmenters();
-                }
-                else if (currentStage == 4 && currentRound == 2)
-                {
-                    availableAugments = Manager.Augmenter.GetPlatinumAugmenters();
-                }
-
-                if (availableAugments != null && availableAugments.Count > 0)
-                {
-                    int randomIndex = UnityEngine.Random.Range(0, availableAugments.Count);
-                    AugmenterData selectedAugment = availableAugments[randomIndex];
-
-                    // 증강 적용
-                    Manager.Augmenter.SetAugmenter(aiUserData, selectedAugment, false);
-                    Manager.Augmenter.ApplyFirstAugmenter(aiUserData, selectedAugment.BaseAugmenter);
-                }
-            }
+            yield return CoroutineHelper.StartCoroutine(ApplyAugmentsToAIPlayersCoroutine());
         }
 
         // **1. 라운드 전 대기시간**
@@ -373,7 +345,15 @@ public class StageManager
         //AutoPlaceUserChampions(user);
 
         yield return new WaitForSeconds(0.1f); // 0.1초 정도 지연
-        // 플레이어 리스트를 섞습니다.
+                                               // 플레이어 리스트를 섞습니다.
+
+        // **여기서 AI 플레이어의 움직임을 중지시킵니다.**
+        foreach (AIPlayer aiPlayer in aiPlayers)
+        {
+            aiPlayer.PauseActions();
+        }
+
+
         ShufflePlayers();
 
         matchups = new List<(GameObject, GameObject)>();
@@ -554,6 +534,11 @@ public class StageManager
             ProceedToNextRound();
             IsBattleOngoing = false; // 전투 종료 시 플래그 리셋
             DistributeExp();
+            // **전투가 끝난 후 AI 플레이어의 이동을 재개합니다.**
+            foreach (AIPlayer aiPlayer in aiPlayers)
+            {
+                aiPlayer.ResumeActions();
+            }
         }
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
     }
@@ -579,14 +564,16 @@ public class StageManager
         {
             // 플레이어 탈락 처리
             // 탈락한 플레이어를 리스트에서 제거
-            players.Remove(player);
             Debug.Log(playerComponent.UserData.TotalChampionObject.Count);
             foreach (var champion in playerComponent.UserData.TotalChampionObject)
             {
-                champion.SetActive(false);
+                Utilities.Destroy(champion);
             }
+            playerComponent.UserData.TotalChampionObject.Clear();
+            playerComponent.UserData.BattleChampionObject.Clear();
+            playerComponent.UserData.NonBattleChampionObject.Clear();
+            players.Remove(player);
             player.SetActive(false);
-            
         }
         else
         {
@@ -666,6 +653,11 @@ public class StageManager
         //Debug.Log("공동 선택 라운드가 시작됩니다!");
 
         // 카메라를 공동 선택 맵으로 이동
+
+        foreach (AIPlayer aiPlayer in aiPlayers)
+        {
+            aiPlayer.StartCarouselRound();
+        }
 
         // 모든 플레이어의 움직임을 일시적으로 비활성화
         DisableAllPlayerMovement();
@@ -789,6 +781,11 @@ public class StageManager
         _mapGenerator.DestroyChampion();
         Manager.Cam.MoveCameraToPlayer(AllPlayers[0].GetComponent<Player>());
 
+        foreach (AIPlayer aiPlayer in aiPlayers)
+        {
+            aiPlayer.EndCarouselRound();
+            aiPlayer.AiPlayerComponent.GetComponent<PlayerMove>().SetCanMove(true);
+        }
         ProceedToNextRound();
 
         DistributeExp();
@@ -1614,6 +1611,52 @@ public class StageManager
 
         // 조건에 맞는 타일이 없으면 null을 반환합니다.
         return null;
+    }
+
+    private IEnumerator ApplyAugmentsToAIPlayersCoroutine()
+    {
+        foreach (AIPlayer aiPlayer in aiPlayers)
+        {
+            try
+            {
+                UserData aiUserData = aiPlayer.AiPlayerComponent.UserData;
+                List<AugmenterData> availableAugments = null;
+
+                if (currentStage == 2 && currentRound == 1)
+                {
+                    availableAugments = Manager.Augmenter.GetSilverAugmenters();
+                    Debug.Log($"Applying Silver Augmenters to {aiUserData.UserName}");
+                }
+                else if (currentStage == 3 && currentRound == 2)
+                {
+                    availableAugments = Manager.Augmenter.GetGoldAugmenters();
+                    Debug.Log($"Applying Gold Augmenters to {aiUserData.UserName}");
+                }
+                else if (currentStage == 4 && currentRound == 2)
+                {
+                    availableAugments = Manager.Augmenter.GetPlatinumAugmenters();
+                    Debug.Log($"Applying Platinum Augmenters to {aiUserData.UserName}");
+                }
+
+                if (availableAugments != null && availableAugments.Count > 0)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, availableAugments.Count);
+                    AugmenterData selectedAugment = availableAugments[randomIndex];
+                    Debug.Log($"Selected Augment: {selectedAugment.ToString()} for {aiUserData.UserName}");
+
+                    // 증강 적용
+                    Manager.Augmenter.SetAugmenter(aiUserData, selectedAugment, false);
+                    Manager.Augmenter.ApplyFirstAugmenter(aiUserData, selectedAugment.BaseAugmenter);
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"Error applying augment to AI player: {ex.Message}");
+            }
+            // 각 AI 플레이어에 대한 증강 적용 후 짧은 지연 추가 (선택 사항)
+            yield return null; // 0.1초 지연
+        }
     }
     #endregion
 }

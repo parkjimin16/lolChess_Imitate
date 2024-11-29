@@ -118,7 +118,9 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X)) // 증강 팝업
         {
-            endPanel.SetActive(true);
+            var augPopup = Manager.UI.ShowPopup<UIPopupAugmenter>();
+            augPopup.InitAugmenterGoldPopup();
+            //endPanel.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.J)) // 증강 시작
         {
@@ -142,7 +144,7 @@ public class MergeScene : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            Manager.Stage.ApplyDamage(Manager.Stage.AllPlayers[0], 5);
+            Manager.Stage.ApplyDamage(Manager.Stage.AllPlayers[1], 20);
         }
     }
 }
