@@ -121,15 +121,15 @@ public class StageManager
 
         if (currentStage >= 3)
         {
-            normalWaitTime = 3;
+            normalWaitTime = 10;
             roundDuration = 5;
             cripDuration = 5;
         }
         else
         {
-            normalWaitTime = 3;
-            roundDuration = 3;
-            cripDuration = 3;
+            normalWaitTime = 10;
+            roundDuration = 15;
+            cripDuration = 15;
         }
 
         roundCoroutine = CoroutineHelper.StartCoroutine(StartRoundCoroutine());
