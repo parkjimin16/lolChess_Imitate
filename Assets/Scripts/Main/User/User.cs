@@ -363,6 +363,8 @@ public class User : MonoBehaviour
             {
                 if (hitTile.HasChampion)
                 {
+                    SwapChampions(hitTile);
+                    /*
                     if (!isDraggingChampionOnBattleGrid)
                     {
                         SwapChampions(hitTile);
@@ -371,6 +373,7 @@ public class User : MonoBehaviour
                     {
                         StartReturningObject();
                     }
+                    */
                 }
                 else
                 {
