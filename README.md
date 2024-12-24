@@ -1,6 +1,8 @@
 # lolChess_Imitate
 롤토체스 모작
 
+YouTube Link : https://youtu.be/9FWaZ9yrLZA
+
 # Unity 3D 기반 게임 개발
 
 ## 1. 사용 언어 및 개발 환경
